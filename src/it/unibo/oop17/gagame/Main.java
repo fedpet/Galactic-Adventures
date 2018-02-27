@@ -3,6 +3,7 @@ package it.unibo.oop17.gagame;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -22,7 +23,12 @@ public class Main extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        primaryStage.setScene(new Scene(new Group()));
+        final Group root = new Group();
+        primaryStage.setScene(new Scene(root));
+
+        root.getChildren().add(new Label("Hello, world!"));
+
+        primaryStage.show();
     }
 
 }
