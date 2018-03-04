@@ -1,0 +1,135 @@
+package it.unibo.oop17.ga_game.controller;
+
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyType;
+import org.mapeditor.core.Map;
+import org.mapeditor.core.Tile;
+import org.mapeditor.core.TileLayer;
+import org.mapeditor.io.TMXMapReader;
+
+import it.unibo.oop17.ga_game.model.ModelSettings;
+import it.unibo.oop17.ga_game.model.Player;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
+import it.unibo.oop17.ga_game.model.physics.FixtureBuilder;
+import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
+import it.unibo.oop17.ga_game.utils.Box2DUtils;
+import it.unibo.oop17.ga_game.view.ViewUtils;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+/**
+ * Entry point.
+ */
+public class Main extends Application {
+    private static final double SCALE = 1;
+    private final PhysicsEngine physics = new PhysicsEngine(new Vec2(0, -30f));
+    private final ParallelCamera camera = new ParallelCamera();
+    private final Group root = new Group();
+
+    /**
+     * Entry point.
+     * 
+     * @param args
+     *            Command-line arguments
+     */
+    public static void main(final String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public final void start(final Stage primaryStage) {
+        final Scene scene = new Scene(root);
+        camera.setScaleX(SCALE);
+        camera.setScaleY(SCALE);
+        scene.setCamera(camera);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        final Player player = new Player(physics.getWorld(), new Point2D(4, -4));
+        final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
+        playerView.setFitWidth(ViewUtils.metersToPixels(Player.SIZE.getWidth()));
+        playerView.setFitHeight(ViewUtils.metersToPixels(Player.SIZE.getHeight()));
+        root.getChildren().add(playerView);
+
+        new PlayerController(scene, player);
+
+
+        try {
+            final Map map = loadLevel("res\\level1.tmx");
+        } catch (final Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Platform.exit();
+        }
+
+        new AnimationTimer() {
+            @Override
+            public void handle(final long now) {
+                player.update(1.0 / 60);
+                physics.update(1.0 / 60);
+
+                final Point2D pt = ViewUtils.worldPointToFX(Box2DUtils.vecToPoint(player.getBody().getPosition()));
+                playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
+                playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
+
+                camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
+                camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);
+            }
+        }.start();
+    }
+
+    private Map loadLevel(final String path) throws Exception {
+        final Map map = new TMXMapReader().readMap(path); // readMap throws a generic Exception :(
+
+        final Body tileBody = new BodyBuilder(physics.getWorld())
+                .type(BodyType.STATIC)
+                .build();
+
+        map.forEach(layer -> {
+            if (layer instanceof TileLayer) {
+                final TileLayer tileLayer = (TileLayer) layer;
+
+                for (int x = 0; x < map.getWidth(); x++) {
+                    for (int y = 0; y < map.getHeight(); y++) {
+                        final Tile tile = tileLayer.getTileAt(x, y);
+                        if (tile != null && tile.getImage() != null) {
+                            new FixtureBuilder()
+                                    .position(tilePositionToWorld(x, y))
+                                    .friction(0)
+                                    .rectangular(new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE))
+                                    .buildOn(tileBody);
+
+                            final Image tileImage = SwingFXUtils.toFXImage(tile.getImage(), null);
+
+
+                            final ImageView tileView = new ImageView(tileImage);
+                            tileView.setFitWidth(ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
+                            tileView.setFitHeight(ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
+                            tileView.setTranslateX(x * ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
+                            tileView.setTranslateY(y * ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
+                            root.getChildren().add(tileView);
+                        }
+                    }
+                }
+            }
+        });
+
+        return map;
+    }
+
+    private Point2D tilePositionToWorld(final int x, final int y) {
+        return new Point2D(x * ModelSettings.TILE_SIZE + ModelSettings.TILE_SIZE / 2,
+                -(y * ModelSettings.TILE_SIZE + ModelSettings.TILE_SIZE / 2));
+    }
+}
