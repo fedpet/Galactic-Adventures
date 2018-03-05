@@ -7,7 +7,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
-import it.unibo.oop17.ga_game.utils.Box2DUtils;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -16,7 +15,7 @@ import javafx.geometry.Rectangle2D;
 /**
  * Builder for Fixtures.
  */
-public final class FixtureBuilder {
+public final class B2DFixtureBuilder {
     private final FixtureDef fixtureDef = new FixtureDef();
     private final PolygonShape shape = new PolygonShape();
     private Optional<Point2D> pos = Optional.empty();
@@ -27,7 +26,7 @@ public final class FixtureBuilder {
      *            the density
      * @return This instance
      */
-    public FixtureBuilder density(final float density) {
+    public B2DFixtureBuilder density(final float density) {
         fixtureDef.setDensity(density);
         return this;
     }
@@ -37,7 +36,7 @@ public final class FixtureBuilder {
      *            the friction
      * @return This instance
      */
-    public FixtureBuilder friction(final float friction) {
+    public B2DFixtureBuilder friction(final float friction) {
         fixtureDef.setFriction(friction);
         return this;
     }
@@ -47,7 +46,7 @@ public final class FixtureBuilder {
      *            The rectangle's width and height (in meters)
      * @return This instance
      */
-    public FixtureBuilder rectangular(final Dimension2D dimension) {
+    public B2DFixtureBuilder rectangular(final Dimension2D dimension) {
         this.dimension = Optional.of(dimension);
         return this;
     }
@@ -57,7 +56,7 @@ public final class FixtureBuilder {
      *            The Rectangle. Its center will be the Fixture's position
      * @return This instance
      */
-    public FixtureBuilder rectangular(final Rectangle2D rect) {
+    public B2DFixtureBuilder rectangular(final Rectangle2D rect) {
         this.dimension = Optional.of(FXUtils.dimension(rect));
         pos = Optional.of(FXUtils.center(rect));
         return this;
@@ -70,7 +69,7 @@ public final class FixtureBuilder {
      *            The rectangle's height
      * @return This instance
      */
-    public FixtureBuilder rectangular(final double width, final double height) {
+    public B2DFixtureBuilder rectangular(final double width, final double height) {
         return rectangular(new Dimension2D(width, height));
     }
 
@@ -81,7 +80,7 @@ public final class FixtureBuilder {
      *            true if you want this fixture to be a sensor
      * @return This instance
      */
-    public FixtureBuilder isSensor(final boolean sensor) {
+    public B2DFixtureBuilder isSensor(final boolean sensor) {
         fixtureDef.setSensor(sensor);
         return this;
     }
@@ -92,19 +91,8 @@ public final class FixtureBuilder {
      *            the position
      * @return This instance
      */
-    public FixtureBuilder position(final Point2D position) {
+    public B2DFixtureBuilder position(final Point2D position) {
         pos = Optional.of(position);
-        return this;
-    }
-
-    /**
-     * @param listener
-     *            the {@link CollisionListener} which will receive Collision callbacks
-     * @return This instance
-     */
-    public FixtureBuilder collisionListener(final CollisionListener listener) {
-        // here we do a bad thing but it's the Box2D's official way to do that...
-        fixtureDef.setUserData(listener);
         return this;
     }
 
@@ -121,7 +109,7 @@ public final class FixtureBuilder {
         }
         // setAsBox wants HALF width and height
         shape.setAsBox((float) dimension.get().getWidth() / 2, (float) dimension.get().getHeight() / 2,
-                Box2DUtils.pointToVec(pos.orElse(Point2D.ZERO)), 0);
+                B2DUtils.pointToVec(pos.orElse(Point2D.ZERO)), 0);
         fixtureDef.setShape(shape);
         final Fixture fix = owner.createFixture(fixtureDef);
         owner.resetMassData();

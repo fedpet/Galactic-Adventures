@@ -1,23 +1,29 @@
-package it.unibo.oop17.ga_game.utils;
+package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.Iterator;
+import java.util.stream.Stream;
+
+import org.jbox2d.collision.AABB;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.contacts.ContactEdge;
 
+import it.unibo.oop17.ga_game.utils.Streams;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
  * Box2D utility class.
  */
-public final class Box2DUtils {
+/* package-protected */ final class B2DUtils {
     /**
      * Box2D's extra thickness (in meters) applied to every body.
      */
     public static final float EXTRA_SKIN_THICKNESS = 0.1f;
 
-    private Box2DUtils() {
+    private B2DUtils() {
     }
 
     /**
@@ -28,6 +34,10 @@ public final class Box2DUtils {
      * @return The Point2D
      */
     public static Point2D vecToPoint(final Vec2 vector) {
+        if (!vector.isValid()) {
+            // weird Box2D behaviour fixes..
+            return Point2D.ZERO;
+        }
         return new Point2D(vector.x, vector.y);
     }
 
@@ -45,22 +55,26 @@ public final class Box2DUtils {
     /**
      * Calculates a Box2D body's axis-aligned bounding box dimension.
      * 
+     * @deprecated Box2D seems to give the wrong AABB if called before the first step
+     * 
      * @param b2Body
      *            The Body
      * @return The Dimension2D
-     * 
-     *         public static Dimension2D boundingBox(final Body b2Body) {
-     *         return stream(b2Body.getFixtureList())
-     *         .filter(f -> !f.isSensor())
-     *         .map(f -> f.getAABB(0))
-     *         .reduce((a1, a2) -> {
-     *         a1.combine(a2);
-     *         return a1;
-     *         })
-     *         .map(bb -> new Dimension2D(bb.upperBound.x - bb.lowerBound.x, bb.upperBound.y - bb.lowerBound.y))
-     *         .orElseGet(() -> new Dimension2D(0, 0));
-     *         }
      */
+    @Deprecated
+    public static Dimension2D boundingBox(final Body b2Body) {
+        return stream(b2Body.getFixtureList())
+                .filter(f -> !f.isSensor())
+                .map(f -> f.getAABB(0))
+                .filter(f -> f.isValid())
+                .map(a -> new AABB(a)) // copy to avoid side-effects
+                .reduce((a1, a2) -> {
+                    a1.combine(a2);
+                    return a1;
+                })
+                .map(bb -> new Dimension2D(bb.upperBound.x - bb.lowerBound.x, bb.upperBound.y - bb.lowerBound.y))
+                .orElseThrow(() -> new IllegalStateException("Body has no fixtures"));
+    }
 
     /**
      * Utility method to check if a Body is involved in a Contact.
@@ -112,5 +126,27 @@ public final class Box2DUtils {
      */
     public static boolean contains(final ContactEdge contact, final Fixture fixture) {
         return contains(contact.contact, fixture);
+    }
+
+    /**
+     * 
+     * @param fixtureList
+     *            The fixture
+     * @return The corresponding Stream
+     */
+    public static Stream<Fixture> stream(final Fixture fixtureList) {
+        return Streams.stream(new Iterator<Fixture>() {
+            private Fixture list = fixtureList;
+            @Override
+            public boolean hasNext() {
+                return list == null;
+            }
+            @Override
+            public Fixture next() {
+                final Fixture next = list;
+                list = list.getNext();
+                return next;
+            }
+        });
     }
 }

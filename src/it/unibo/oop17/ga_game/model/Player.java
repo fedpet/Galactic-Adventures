@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.model;
 
-import org.jbox2d.dynamics.World;
-
+import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -9,7 +8,7 @@ import javafx.geometry.Point2D;
  * Models our player.
  */
 public final class Player extends WalkingEntity {
-    public static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
+    private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final float WALK_SPEED = 10f;
     private static final float JUMP_SPEED = 20f;
 
@@ -20,8 +19,8 @@ public final class Player extends WalkingEntity {
      * @param position
      *            The position
      */
-    public Player(final World world, final Point2D position) {
-        super(world, position, SIZE);
+    public Player(final PhysicsEngine engine, final Point2D position) {
+        super(engine.bodyFactory().createGroundCreature(position, SIZE));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.physics;
 
 /**
- * Generic interface for collision sensors.
+ * Models collision sensors.
  */
 public interface Sensor {
     /**
