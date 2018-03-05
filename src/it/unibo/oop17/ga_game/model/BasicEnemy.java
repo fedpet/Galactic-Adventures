@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.model;
 
-import org.jbox2d.dynamics.World;
-
+import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -21,8 +20,8 @@ public final class BasicEnemy extends WalkingEntity {
 	 * @param position
 	 *            The position
 	 */
-	public BasicEnemy(final World world, final Point2D position) {
-		super(world, position, SIZE);
+	public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
+		super(engine.bodyFactory().createGroundCreature(position, SIZE));
 	}
 
 	@Override

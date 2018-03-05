@@ -1,20 +1,13 @@
 package it.unibo.oop17.ga_game.controller;
 
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyType;
 import org.mapeditor.core.Map;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
-import it.unibo.oop17.ga_game.model.BasicEnemy;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.Player;
-import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
-import it.unibo.oop17.ga_game.model.physics.FixtureBuilder;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
-import it.unibo.oop17.ga_game.utils.Box2DUtils;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -34,7 +27,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private static final double SCALE = 1;
-    private final PhysicsEngine physics = new PhysicsEngine(new Vec2(0, -30f));
+    private final PhysicsEngine physics = PhysicsEngine.create(new Point2D(0, -30));
     private final ParallelCamera camera = new ParallelCamera();
     private final Group root = new Group();
 
@@ -57,19 +50,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-		final Player player = new Player(physics.getWorld(), new Point2D(10, -4));
+        final Player player = new Player(physics, new Point2D(4, -4));
         final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
-		final BasicEnemy basicEnemy = new BasicEnemy(physics.getWorld(), new Point2D(15, -4));
-		final ImageView basicEnemyView = new ImageView(new Image("/slimeGreen_move.png"));
-        playerView.setFitWidth(ViewUtils.metersToPixels(Player.SIZE.getWidth()));
-        playerView.setFitHeight(ViewUtils.metersToPixels(Player.SIZE.getHeight()));
-		basicEnemyView.setFitWidth(ViewUtils.metersToPixels(Player.SIZE.getWidth()));
-		basicEnemyView.setFitHeight(ViewUtils.metersToPixels(Player.SIZE.getHeight()));
+        playerView.setFitWidth(ViewUtils.metersToPixels(player.getBody().getDimension().getWidth()));
+        playerView.setFitHeight(ViewUtils.metersToPixels(player.getBody().getDimension().getHeight()));
         root.getChildren().add(playerView);
-		root.getChildren().add(basicEnemyView);
 
         new PlayerController(scene, player);
-		final BasicEnemyController basicEnemyController = new BasicEnemyController(scene, basicEnemy);
 
 
         try {
@@ -84,19 +71,12 @@ public class Main extends Application {
             @Override
             public void handle(final long now) {
                 player.update(1.0 / 60);
-				basicEnemy.update(1.0 / 60);
-				if (basicEnemy.againstWall()) {
-					basicEnemyController.updateMovingDirection(basicEnemy);
-				}
                 physics.update(1.0 / 60);
 
-                final Point2D pt = ViewUtils.worldPointToFX(Box2DUtils.vecToPoint(player.getBody().getPosition()));
-				final Point2D pt2 = ViewUtils.worldPointToFX(Box2DUtils.vecToPoint(basicEnemy.getBody().getPosition()));
+                final Point2D pt = ViewUtils.worldPointToFX(player.getBody().getPosition());
                 playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
                 playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
-				basicEnemyView.setTranslateX(pt2.getX() - basicEnemyView.getBoundsInLocal().getWidth() / 2);
-				basicEnemyView.setTranslateY(pt2.getY() - basicEnemyView.getBoundsInLocal().getHeight() / 2);
-                
+
                 camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
                 camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);
             }
@@ -106,9 +86,6 @@ public class Main extends Application {
     private Map loadLevel(final String path) throws Exception {
         final Map map = new TMXMapReader().readMap(path); // readMap throws a generic Exception :(
 
-        final Body tileBody = new BodyBuilder(physics.getWorld())
-                .type(BodyType.STATIC)
-                .build();
 
         map.forEach(layer -> {
             if (layer instanceof TileLayer) {
@@ -118,11 +95,10 @@ public class Main extends Application {
                     for (int y = 0; y < map.getHeight(); y++) {
                         final Tile tile = tileLayer.getTileAt(x, y);
                         if (tile != null && tile.getImage() != null) {
-                            new FixtureBuilder()
-                                    .position(tilePositionToWorld(x, y))
-                                    .friction(0)
-                                    .rectangular(new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE))
-                                    .buildOn(tileBody);
+
+                            physics.bodyFactory()
+                                    .createTerrain(tilePositionToWorld(x, y),
+                                            new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE));
 
                             final Image tileImage = SwingFXUtils.toFXImage(tile.getImage(), null);
 
