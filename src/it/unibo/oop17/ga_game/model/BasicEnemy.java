@@ -21,7 +21,7 @@ public final class BasicEnemy extends WalkingEntity {
 	 *            The position
 	 */
 	public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
-		super(engine.bodyFactory().createGroundCreature(position, SIZE));
+        super(engine.bodyFactory().createGroundCreature(position, SIZE), Brain.EMPTY);
 	}
 
 	@Override

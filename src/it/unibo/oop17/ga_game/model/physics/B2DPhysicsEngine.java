@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.physics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -12,6 +12,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
+import it.unibo.oop17.ga_game.model.EntityBody;
 import javafx.geometry.Point2D;
 
 /**
@@ -20,7 +21,7 @@ import javafx.geometry.Point2D;
 public final class B2DPhysicsEngine implements PhysicsEngine {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
-    private final Map<Fixture, CollisionListener> collisionMap = new HashMap<>();
+    private final Map<Fixture, B2DEntityBody> collisionMap = new HashMap<>();
 
     private final World world;
 
@@ -49,11 +50,10 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
         }
     }
 
-    private static final class MyContactListener implements ContactListener {
+    private final class MyContactListener implements ContactListener {
         @Override
         public void beginContact(final Contact contact) {
-            // TODO: sistema
-            // callbacks(contact, c -> c.beginContact(contact));
+            callbacks(contact, (listener, other) -> listener.beginContact(other));
         }
 
         @Override
@@ -68,21 +68,24 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
 
         @Override
         public void endContact(final Contact contact) {
-            // callbacks(contact, c -> c.endContact(contact));
+            callbacks(contact, (listener, other) -> listener.endContact(other));
         }
 
-        private void callbacks(final Contact contact, final Consumer<CollisionListener> handler) {
+        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
             if (contact.isEnabled()) {
-                // here we do a bad thing but it's the Box2D's official way to do that...
-                final CollisionListener first = (CollisionListener) contact.getFixtureA().getUserData();
-                final CollisionListener second = (CollisionListener) contact.getFixtureB().getUserData();
-                if (first != null) {
-                    handler.accept(first);
-                }
-                if (second != null) {
-                    handler.accept(second);
+                final B2DEntityBody first = collisionMap.get(contact.getFixtureA());
+                final B2DEntityBody second = collisionMap.get(contact.getFixtureB());
+
+                if (first != null && second != null) {
+                    dispatchCollisionEvent(first, handler, second);
+                    dispatchCollisionEvent(second, handler, first);
                 }
             }
+        }
+
+        private void dispatchCollisionEvent(final B2DEntityBody entity,
+                final BiConsumer<CollisionListener, EntityBody> handler, final EntityBody other) {
+            entity.getCollisionListener().ifPresent(listener -> handler.accept(listener, other));
         }
     }
 
@@ -102,15 +105,14 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
 
     /**
      * For internal use only.
-     * Maps a Fixture to a {@link CollisionListener}
+     * Maps a Fixture to a {@link B2DEntityBody}
      * 
      * @param fixture
      *            the Fixture
-     * @param listener
-     *            the {@link CollisionListener}
+     * @param body
+     *            the {@link B2DEntityBody}
      */
-    // TODO: sistema
-    public void setCollisionListener(final Fixture fixture, final CollisionListener listener) {
-        collisionMap.put(Objects.requireNonNull(fixture), Objects.requireNonNull(listener));
+    public void setCollisionListener(final Fixture fixture, final B2DEntityBody body) {
+        collisionMap.put(Objects.requireNonNull(fixture), Objects.requireNonNull(body));
     }
 }

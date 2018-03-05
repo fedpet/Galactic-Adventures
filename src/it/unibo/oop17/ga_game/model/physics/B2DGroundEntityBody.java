@@ -12,7 +12,8 @@ import javafx.geometry.Point2D;
     private static final float FEET_SENSOR_HEIGHT = B2DUtils.EXTRA_SKIN_THICKNESS * 3 / 2; // a bit more than the skin
     private final Fixture feetSensor;
 
-    /* package-protected */ B2DGroundEntityBody(final Body body, final Dimension2D dimension) {
+    /* package-protected */ B2DGroundEntityBody(final Body body, final Dimension2D dimension,
+            final B2DPhysicsEngine engine) {
         super(body, dimension);
 
         feetSensor = new B2DFixtureBuilder()
@@ -20,6 +21,9 @@ import javafx.geometry.Point2D;
                 .rectangular(new Dimension2D(getDimension().getWidth(), FEET_SENSOR_HEIGHT))
                 .position(new Point2D(0, -getDimension().getHeight() / 2 + FEET_SENSOR_HEIGHT / 3))
                 .buildOn(body);
+
+        // TODO migliora
+        engine.setCollisionListener(feetSensor, this);
     }
 
     @Override

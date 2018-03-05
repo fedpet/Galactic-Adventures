@@ -20,7 +20,7 @@ public final class Player extends WalkingEntity {
      *            The position
      */
     public Player(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createGroundCreature(position, SIZE));
+        super(engine.bodyFactory().createGroundCreature(position, SIZE), new LoggingBrain());
     }
 
     @Override
@@ -32,4 +32,10 @@ public final class Player extends WalkingEntity {
     protected float getWalkSpeed() {
         return WALK_SPEED;
     }
+
+    @Override
+    public String toString() {
+        return "Player";
+    }
+
 }

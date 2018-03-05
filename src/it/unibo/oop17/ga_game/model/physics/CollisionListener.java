@@ -9,7 +9,7 @@ public interface CollisionListener {
 
     /**
      * Will be called by the physics engine at the start of a contact with an
-     * external Body.
+     * external {@link EntityBody}.
      * 
      * @param other
      *            {@link EntityBody}
@@ -18,7 +18,7 @@ public interface CollisionListener {
 
     /**
      * Will be called by the physics engine at the end of a contact with an external
-     * ContactListener.
+     * {@link EntityBody}.
      * 
      * @param other
      *            {@link EntityBody}

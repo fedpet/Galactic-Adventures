@@ -10,6 +10,13 @@ public interface Entity {
     EntityBody getBody();
 
     /**
+     * The Brain controls the Entity's movement.
+     * 
+     * @return The entity's {@link Brain}
+     */
+    Brain getBrain();
+
+    /**
      * Used to synchronize the entities.
      * 
      * @param dt
