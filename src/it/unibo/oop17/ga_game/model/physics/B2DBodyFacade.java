@@ -17,8 +17,6 @@ import javafx.geometry.Point2D;
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension) {
         this.body = Objects.requireNonNull(body);
-        // boundingBoxDimension = Box2DUtils.boundingBox(body); // it could change relatively to body's angle so we
-                                                             // calculate it right now.
         boundingBoxDimension = Objects.requireNonNull(dimension);
     }
 
