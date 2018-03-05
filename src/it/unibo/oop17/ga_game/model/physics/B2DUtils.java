@@ -17,13 +17,13 @@ import javafx.geometry.Point2D;
 /**
  * Box2D utility class.
  */
-/* package-protected */ final class Box2DUtils {
+/* package-protected */ final class B2DUtils {
     /**
      * Box2D's extra thickness (in meters) applied to every body.
      */
     public static final float EXTRA_SKIN_THICKNESS = 0.1f;
 
-    private Box2DUtils() {
+    private B2DUtils() {
     }
 
     /**

@@ -17,7 +17,7 @@ import javafx.geometry.Point2D;
 /**
  * Manages the game world physics.
  */
-public final class Box2DPhysicsEngine implements PhysicsEngine {
+public final class B2DPhysicsEngine implements PhysicsEngine {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
     private final Map<Fixture, CollisionListener> collisionMap = new HashMap<>();
@@ -29,8 +29,8 @@ public final class Box2DPhysicsEngine implements PhysicsEngine {
      * @param gravity
      *            The force of the gravity
      */
-    public Box2DPhysicsEngine(final Point2D gravity) {
-        world = new World(Box2DUtils.pointToVec(gravity));
+    public B2DPhysicsEngine(final Point2D gravity) {
+        world = new World(B2DUtils.pointToVec(gravity));
         world.setContactListener(new MyContactListener());
     }
 
@@ -88,7 +88,7 @@ public final class Box2DPhysicsEngine implements PhysicsEngine {
 
     @Override
     public BodyFactory bodyFactory() {
-        return new Box2DBodyFactory(this);
+        return new B2DBodyFactory(this);
     }
 
     /**

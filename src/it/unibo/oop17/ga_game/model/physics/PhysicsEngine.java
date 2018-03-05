@@ -29,6 +29,6 @@ public interface PhysicsEngine {
      * @return The PhysicsEngine
      */
     static PhysicsEngine create(final Point2D gravity) {
-        return new Box2DPhysicsEngine(gravity);
+        return new B2DPhysicsEngine(gravity);
     }
 }

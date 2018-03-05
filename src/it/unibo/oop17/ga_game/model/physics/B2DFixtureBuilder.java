@@ -109,7 +109,7 @@ public final class B2DFixtureBuilder {
         }
         // setAsBox wants HALF width and height
         shape.setAsBox((float) dimension.get().getWidth() / 2, (float) dimension.get().getHeight() / 2,
-                Box2DUtils.pointToVec(pos.orElse(Point2D.ZERO)), 0);
+                B2DUtils.pointToVec(pos.orElse(Point2D.ZERO)), 0);
         fixtureDef.setShape(shape);
         final Fixture fix = owner.createFixture(fixtureDef);
         owner.resetMassData();

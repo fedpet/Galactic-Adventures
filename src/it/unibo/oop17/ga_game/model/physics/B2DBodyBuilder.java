@@ -6,11 +6,11 @@ import org.jbox2d.dynamics.BodyType;
 
 import javafx.geometry.Point2D;
 
-/* package-protected */ final class Box2DBodyBuilder {
+/* package-protected */ final class B2DBodyBuilder {
     private final BodyDef bodyDef = new BodyDef();
-    private final Box2DPhysicsEngine engine;
+    private final B2DPhysicsEngine engine;
 
-    /* package-protected */ Box2DBodyBuilder(final Box2DPhysicsEngine engine) {
+    /* package-protected */ B2DBodyBuilder(final B2DPhysicsEngine engine) {
         this.engine = engine;
         bodyDef.setFixedRotation(true);
     }
@@ -24,13 +24,13 @@ import javafx.geometry.Point2D;
      *            The type
      * @return the builder
      */
-    public Box2DBodyBuilder type(final BodyType type) {
+    public B2DBodyBuilder type(final BodyType type) {
         bodyDef.setType(type);
         return this;
     }
 
-    public Box2DBodyBuilder position(final Point2D pos) {
-        bodyDef.setPosition(Box2DUtils.pointToVec(pos));
+    public B2DBodyBuilder position(final Point2D pos) {
+        bodyDef.setPosition(B2DUtils.pointToVec(pos));
         return this;
     }
 

@@ -40,8 +40,8 @@ import javafx.geometry.Rectangle2D;
                 "isTouching");
         for (ContactEdge c = fixture.getBody().getContactList(); c != null; c = c.next) {
             System.out.println(
-                    c.contact.isEnabled() + "," + c.contact.isTouching() + "," + Box2DUtils.contains(c, fixture));
-            if (c.contact.isEnabled() && c.contact.isTouching() && Box2DUtils.contains(c, fixture)) {
+                    c.contact.isEnabled() + "," + c.contact.isTouching() + "," + B2DUtils.contains(c, fixture));
+            if (c.contact.isEnabled() && c.contact.isTouching() && B2DUtils.contains(c, fixture)) {
                 return true;
             }
         }
