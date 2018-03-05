@@ -12,7 +12,6 @@ import javafx.geometry.Point2D;
  */
 /* package-private */ class B2DBodyFacade implements B2DEntityBody {
     private final Body body;
-    // private final Fixture mainFixture;
     private final Dimension2D boundingBoxDimension;
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension) {
