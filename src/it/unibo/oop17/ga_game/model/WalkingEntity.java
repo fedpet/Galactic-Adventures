@@ -23,6 +23,8 @@ public abstract class WalkingEntity implements Entity {
     private static final double FEET_SENSOR_HEIGHT = Box2DUtils.EXTRA_SKIN_THICKNESS * 3 / 2;
     private final Body body;
     private final Sensor feet;
+	private final Sensor front;
+	private final Sensor front2;
     private final Vec2 desiredMovement = new Vec2();
 
     /**
@@ -49,6 +51,13 @@ public abstract class WalkingEntity implements Entity {
         feet = new SensorImpl(body,
                 new Rectangle2D(0, -dimension.getHeight() / 2, dimension.getWidth(),
                         FEET_SENSOR_HEIGHT));
+
+		front = new SensorImpl(body,
+				new Rectangle2D(0, 0, dimension.getWidth() / 2, dimension.getHeight() - FEET_SENSOR_HEIGHT));
+
+		front2 = new SensorImpl(body,
+				new Rectangle2D(0, dimension.getWidth() / 2, dimension.getWidth() / 2,
+						dimension.getHeight() - FEET_SENSOR_HEIGHT));
     }
 
     @Override
@@ -59,7 +68,7 @@ public abstract class WalkingEntity implements Entity {
     @Override
     public void update(final double dt) {
         // if (feet.isTouching()) {
-        Vec2 movement = desiredMovement.clone().sub(body.getLinearVelocity())
+		Vec2 movement = desiredMovement.clone().sub(body.getLinearVelocity())
                     .mul(body.getMass());
         if (!feet.isTouching()) {
             movement = movement.mul(0.5f);
@@ -99,6 +108,10 @@ public abstract class WalkingEntity implements Entity {
             desiredMovement.y = getJumpSpeed();
         }
     }
+
+	public boolean againstWall() {
+		return front.isTouching() || front2.isTouching();
+	}
 
     protected abstract float getJumpSpeed();
 

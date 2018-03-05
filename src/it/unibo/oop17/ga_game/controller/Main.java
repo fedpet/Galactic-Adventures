@@ -8,6 +8,7 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
+import it.unibo.oop17.ga_game.model.BasicEnemy;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.Player;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
@@ -56,13 +57,19 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        final Player player = new Player(physics.getWorld(), new Point2D(4, -4));
+		final Player player = new Player(physics.getWorld(), new Point2D(10, -4));
         final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
+		final BasicEnemy basicEnemy = new BasicEnemy(physics.getWorld(), new Point2D(15, -4));
+		final ImageView basicEnemyView = new ImageView(new Image("/slimeGreen_move.png"));
         playerView.setFitWidth(ViewUtils.metersToPixels(Player.SIZE.getWidth()));
         playerView.setFitHeight(ViewUtils.metersToPixels(Player.SIZE.getHeight()));
+		basicEnemyView.setFitWidth(ViewUtils.metersToPixels(Player.SIZE.getWidth()));
+		basicEnemyView.setFitHeight(ViewUtils.metersToPixels(Player.SIZE.getHeight()));
         root.getChildren().add(playerView);
+		root.getChildren().add(basicEnemyView);
 
         new PlayerController(scene, player);
+		final BasicEnemyController basicEnemyController = new BasicEnemyController(scene, basicEnemy);
 
 
         try {
@@ -77,12 +84,19 @@ public class Main extends Application {
             @Override
             public void handle(final long now) {
                 player.update(1.0 / 60);
+				basicEnemy.update(1.0 / 60);
+				if (basicEnemy.againstWall()) {
+					basicEnemyController.updateMovingDirection(basicEnemy);
+				}
                 physics.update(1.0 / 60);
 
                 final Point2D pt = ViewUtils.worldPointToFX(Box2DUtils.vecToPoint(player.getBody().getPosition()));
+				final Point2D pt2 = ViewUtils.worldPointToFX(Box2DUtils.vecToPoint(basicEnemy.getBody().getPosition()));
                 playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
                 playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
-
+				basicEnemyView.setTranslateX(pt2.getX() - basicEnemyView.getBoundsInLocal().getWidth() / 2);
+				basicEnemyView.setTranslateY(pt2.getY() - basicEnemyView.getBoundsInLocal().getHeight() / 2);
+                
                 camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
                 camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);
             }
