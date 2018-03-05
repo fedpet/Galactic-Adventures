@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.EntityBody;
 import it.unibo.oop17.ga_game.model.GroundEntityBody;
@@ -23,11 +24,13 @@ import javafx.geometry.Point2D;
                 .position(position)
                 .type(BodyType.DYNAMIC)
                 .build();
-        new B2DFixtureBuilder()
+        final Fixture fixture = new B2DFixtureBuilder()
                 // .density(1)
                 .rectangular(size)
                 .buildOn(body);
-        return new B2DGroundEntityBody(body, size);
+        final B2DGroundEntityBody entity = new B2DGroundEntityBody(body, size, engine);
+        connectListener(entity, fixture);
+        return entity;
     }
 
     @Override
@@ -36,13 +39,19 @@ import javafx.geometry.Point2D;
                 .position(position)
                 .type(BodyType.STATIC)
                 .build();
-        new B2DFixtureBuilder()
+        final Fixture fixture = new B2DFixtureBuilder()
                 .density(1)
                 .friction(0)
                 .rectangular(size)
                 .buildOn(body);
-        return new B2DBodyFacade(body, size);
+
+        final B2DEntityBody entity = new B2DBodyFacade(body, size);
+        connectListener(entity, fixture);
+        return entity;
     }
 
+    private void connectListener(final B2DEntityBody body, final Fixture fixture) {
+        engine.setCollisionListener(fixture, body);
+    }
 
 }

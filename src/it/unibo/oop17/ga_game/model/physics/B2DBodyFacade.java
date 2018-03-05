@@ -1,16 +1,18 @@
 package it.unibo.oop17.ga_game.model.physics;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.jbox2d.dynamics.Body;
 
+import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
  * Facade class used to hide Box2D details and simplify use of its API.
  */
-/* package-private */ class B2DBodyFacade implements B2DEntityBody {
+/* package-private */ class B2DBodyFacade extends AbstractEntityComponent implements B2DEntityBody {
     private final Body body;
     private final Dimension2D boundingBoxDimension;
 
@@ -47,6 +49,14 @@ import javafx.geometry.Point2D;
     @Override
     public Body getB2Body() {
         return body;
+    }
+
+    @Override
+    public Optional<CollisionListener> getCollisionListener() {
+        if (!getOwner().isPresent()) {
+            return Optional.empty();
+        }
+        return Optional.of(getOwner().get().getBrain());
     }
 
 }

@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 /**
  * Models our entities body.
  */
-public interface EntityBody {
+public interface EntityBody extends EntityComponent {
     /**
      * 
      * @return The position
