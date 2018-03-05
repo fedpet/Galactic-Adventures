@@ -59,4 +59,9 @@ import javafx.geometry.Point2D;
         return Optional.of(getOwner().get().getBrain());
     }
 
+    @Override
+    public void setGravityScale(final double scale) {
+        body.setGravityScale((float) scale);
+    }
+
 }

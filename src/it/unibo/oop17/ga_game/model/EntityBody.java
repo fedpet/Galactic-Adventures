@@ -38,4 +38,12 @@ public interface EntityBody extends EntityComponent {
      *            The impulse vector.
      */
     void applyImpulse(Point2D impulse);
+
+    /**
+     * The gravity scale will be multiplied by the gravity to decide how much it should influence this body.
+     * 
+     * @param scale
+     *            The factor.
+     */
+    void setGravityScale(double scale);
 }
