@@ -14,6 +14,9 @@ public abstract class AbstractEntityComponent implements EntityComponent {
      * Convenience method to avoid the optional.
      * 
      * @return The {@link Entity}
+     * 
+     * @throws IllegalStateException
+     *             is the component is not attached to an Entity
      */
     protected final Entity getEntity() {
         return owner.orElseThrow(IllegalStateException::new);
