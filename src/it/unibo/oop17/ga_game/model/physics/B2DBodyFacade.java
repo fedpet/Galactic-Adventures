@@ -47,7 +47,7 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public Body getB2Body() {
+    public Body getB2DBody() {
         return body;
     }
 
