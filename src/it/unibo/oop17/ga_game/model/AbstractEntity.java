@@ -19,6 +19,7 @@ public abstract class AbstractEntity<B extends EntityBody, C extends Brain> impl
         this.body = body;
         this.brain = brain;
         body.attach(this);
+        brain.attach(this);
     }
 
     @Override
