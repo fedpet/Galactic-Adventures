@@ -12,7 +12,7 @@ import it.unibo.oop17.ga_game.model.EntityBody;
      * 
      * @return The Box2D's body for internal use.
      */
-    Body getB2Body();
+    Body getB2DBody();
 
     /**
      * The {@link CollisionListener} will be called by the physics engine during collisions.
