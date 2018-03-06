@@ -139,12 +139,36 @@ import javafx.geometry.Point2D;
             private Fixture list = fixtureList;
             @Override
             public boolean hasNext() {
-                return list == null;
+                return list != null;
             }
             @Override
             public Fixture next() {
                 final Fixture next = list;
                 list = list.getNext();
+                return next;
+            }
+        });
+    }
+
+    /**
+     * 
+     * @param contactEdgeList
+     *            The ContactEdge
+     * @return The corresponding Stream
+     */
+    public static Stream<ContactEdge> stream(final ContactEdge contactEdgeList) {
+        return Streams.stream(new Iterator<ContactEdge>() {
+            private ContactEdge list = contactEdgeList;
+
+            @Override
+            public boolean hasNext() {
+                return list != null;
+            }
+
+            @Override
+            public ContactEdge next() {
+                final ContactEdge next = list;
+                list = list.next;
                 return next;
             }
         });
