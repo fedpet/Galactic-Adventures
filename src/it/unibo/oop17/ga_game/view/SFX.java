@@ -4,8 +4,8 @@ import javafx.scene.media.AudioClip;
 
 public enum SFX {
     
-    MOUSE_ENTERED(new AudioClip("file:res/Audio/SFX/zap1.wav")),
-    MOUSE_CLICKED(new AudioClip("file:res/Audio/SFX/laser1.wav"));
+    MOUSE_ENTERED(new AudioClip("file:res/audio/sfx/zap1.wav")),
+    MOUSE_CLICKED(new AudioClip("file:res/audio/sfx/laser1.wav"));
 
     private AudioClip clip;
     

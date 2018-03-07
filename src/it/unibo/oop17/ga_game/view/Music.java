@@ -4,12 +4,12 @@ import javafx.scene.media.AudioClip;
 
 public enum Music {
     
-    TRACK1(new AudioClip("file:res/Audio/Music/action1.mp3")),
-    TRACK2(new AudioClip("file:res/Audio/Music/action2.mp3")),
-    TRACK3(new AudioClip("file:res/Audio/Music/generic1.mp3")),
-    TRACK4(new AudioClip("file:res/Audio/Music/generic2.mp3")),
-    TRACK5(new AudioClip("file:res/Audio/Music/generic4.mp3")),
-    TRACK6(new AudioClip("file:res/Audio/Music/generic5.mp3"));
+    TRACK1(new AudioClip("file:res/audio/music/action1.mp3")),
+    TRACK2(new AudioClip("file:res/audio/music/action2.mp3")),
+    TRACK3(new AudioClip("file:res/audio/music/generic1.mp3")),
+    TRACK4(new AudioClip("file:res/audio/music/generic2.mp3")),
+    TRACK5(new AudioClip("file:res/audio/music/generic4.mp3")),
+    TRACK6(new AudioClip("file:res/audio/music/generic5.mp3"));
     
     private AudioClip clip;
         

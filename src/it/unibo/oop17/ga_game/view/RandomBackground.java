@@ -8,23 +8,24 @@ public class RandomBackground {
     
     public RandomBackground() {
         final int randomNum = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+        final String pathTo = "res/tiles/mushroom_expansion/backgrounds/";
         String backgroundPath = null;
         
         switch (randomNum) {
         case 0:
-            backgroundPath = "res/Tiles/Mushroom expansion/Backgrounds/bg_castle.png";
+            backgroundPath = pathTo + "bg_castle.png";
             break;
         case 1:
-            backgroundPath = "res/Tiles/Mushroom expansion/Backgrounds/bg_desert.png";
+            backgroundPath = pathTo + "bg_desert.png";
             break;
         case 2:
-            backgroundPath = "res/Tiles/Mushroom expansion/Backgrounds/bg_grasslands.png";
+            backgroundPath = pathTo + "bg_grasslands.png";
             break;
         case 3:
-            backgroundPath = "res/Tiles/Mushroom expansion/Backgrounds/bg_shroom.png";
+            backgroundPath = pathTo + "bg_shroom.png";
             break;
         default:
-            backgroundPath = "res/Tiles/Mushroom expansion/Backgrounds/bg_castle.png";
+            backgroundPath = pathTo + "bg_castle.png";
         }
         
         this.BackgroundPath = backgroundPath;
