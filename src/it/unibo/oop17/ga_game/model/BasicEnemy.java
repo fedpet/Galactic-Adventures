@@ -11,7 +11,7 @@ import javafx.geometry.Point2D;
  */
 public final class BasicEnemy extends WalkingEntity {
     public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
-    private static final float WALK_SPEED = 8f;
+    private static final float WALK_SPEED = 5f;
     private static final float JUMP_SPEED = 0f;
 
     /**
@@ -23,6 +23,7 @@ public final class BasicEnemy extends WalkingEntity {
      */
     public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
         super(engine.bodyFactory().createGroundCreature(position, SIZE), new BasicEnemyBrain());
+        move(HorizontalDirection.LEFT);
     }
 
     @Override
@@ -36,8 +37,7 @@ public final class BasicEnemy extends WalkingEntity {
     }
 
     @Override
-    public void update(final double dt) {
-        move(HorizontalDirection.LEFT);
-        super.update(dt);
+    public String toString() {
+        return "Basic enemy";
     }
 }
