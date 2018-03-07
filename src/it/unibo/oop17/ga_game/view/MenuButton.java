@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -11,21 +11,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MenuButton extends StackPane {
-	
+    
     final private Text text;
-    final private SFX sfx;
     final private double volume;
 
     public MenuButton(final String name) {
-    	
-    	this.sfx = new SFX();
-    	
-    	// DEVE ESSERE SALVATO IN UN FILE DI CONFIGURAZIONE IL VOLUME ATTUALE INSIEME ALLE ALTRE OPZIONI
+        
+        // DEVE ESSERE SALVATO IN UN FILE DI CONFIGURAZIONE IL VOLUME ATTUALE INSIEME ALLE ALTRE OPZIONI
         final Volume vol = Volume.LOW;
         this.volume = vol.getVolume();
-    	
+        
         text = new Text(name);
-		text.setFont(Font.font(24));
+        text.setFont(Font.font(24));
         text.setFill(Color.BLACK);
 
         final Rectangle bg = new Rectangle(256, 32);
@@ -42,7 +39,7 @@ public class MenuButton extends StackPane {
             text.setTranslateX(8);
             bg.setFill(Color.BLACK);
             text.setFill(Color.WHITE);
-            sfx.getSFX("MOUSE_ENTERED").play(volume);
+            SFX.MOUSE_ENTERED.getSFX().play(volume);
         });
 
         setOnMouseExited(event -> {
@@ -57,7 +54,7 @@ public class MenuButton extends StackPane {
 
         setOnMousePressed(event -> {
             setEffect(drop);
-        	sfx.getSFX("MOUSE_CLICKED").play(volume);
+            SFX.MOUSE_CLICKED.getSFX().play(volume);
         });
         
         setOnMouseReleased(event -> setEffect(null));
