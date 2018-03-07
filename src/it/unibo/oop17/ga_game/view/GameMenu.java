@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.view;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class GameMenu extends Parent {
-	
+    
     public GameMenu() {
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
@@ -24,12 +24,12 @@ public class GameMenu extends Parent {
         
         final MenuButton btnNuovaPartita = new MenuButton("   NUOVA PARTITA");
         btnNuovaPartita.setOnMouseClicked(event -> {
-        	
+            
         });
 
         final MenuButton btnContinua = new MenuButton("   CONTINUA");
         btnContinua.setOnMouseClicked(event -> {
-        	
+            
         });
 
         final MenuButton btnOpzioni = new MenuButton("   OPZIONI");
@@ -52,7 +52,7 @@ public class GameMenu extends Parent {
 
         final MenuButton btnEsci = new MenuButton("   ESCI");
         btnEsci.setOnMouseClicked(event -> {
-			System.exit(0);
+            System.exit(0);
         });
 
         final MenuButton btnIndietro = new MenuButton("   INDIETRO");
