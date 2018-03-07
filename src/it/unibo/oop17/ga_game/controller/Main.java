@@ -6,6 +6,7 @@ import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import it.unibo.oop17.ga_game.model.BasicEnemy;
+import it.unibo.oop17.ga_game.model.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.Player;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
@@ -57,12 +58,18 @@ public class Main extends Application {
         final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
         final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));
         final BasicEnemyView basicEnemyView = new BasicEnemyView(basicEnemy);
+        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -20));
+        final ImageView flyingEnemyView = new ImageView(new Image("/p1_jump.png"));
+
         playerView.setFitWidth(ViewUtils.metersToPixels(player.getBody().getDimension().getWidth()));
         playerView.setFitHeight(ViewUtils.metersToPixels(player.getBody().getDimension().getHeight()));
         basicEnemyView.setFitWidth(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getWidth()));
         basicEnemyView.setFitHeight(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getHeight()));
+        flyingEnemyView.setFitWidth(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getWidth()));
+        flyingEnemyView.setFitHeight(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getHeight()));
         root.getChildren().add(playerView);
         root.getChildren().add(basicEnemyView);
+        root.getChildren().add(flyingEnemyView);
 
         new PlayerController(scene, player);
         final BasicEnemyController enemyController = new BasicEnemyController(basicEnemy, basicEnemyView);
@@ -80,16 +87,20 @@ public class Main extends Application {
             public void handle(final long now) {
                 player.update(1.0 / 60);
                 basicEnemy.update(1.0 / 60);
+                flyingEnemy.update(1.0 / 60);
                 physics.update(1.0 / 60);
 
                 enemyController.updateView();
 
                 final Point2D pt = ViewUtils.worldPointToFX(player.getBody().getPosition());
                 final Point2D pt2 = ViewUtils.worldPointToFX(basicEnemy.getBody().getPosition());
+                final Point2D pt3 = ViewUtils.worldPointToFX(flyingEnemy.getBody().getPosition());
                 playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
                 playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
                 basicEnemyView.setTranslateX(pt2.getX() - basicEnemyView.getBoundsInLocal().getWidth() / 2);
                 basicEnemyView.setTranslateY(pt2.getY() - basicEnemyView.getBoundsInLocal().getHeight() / 2);
+                flyingEnemyView.setTranslateX(pt3.getX() - flyingEnemyView.getBoundsInLocal().getWidth() / 2);
+                flyingEnemyView.setTranslateY(pt3.getY() - flyingEnemyView.getBoundsInLocal().getHeight() / 2);
 
                 camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
                 camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);

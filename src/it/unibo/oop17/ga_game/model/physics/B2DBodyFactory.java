@@ -23,6 +23,21 @@ import javafx.geometry.Point2D;
     }
 
     @Override
+    public EntityBody createFlyingCreature(final Point2D position, final Dimension2D size) {
+        final Body body = new B2DBodyBuilder(engine)
+                .position(position)
+                .type(BodyType.DYNAMIC)
+                .build();
+        final Fixture fixture = new B2DFixtureBuilder()
+                .density(1000)
+                .rectangular(size)
+                .buildOn(body);
+        final B2DBodyFacade entity = new B2DBodyFacade(body, size);
+        connectListener(entity, fixture);
+        return entity;
+    }
+
+    @Override
     public GroundEntityBody createGroundCreature(final Point2D position, final Dimension2D size) {
         final Body body = new B2DBodyBuilder(engine)
                 .position(position)
