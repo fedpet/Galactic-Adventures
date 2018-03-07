@@ -13,17 +13,13 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
          * un punto leggermente distante dal vertice più in basso a destra dell'owner
          * un punto leggermente distante dal vertice più in basso a sinistra dell'owner
          */
-        if ((PositionCompare.contactLeft(getEntity().getBody(), other)
-                || PositionCompare.contactRight(getEntity().getBody(), other))
-                && getEntity() instanceof BasicEnemy) {
+        if (getEntity() instanceof BasicEnemy) {
             final BasicEnemy e = (BasicEnemy) getEntity();
-            if (e.getMovingDirection().equals(HorizontalDirection.LEFT)) {
-                // System.out.println("right");
+            if (PositionCompare.contactLeft(getEntity().getBody(), other)) {
                 e.move(HorizontalDirection.RIGHT);
-                } else {
-                // System.out.println("left");
+            } else if (PositionCompare.contactRight(getEntity().getBody(), other)) {
                 e.move(HorizontalDirection.LEFT);
-                }
+            }
         }
 
     }

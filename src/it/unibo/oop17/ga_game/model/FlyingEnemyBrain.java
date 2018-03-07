@@ -11,17 +11,16 @@ public class FlyingEnemyBrain extends AbstractEntityComponent implements Brain {
         /*
          * in fase di movimento, in caso di collisione dovrebbe invertire direzione
          */
-        if (PositionCompare.contact(getEntity().getBody(), other)
-                && getEntity() instanceof FlyingEnemy) {
-            System.out.println("pene");
+
+        if (getEntity() instanceof FlyingEnemy) {
             final FlyingEnemy e = (FlyingEnemy) getEntity();
-            if (e.getMovingDirection().equals(Side.LEFT)) {
+            if (PositionCompare.contactLeft(getEntity().getBody(), other)) {
                 e.move(Side.RIGHT);
-            } else if (e.getMovingDirection().equals(Side.RIGHT)) {
+            } else if (PositionCompare.contactRight(getEntity().getBody(), other)) {
                 e.move(Side.LEFT);
-            } else if (e.getMovingDirection().equals(Side.TOP)) {
+            } else if (PositionCompare.contactUp(getEntity().getBody(), other)) {
                 e.move(Side.BOTTOM);
-            } else if (e.getMovingDirection().equals(Side.BOTTOM)) {
+            } else if (PositionCompare.contactDown(getEntity().getBody(), other)) {
                 e.move(Side.TOP);
             }
         }
