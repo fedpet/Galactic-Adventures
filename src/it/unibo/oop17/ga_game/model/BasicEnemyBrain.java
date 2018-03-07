@@ -7,21 +7,15 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
 
     @Override
     public void beginContact(EntityBody other) {
-        /*
-         * la mia idea era che appena l'owner tocca un muro o altro frontalmente
-         * cambia direzione, con qualcosa del genere:
-         * if (owner.getMovingDirection().equals(HorizontalDirection.RIGHT)) {
-         * owner.move(HorizontalDirection.LEFT);
-         * } else {
-         * owner.move(HorizontalDirection.RIGHT);
-         * }
-         */
-        final double ownerX = getEntity().getBody().getPosition().getX();
-        final double ownerY = getEntity().getBody().getPosition().getY();
+
+        final double ownerX = getEntity().getBody().getPosition().getX()
+                - getEntity().getBody().getDimension().getWidth() / 2;
+        final double ownerY = getEntity().getBody().getPosition().getY()
+                + getEntity().getBody().getDimension().getHeight() / 2;
         final double ownerW = getEntity().getBody().getDimension().getWidth();
         final double ownerH = getEntity().getBody().getDimension().getHeight();
-        final double otherX = other.getPosition().getX();
-        final double otherY = other.getPosition().getY();
+        final double otherX = other.getPosition().getX() - other.getDimension().getWidth();
+        final double otherY = other.getPosition().getY() + other.getDimension().getHeight();
         final double otherW = other.getDimension().getWidth();
         final double otherH = other.getDimension().getHeight();
 
@@ -38,8 +32,10 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
                 && getEntity() instanceof BasicEnemy) {
                 final BasicEnemy x = (BasicEnemy) getEntity();
                 if (x.getMovingDirection().equals(HorizontalDirection.LEFT)) {
+                System.out.println("right");
                     x.move(HorizontalDirection.RIGHT);
                 } else {
+                System.out.println("left");
                     x.move(HorizontalDirection.LEFT);
                 }
         }
