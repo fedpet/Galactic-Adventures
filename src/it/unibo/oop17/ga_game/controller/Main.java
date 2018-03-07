@@ -9,6 +9,7 @@ import it.unibo.oop17.ga_game.model.BasicEnemy;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.Player;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
+import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.BasicEnemyView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.AnimationTimer;
@@ -107,12 +108,7 @@ public class Main extends Application {
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
                         final Tile tile = tileLayer.getTileAt(x, y);
-                        if (tile != null && tile.getImage() != null) {
-
-                            physics.bodyFactory()
-                                    .createTerrain(tilePositionToWorld(x, y),
-                                            new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE));
-
+                        if (doesTileExists(tile)) {
                             final Image tileImage = SwingFXUtils.toFXImage(tile.getImage(), null);
 
 
@@ -125,10 +121,22 @@ public class Main extends Application {
                         }
                     }
                 }
+
+                physics.bodyFactory()
+                        .createTerrainFromGrid(Point2D.ZERO,
+                                new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE),
+                                new SimpleCollisionGrid(map.getHeight(), map.getWidth(), (row, column) ->  {
+                                        return doesTileExists(tileLayer.getTileAt(column, row));
+                                })
+                         );
             }
         });
 
         return map;
+    }
+
+    private boolean doesTileExists(final Tile tile) {
+        return tile != null && tile.getImage() != null;
     }
 
     private Point2D tilePositionToWorld(final int x, final int y) {

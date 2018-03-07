@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model.physics;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import org.jbox2d.collision.AABB;
@@ -168,6 +169,9 @@ import javafx.geometry.Point2D;
             @Override
             public ContactEdge next() {
                 final ContactEdge next = list;
+                if (next == null) {
+                    throw new NoSuchElementException();
+                }
                 list = list.next;
                 return next;
             }

@@ -1,6 +1,8 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
@@ -8,6 +10,8 @@ import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.EntityBody;
 import it.unibo.oop17.ga_game.model.GroundEntityBody;
+import it.unibo.oop17.ga_game.utils.CollisionGrid;
+import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -34,7 +38,14 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public EntityBody createTerrain(final Point2D position, final Dimension2D size) {
+    public List<EntityBody> createTerrainFromGrid(final Point2D topLeft, final Dimension2D cellSize,
+            final CollisionGrid grid) {
+        return new RectanglesExtractor().rectangles(topLeft, grid, cellSize).stream()
+                .map(rect -> createTerrain(FXUtils.invertY(FXUtils.center(rect)), FXUtils.dimension(rect)))
+                .collect(Collectors.toList());
+    }
+
+    private EntityBody createTerrain(final Point2D position, final Dimension2D size) {
         final Body body = new B2DBodyBuilder(engine)
                 .position(position)
                 .type(BodyType.STATIC)

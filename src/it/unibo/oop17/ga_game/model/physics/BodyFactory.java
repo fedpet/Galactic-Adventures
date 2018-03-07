@@ -1,7 +1,10 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.List;
+
 import it.unibo.oop17.ga_game.model.EntityBody;
 import it.unibo.oop17.ga_game.model.GroundEntityBody;
+import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -20,13 +23,15 @@ public interface BodyFactory {
     GroundEntityBody createGroundCreature(Point2D position, Dimension2D size);
 
     /**
-     * A terrain body is not subject to forces.
+     * Terrain bodies are not subject to forces and won't move.
      * 
-     * @param position
-     *            Position (relative to the body's center)
-     * @param size
-     *            Width and height
-     * @return {@link EntityBody}
+     * @param topLeft
+     *            Top-left point relative to the grid
+     * @param cellSize
+     *            Width and height of a single cell
+     * @param collisionGrid
+     *            The @CollisionGrid
+     * @return List of {@link EntityBody}
      */
-    EntityBody createTerrain(Point2D position, Dimension2D size);
+    List<EntityBody> createTerrainFromGrid(Point2D topLeft, Dimension2D cellSize, CollisionGrid collisionGrid);
 }

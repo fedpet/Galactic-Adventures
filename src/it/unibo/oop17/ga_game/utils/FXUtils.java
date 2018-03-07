@@ -31,4 +31,14 @@ public final class FXUtils {
     public static Dimension2D dimension(final Rectangle2D rect) {
         return new Dimension2D(rect.getWidth(), rect.getHeight());
     }
+
+    /**
+     * 
+     * @param pt
+     *            Point
+     * @return Point with inverted y
+     */
+    public static Point2D invertY(final Point2D pt) {
+        return new Point2D(pt.getX(), -pt.getY());
+    }
 }
