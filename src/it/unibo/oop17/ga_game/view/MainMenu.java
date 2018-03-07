@@ -1,10 +1,5 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.CasualBackground;
-import it.unibo.oop17.ga_game.model.GameMenu;
-import it.unibo.oop17.ga_game.model.Music;
-import it.unibo.oop17.ga_game.model.Volume;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -15,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.KeyCode;
@@ -28,15 +24,15 @@ public class MainMenu {
         final Pane core = new Pane();
         core.setPrefSize(1024, 512);
         
-        final Music music = new Music();
-        
         // DEVE ESSERE SALVATO IN UN FILE DI CONFIGURAZIONE IL VOLUME ATTUALE INSIEME ALLE ALTRE OPZIONI
         final Volume vol = Volume.LOW;
         final double volume = vol.getVolume();
         
-        music.getMusic("TRACK1").play(volume);
+        final AudioClip menuTheme = Music.TRACK1.getMusic();
+        menuTheme.setCycleCount(AudioClip.INDEFINITE);
+        menuTheme.play(volume);
 
-        final InputStream is = Files.newInputStream(Paths.get(new CasualBackground().getBackgroundPath()));
+        final InputStream is = Files.newInputStream(Paths.get(new RandomBackground().getBackgroundPath()));
         final Image img = new Image(is);
         is.close();
 
