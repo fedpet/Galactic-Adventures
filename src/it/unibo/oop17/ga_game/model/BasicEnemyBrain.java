@@ -14,8 +14,8 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
                 + getEntity().getBody().getDimension().getHeight() / 2;
         final double ownerW = getEntity().getBody().getDimension().getWidth();
         final double ownerH = getEntity().getBody().getDimension().getHeight();
-        final double otherX = other.getPosition().getX() - other.getDimension().getWidth();
-        final double otherY = other.getPosition().getY() + other.getDimension().getHeight();
+        final double otherX = other.getPosition().getX() - other.getDimension().getWidth() / 2;
+        final double otherY = other.getPosition().getY() + other.getDimension().getHeight() / 2;
         final double otherW = other.getDimension().getWidth();
         final double otherH = other.getDimension().getHeight();
 
