@@ -52,7 +52,7 @@ public final class PositionCompare {
         makeRectangles(owner, other);
         return otherR.contains(ownerX, ownerY - ownerH - 0.1)
                 || otherR.contains(ownerX + ownerW, ownerY - ownerH - 0.1)
-                || otherR.contains(ownerX + ownerW / 2, ownerY - ownerH - 0.);
+                || otherR.contains(ownerX + ownerW / 2, ownerY - ownerH - 0.1);
     }
 
     private static void makeRectangles(final EntityBody owner, final EntityBody other) {
