@@ -20,26 +20,39 @@ public final class PositionCompare {
 
     }
 
+    public static boolean contact(EntityBody owner, EntityBody other) {
+        makeRectangles(owner, other);
+        return otherR.intersects(ownerX, ownerY, ownerW, ownerH);
+    }
+
+    // i derivati di contact considerano la collisione in alto, in centro e in basso di ogni lato
+
     public static boolean contactRight(EntityBody owner, EntityBody other) {
         makeRectangles(owner, other);
         return otherR.contains(ownerX + ownerW + 0.1, ownerY - ownerH + 0.1)
-                || otherR.contains(ownerX + ownerW + 0.1, ownerY);
+                || otherR.contains(ownerX + ownerW + 0.1, ownerY)
+                || otherR.contains(ownerX + ownerW + 0.1, ownerY - ownerH / 2);
     }
 
     public static boolean contactLeft(EntityBody owner, EntityBody other) {
         makeRectangles(owner, other);
-        return otherR.contains(ownerX - 0.1, ownerY - ownerH + 0.1) || otherR.contains(ownerX - 0.1, ownerY);
+        return otherR.contains(ownerX - 0.1, ownerY - ownerH + 0.1)
+                || otherR.contains(ownerX - 0.1, ownerY)
+                || otherR.contains(ownerX - 0.1, ownerY - ownerH / 2);
     }
 
     public static boolean contactUp(EntityBody owner, EntityBody other) {
         makeRectangles(owner, other);
-        return otherR.contains(ownerX, ownerY + 0.1) || otherR.contains(ownerX + ownerW, ownerY + 0.1);
+        return otherR.contains(ownerX, ownerY + 0.1)
+                || otherR.contains(ownerX + ownerW, ownerY + 0.1)
+                || otherR.contains(ownerX + ownerW / 2, ownerY + 0.1);
     }
 
     public static boolean contactDown(EntityBody owner, EntityBody other) {
         makeRectangles(owner, other);
         return otherR.contains(ownerX, ownerY - ownerH - 0.1)
-                || otherR.contains(ownerX + ownerW, ownerY - ownerH - 0.1);
+                || otherR.contains(ownerX + ownerW, ownerY - ownerH - 0.1)
+                || otherR.contains(ownerX + ownerW / 2, ownerY - ownerH - 0.);
     }
 
     private static void makeRectangles(final EntityBody owner, final EntityBody other) {

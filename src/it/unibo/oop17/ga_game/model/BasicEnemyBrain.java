@@ -18,10 +18,10 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
                 && getEntity() instanceof BasicEnemy) {
             final BasicEnemy e = (BasicEnemy) getEntity();
             if (e.getMovingDirection().equals(HorizontalDirection.LEFT)) {
-                System.out.println("right");
+                // System.out.println("right");
                 e.move(HorizontalDirection.RIGHT);
                 } else {
-                System.out.println("left");
+                // System.out.println("left");
                 e.move(HorizontalDirection.LEFT);
                 }
         }

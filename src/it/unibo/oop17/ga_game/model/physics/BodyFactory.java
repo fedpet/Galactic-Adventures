@@ -17,6 +17,16 @@ public interface BodyFactory {
      *            Width and height
      * @return {@link GroundEntityBody}
      */
+    EntityBody createFlyingCreature(Point2D position, Dimension2D size);
+
+    /**
+     * 
+     * @param position
+     *            Position (relative to the body's center)
+     * @param size
+     *            Width and height
+     * @return {@link GroundEntityBody}
+     */
     GroundEntityBody createGroundCreature(Point2D position, Dimension2D size);
 
     /**
