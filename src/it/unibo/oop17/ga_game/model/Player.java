@@ -20,7 +20,7 @@ public final class Player extends WalkingEntity {
      *            The position
      */
     public Player(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createGroundCreature(position, SIZE), new LoggingBrain());
+        super(engine.bodyFactory().createGroundCreature(position, SIZE), Brain.EMPTY);
     }
 
     @Override
