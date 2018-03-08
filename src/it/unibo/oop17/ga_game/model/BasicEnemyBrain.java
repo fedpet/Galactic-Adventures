@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.model;
 
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.HorizontalDirection;
+import javafx.geometry.Side;
 
 public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
 
@@ -15,9 +16,9 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
          */
         if (getEntity() instanceof BasicEnemy) {
             final BasicEnemy e = (BasicEnemy) getEntity();
-            if (PositionCompare.contactLeft(getEntity().getBody(), other)) {
+            if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.LEFT)) {
                 e.move(HorizontalDirection.RIGHT);
-            } else if (PositionCompare.contactRight(getEntity().getBody(), other)) {
+            } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.RIGHT)) {
                 e.move(HorizontalDirection.LEFT);
             }
         }

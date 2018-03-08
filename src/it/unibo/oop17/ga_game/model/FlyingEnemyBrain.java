@@ -14,13 +14,13 @@ public class FlyingEnemyBrain extends AbstractEntityComponent implements Brain {
 
         if (getEntity() instanceof FlyingEnemy) {
             final FlyingEnemy e = (FlyingEnemy) getEntity();
-            if (PositionCompare.contactLeft(getEntity().getBody(), other)) {
+            if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.LEFT)) {
                 e.move(Side.RIGHT);
-            } else if (PositionCompare.contactRight(getEntity().getBody(), other)) {
+            } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.RIGHT)) {
                 e.move(Side.LEFT);
-            } else if (PositionCompare.contactUp(getEntity().getBody(), other)) {
+            } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.TOP)) {
                 e.move(Side.BOTTOM);
-            } else if (PositionCompare.contactDown(getEntity().getBody(), other)) {
+            } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.BOTTOM)) {
                 e.move(Side.TOP);
             }
         }
