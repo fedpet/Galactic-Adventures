@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.EntityBody;
-import it.unibo.oop17.ga_game.model.GroundEntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Dimension2D;
@@ -23,31 +22,16 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public EntityBody createFlyingCreature(final Point2D position, final Dimension2D size) {
+    public EntityBody createCreature(final Point2D position, final Dimension2D size, float density) {
         final Body body = new B2DBodyBuilder(engine)
                 .position(position)
                 .type(BodyType.DYNAMIC)
                 .build();
         final Fixture fixture = new B2DFixtureBuilder()
-                .density(1000)
+                .density(density)
                 .rectangular(size)
                 .buildOn(body);
         final B2DBodyFacade entity = new B2DBodyFacade(body, size);
-        connectListener(entity, fixture);
-        return entity;
-    }
-
-    @Override
-    public GroundEntityBody createGroundCreature(final Point2D position, final Dimension2D size) {
-        final Body body = new B2DBodyBuilder(engine)
-                .position(position)
-                .type(BodyType.DYNAMIC)
-                .build();
-        final Fixture fixture = new B2DFixtureBuilder()
-                // .density(1)
-                .rectangular(size)
-                .buildOn(body);
-        final B2DGroundEntityBody entity = new B2DGroundEntityBody(body, size, engine);
         connectListener(entity, fixture);
         return entity;
     }

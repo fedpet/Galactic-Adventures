@@ -46,4 +46,6 @@ public interface EntityBody extends EntityComponent {
      *            The factor.
      */
     void setGravityScale(double scale);
+
+    boolean isOnGround();
 }

@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
 import javafx.geometry.Dimension2D;
@@ -15,10 +16,17 @@ import javafx.geometry.Point2D;
 /* package-private */ class B2DBodyFacade extends AbstractEntityComponent implements B2DEntityBody {
     private final Body body;
     private final Dimension2D boundingBoxDimension;
+    private static final float FEET_SENSOR_HEIGHT = B2DUtils.EXTRA_SKIN_THICKNESS;
+    private final Fixture feetSensor;
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension) {
         this.body = Objects.requireNonNull(body);
         boundingBoxDimension = Objects.requireNonNull(dimension);
+        feetSensor = new B2DFixtureBuilder()
+                .isSensor(true)
+                .rectangular(new Dimension2D(getDimension().getWidth(), FEET_SENSOR_HEIGHT))
+                .position(new Point2D(0, -getDimension().getHeight() / 2 + FEET_SENSOR_HEIGHT / 2))
+                .buildOn(body);
     }
 
     @Override
@@ -62,6 +70,17 @@ import javafx.geometry.Point2D;
     @Override
     public void setGravityScale(final double scale) {
         body.setGravityScale((float) scale);
+    }
+
+    @Override
+    public boolean isOnGround() {
+        return B2DUtils.stream(getB2DBody().getContactList())
+                .filter(c -> c.contact.isEnabled())
+                .filter(c -> c.contact.isTouching())
+                .filter(c -> B2DUtils.contains(c, feetSensor)
+                        || c.contact.getManifold().localPoint.y >= getDimension().getHeight())
+                .findAny()
+                .isPresent();
     }
 
 }

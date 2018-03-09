@@ -1,30 +1,16 @@
 package it.unibo.oop17.ga_game.model;
 
-import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
-import javafx.geometry.Side;
 
-public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
+public class PlayerBrain extends AbstractEntityComponent implements Brain {
 
     private Point2D desiredMovement = Point2D.ZERO;
-    private static final float WALK_SPEED = 5f;
-    private static final float JUMP_SPEED = 0f;
+    private static final float WALK_SPEED = 10f;
+    private static final float JUMP_SPEED = 20f;
 
     @Override
     public void beginContact(EntityBody other) {
-
-        /*
-         * in teoria dovrebbe cambiare direzione se il rettangolo di other contiene:
-         * un punto leggermente distante dal vertice più in basso a destra dell'owner
-         * un punto leggermente distante dal vertice più in basso a sinistra dell'owner
-         */
-
-        if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.LEFT)) {
-            execute(Command.MOVE_RIGHT);
-        } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.RIGHT)) {
-            execute(Command.MOVE_LEFT);
-        }
 
     }
 
@@ -39,6 +25,10 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
             move(HorizontalDirection.LEFT);
         } else if (command.equals(Command.MOVE_RIGHT)) {
             move(HorizontalDirection.RIGHT);
+        } else if (command.equals(Command.JUMP)) {
+            jump();
+        } else if (command.equals(Command.STOP_MOVING)) {
+            stopWalking();
         }
     }
 
@@ -61,6 +51,7 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
 
     }
 
+    @Override
     public HorizontalDirection getMovingDirection() {
         if (desiredMovement.getX() < 0) {
             return HorizontalDirection.LEFT;
@@ -71,6 +62,16 @@ public class BasicEnemyBrain extends AbstractEntityComponent implements Brain {
     private void move(final HorizontalDirection direction) {
         desiredMovement = new Point2D(direction == HorizontalDirection.RIGHT ? getWalkSpeed() : -getWalkSpeed(),
                 desiredMovement.getY());
+    }
+
+    private void stopWalking() {
+        desiredMovement = new Point2D(0, desiredMovement.getY());
+    }
+
+    private void jump() {
+        if (getEntity().getBody().isOnGround()) {
+            desiredMovement = new Point2D(desiredMovement.getX(), getJumpSpeed());
+        }
     }
 
     protected float getJumpSpeed() {

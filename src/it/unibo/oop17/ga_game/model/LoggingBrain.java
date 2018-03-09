@@ -17,4 +17,22 @@ public final class LoggingBrain extends AbstractEntityComponent implements Brain
         System.out.println(getEntity().getBody().getPosition() + ": End contact with " + other.getPosition());
     }
 
+    @Override
+    public void execute(Command command) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void update(double dt) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Object getMovingDirection() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
