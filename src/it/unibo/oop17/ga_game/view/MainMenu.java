@@ -10,7 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.KeyCode;
@@ -28,9 +29,10 @@ public class MainMenu {
         final Volume vol = Volume.LOW;
         final double volume = vol.getVolume();
         
-        final AudioClip menuTheme = Music.TRACK1.getMusic();
-        menuTheme.setCycleCount(AudioClip.INDEFINITE);
-        menuTheme.play(volume);
+        final Media mainMusic = new Media(Music.TRACK1.getMusic());
+        final MediaPlayer mediaPlayer = new MediaPlayer(mainMusic);
+        mediaPlayer.setVolume(volume);
+        mediaPlayer.play();
 
         final InputStream is = Files.newInputStream(Paths.get(new RandomBackground().getBackgroundPath()));
         final Image img = new Image(is);

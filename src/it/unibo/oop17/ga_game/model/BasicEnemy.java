@@ -8,29 +8,29 @@ import javafx.geometry.Point2D;
  * Models an enemy that switches moving direction when collides against an
  * obstacle.
  */
-public final class BasicEnemy extends WalkingEntity {
-	public static final Dimension2D SIZE = new Dimension2D(0.4, 0.8);
-	private static final float WALK_SPEED = 8f;
-	private static final float JUMP_SPEED = 0f;
+public final class BasicEnemy extends AbstractEntity {
+    public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
 
-	/**
-	 * 
-	 * @param world
-	 *            The world in which to spawn the player.
-	 * @param position
-	 *            The position
-	 */
-	public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createGroundCreature(position, SIZE), Brain.EMPTY);
-	}
+    /**
+     * 
+     * @param world
+     *            The world in which to spawn the player.
+     * @param position
+     *            The position
+     */
+    public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
+        super(engine.bodyFactory().createCreature(position, SIZE, 1), new BasicEnemyBrain());
+        getBrain().execute(Command.MOVE_RIGHT);
+    }
 
-	@Override
-	protected float getJumpSpeed() {
-		return JUMP_SPEED;
-	}
+    @Override
+    public String toString() {
+        return "Basic enemy";
+    }
 
-	@Override
-	protected float getWalkSpeed() {
-		return WALK_SPEED;
-	}
+    @Override
+    public void update(double dt) {
+        getBrain().update(dt);
+
+    }
 }

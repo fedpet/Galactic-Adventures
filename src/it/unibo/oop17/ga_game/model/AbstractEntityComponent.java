@@ -10,6 +10,18 @@ public abstract class AbstractEntityComponent implements EntityComponent {
         return owner;
     }
 
+    /**
+     * Convenience method to avoid the optional.
+     * 
+     * @return The {@link Entity}
+     * 
+     * @throws IllegalStateException
+     *             is the component is not attached to an Entity
+     */
+    protected final Entity getEntity() {
+        return owner.orElseThrow(IllegalStateException::new);
+    }
+
     @Override
     public final void attach(final Entity owner) throws IllegalStateException {
         this.owner.ifPresent(e -> {

@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model.physics;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import org.jbox2d.collision.AABB;
@@ -139,12 +140,39 @@ import javafx.geometry.Point2D;
             private Fixture list = fixtureList;
             @Override
             public boolean hasNext() {
-                return list == null;
+                return list != null;
             }
             @Override
             public Fixture next() {
                 final Fixture next = list;
                 list = list.getNext();
+                return next;
+            }
+        });
+    }
+
+    /**
+     * 
+     * @param contactEdgeList
+     *            The ContactEdge
+     * @return The corresponding Stream
+     */
+    public static Stream<ContactEdge> stream(final ContactEdge contactEdgeList) {
+        return Streams.stream(new Iterator<ContactEdge>() {
+            private ContactEdge list = contactEdgeList;
+
+            @Override
+            public boolean hasNext() {
+                return list != null;
+            }
+
+            @Override
+            public ContactEdge next() {
+                final ContactEdge next = list;
+                if (next == null) {
+                    throw new NoSuchElementException();
+                }
+                list = list.next;
                 return next;
             }
         });

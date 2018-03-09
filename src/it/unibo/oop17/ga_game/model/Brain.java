@@ -35,5 +35,28 @@ public interface Brain extends EntityComponent, CollisionListener {
             // TODO Auto-generated method stub
             return Optional.empty();
         }
+
+        @Override
+        public void execute(Command command) {
+            // does nothing
+
+        }
+
+        @Override
+        public void update(double dt) {
+            // does nothing
+
+        }
+
+        @Override
+        public Object getMovingDirection() {
+            return null;
+        }
     };
+
+    void execute(Command command);
+
+    void update(double dt);
+
+    Object getMovingDirection();
 }

@@ -1,35 +1,23 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.BasicEnemy;
+import it.unibo.oop17.ga_game.view.BasicEnemyView;
 import javafx.geometry.HorizontalDirection;
-import javafx.scene.Scene;
 
 public class BasicEnemyController {
-	private boolean movingLeft;
-	private boolean movingRight;
+    private final BasicEnemy enemy;
+    private final BasicEnemyView enemyView;
 
-	public BasicEnemyController(final Scene scene, final BasicEnemy enemy) {
+    public BasicEnemyController(final BasicEnemy enemy, final BasicEnemyView enemyView) {
+        this.enemy = enemy;
+        this.enemyView = enemyView;
+    }
 
-		movingLeft = false;
-
-		movingRight = true;
-
-		enemy.move(HorizontalDirection.RIGHT);
-	}
-
-	public void updateMovingDirection(final BasicEnemy enemy) {
-
-		if (movingLeft && !movingRight) {
-			movingLeft = false;
-
-			movingRight = true;
-			enemy.move(HorizontalDirection.RIGHT);
-		} else if (!movingLeft && movingRight) {
-			movingLeft = true;
-
-			movingRight = false;
-			enemy.move(HorizontalDirection.LEFT);
-		}
-
-	}
+    public void updateView() {
+        if (this.enemy.getBrain().getMovingDirection().equals(HorizontalDirection.LEFT)) {
+            this.enemyView.setScaleX(Math.abs(this.enemyView.getScaleX()));
+        } else {
+            this.enemyView.setScaleX(-Math.abs(this.enemyView.getScaleX()));
+        }
+    }
 }

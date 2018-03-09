@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.view;
 
+
+import it.unibo.oop17.ga_game.controller.Main;
+import it.unibo.oop17.ga_game.model.ResetSave;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -24,12 +27,17 @@ public class GameMenu extends Parent {
         
         final MenuButton btnNuovaPartita = new MenuButton("   NUOVA PARTITA");
         btnNuovaPartita.setOnMouseClicked(event -> {
-            
+            // RICORDATI DI MODIFICARLO
+            new ResetSave().reset();
+            final String[] args = {};
+            Main.main(args);
         });
 
         final MenuButton btnContinua = new MenuButton("   CONTINUA");
         btnContinua.setOnMouseClicked(event -> {
-            
+            // RICORDATI DI MODIFICARLO
+            final String[] args = {};
+            Main.main(args);
         });
 
         final MenuButton btnOpzioni = new MenuButton("   OPZIONI");
@@ -75,7 +83,7 @@ public class GameMenu extends Parent {
 
         final MenuButton btnVolume = new MenuButton("   VOLUME");
         final MenuButton btnLingua = new MenuButton("   LINGUA");
-        final MenuButton btnDiff = new MenuButton("   DIFFICOLT�");
+        final MenuButton btnDiff = new MenuButton("   DIFFICOLTA'");
 
         menu0.getChildren().addAll(btnContinua, btnNuovaPartita, btnOpzioni, btnEsci);
         menu1.getChildren().addAll(btnIndietro, btnVolume, btnLingua, btnDiff);
