@@ -14,9 +14,11 @@ import javafx.geometry.Point2D;
  * Facade class used to hide Box2D details and simplify use of its API.
  */
 /* package-private */ class B2DBodyFacade extends AbstractEntityComponent implements B2DEntityBody {
+    private static final float FEET_SENSOR_HEIGHT = B2DUtils.EXTRA_SKIN_THICKNESS;
+    private static final double FEET_SENSOR_WIDTH_RATIO = 0.9; // relative to body's height. It's less than 1 so
+                                                               // Entities won't climb walls thinking they're on ground
     private final Body body;
     private final Dimension2D boundingBoxDimension;
-    private static final float FEET_SENSOR_HEIGHT = B2DUtils.EXTRA_SKIN_THICKNESS;
     private final Fixture feetSensor;
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension) {
@@ -24,7 +26,7 @@ import javafx.geometry.Point2D;
         boundingBoxDimension = Objects.requireNonNull(dimension);
         feetSensor = new B2DFixtureBuilder()
                 .isSensor(true)
-                .rectangular(new Dimension2D(getDimension().getWidth(), FEET_SENSOR_HEIGHT))
+                .rectangular(new Dimension2D(getDimension().getWidth() * FEET_SENSOR_WIDTH_RATIO, FEET_SENSOR_HEIGHT))
                 .position(new Point2D(0, -getDimension().getHeight() / 2 + FEET_SENSOR_HEIGHT / 2))
                 .buildOn(body);
     }
