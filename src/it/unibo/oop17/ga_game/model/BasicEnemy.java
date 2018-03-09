@@ -10,8 +10,6 @@ import javafx.geometry.Point2D;
  */
 public final class BasicEnemy extends AbstractEntity {
     public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
-    private static final float WALK_SPEED = 5f;
-    private static final float JUMP_SPEED = 0f;
 
     /**
      * 
