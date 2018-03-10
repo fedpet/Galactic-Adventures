@@ -5,22 +5,29 @@ package it.unibo.oop17.ga_game.model;
  */
 public interface Entity {
     /**
-     * @return the Entity's Body
+     * @return the @EntityBody
      */
     EntityBody getBody();
 
     /**
-     * The Brain controls the Entity's movement.
+     * The Brain controls the Entity.
      * 
-     * @return The entity's {@link Brain}
+     * @return The entity's @Brain
      */
     Brain getBrain();
+
+    /**
+     * Manages the entity's movement.
+     * 
+     * @return The entity's @MovementComponent
+     */
+    MovementComponent getMovement();
 
     /**
      * Used to synchronize the entities.
      * 
      * @param dt
-     *            The time delta since the last call
+     *            The time delta (in seconds) since the last call
      */
     void update(double dt);
 }

@@ -13,7 +13,7 @@ public class FlyingEnemy extends AbstractEntity implements Entity {
     private Side dir = Side.BOTTOM;
 
     public FlyingEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createCreature(position, SIZE), new FlyingEnemyBrain());
+        super(engine.bodyFactory().createCreature(position, SIZE), new FlyingEnemyBrain(), new PropellerComponent(10));
         getBody().setGravityScale(0);
     }
 

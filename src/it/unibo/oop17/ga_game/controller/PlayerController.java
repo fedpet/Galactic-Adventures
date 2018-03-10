@@ -1,52 +1,29 @@
 package it.unibo.oop17.ga_game.controller;
 
+import static javafx.scene.input.KeyCode.A;
+import static javafx.scene.input.KeyCode.D;
+import static javafx.scene.input.KeyCode.W;
+
 import it.unibo.oop17.ga_game.model.Player;
-import javafx.geometry.HorizontalDirection;
-import javafx.scene.Scene;
+import javafx.geometry.Point2D;
 
 public class PlayerController {
-    private boolean movingLeft;
-    private boolean movingRight;
 
-    public PlayerController(final Scene scene, final Player player) {
-        scene.setOnKeyPressed(e -> {
-            switch (e.getCode()) {
-            case W:
-                player.jump();
-                break;
-            case A:
-                movingLeft = true;
-                break;
-            case D:
-                movingRight = true;
-                break;
-            default:
-                break;
-            }
-            updateMovingDirection(player);
-        });
-        scene.setOnKeyReleased(e -> {
-            switch (e.getCode()) {
-            case A:
-                movingLeft = false;
-                break;
-            case D:
-                movingRight = false;
-                break;
-            default:
-                break;
-            }
-            updateMovingDirection(player);
-        });
+    public PlayerController(final KeyboardInputController keyboard, final Player player) {
+        keyboard.onEvent(e -> updateMovingDirection(keyboard, player));
     }
 
-    private void updateMovingDirection(final Player player) {
-        if (movingLeft && movingRight || !movingLeft && !movingRight) {
-            player.stopWalking();
-        } else if (movingRight) {
-            player.move(HorizontalDirection.RIGHT);
-        } else if (movingLeft) {
-            player.move(HorizontalDirection.LEFT);
+    private void updateMovingDirection(final KeyboardInputController keyboard, final Player player) {
+        Point2D movement = Point2D.ZERO;
+        if (keyboard.isPressed(D)) {
+            movement = movement.add(1, 0);
         }
+        if (keyboard.isPressed(A)) {
+            movement = movement.add(-1, 0);
+        }
+        if (keyboard.isPressed(W)) {
+            movement = movement.add(0, 1);
+        }
+        player.getMovement().move(movement);
     }
 }
