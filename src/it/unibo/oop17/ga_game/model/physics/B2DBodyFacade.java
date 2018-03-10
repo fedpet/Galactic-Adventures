@@ -64,4 +64,14 @@ import javafx.geometry.Point2D;
         body.setGravityScale((float) scale);
     }
 
+    @Override
+    public boolean isOnGround() {
+        return B2DUtils.stream(getB2DBody().getContactList())
+                .filter(c -> c.contact.isEnabled())
+                .filter(c -> c.contact.isTouching())
+                .filter(c -> c.contact.getManifold().localPoint.y <= -getDimension().getHeight() / 2)
+                .findAny()
+                .isPresent();
+    }
+
 }

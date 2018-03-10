@@ -22,7 +22,7 @@ public final class BasicEnemy extends WalkingEntity {
      *            The position
      */
     public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createGroundCreature(position, SIZE), new BasicEnemyBrain());
+        super(engine.bodyFactory().createCreature(position, SIZE), new BasicEnemyBrain());
         move(HorizontalDirection.RIGHT);
     }
 

@@ -5,7 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
-public class FlyingEnemy extends AbstractEntity<EntityBody, Brain> implements Entity {
+public class FlyingEnemy extends AbstractEntity implements Entity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final float SPEED = 7f;
     private Point2D desiredMovement = Point2D.ZERO;
@@ -13,12 +13,12 @@ public class FlyingEnemy extends AbstractEntity<EntityBody, Brain> implements En
     private Side dir = Side.BOTTOM;
 
     public FlyingEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createFlyingCreature(position, SIZE), new FlyingEnemyBrain());
+        super(engine.bodyFactory().createCreature(position, SIZE), new FlyingEnemyBrain());
         getBody().setGravityScale(0);
     }
 
     @Override
-    public void update(double dt) {
+    public void update(final double dt) {
         // TODO Auto-generated method stub
         final Point2D movement = desiredMovement.subtract(getBody().getLinearVelocity());
 

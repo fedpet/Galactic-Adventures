@@ -7,7 +7,7 @@ import javafx.geometry.Point2D;
  * Basic entity capable of walking and jumping.
  * TODO: refactor this class
  */
-public abstract class WalkingEntity extends AbstractEntity<GroundEntityBody, Brain> implements Entity {
+public abstract class WalkingEntity extends AbstractEntity implements Entity {
     private Point2D desiredMovement = Point2D.ZERO;
 
     /**
@@ -17,7 +17,7 @@ public abstract class WalkingEntity extends AbstractEntity<GroundEntityBody, Bra
      * @param rect
      *            The shape of its Body
      */
-    public WalkingEntity(final GroundEntityBody body, final Brain brain) {
+    public WalkingEntity(final EntityBody body, final Brain brain) {
         super(body, brain);
     }
 

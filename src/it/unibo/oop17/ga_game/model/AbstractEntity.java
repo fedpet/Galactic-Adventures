@@ -11,11 +11,11 @@ package it.unibo.oop17.ga_game.model;
  * in modo da usare "Composition over inheritance" ed eliminare la WalkingEntity
  * 
  */
-public abstract class AbstractEntity<B extends EntityBody, C extends Brain> implements Entity {
-    private final B body;
-    private final C brain;
+public abstract class AbstractEntity implements Entity {
+    private final EntityBody body;
+    private final Brain brain;
 
-    public AbstractEntity(final B body, final C brain) {
+    public AbstractEntity(final EntityBody body, final Brain brain) {
         this.body = body;
         this.brain = brain;
         body.attach(this);
@@ -23,12 +23,12 @@ public abstract class AbstractEntity<B extends EntityBody, C extends Brain> impl
     }
 
     @Override
-    public final B getBody() {
+    public final EntityBody getBody() {
         return body;
     }
 
     @Override
-    public final C getBrain() {
+    public final Brain getBrain() {
         return brain;
     }
 
