@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
 import javafx.geometry.Dimension2D;
