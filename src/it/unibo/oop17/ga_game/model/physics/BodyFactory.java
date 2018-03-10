@@ -17,8 +17,6 @@ public interface BodyFactory {
      *            Position (relative to the body's center)
      * @param size
      *            Width and height
-     * @param density
-     *            Density
      * @return @EntityBody
      */
     EntityBody createCreature(Point2D position, Dimension2D size);
@@ -32,7 +30,7 @@ public interface BodyFactory {
      *            Width and height of a single cell
      * @param collisionGrid
      *            The @CollisionGrid
-     * @return List of {@link EntityBody}
+     * @return List of @EntityBody
      */
     List<EntityBody> createTerrainFromGrid(Point2D topLeft, Dimension2D cellSize, CollisionGrid collisionGrid);
 }
