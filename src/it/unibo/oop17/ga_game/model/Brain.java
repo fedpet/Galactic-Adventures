@@ -37,26 +37,11 @@ public interface Brain extends EntityComponent, CollisionListener {
         }
 
         @Override
-        public void execute(Command command) {
+        public void update(final double dt) {
             // does nothing
 
-        }
-
-        @Override
-        public void update(double dt) {
-            // does nothing
-
-        }
-
-        @Override
-        public Object getMovingDirection() {
-            return null;
         }
     };
 
-    void execute(Command command);
-
     void update(double dt);
-
-    Object getMovingDirection();
 }

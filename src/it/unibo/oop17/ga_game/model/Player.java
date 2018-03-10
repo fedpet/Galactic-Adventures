@@ -7,8 +7,10 @@ import javafx.geometry.Point2D;
 /**
  * Models our player.
  */
-public final class Player extends AbstractEntity {
+public final class Player extends WalkingEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
+    private static final float WALK_SPEED = 10f;
+    private static final float JUMP_SPEED = 20f;
 
     /**
      * 
@@ -18,17 +20,22 @@ public final class Player extends AbstractEntity {
      *            The position
      */
     public Player(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createCreature(position, SIZE, 1), new PlayerBrain());
+        super(engine.bodyFactory().createCreature(position, SIZE), Brain.EMPTY);
+    }
+
+    @Override
+    protected float getJumpSpeed() {
+        return JUMP_SPEED;
+    }
+
+    @Override
+    protected float getWalkSpeed() {
+        return WALK_SPEED;
     }
 
     @Override
     public String toString() {
         return "Player";
-    }
-
-    @Override
-    public void update(double dt) {
-        getBrain().update(dt);
     }
 
 }

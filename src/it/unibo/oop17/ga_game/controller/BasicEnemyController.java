@@ -14,7 +14,7 @@ public class BasicEnemyController {
     }
 
     public void updateView() {
-        if (this.enemy.getBrain().getMovingDirection().equals(HorizontalDirection.LEFT)) {
+        if (this.enemy.getMovingDirection().equals(HorizontalDirection.LEFT)) {
             this.enemyView.setScaleX(Math.abs(this.enemyView.getScaleX()));
         } else {
             this.enemyView.setScaleX(-Math.abs(this.enemyView.getScaleX()));

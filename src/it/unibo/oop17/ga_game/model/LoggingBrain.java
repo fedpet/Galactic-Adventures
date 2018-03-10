@@ -18,21 +18,9 @@ public final class LoggingBrain extends AbstractEntityComponent implements Brain
     }
 
     @Override
-    public void execute(Command command) {
+    public void update(final double dt) {
         // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public void update(double dt) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Object getMovingDirection() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

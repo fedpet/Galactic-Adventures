@@ -12,30 +12,30 @@ public class FlyingEnemyBrain extends AbstractEntityComponent implements Brain {
     private Side dir = Side.BOTTOM;
 
     @Override
-    public void beginContact(EntityBody other) {
+    public void beginContact(final EntityBody other) {
 
         /*
          * in fase di movimento, in caso di collisione dovrebbe invertire direzione
          */
 
             if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.LEFT)) {
-            execute(Command.MOVE_RIGHT);
+            move(Side.RIGHT);
             } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.RIGHT)) {
-            execute(Command.MOVE_LEFT);
+            move(Side.LEFT);
             } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.TOP)) {
-            execute(Command.MOVE_DOWN);
+            move(Side.BOTTOM);
             } else if (PositionCompare.contact(getEntity().getBody(), other).equals(Side.BOTTOM)) {
-            execute(Command.MOVE_UP);
+            move(Side.TOP);
         }
     }
 
     @Override
-    public void endContact(EntityBody other) {
+    public void endContact(final EntityBody other) {
 
     }
 
     @Override
-    public void update(double dt) {
+    public void update(final double dt) {
         // TODO Auto-generated method stub
         final Point2D movement = desiredMovement.subtract(getEntity().getBody().getLinearVelocity());
 
@@ -77,19 +77,6 @@ public class FlyingEnemyBrain extends AbstractEntityComponent implements Brain {
 
     protected float getSpeed() {
         return SPEED;
-    }
-
-    @Override
-    public void execute(Command command) {
-        if (command.equals(Command.MOVE_RIGHT)) {
-            move(Side.RIGHT);
-        } else if (command.equals(Command.MOVE_LEFT)) {
-            move(Side.LEFT);
-        } else if (command.equals(Command.MOVE_UP)) {
-            move(Side.TOP);
-        } else if (command.equals(Command.MOVE_DOWN)) {
-            move(Side.BOTTOM);
-        }
     }
 
 }

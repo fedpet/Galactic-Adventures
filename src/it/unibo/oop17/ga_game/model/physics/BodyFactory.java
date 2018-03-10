@@ -19,9 +19,9 @@ public interface BodyFactory {
      *            Width and height
      * @param density
      *            Density
-     * @return {@link GroundEntityBody}
+     * @return @EntityBody
      */
-    EntityBody createCreature(Point2D position, Dimension2D size, float density);
+    EntityBody createCreature(Point2D position, Dimension2D size);
 
     /**
      * Terrain bodies are not subject to forces and won't move.

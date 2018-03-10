@@ -46,6 +46,10 @@ public interface EntityBody extends EntityComponent {
      *            The factor.
      */
     void setGravityScale(double scale);
-
+    
+    /**
+     * 
+     * @return true if the body's bottom part is touching a solid body.
+     */
     boolean isOnGround();
 }

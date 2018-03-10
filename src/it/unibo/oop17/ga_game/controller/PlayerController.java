@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.model.Command;
 import it.unibo.oop17.ga_game.model.Player;
+import javafx.geometry.HorizontalDirection;
 import javafx.scene.Scene;
 
 public class PlayerController {
@@ -12,7 +12,7 @@ public class PlayerController {
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
             case W:
-                player.getBrain().execute(Command.JUMP);
+                player.jump();
                 break;
             case A:
                 movingLeft = true;
@@ -42,11 +42,11 @@ public class PlayerController {
 
     private void updateMovingDirection(final Player player) {
         if (movingLeft && movingRight || !movingLeft && !movingRight) {
-            player.getBrain().execute(Command.STOP_MOVING);
+            player.stopWalking();
         } else if (movingRight) {
-            player.getBrain().execute(Command.MOVE_RIGHT);
+            player.move(HorizontalDirection.RIGHT);
         } else if (movingLeft) {
-            player.getBrain().execute(Command.MOVE_LEFT);
+            player.move(HorizontalDirection.LEFT);
         }
     }
 }

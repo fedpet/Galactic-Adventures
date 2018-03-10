@@ -22,16 +22,15 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public EntityBody createCreature(final Point2D position, final Dimension2D size, float density) {
+    public EntityBody createCreature(final Point2D position, final Dimension2D size) {
         final Body body = new B2DBodyBuilder(engine)
                 .position(position)
                 .type(BodyType.DYNAMIC)
                 .build();
         final Fixture fixture = new B2DFixtureBuilder()
-                .density(density)
                 .rectangular(size)
                 .buildOn(body);
-        final B2DBodyFacade entity = new B2DBodyFacade(body, size);
+        final B2DEntityBody entity = new B2DBodyFacade(body, size);
         connectListener(entity, fixture);
         return entity;
     }
