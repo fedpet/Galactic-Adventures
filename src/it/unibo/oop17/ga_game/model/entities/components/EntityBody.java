@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import java.util.stream.Stream;
+
+import it.unibo.oop17.ga_game.model.physics.BodyContact;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -46,10 +49,11 @@ public interface EntityBody extends EntityComponent {
      *            The factor.
      */
     void setGravityScale(double scale);
-    
+
     /**
+     * Gets the list of @EntityBody colliding with this one.
      * 
-     * @return true if the body's bottom part is touching a solid body.
+     * @return a Stream of @BodyContact
      */
-    boolean isOnGround();
+    Stream<BodyContact> getContacts();
 }

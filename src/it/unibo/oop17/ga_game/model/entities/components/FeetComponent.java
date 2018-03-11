@@ -15,21 +15,12 @@ public class FeetComponent extends AbstractMovementComponent {
     @Override
     public void update(final double dt) {
         Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
-        if (!getEntity().getBody().isOnGround()) {
-            movement = new Point2D(movement.getX(), 0); // no jump if in air
+        if (!canJump()) {
+            movement = new Point2D(movement.getX(), 0);
+            // no jump if in air
+            // but we can still move a little
             movement = movement.multiply(AIR_FRICTION_FACTOR);
         }
-
-        /*
-         * if (desiredMovement.getY() != 0) {
-         * // we jump only once
-         * desiredMovement = new Point2D(desiredMovement.getX(), 0);
-         * } else {
-         * movement = new Point2D(movement.getX(), 0);
-         * }
-         */
-
-        // movement = movement.multiply(dt);
 
         if (!movement.equals(Point2D.ZERO)) {
             getEntity().getBody().applyImpulse(movement);
@@ -47,5 +38,16 @@ public class FeetComponent extends AbstractMovementComponent {
     public State getState() {
         return getDesiredMovement().getY() > 0 ? State.JUMPING
                 : getDesiredMovement().getX() > 0 ? State.WALKING : State.IDLE;
+    }
+
+    /**
+     * 
+     * @return true if the owner's @EntityBody is on another one.
+     */
+    public boolean canJump() {
+        return getEntity().getBody().getContacts()
+                .filter(c -> c.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2)
+                .findAny()
+                .isPresent();
     }
 }

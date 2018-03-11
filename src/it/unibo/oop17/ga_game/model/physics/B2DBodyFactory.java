@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Fixture;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
@@ -27,11 +26,11 @@ import javafx.geometry.Point2D;
                 .position(position)
                 .type(BodyType.DYNAMIC)
                 .build();
-        final Fixture fixture = new B2DFixtureBuilder()
+        new B2DFixtureBuilder()
                 .rectangular(size)
                 .buildOn(body);
-        final B2DEntityBody entity = new B2DBodyFacade(body, size);
-        connectListener(entity, fixture);
+        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
+        connectListener(entity, body);
         return entity;
     }
 
@@ -41,11 +40,11 @@ import javafx.geometry.Point2D;
                 .position(position)
                 .type(BodyType.KINEMATIC)
                 .build();
-        final Fixture fixture = new B2DFixtureBuilder()
+        new B2DFixtureBuilder()
                 .rectangular(size)
                 .buildOn(body);
-        final B2DEntityBody entity = new B2DBodyFacade(body, size);
-        connectListener(entity, fixture);
+        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
+        connectListener(entity, body);
         return entity;
     }
 
@@ -62,19 +61,19 @@ import javafx.geometry.Point2D;
                 .position(position)
                 .type(BodyType.STATIC)
                 .build();
-        final Fixture fixture = new B2DFixtureBuilder()
+        new B2DFixtureBuilder()
                 .density(1)
                 .friction(0)
                 .rectangular(size)
                 .buildOn(body);
 
-        final B2DEntityBody entity = new B2DBodyFacade(body, size);
-        connectListener(entity, fixture);
+        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
+        connectListener(entity, body);
         return entity;
     }
 
-    private void connectListener(final B2DEntityBody body, final Fixture fixture) {
-        engine.setCollisionListener(fixture, body);
+    private void connectListener(final B2DEntityBody body, final Body b2Body) {
+        engine.map(b2Body, body);
     }
 
 }

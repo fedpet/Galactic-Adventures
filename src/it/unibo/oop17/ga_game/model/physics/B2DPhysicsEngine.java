@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.function.BiConsumer;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
-import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -21,7 +22,7 @@ import javafx.geometry.Point2D;
 public final class B2DPhysicsEngine implements PhysicsEngine {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
-    private final Map<Fixture, B2DEntityBody> collisionMap = new HashMap<>();
+    private final Map<Body, B2DEntityBody> collisionMap = new HashMap<>();
 
     private final World world;
 
@@ -73,8 +74,8 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
 
         private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
             if (contact.isEnabled()) {
-                final B2DEntityBody first = collisionMap.get(contact.getFixtureA());
-                final B2DEntityBody second = collisionMap.get(contact.getFixtureB());
+                final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
+                final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
 
                 if (first != null && second != null) {
                     dispatchCollisionEvent(first, handler, second);
@@ -104,15 +105,22 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
     }
 
     /**
-     * For internal use only.
-     * Maps a Fixture to a {@link B2DEntityBody}
+     * Maps a Box2D's Body to a @B2DEntityBody.
      * 
-     * @param fixture
-     *            the Fixture
+     * @param b2Body
+     *            the body
      * @param body
-     *            the {@link B2DEntityBody}
+     *            the @B2DEntityBody
      */
-    public void setCollisionListener(final Fixture fixture, final B2DEntityBody body) {
-        collisionMap.put(Objects.requireNonNull(fixture), Objects.requireNonNull(body));
+    public void map(final Body b2Body, final B2DEntityBody body) {
+        collisionMap.put(Objects.requireNonNull(b2Body), Objects.requireNonNull(body));
+    }
+
+    /**
+     * 
+     * @return the map of bodies.
+     */
+    public Map<Body, B2DEntityBody> getBodiesMap() {
+        return Collections.unmodifiableMap(collisionMap);
     }
 }
