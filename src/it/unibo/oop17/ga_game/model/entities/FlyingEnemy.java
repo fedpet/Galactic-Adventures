@@ -6,7 +6,7 @@ import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
-public class FlyingEnemy extends AbstractEntity implements Entity {
+public class FlyingEnemy extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
 
     /**
