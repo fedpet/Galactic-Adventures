@@ -10,18 +10,18 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 public interface EntityComponent {
 
     /**
-     * Attaches the component to an {@link Entity}.
+     * Attaches the component to an @Entity.
      * 
      * @param owner
-     *            The {@link Entity}
+     *            The @Entity
      * @throws IllegalStateException
-     *             Transplantating bodies is not supported
+     *             Transplantating components is not supported
      */
     void attach(Entity owner) throws IllegalStateException;
 
     /**
      * 
-     * @return The {@link Entity} to which its attached to.
+     * @return The @Entity to which its attached to.
      */
     Optional<Entity> getOwner();
 }
