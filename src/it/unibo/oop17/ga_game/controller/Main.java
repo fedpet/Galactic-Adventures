@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.Arrays;
 
 import org.mapeditor.core.Map;
@@ -7,10 +9,11 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
+import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.MovingPlatform;
 import it.unibo.oop17.ga_game.model.Player;
-import it.unibo.oop17.ga_game.model.RepeatingSequence;
+import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.ViewUtils;
@@ -58,9 +61,14 @@ public class Main extends Application {
         final Player player = new Player(physics, new Point2D(4, -4));
         final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
         final MovingPlatform platform = new MovingPlatform(physics, new Point2D(4, -10), new Dimension2D(4, 1),
-                RepeatingSequence.backAndForth(Arrays.asList(new Point2D(4, -5), new Point2D(4, -25))));
+                InfiniteSequence.backAndForth(Arrays.asList(new Point2D(4, -5), new Point2D(4, -25))));
+
+        final Shape shape = new Ellipse2D.Double(8, -22, 5, 5);
+        final InfiniteSequence<Point2D> circlePattern = InfiniteSequence
+                .repeat(() -> new ShapePerimeterIterator(shape));
         final MovingPlatform platform2 = new MovingPlatform(physics, new Point2D(4, -26), new Dimension2D(4, 1),
-                RepeatingSequence.backAndForth(Arrays.asList(new Point2D(4, -26), new Point2D(25, -26))));
+                circlePattern);
+
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         // final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));

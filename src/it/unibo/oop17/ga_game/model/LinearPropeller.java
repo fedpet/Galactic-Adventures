@@ -6,7 +6,9 @@ package it.unibo.oop17.ga_game.model;
 public final class LinearPropeller extends PropellerComponent {
 
     /**
-     * {@inheritDoc}.
+     * 
+     * @param speed
+     *            The speed of the propeller.
      */
     public LinearPropeller(final double speed) {
         super(speed);
