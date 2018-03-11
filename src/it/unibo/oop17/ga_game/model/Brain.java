@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.model;
 
-import java.util.Optional;
-
 import it.unibo.oop17.ga_game.model.physics.CollisionListener;
 
 /**
@@ -10,9 +8,22 @@ import it.unibo.oop17.ga_game.model.physics.CollisionListener;
 public interface Brain extends EntityComponent, CollisionListener {
 
     /**
+     * To make the brain think.
+     * 
+     * @param dt
+     *            Time delta in seconds since the last call
+     */
+    void update(double dt);
+
+    /**
      * An EMPTY Brain does nothing.
      */
-    Brain EMPTY = new Brain() {
+    Brain EMPTY = new AbstractBrain() {
+        @Override
+        public void update(final double dt) {
+            // does nothing
+        }
+
         @Override
         public void beginContact(final EntityBody other) {
             // does nothing
@@ -22,26 +33,5 @@ public interface Brain extends EntityComponent, CollisionListener {
         public void endContact(final EntityBody other) {
             // does nothing
         }
-
-        @Override
-        public void attach(final Entity owner) throws IllegalStateException {
-            // TODO Auto-generated method stub
-
-        }
-
-        // TODO: metti a posto
-        @Override
-        public Optional<Entity> getOwner() {
-            // TODO Auto-generated method stub
-            return Optional.empty();
-        }
-
-        @Override
-        public void update(final double dt) {
-            // does nothing
-
-        }
     };
-
-    void update(double dt);
 }

@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.model.physics;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
 import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
@@ -66,12 +67,18 @@ import javafx.geometry.Point2D;
 
     @Override
     public boolean isOnGround() {
-        return B2DUtils.stream(getB2DBody().getContactList())
+        final boolean is = B2DUtils.stream(getB2DBody().getContactList())
                 .filter(c -> c.contact.isEnabled())
                 .filter(c -> c.contact.isTouching())
                 .filter(c -> c.contact.getManifold().localPoint.y <= -getDimension().getHeight() / 2)
                 .findAny()
                 .isPresent();
+
+        // TODO: sistema hack per piattaforme
+        if (is && body.getLinearVelocity().y <= 0) {
+            body.applyLinearImpulse(new Vec2(0, -1), body.getWorldCenter(), true);
+        }
+        return is;
     }
 
 }

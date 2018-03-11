@@ -22,6 +22,16 @@ public interface BodyFactory {
     EntityBody createCreature(Point2D position, Dimension2D size);
 
     /**
+     * 
+     * @param position
+     *            Position (relative to the body's center)
+     * @param size
+     *            Width and height
+     * @return @EntityBody
+     */
+    EntityBody createMovingPlatform(Point2D position, Dimension2D size);
+
+    /**
      * Terrain bodies are not subject to forces and won't move.
      * 
      * @param topLeft

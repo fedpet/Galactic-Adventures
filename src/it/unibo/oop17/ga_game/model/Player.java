@@ -10,7 +10,7 @@ import javafx.geometry.Point2D;
 public final class Player extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double WALK_SPEED = 10;
-    private static final double JUMP_SPEED = 20;
+    private static final double JUMP_SPEED = 22;
 
     /**
      * 

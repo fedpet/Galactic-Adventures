@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model;
 import javafx.geometry.Point2D;
 
 public class PropellerComponent extends AbstractMovementComponent {
-    private static final double MIN_THRESHOLD = 0.1;
+    private static final double MIN_THRESHOLD = 0.01;
     private final double speed;
 
     public PropellerComponent(final double speed) {
@@ -15,7 +15,7 @@ public class PropellerComponent extends AbstractMovementComponent {
         if (direction.equals(Point2D.ZERO)) {
             setDesiredMovement(Point2D.ZERO);
         } else {
-            final double r = Math.toRadians(new Point2D(1, 0).angle(direction));
+            final double r = radians(direction);
             setDesiredMovement(new Point2D(speed * Math.cos(r), speed * Math.sin(r)));
         }
 
@@ -47,6 +47,13 @@ public class PropellerComponent extends AbstractMovementComponent {
                 getEntity().getBody().applyImpulse(movement);
             }
         }
+    }
+
+    private double radians(final Point2D direction) {
+        // https://stackoverflow.com/questions/17530169/get-angle-between-point-and-origin
+        final Point2D reference = new Point2D(1, 0);
+        return -(Math.atan2(reference.getY(), reference.getX())
+                - Math.atan2(direction.getY(), direction.getX()));
     }
 
 }

@@ -29,6 +29,22 @@ import javafx.geometry.Point2D;
                 .build();
         final Fixture fixture = new B2DFixtureBuilder()
                 .rectangular(size)
+                .friction(1)
+                .buildOn(body);
+        final B2DEntityBody entity = new B2DBodyFacade(body, size);
+        connectListener(entity, fixture);
+        return entity;
+    }
+
+    @Override
+    public EntityBody createMovingPlatform(final Point2D position, final Dimension2D size) {
+        final Body body = new B2DBodyBuilder(engine)
+                .position(position)
+                .type(BodyType.KINEMATIC)
+                .build();
+        final Fixture fixture = new B2DFixtureBuilder()
+                .friction(1)
+                .rectangular(size)
                 .buildOn(body);
         final B2DEntityBody entity = new B2DBodyFacade(body, size);
         connectListener(entity, fixture);
