@@ -1,19 +1,14 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.function.Supplier;
 
-import it.unibo.oop17.ga_game.utils.PositionCompare;
+import it.unibo.oop17.ga_game.model.physics.BodyContact;
 import javafx.geometry.Point2D;
-import javafx.geometry.Side;
 
 /**
  * A PlatformBrain follows a pattern and takes care of passengers safety.
  */
 public final class PlatformBrain extends FixedPatternBrain {
-    private final Set<EntityBody> passengers = new LinkedHashSet<>();
-
     /**
      * 
      * @param nextPositionSupplier A Supplier for the positions to follow.
@@ -23,28 +18,28 @@ public final class PlatformBrain extends FixedPatternBrain {
     }
 
     @Override
-    public void beginContact(final EntityBody other) {
-        super.beginContact(other);
-        if (PositionCompare.contact(getEntity().getBody(), other) == Side.TOP) {
-            passengers.add(other);
-        }
-    }
-
-    @Override
-    public void endContact(final EntityBody other) {
-        super.endContact(other);
-        passengers.remove(other);
-    }
-
-    @Override
     public void update(final double dt) {
         super.update(dt);
+        takeCareOfPassengers();
+    }
 
-        // adjust passengers velocity so they don't fall of the platform.
-        passengers.forEach(body -> {
-            if (body.getLinearVelocity().getY() <= 0) {
-                body.applyImpulse(getEntity().getBody().getLinearVelocity());
-            }
+    /**
+     * adjust passengers velocity so they don't fall of the platform.
+     */
+    protected void takeCareOfPassengers() {
+        Point2D velocity = getEntity().getBody().getLinearVelocity();
+        if (velocity.getY() > 0) {
+            // if we're going up we don't need to also push passengers up.
+            velocity = new Point2D(velocity.getX(), 0);
+        }
+        final Point2D correction = velocity;
+        getEntity().getBody().getContacts()
+                .filter(c -> c.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2)
+                .map(BodyContact::getOtherBody)
+                .forEach(passenger -> {
+                    if (passenger.getLinearVelocity().getY() <= 0) {
+                        passenger.applyImpulse(correction);
+                    }
         });
     }
 }
