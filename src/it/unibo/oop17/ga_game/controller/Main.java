@@ -29,7 +29,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +43,7 @@ public class Main extends Application {
     private static final double FRAMERATE = 1.0 / 60;
     private static final double SCALE = 1;
     private final PhysicsEngine physics = PhysicsEngine.create(new Point2D(0, -60));
-    private final ParallelCamera camera = new ParallelCamera();
+    private final PerspectiveCamera camera = new PerspectiveCamera();
     private final Group root = new Group();
 
     /**
