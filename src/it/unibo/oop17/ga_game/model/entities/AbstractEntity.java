@@ -4,7 +4,7 @@ import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 
-public abstract class AbstractEntity implements Entity {
+public abstract class AbstractEntity implements EventfullEntity {
     private final EntityBody body;
     private final Brain brain;
     private final MovementComponent movement;

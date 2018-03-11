@@ -34,4 +34,20 @@ public interface Entity {
      *            The time delta (in seconds) since the last call
      */
     void update(double dt);
+
+    /**
+     * Registers a listener for @EntityEvent.
+     * 
+     * @param listener
+     *            the listener
+     */
+    void register(EntityEventListener listener);
+
+    /**
+     * Unregisters the listener for @EntityEvent.
+     * 
+     * @param listener
+     *            the listener
+     */
+    void unregister(EntityEventListener listener);
 }
