@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

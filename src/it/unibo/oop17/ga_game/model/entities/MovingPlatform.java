@@ -1,7 +1,9 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities;
 
 import java.util.function.Supplier;
 
+import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
+import it.unibo.oop17.ga_game.model.entities.components.PlatformBrain;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

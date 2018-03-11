@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities.components;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.utils;
 
 import java.util.stream.Stream;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 

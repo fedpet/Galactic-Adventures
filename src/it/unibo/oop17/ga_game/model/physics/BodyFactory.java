@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.model.physics;
 
 import java.util.List;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

@@ -1,6 +1,8 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.Optional;
+
+import it.unibo.oop17.ga_game.model.entities.Entity;
 
 public abstract class AbstractEntityComponent implements EntityComponent {
     private Optional<Entity> owner = Optional.empty();

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.jbox2d.dynamics.Body;
 
-import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
+import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 

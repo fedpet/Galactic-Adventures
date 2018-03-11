@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import javafx.geometry.Point2D;
 
 /**

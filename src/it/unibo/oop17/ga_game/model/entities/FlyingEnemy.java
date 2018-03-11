@@ -1,5 +1,7 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities;
 
+import it.unibo.oop17.ga_game.model.entities.components.FlyingEnemyBrain;
+import it.unibo.oop17.ga_game.model.entities.components.PropellerComponent;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

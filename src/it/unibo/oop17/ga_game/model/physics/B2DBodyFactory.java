@@ -8,7 +8,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.Fixture;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Dimension2D;

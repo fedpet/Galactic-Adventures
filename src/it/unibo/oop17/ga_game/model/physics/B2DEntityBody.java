@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.jbox2d.dynamics.Body;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 
 /* package-protected */ interface B2DEntityBody extends EntityBody {
 

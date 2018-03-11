@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities.components;
 
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;

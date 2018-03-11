@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.physics;
 
-import it.unibo.oop17.ga_game.model.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 
 /**
  * Interface for collision detection.

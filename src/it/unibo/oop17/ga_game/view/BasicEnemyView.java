@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.BasicEnemy;
+import it.unibo.oop17.ga_game.model.entities.BasicEnemy;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

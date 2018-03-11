@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.model.entities.components;
 
 /**
  * Brain di test dimostrativo da cambiare.

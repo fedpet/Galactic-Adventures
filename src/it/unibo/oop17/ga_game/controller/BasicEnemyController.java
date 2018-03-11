@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.model.BasicEnemy;
+import it.unibo.oop17.ga_game.model.entities.BasicEnemy;
 import it.unibo.oop17.ga_game.view.BasicEnemyView;
 import javafx.geometry.HorizontalDirection;
 

@@ -4,7 +4,7 @@ import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.W;
 
-import it.unibo.oop17.ga_game.model.Player;
+import it.unibo.oop17.ga_game.model.entities.Player;
 import javafx.geometry.Point2D;
 
 public class PlayerController {
