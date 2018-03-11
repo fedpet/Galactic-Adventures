@@ -23,15 +23,11 @@ public class FixedPatternBrain extends AbstractBrain {
     }
 
     /**
-     * Follows the positions.
+     * Follows the pattern.
      */
     @Override
-    public final void update(final double dt) {
-        if (getEntity().getBody().getPosition().distance(nextPosition) < DISTANCE_THRESHOLD) {
-            nextPosition = nextPositionSupplier.get();
-        }
-        final Point2D direction = nextPosition.subtract(getEntity().getBody().getPosition());
-        getEntity().getMovement().move(direction);
+    public void update(final double dt) {
+        followPattern();
     }
 
     @Override
@@ -42,5 +38,16 @@ public class FixedPatternBrain extends AbstractBrain {
     @Override
     public void endContact(final EntityBody other) {
         // does nothing
+    }
+
+    /**
+     * Follows the pattern.
+     */
+    protected final void followPattern() {
+        if (getEntity().getBody().getPosition().distance(nextPosition) < DISTANCE_THRESHOLD) {
+            nextPosition = nextPositionSupplier.get();
+        }
+        final Point2D direction = nextPosition.subtract(getEntity().getBody().getPosition());
+        getEntity().getMovement().move(direction);
     }
 }

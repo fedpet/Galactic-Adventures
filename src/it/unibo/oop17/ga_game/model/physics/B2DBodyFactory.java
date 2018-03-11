@@ -29,7 +29,6 @@ import javafx.geometry.Point2D;
                 .build();
         final Fixture fixture = new B2DFixtureBuilder()
                 .rectangular(size)
-                .friction(1)
                 .buildOn(body);
         final B2DEntityBody entity = new B2DBodyFacade(body, size);
         connectListener(entity, fixture);
@@ -43,7 +42,6 @@ import javafx.geometry.Point2D;
                 .type(BodyType.KINEMATIC)
                 .build();
         final Fixture fixture = new B2DFixtureBuilder()
-                .friction(1)
                 .rectangular(size)
                 .buildOn(body);
         final B2DEntityBody entity = new B2DBodyFacade(body, size);

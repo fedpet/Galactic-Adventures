@@ -11,8 +11,8 @@ public class MovingPlatform extends AbstractEntity {
 
     public MovingPlatform(final PhysicsEngine engine, final Point2D position, final Dimension2D size,
             final Supplier<Point2D> positions) {
-        super(engine.bodyFactory().createMovingPlatform(position, size), new FixedPatternBrain(positions),
+        super(engine.bodyFactory().createMovingPlatform(position, size), new PlatformBrain(positions),
                 new LinearPropeller(SPEED));
-        getBody().setGravityScale(0);
     }
+
 }
