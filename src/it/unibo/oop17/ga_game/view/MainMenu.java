@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.KeyCode;
@@ -21,18 +19,9 @@ public class MainMenu {
     private final GameMenu gameMenu;
 
     public MainMenu(final Stage primaryStage) throws IOException {
-
+        
         final Pane core = new Pane();
         core.setPrefSize(1024, 512);
-        
-        // DEVE ESSERE SALVATO IN UN FILE DI CONFIGURAZIONE IL VOLUME ATTUALE INSIEME ALLE ALTRE OPZIONI
-        final Volume vol = Volume.LOW;
-        final double volume = vol.getVolume();
-        
-        final Media mainMusic = new Media(Music.TRACK1.getMusic());
-        final MediaPlayer mediaPlayer = new MediaPlayer(mainMusic);
-        mediaPlayer.setVolume(volume);
-        mediaPlayer.play();
 
         final InputStream is = Files.newInputStream(Paths.get(new RandomBackground().getBackgroundPath()));
         final Image img = new Image(is);
@@ -70,6 +59,7 @@ public class MainMenu {
         primaryStage.getIcons().add(new Image("file:res/icon.png"));
         primaryStage.setTitle("Galactic Adventures!");
         primaryStage.setScene(scene);
+        
         primaryStage.show();
     }
 }
