@@ -1,12 +1,13 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.Fixture;
 
-import it.unibo.oop17.ga_game.model.AbstractEntityComponent;
+import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -16,17 +17,13 @@ import javafx.geometry.Point2D;
 /* package-private */ class B2DBodyFacade extends AbstractEntityComponent implements B2DEntityBody {
     private final Body body;
     private final Dimension2D boundingBoxDimension;
-    private static final float FEET_SENSOR_HEIGHT = B2DUtils.EXTRA_SKIN_THICKNESS;
-    private final Fixture feetSensor;
+    private final Map<Body, B2DEntityBody> bodyMap;
 
-    /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension) {
+    /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension,
+            final Map<Body, B2DEntityBody> bodyMap) {
         this.body = Objects.requireNonNull(body);
         boundingBoxDimension = Objects.requireNonNull(dimension);
-        feetSensor = new B2DFixtureBuilder()
-                .isSensor(true)
-                .rectangular(new Dimension2D(getDimension().getWidth(), FEET_SENSOR_HEIGHT))
-                .position(new Point2D(0, -getDimension().getHeight() / 2 + FEET_SENSOR_HEIGHT / 2))
-                .buildOn(body);
+        this.bodyMap = Objects.requireNonNull(bodyMap);
     }
 
     @Override
@@ -73,14 +70,15 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public boolean isOnGround() {
+    public Stream<BodyContact> getContacts() {
         return B2DUtils.stream(getB2DBody().getContactList())
                 .filter(c -> c.contact.isEnabled())
                 .filter(c -> c.contact.isTouching())
-                .filter(c -> B2DUtils.contains(c, feetSensor)
-                        || c.contact.getManifold().localPoint.y >= getDimension().getHeight())
-                .findAny()
-                .isPresent();
+                .filter(c -> bodyMap.containsKey(c.other))
+                .map(c -> {
+                    return new BodyContactImpl(bodyMap.get(c.other),
+                            B2DUtils.vecToPoint(c.contact.getManifold().localPoint));
+                });
     }
 
 }

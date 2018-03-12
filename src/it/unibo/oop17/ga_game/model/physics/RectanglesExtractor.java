@@ -2,9 +2,11 @@ package it.unibo.oop17.ga_game.model.physics;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.stream.IntStream;
 
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
+import it.unibo.oop17.ga_game.utils.Matrix;
 import it.unibo.oop17.ga_game.utils.MutableMatrix;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Orientation;
@@ -77,30 +79,29 @@ public final class RectanglesExtractor {
 
         final Set<Rectangle2D> rectangles = new HashSet<>();
 
-        switch (orientation) {
-        case HORIZONTAL:
-            for (int row = 0; row < matrix.getRows(); row++) {
-                for (int column = 0; column < matrix.getColumns(); column++) {
-                    checkCell(rectangles, row, column, matrix, cellDimension, offset, orientation, minLength);
-                }
-                buildRect(rectangles, matrix, cellDimension, offset, orientation, minLength);
-            }
-            buildRect(rectangles, matrix, cellDimension, offset, orientation, minLength);
-            break;
-        case VERTICAL:
-            for (int column = 0; column < matrix.getColumns(); column++) {
-                for (int row = 0; row < matrix.getRows(); row++) {
-                    checkCell(rectangles, row, column, matrix, cellDimension, offset, orientation, minLength);
-                }
-                buildRect(rectangles, matrix, cellDimension, offset, orientation, minLength);
-            }
-            buildRect(rectangles, matrix, cellDimension, offset, orientation, minLength);
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown orientation: " + orientation);
-        }
+        iterate(matrix, orientation,
+                (row, column) -> checkCell(rectangles, row, column, matrix, cellDimension, offset, orientation,
+                        minLength),
+                () -> buildRect(rectangles, matrix, cellDimension, offset, orientation, minLength));
 
         return rectangles;
+    }
+
+    private void iterate(final Matrix<?> matrix, final Orientation orientation,
+            final BiConsumer<Integer, Integer> inner, final Runnable postLoop) {
+        final int maxX = orientation == Orientation.HORIZONTAL ? matrix.getRows() : matrix.getColumns();
+        final int maxY = orientation == Orientation.HORIZONTAL ? matrix.getColumns() : matrix.getRows();
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < maxY; y++) {
+                if (orientation == Orientation.HORIZONTAL) {
+                    inner.accept(x, y);
+                } else {
+                    inner.accept(y, x);
+                }
+            }
+            postLoop.run();
+        }
+        postLoop.run();
     }
 
     private void checkCell(final Set<Rectangle2D> rectangles, final int row, final int column,

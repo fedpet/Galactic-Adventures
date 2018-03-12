@@ -37,11 +37,12 @@ public final class RectangleExtractorTest {
         final Set<Rectangle2D> rects = new RectanglesExtractor().rectangles(Point2D.ZERO, grid,
                 new Dimension2D(1, 1));
 
-        assertEquals(rects, new HashSet<>(
+        assertEquals(new HashSet<>(
                 Arrays.asList(
                         new Rectangle2D(0, 1, 2, 1),
                         new Rectangle2D(0, 2, 2, 1),
-                        new Rectangle2D(0, 3, 2, 1))));
+                        new Rectangle2D(0, 3, 2, 1))),
+                rects);
     }
 
     /**
@@ -62,12 +63,13 @@ public final class RectangleExtractorTest {
         final Set<Rectangle2D> rects = new RectanglesExtractor().rectangles(Point2D.ZERO, grid,
                 new Dimension2D(1, 1));
 
-        assertEquals(rects, new HashSet<>(
+        assertEquals(new HashSet<>(
                 Arrays.asList(
                         new Rectangle2D(0, 0, 3, 1),
                         new Rectangle2D(0, 4, 3, 1),
                         new Rectangle2D(0, 1, 1, 3),
-                        new Rectangle2D(2, 1, 1, 3))));
+                        new Rectangle2D(2, 1, 1, 3))),
+                rects);
     }
 
     /**
@@ -86,8 +88,11 @@ public final class RectangleExtractorTest {
         final Set<Rectangle2D> rects = new RectanglesExtractor().rectangles(new Point2D(1, 1), grid,
                 new Dimension2D(1, 1));
 
-        assertEquals(rects,
-                new HashSet<>(Arrays.asList(new Rectangle2D(1 + 1, 1 + 1, 2, 1), new Rectangle2D(4 + 1, 2 + 1, 2, 1))));
+        assertEquals(new HashSet<>(
+                Arrays.asList(
+                        new Rectangle2D(1 + 1, 1 + 1, 2, 1),
+                        new Rectangle2D(4 + 1, 2 + 1, 2, 1))),
+                rects);
     }
 
     /**
@@ -104,7 +109,6 @@ public final class RectangleExtractorTest {
         final Set<Rectangle2D> rects = new RectanglesExtractor().rectangles(Point2D.ZERO, grid,
                 new Dimension2D(2, 2));
 
-        assertEquals(rects,
-                new HashSet<>(Arrays.asList(new Rectangle2D(2, 0, 2, 4))));
+        assertEquals(new HashSet<>(Arrays.asList(new Rectangle2D(2, 0, 2, 4))), rects);
     }
 }
