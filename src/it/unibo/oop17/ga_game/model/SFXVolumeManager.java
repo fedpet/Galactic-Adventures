@@ -10,30 +10,30 @@ public class SFXVolumeManager {
     
     public void next() {
         this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.sfx) {
+        switch (this.data.sfxVol) {
         case MUTE:
-            this.data.sfx = Volume.LOW;
+            this.data.sfxVol = Volume.LOW;
             break;
         case LOW:
-            this.data.sfx = Volume.MEDIUM;
+            this.data.sfxVol = Volume.MEDIUM;
             break;
         case MEDIUM:
-            this.data.sfx = Volume.HIGH;
+            this.data.sfxVol = Volume.HIGH;
             break;
         case HIGH:
-            this.data.sfx = Volume.MAX;
+            this.data.sfxVol = Volume.MAX;
             break;
         case MAX:
-            this.data.sfx = Volume.MUTE;
+            this.data.sfxVol = Volume.MUTE;
             break;
         default:
-            this.data.sfx = Volume.MEDIUM;
+            this.data.sfxVol = Volume.MEDIUM;
         }
         ResourceManager.save(data, "configdata.dat");
     }
     
     public Text getSFXVolumeText() {
-        switch (this.data.sfx) {
+        switch (this.data.sfxVol) {
         case MUTE:
             return Text.MUTE;
         case LOW:

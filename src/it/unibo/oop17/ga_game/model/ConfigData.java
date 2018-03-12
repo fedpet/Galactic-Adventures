@@ -4,7 +4,7 @@ public class ConfigData implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    public Volume sfx;
+    public Volume musicVol;
     public Volume sfxVol;
     public Difficulty difficulty;
     public Language language;

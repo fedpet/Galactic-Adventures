@@ -10,30 +10,30 @@ public class MusicVolumeManager {
     
     public void next() {
         this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.sfx) {
+        switch (this.data.musicVol) {
         case MUTE:
-            this.data.sfx = Volume.LOW;
+            this.data.musicVol = Volume.LOW;
             break;
         case LOW:
-            this.data.sfx = Volume.MEDIUM;
+            this.data.musicVol = Volume.MEDIUM;
             break;
         case MEDIUM:
-            this.data.sfx = Volume.HIGH;
+            this.data.musicVol = Volume.HIGH;
             break;
         case HIGH:
-            this.data.sfx = Volume.MAX;
+            this.data.musicVol = Volume.MAX;
             break;
         case MAX:
-            this.data.sfx = Volume.MUTE;
+            this.data.musicVol = Volume.MUTE;
             break;
         default:
-            this.data.sfx = Volume.MEDIUM;
+            this.data.musicVol = Volume.MEDIUM;
         }
         ResourceManager.save(data, "configdata.dat");
     }
     
     public Text getMusicVolumeText() {
-        switch (this.data.sfx) {
+        switch (this.data.musicVol) {
         case MUTE:
             return Text.MUTE;
         case LOW:

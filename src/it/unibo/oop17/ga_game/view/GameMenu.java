@@ -47,7 +47,7 @@ public class GameMenu extends Parent {
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.mediaPlayer.setVolume(save.sfx.getVolume());
+        this.mediaPlayer.setVolume(save.musicVol.getVolume());
         this.mediaPlayer.play();
         
         this.lang = new LanguageLoader();
@@ -132,6 +132,7 @@ public class GameMenu extends Parent {
         this.btnSFX = new MenuButton(lang.getText(Text.VOLUME_S) + lang.getText(svm.getSFXVolumeText()));
         btnSFX.setOnMouseClicked(event -> {
             svm.next();
+            updateSave();
             updateBtn();
         });
         
@@ -187,7 +188,7 @@ public class GameMenu extends Parent {
     
     private void updateMusic() {
         this.mediaPlayer.stop();
-        this.mediaPlayer.setVolume(save.sfx.getVolume());
+        this.mediaPlayer.setVolume(save.musicVol.getVolume());
         this.mediaPlayer.play();
     }
 }

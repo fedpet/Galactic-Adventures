@@ -11,7 +11,7 @@ public final class ResetSave {
     
     public static void defaultOptions() {
         final ConfigData data = new ConfigData();
-        data.sfx = Volume.MEDIUM;
+        data.musicVol = Volume.MEDIUM;
         data.sfxVol = Volume.MEDIUM;
         data.difficulty = Difficulty.MEDIUM;
         data.language = Language.ITA;
