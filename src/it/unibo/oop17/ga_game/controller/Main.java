@@ -16,6 +16,7 @@ import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
+import it.unibo.oop17.ga_game.view.PlayerView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -62,7 +63,6 @@ public class Main extends Application {
         primaryStage.show();
 
         final Player player = new Player(physics, new Point2D(4, -4));
-        final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
         final MovingPlatform platform = new MovingPlatform(physics, new Point2D(4, -10), new Dimension2D(4, 1),
                 InfiniteSequence.backAndForth(Arrays.asList(new Point2D(4, -5), new Point2D(4, -25))));
 
@@ -79,8 +79,6 @@ public class Main extends Application {
         // final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -20));
         // final ImageView flyingEnemyView = new ImageView(new Image("/p1_jump.png"));
 
-        playerView.setFitWidth(ViewUtils.metersToPixels(player.getBody().getDimension().getWidth()));
-        playerView.setFitHeight(ViewUtils.metersToPixels(player.getBody().getDimension().getHeight()));
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
         platformView2.setFitWidth(ViewUtils.metersToPixels(platform2.getBody().getDimension().getWidth()));
@@ -89,13 +87,14 @@ public class Main extends Application {
         // basicEnemyView.setFitHeight(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getHeight()));
         // flyingEnemyView.setFitWidth(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getWidth()));
         // flyingEnemyView.setFitHeight(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getHeight()));
-        root.getChildren().add(playerView);
         root.getChildren().add(platformView);
         root.getChildren().add(platformView2);
         // root.getChildren().add(basicEnemyView);
         // root.getChildren().add(flyingEnemyView);
 
-        new PlayerController(new KeyboardInputController(scene), player);
+        final PlayerView playerView = new PlayerView(root);
+        final PlayerController playerController = new PlayerController(new KeyboardInputController(scene), player,
+                playerView);
         // final BasicEnemyController enemyController = new BasicEnemyController(basicEnemy, basicEnemyView);
 
         try {
@@ -119,13 +118,11 @@ public class Main extends Application {
 
                     // enemyController.updateView();
 
-                    Point2D pt = ViewUtils.worldPointToFX(player.getBody().getPosition());
                     // final Point2D pt2 = ViewUtils.worldPointToFX(basicEnemy.getBody().getPosition());
                     // final Point2D pt3 = ViewUtils.worldPointToFX(flyingEnemy.getBody().getPosition());
-                    playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
-                    playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
+                    playerController.update();
 
-                    pt = ViewUtils.worldPointToFX(platform.getBody().getPosition());
+                    Point2D pt = ViewUtils.worldPointToFX(platform.getBody().getPosition());
                     platformView.setTranslateX(pt.getX() - platformView.getBoundsInLocal().getWidth() / 2);
                     platformView.setTranslateY(pt.getY() - platformView.getBoundsInLocal().getHeight() / 2);
                     pt = ViewUtils.worldPointToFX(platform2.getBody().getPosition());
@@ -136,8 +133,8 @@ public class Main extends Application {
                     // flyingEnemyView.setTranslateX(pt3.getX() - flyingEnemyView.getBoundsInLocal().getWidth() / 2);
                     // flyingEnemyView.setTranslateY(pt3.getY() - flyingEnemyView.getBoundsInLocal().getHeight() / 2);
 
-                    camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
-                    camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);
+                    camera.setTranslateX(playerView.getPosition().getX() - scene.getWidth() * camera.getScaleX() / 2);
+                    camera.setTranslateY(playerView.getPosition().getY() - scene.getHeight() * camera.getScaleY() / 2);
                 }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

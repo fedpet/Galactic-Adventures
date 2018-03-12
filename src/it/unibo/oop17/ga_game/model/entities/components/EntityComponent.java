@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.Optional;
 
+import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
 
 /**
@@ -21,7 +22,7 @@ public interface EntityComponent {
 
     /**
      * 
-     * @return The @EventfullEntity to which its attached to.
+     * @return The @Entity to which its attached to.
      */
-    Optional<EventfullEntity> getOwner();
+    Optional<? extends Entity> getOwner();
 }

@@ -8,6 +8,8 @@ import javafx.geometry.Rectangle2D;
  * Utility class for JavaFX stuff.
  */
 public final class FXUtils {
+    private static final Point2D X_AXIS = new Point2D(1, 0);
+
     private FXUtils() {
 
     }
@@ -40,5 +42,17 @@ public final class FXUtils {
      */
     public static Point2D invertY(final Point2D pt) {
         return new Point2D(pt.getX(), -pt.getY());
+    }
+
+    /**
+     * 
+     * @param vector
+     *            vector
+     * @return The angle in radians between the X axis and the vector.
+     */
+    public static double radians(final Point2D vector) {
+        // https://stackoverflow.com/questions/17530169/get-angle-between-point-and-origin
+        return -(Math.atan2(X_AXIS.getY(), X_AXIS.getX())
+                - Math.atan2(vector.getY(), vector.getX()));
     }
 }

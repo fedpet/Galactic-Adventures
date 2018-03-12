@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Point2D;
 
 public class PropellerComponent extends AbstractMovementComponent {
@@ -15,7 +16,7 @@ public class PropellerComponent extends AbstractMovementComponent {
         if (direction.equals(Point2D.ZERO)) {
             setDesiredMovement(Point2D.ZERO);
         } else {
-            final double r = radians(direction);
+            final double r = FXUtils.radians(direction);
             setDesiredMovement(new Point2D(speed * Math.cos(r), speed * Math.sin(r)));
         }
 
@@ -26,11 +27,7 @@ public class PropellerComponent extends AbstractMovementComponent {
         if (Math.abs(getDesiredMovement().getY()) < MIN_THRESHOLD) {
             setDesiredMovement(new Point2D(getDesiredMovement().getX(), 0));
         }
-    }
-
-    @Override
-    public State getState() {
-        return getDesiredMovement().equals(Point2D.ZERO) ? State.IDLE : State.FLYING;
+        updateState();
     }
 
     @Override
@@ -49,11 +46,7 @@ public class PropellerComponent extends AbstractMovementComponent {
         }
     }
 
-    private double radians(final Point2D direction) {
-        // https://stackoverflow.com/questions/17530169/get-angle-between-point-and-origin
-        final Point2D reference = new Point2D(1, 0);
-        return -(Math.atan2(reference.getY(), reference.getX())
-                - Math.atan2(direction.getY(), direction.getX()));
+    private void updateState() {
+        setState(getDesiredMovement().equals(Point2D.ZERO) ? State.IDLE : State.FLYING);
     }
-
 }

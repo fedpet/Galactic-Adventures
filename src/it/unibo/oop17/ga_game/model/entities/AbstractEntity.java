@@ -1,10 +1,15 @@
 package it.unibo.oop17.ga_game.model.entities;
 
+import com.google.common.eventbus.EventBus;
+
 import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 
 public abstract class AbstractEntity implements EventfullEntity {
+    private final EventBus eventBus = new EventBus();
     private final EntityBody body;
     private final Brain brain;
     private final MovementComponent movement;
@@ -39,6 +44,24 @@ public abstract class AbstractEntity implements EventfullEntity {
     @Override
     public void update(final double dt) {
         updateComponents(dt);
+    }
+
+    /**
+     * An @EntityEventListener declares wanted events with the @Subscribe annotation.
+     */
+    @Override
+    public final void register(final EntityEventListener listener) {
+        eventBus.register(listener);
+    }
+
+    @Override
+    public final void unregister(final EntityEventListener listener) {
+        eventBus.unregister(listener);
+    }
+
+    @Override
+    public final void post(final EntityEvent event) {
+        eventBus.post(event);
     }
 
     /**

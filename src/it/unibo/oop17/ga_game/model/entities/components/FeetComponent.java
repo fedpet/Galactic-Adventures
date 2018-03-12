@@ -32,12 +32,7 @@ public class FeetComponent extends AbstractMovementComponent {
         final double hf = directionVector.getX() > 0 ? 1 : directionVector.getX() < 0 ? -1 : 0;
         final double vf = directionVector.getY() > 0 ? 1 : 0;
         setDesiredMovement(new Point2D(walkingSpeed * hf, jumpingSpeed * vf));
-    }
-
-    @Override
-    public State getState() {
-        return getDesiredMovement().getY() > 0 ? State.JUMPING
-                : getDesiredMovement().getX() > 0 ? State.WALKING : State.IDLE;
+        updateState();
     }
 
     /**
@@ -49,5 +44,10 @@ public class FeetComponent extends AbstractMovementComponent {
                 .filter(c -> c.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2)
                 .findAny()
                 .isPresent();
+    }
+
+    private void updateState() {
+        setState(getDesiredMovement().getY() > 0 ? State.JUMPING
+                : getDesiredMovement().getX() != 0 ? State.WALKING : State.IDLE);
     }
 }

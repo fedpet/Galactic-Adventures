@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.model.entities;
 import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 
 /**
  * Models a generic Entity in our game.
