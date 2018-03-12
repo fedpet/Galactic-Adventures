@@ -29,7 +29,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,10 +40,10 @@ import javafx.util.Duration;
  */
 public class Main extends Application {
     private static final double FRAMERATE = 1.0 / 60;
-    private static final double SCALE = 1;
+    private static final double SCALE = 1; // TODO: gestire diversa scale
     private final PhysicsEngine physics = PhysicsEngine.create(new Point2D(0, -60));
-    private final PerspectiveCamera camera = new PerspectiveCamera();
     private final Group root = new Group();
+    private final Group worldView = new Group();
 
     /**
      * Entry point.
@@ -59,9 +58,9 @@ public class Main extends Application {
     @Override
     public final void start(final Stage primaryStage) {
         final Scene scene = new Scene(root);
-        camera.setScaleX(SCALE);
-        camera.setScaleY(SCALE);
-        scene.setCamera(camera);
+        worldView.setScaleX(SCALE);
+        worldView.setScaleY(SCALE);
+        root.getChildren().add(worldView);
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -93,11 +92,11 @@ public class Main extends Application {
         basicEnemyView.setFitHeight(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getHeight()));
         flyingEnemyView.setFitWidth(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getWidth()));
         flyingEnemyView.setFitHeight(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getHeight()));
-        root.getChildren().add(playerView);
-        root.getChildren().add(platformView);
-        root.getChildren().add(platformView2);
-        root.getChildren().add(basicEnemyView);
-        root.getChildren().add(flyingEnemyView);
+        worldView.getChildren().add(playerView);
+        worldView.getChildren().add(platformView);
+        worldView.getChildren().add(platformView2);
+        worldView.getChildren().add(basicEnemyView);
+        worldView.getChildren().add(flyingEnemyView);
 
         new PlayerController(new KeyboardInputController(scene), player);
         final BasicEnemyController basicEnemyController = new BasicEnemyController(basicEnemy, basicEnemyView);
@@ -143,8 +142,14 @@ public class Main extends Application {
                     flyingEnemyView.setTranslateX(pt.getX() - flyingEnemyView.getBoundsInLocal().getWidth() / 2);
                     flyingEnemyView.setTranslateY(pt.getY() - flyingEnemyView.getBoundsInLocal().getHeight() / 2);
 
-                    camera.setTranslateX(playerView.getTranslateX() - scene.getWidth() * camera.getScaleX() / 2);
-                    camera.setTranslateY(playerView.getTranslateY() - scene.getHeight() * camera.getScaleY() / 2);
+                    System.out.println("player " + playerView.getTranslateX() + "," + playerView.getTranslateY());
+                    System.out.println("playerWinLocal " + playerView.getBoundsInLocal());
+                    System.out.println("scnee " + scene.getWidth() + "," + scene.getHeight());
+                    System.out.println("worldView " + worldView.getTranslateX() + "," + worldView.getTranslateY());
+
+                    worldView.setTranslateX(-playerView.getTranslateX() + scene.getWidth() / 2);
+                    worldView.setTranslateY(-playerView.getTranslateY() + scene.getHeight() / 2);
+
                 }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -170,7 +175,7 @@ public class Main extends Application {
                             tileView.setFitHeight(ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
                             tileView.setTranslateX(x * ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
                             tileView.setTranslateY(y * ViewUtils.metersToPixels(ModelSettings.TILE_SIZE));
-                            root.getChildren().add(tileView);
+                            worldView.getChildren().add(tileView);
                         }
                     }
                 }
