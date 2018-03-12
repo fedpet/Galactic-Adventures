@@ -1,14 +1,14 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.model.entities.BasicEnemy;
-import it.unibo.oop17.ga_game.view.BasicEnemyView;
+import it.unibo.oop17.ga_game.model.entities.Enemy;
+import it.unibo.oop17.ga_game.view.EnemyView;
 import javafx.geometry.HorizontalDirection;
 
-public class BasicEnemyController {
-    private final BasicEnemy enemy;
-    private final BasicEnemyView enemyView;
+public class EnemyController {
+    private final Enemy enemy;
+    private final EnemyView enemyView;
 
-    public BasicEnemyController(final BasicEnemy enemy, final BasicEnemyView enemyView) {
+    public EnemyController(final Enemy enemy, final EnemyView enemyView) {
         this.enemy = enemy;
         this.enemyView = enemyView;
     }

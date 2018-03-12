@@ -50,4 +50,9 @@ public class FeetComponent extends AbstractMovementComponent {
         setState(getDesiredMovement().getY() > 0 ? State.JUMPING
                 : getDesiredMovement().getX() != 0 ? State.WALKING : State.IDLE);
     }
+
+    @Override
+    public double getSpeed() {
+        return walkingSpeed;
+    }
 }

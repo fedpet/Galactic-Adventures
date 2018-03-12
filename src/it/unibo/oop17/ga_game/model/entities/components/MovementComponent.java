@@ -37,6 +37,12 @@ public interface MovementComponent extends EntityComponent {
     void update(double dt);
 
     /**
+     * 
+     * @return Speed (walking speed if ground entity)
+     */
+    double getSpeed();
+
+    /**
      * Possible states of movement.
      */
     enum State {

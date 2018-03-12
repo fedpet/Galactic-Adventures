@@ -49,4 +49,9 @@ public class PropellerComponent extends AbstractMovementComponent {
     private void updateState() {
         setState(getDesiredMovement().equals(Point2D.ZERO) ? State.IDLE : State.FLYING);
     }
+
+    @Override
+    public double getSpeed() {
+        return this.speed;
+    }
 }

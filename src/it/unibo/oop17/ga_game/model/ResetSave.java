@@ -1,8 +1,20 @@
 package it.unibo.oop17.ga_game.model;
 
-public class ResetSave {
+public final class ResetSave {
     
-    public void reset() {
+    private ResetSave() {
+    }
+    
+    public static void resetProgress() {
         
+    }
+    
+    public static void defaultOptions() {
+        final ConfigData data = new ConfigData();
+        data.musicVol = Volume.MEDIUM;
+        data.sfxVol = Volume.MEDIUM;
+        data.difficulty = Difficulty.MEDIUM;
+        data.language = Language.ITA;
+        ResourceManager.save(data, "configdata.dat");
     }
 }
