@@ -10,7 +10,7 @@ import javafx.geometry.Point2D;
  * Models an enemy that switches moving direction when collides against an
  * obstacle.
  */
-public final class BasicEnemy extends AbstractEntity {
+public final class BasicEnemy extends AbstractEnemy {
     public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
 
     /**
@@ -21,7 +21,7 @@ public final class BasicEnemy extends AbstractEntity {
      *            The position
      */
     public BasicEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createCreature(position, SIZE), new BasicEnemyBrain(), new FeetComponent(5, 0));
+        super(engine.bodyFactory().createCreature(position, SIZE), new BasicEnemyBrain(), new FeetComponent(5, 0), 1);
         getMovement().move(new Point2D(1, 0));
     }
 

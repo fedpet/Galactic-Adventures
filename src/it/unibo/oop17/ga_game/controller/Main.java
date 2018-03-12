@@ -19,6 +19,7 @@ import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.BasicEnemyView;
+import it.unibo.oop17.ga_game.view.EnemyView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.KeyFrame;
@@ -78,9 +79,9 @@ public class Main extends Application {
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));
-        final BasicEnemyView basicEnemyView = new BasicEnemyView(basicEnemy);
+        final EnemyView basicEnemyView = new BasicEnemyView(basicEnemy);
         final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4));
-        final FlyingEnemyView flyingEnemyView = new FlyingEnemyView(flyingEnemy);
+        final EnemyView flyingEnemyView = new FlyingEnemyView(flyingEnemy);
 
         playerView.setFitWidth(ViewUtils.metersToPixels(player.getBody().getDimension().getWidth()));
         playerView.setFitHeight(ViewUtils.metersToPixels(player.getBody().getDimension().getHeight()));
@@ -99,8 +100,8 @@ public class Main extends Application {
         worldView.getChildren().add(flyingEnemyView);
 
         new PlayerController(new KeyboardInputController(scene), player);
-        final BasicEnemyController basicEnemyController = new BasicEnemyController(basicEnemy, basicEnemyView);
-        final FlyingEnemyController flyingEnemyController = new FlyingEnemyController(flyingEnemy, flyingEnemyView);
+        final EnemyController basicEnemyController = new EnemyController(basicEnemy, basicEnemyView);
+        final EnemyController flyingEnemyController = new EnemyController(flyingEnemy, flyingEnemyView);
 
 
         try {

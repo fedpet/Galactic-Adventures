@@ -25,9 +25,9 @@ public class FlyingEnemyBrain extends AbstractEntityComponent implements Brain {
         if (this.startingPoint == null) {
             this.startingPoint = getEntity().getBody().getPosition();
         }
-        final double random = angle++ * 2.0 * Math.PI / 360.0; // this will convert it to rads
-        final float x = (float) (Math.cos(random) * MAX_X + this.startingPoint.getX());
-        final float y = (float) (Math.sin(random) * MAX_Y + this.startingPoint.getY());
+        final float x = (float) (Math.cos(Math.toRadians(angle)) * MAX_X + this.startingPoint.getX());
+        final float y = (float) (Math.sin(Math.toRadians(angle)) * MAX_Y + this.startingPoint.getY());
+        angle++;
 
         getEntity().getMovement().move(new Point2D(x, y).subtract(getEntity().getBody().getPosition()));
     }
