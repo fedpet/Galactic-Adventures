@@ -50,4 +50,9 @@ public class FeetComponent extends AbstractMovementComponent {
                 .findAny()
                 .isPresent();
     }
+
+    @Override
+    public double getSpeed() {
+        return this.walkingSpeed;
+    }
 }

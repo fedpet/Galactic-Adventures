@@ -56,4 +56,9 @@ public class PropellerComponent extends AbstractMovementComponent {
                 - Math.atan2(direction.getY(), direction.getX()));
     }
 
+    @Override
+    public double getSpeed() {
+        return this.speed;
+    }
+
 }
