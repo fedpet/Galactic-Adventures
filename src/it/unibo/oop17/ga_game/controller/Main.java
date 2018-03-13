@@ -87,17 +87,9 @@ public class Main extends Application {
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
         platformView2.setFitWidth(ViewUtils.metersToPixels(platform2.getBody().getDimension().getWidth()));
         platformView2.setFitHeight(ViewUtils.metersToPixels(platform2.getBody().getDimension().getHeight()));
-        /*
-         * basicEnemyView.setFitWidth(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getWidth()));
-         * basicEnemyView.setFitHeight(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getHeight()));
-         * flyingEnemyView.setFitWidth(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getWidth()));
-         * flyingEnemyView.setFitHeight(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getHeight()));
-         */ worldView.getChildren().add(platformView);
+        worldView.getChildren().add(platformView);
         worldView.getChildren().add(platformView2);
-        /*
-         * worldView.getChildren().add(basicEnemyView);
-         * worldView.getChildren().add(flyingEnemyView);
-         */
+
         final PlayerView playerView = new PlayerView(worldView);
         final PlayerController playerController = new PlayerController(new KeyboardInputController(scene), player,
                 playerView);
@@ -127,8 +119,6 @@ public class Main extends Application {
                     basicEnemyController.update();
                     flyingEnemyController.update();
 
-                    // final Point2D pt2 = ViewUtils.worldPointToFX(basicEnemy.getBody().getPosition());
-                    // final Point2D pt3 = ViewUtils.worldPointToFX(flyingEnemy.getBody().getPosition());
                     playerController.update();
 
                     Point2D pt = ViewUtils.worldPointToFX(platform.getBody().getPosition());
@@ -137,14 +127,8 @@ public class Main extends Application {
                     pt = ViewUtils.worldPointToFX(platform2.getBody().getPosition());
                     platformView2.setTranslateX(pt.getX() - platformView2.getBoundsInLocal().getWidth() / 2);
                     platformView2.setTranslateY(pt.getY() - platformView2.getBoundsInLocal().getHeight() / 2);
-                    /*
-                     * pt = ViewUtils.worldPointToFX(basicEnemy.getBody().getPosition());
-                     * basicEnemyView.setTranslateX(pt.getX() - basicEnemyView.getBoundsInLocal().getWidth() / 2);
-                     * basicEnemyView.setTranslateY(pt.getY() - basicEnemyView.getBoundsInLocal().getHeight() / 2);
-                     * pt = ViewUtils.worldPointToFX(flyingEnemy.getBody().getPosition());
-                     * flyingEnemyView.setTranslateX(pt.getX() - flyingEnemyView.getBoundsInLocal().getWidth() / 2);
-                     * flyingEnemyView.setTranslateY(pt.getY() - flyingEnemyView.getBoundsInLocal().getHeight() / 2);
-                     */ worldView.setTranslateX(-playerView.getPosition().getX() + scene.getWidth() / 2);
+
+                    worldView.setTranslateX(-playerView.getPosition().getX() + scene.getWidth() / 2);
                     worldView.setTranslateY(-playerView.getPosition().getY() + scene.getHeight() / 2);
                 }));
         timer.setCycleCount(Timeline.INDEFINITE);
