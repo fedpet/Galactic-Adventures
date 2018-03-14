@@ -1,39 +1,38 @@
 package it.unibo.oop17.ga_game.model;
 
-public class SFXVolumeManager {
+public final class SFXVolumeManager {
     
-    private ConfigData data;
+    private final static String PATH = "configdata.dat";
     
-    public SFXVolumeManager() {
-        this.data = ResourceManager.load("configdata.dat");
+    private SFXVolumeManager() {
     }
     
-    public void next() {
-        this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.sfxVol) {
+    public static void next() {
+        final ConfigData data = ResourceManager.load(PATH);
+        switch (data.sfxVol) {
         case MUTE:
-            this.data.sfxVol = Volume.LOW;
+            data.sfxVol = Volume.LOW;
             break;
         case LOW:
-            this.data.sfxVol = Volume.MEDIUM;
+            data.sfxVol = Volume.MEDIUM;
             break;
         case MEDIUM:
-            this.data.sfxVol = Volume.HIGH;
+            data.sfxVol = Volume.HIGH;
             break;
         case HIGH:
-            this.data.sfxVol = Volume.MAX;
+            data.sfxVol = Volume.MAX;
             break;
         case MAX:
-            this.data.sfxVol = Volume.MUTE;
+            data.sfxVol = Volume.MUTE;
             break;
         default:
-            this.data.sfxVol = Volume.MEDIUM;
+            data.sfxVol = Volume.MEDIUM;
         }
-        ResourceManager.save(data, "configdata.dat");
+        ResourceManager.save(data, PATH);
     }
     
-    public Text getSFXVolumeText() {
-        switch (this.data.sfxVol) {
+    public static Text getSFXVolumeText() {
+        switch (ResourceManager.load(PATH).sfxVol) {
         case MUTE:
             return Text.MUTE;
         case LOW:

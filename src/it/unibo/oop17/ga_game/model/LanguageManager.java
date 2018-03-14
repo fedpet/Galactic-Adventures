@@ -1,39 +1,38 @@
 package it.unibo.oop17.ga_game.model;
 
-public class LanguageManager {
+public final class LanguageManager {
    
-    private ConfigData data;
+    private final static String PATH = "configdata.dat";
     
-    public LanguageManager() {
-        this.data = ResourceManager.load("configdata.dat");
+    private LanguageManager() {
     }
     
-    public void next() {
-        this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.language) {
+    public static void next() {
+        final ConfigData data = ResourceManager.load(PATH);
+        switch (data.language) {
         case ITA:
-            this.data.language = Language.ENG;
+            data.language = Language.ENG;
             break;
         case ENG:
-            this.data.language = Language.SPA;
+            data.language = Language.SPA;
             break;
         case SPA:
-            this.data.language = Language.FRE;
+            data.language = Language.FRE;
             break;
         case FRE:
-            this.data.language = Language.DEU;
+            data.language = Language.DEU;
             break;
         case DEU:
-            this.data.language = Language.ITA;
+            data.language = Language.ITA;
             break;
         default:
-            this.data.language = Language.ENG;
+            data.language = Language.ENG;
         }
-        ResourceManager.save(data, "configdata.dat");
+        ResourceManager.save(data, PATH);
     }
     
-    public Text getLanguageText() {
-        switch (this.data.language) {
+    public static Text getLanguageText() {
+        switch (ResourceManager.load(PATH).language) {
         case ITA:
             return Text.ITALIAN;
         case ENG:

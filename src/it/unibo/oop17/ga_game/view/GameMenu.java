@@ -32,10 +32,6 @@ public class GameMenu extends Parent {
     private final MenuButton btnDiff;
     private final MenuButton btnDefaults;
     private final LanguageLoader lang;
-    private final MusicVolumeManager mvm;
-    private final SFXVolumeManager svm;
-    private final LanguageManager lm;
-    private final DifficultyManager dm;
     private final MediaPlayer mediaPlayer;
     private ConfigData save;
     
@@ -120,44 +116,41 @@ public class GameMenu extends Parent {
             });
         });
         
-        this.mvm = new MusicVolumeManager();
-        this.btnMusic = new MenuButton(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
+        this.btnMusic = new MenuButton(lang.getText(Text.VOLUME_M) + lang.getText(MusicVolumeManager.getMusicVolumeText()));
         btnMusic.setOnMouseClicked(event -> {
-            mvm.next();
+            MusicVolumeManager.next();
             updateSave();
             updateMusic();
-            this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
+            this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(MusicVolumeManager.getMusicVolumeText()));
         });
         
-        this.svm = new SFXVolumeManager();
-        this.btnSFX = new MenuButton(lang.getText(Text.VOLUME_S) + lang.getText(svm.getSFXVolumeText()));
+        this.btnSFX = new MenuButton(lang.getText(Text.VOLUME_S) + lang.getText(SFXVolumeManager.getSFXVolumeText()));
         btnSFX.setOnMouseClicked(event -> {
-            svm.next();
+            SFXVolumeManager.next();
             updateSave();
             updateBtn();
         });
         
-        this.lm = new LanguageManager();
-        this.btnLanguage = new MenuButton(lang.getText(Text.LANGUAGE) + lang.getText(lm.getLanguageText()));
+        this.btnLanguage = new MenuButton(lang.getText(Text.LANGUAGE) + lang.getText(LanguageManager.getLanguageText()));
         btnLanguage.setOnMouseClicked(event -> {
-            lm.next();
+            LanguageManager.next();
             updateSave();
             lang.loadLanguage(this.save.language);
             updateBtn();
         });
         
-        this.dm = new DifficultyManager();
-        this.btnDiff = new MenuButton(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
+        this.btnDiff = new MenuButton(lang.getText(Text.DIFFICULTY) + lang.getText(DifficultyManager.getDifficultyText()));
         btnDiff.setOnMouseClicked(event -> {
-            dm.next();
-            this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
+            DifficultyManager.next();
+            this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(DifficultyManager.getDifficultyText()));
         });
         
         this.btnDefaults = new MenuButton(lang.getText(Text.DEFAULT_OPT));
         btnDefaults.setOnMouseClicked(event -> {
-//            ResetSave.defaultOptions();
-//            updateSave();
-//            updateBtn();
+            ResetSave.defaultOptions();
+            updateMusic();
+            updateSave();
+            updateBtn();
         });
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
@@ -175,10 +168,10 @@ public class GameMenu extends Parent {
         this.btnOptions.update(lang.getText(Text.OPTIONS));
         this.btnExit.update(lang.getText(Text.EXIT));
         this.btnBack.update(lang.getText(Text.BACK));
-        this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
-        this.btnSFX.update(lang.getText(Text.VOLUME_S) + lang.getText(svm.getSFXVolumeText()));
-        this.btnLanguage.update(lang.getText(Text.LANGUAGE) + lang.getText(lm.getLanguageText()));
-        this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
+        this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(MusicVolumeManager.getMusicVolumeText()));
+        this.btnSFX.update(lang.getText(Text.VOLUME_S) + lang.getText(SFXVolumeManager.getSFXVolumeText()));
+        this.btnLanguage.update(lang.getText(Text.LANGUAGE) + lang.getText(LanguageManager.getLanguageText()));
+        this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(DifficultyManager.getDifficultyText()));
         this.btnDefaults.update(lang.getText(Text.DEFAULT_OPT));
     }
     

@@ -1,39 +1,38 @@
 package it.unibo.oop17.ga_game.model;
 
-public class MusicVolumeManager {
+public final class MusicVolumeManager {
     
-    private ConfigData data;
+    private final static String PATH = "configdata.dat";
     
-    public MusicVolumeManager() {
-        this.data = ResourceManager.load("configdata.dat");
+    private MusicVolumeManager() {
     }
     
-    public void next() {
-        this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.musicVol) {
+    public static void next() {
+        final ConfigData data = ResourceManager.load(PATH);
+        switch (data.musicVol) {
         case MUTE:
-            this.data.musicVol = Volume.LOW;
+            data.musicVol = Volume.LOW;
             break;
         case LOW:
-            this.data.musicVol = Volume.MEDIUM;
+            data.musicVol = Volume.MEDIUM;
             break;
         case MEDIUM:
-            this.data.musicVol = Volume.HIGH;
+            data.musicVol = Volume.HIGH;
             break;
         case HIGH:
-            this.data.musicVol = Volume.MAX;
+            data.musicVol = Volume.MAX;
             break;
         case MAX:
-            this.data.musicVol = Volume.MUTE;
+            data.musicVol = Volume.MUTE;
             break;
         default:
-            this.data.musicVol = Volume.MEDIUM;
+            data.musicVol = Volume.MEDIUM;
         }
-        ResourceManager.save(data, "configdata.dat");
+        ResourceManager.save(data, PATH);
     }
     
-    public Text getMusicVolumeText() {
-        switch (this.data.musicVol) {
+    public static Text getMusicVolumeText() {
+        switch (ResourceManager.load(PATH).musicVol) {
         case MUTE:
             return Text.MUTE;
         case LOW:

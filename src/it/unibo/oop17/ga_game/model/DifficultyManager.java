@@ -1,33 +1,32 @@
 package it.unibo.oop17.ga_game.model;
 
-public class DifficultyManager {
+public final class DifficultyManager {
     
-    private ConfigData data;
+    private final static String PATH = "configdata.dat";
     
-    public DifficultyManager() {
-        this.data = ResourceManager.load("configdata.dat");
+    private DifficultyManager() {
     }
     
-    public void next() {
-        this.data = ResourceManager.load("configdata.dat");
-        switch (this.data.difficulty) {
+    public static void next() {
+        final ConfigData data = ResourceManager.load(PATH);
+        switch (data.difficulty) {
         case EASY:
-            this.data.difficulty = Difficulty.MEDIUM;
+            data.difficulty = Difficulty.MEDIUM;
             break;
         case MEDIUM:
-            this.data.difficulty = Difficulty.HARD;
+            data.difficulty = Difficulty.HARD;
             break;
         case HARD:
-            this.data.difficulty = Difficulty.EASY;
+            data.difficulty = Difficulty.EASY;
             break;
         default:
-            this.data.difficulty = Difficulty.HARD;
+            data.difficulty = Difficulty.HARD;
         }
-        ResourceManager.save(data, "configdata.dat");
+        ResourceManager.save(data, PATH);
     }
     
-    public Text getDifficultyText() {
-        switch (this.data.difficulty) {
+    public static Text getDifficultyText() {
+        switch (ResourceManager.load(PATH).difficulty) {
         case EASY:
             return Text.EASY;
         case MEDIUM:
