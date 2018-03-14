@@ -84,7 +84,7 @@ public abstract class EnemyView implements EntityEventListener {
 
     @Subscribe
     public void movementChanged(final MovementEvent event) {
-        animations.getOrDefault(event.getState(), animations.get(State.IDLE)).run();
+        animations.getOrDefault(event.getState(), animations.get(State.WALKING)).run();
     }
 
     @Subscribe

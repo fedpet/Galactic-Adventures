@@ -9,6 +9,7 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
+import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
@@ -80,7 +81,8 @@ public class Main extends Application {
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));
         final EnemyView basicEnemyView = new BasicEnemyView(worldView);
-        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4));
+        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4), InfiniteSequence
+                .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
         final EnemyView flyingEnemyView = new FlyingEnemyView(worldView);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
