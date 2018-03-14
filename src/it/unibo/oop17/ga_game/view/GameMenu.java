@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.view;
 
 import it.unibo.oop17.ga_game.controller.Main;
+import it.unibo.oop17.ga_game.model.CheckConfig;
 import it.unibo.oop17.ga_game.model.DifficultyManager;
 import it.unibo.oop17.ga_game.model.LanguageLoader;
 import it.unibo.oop17.ga_game.model.LanguageManager;
@@ -43,7 +44,7 @@ public class GameMenu extends Parent {
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
-        this.save = ResourceManager.load("configdata.dat");
+        this.save = CheckConfig.checkIfConfigExists();
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
