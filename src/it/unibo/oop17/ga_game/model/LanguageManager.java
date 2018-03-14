@@ -9,30 +9,30 @@ public final class LanguageManager {
     
     public static void next() {
         final ConfigData data = ResourceManager.load(PATH);
-        switch (data.language) {
+        switch (data.getLanguage()) {
         case ITA:
-            data.language = Language.ENG;
+            data.setLanguage(Language.ENG);
             break;
         case ENG:
-            data.language = Language.SPA;
+            data.setLanguage(Language.SPA);
             break;
         case SPA:
-            data.language = Language.FRE;
+            data.setLanguage(Language.FRE);
             break;
         case FRE:
-            data.language = Language.DEU;
+            data.setLanguage(Language.DEU);
             break;
         case DEU:
-            data.language = Language.ITA;
+            data.setLanguage(Language.ITA);
             break;
         default:
-            data.language = Language.ENG;
+            data.setLanguage(Language.ENG);
         }
         ResourceManager.save(data, PATH);
     }
     
     public static Text getLanguageText() {
-        switch (ResourceManager.load(PATH).language) {
+        switch (ResourceManager.load(PATH).getLanguage()) {
         case ITA:
             return Text.ITALIAN;
         case ENG:

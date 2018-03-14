@@ -9,24 +9,24 @@ public final class DifficultyManager {
     
     public static void next() {
         final ConfigData data = ResourceManager.load(PATH);
-        switch (data.difficulty) {
+        switch (data.getDifficulty()) {
         case EASY:
-            data.difficulty = Difficulty.MEDIUM;
+            data.setDifficulty(Difficulty.MEDIUM);
             break;
         case MEDIUM:
-            data.difficulty = Difficulty.HARD;
+            data.setDifficulty(Difficulty.HARD);
             break;
         case HARD:
-            data.difficulty = Difficulty.EASY;
+            data.setDifficulty(Difficulty.EASY);
             break;
         default:
-            data.difficulty = Difficulty.HARD;
+            data.setDifficulty(Difficulty.HARD);
         }
         ResourceManager.save(data, PATH);
     }
     
     public static Text getDifficultyText() {
-        switch (ResourceManager.load(PATH).difficulty) {
+        switch (ResourceManager.load(PATH).getDifficulty()) {
         case EASY:
             return Text.EASY;
         case MEDIUM:

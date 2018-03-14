@@ -9,30 +9,30 @@ public final class MusicVolumeManager {
     
     public static void next() {
         final ConfigData data = ResourceManager.load(PATH);
-        switch (data.musicVol) {
+        switch (data.getMusicVol()) {
         case MUTE:
-            data.musicVol = Volume.LOW;
+            data.setMusicVol(Volume.LOW);
             break;
         case LOW:
-            data.musicVol = Volume.MEDIUM;
+            data.setMusicVol(Volume.MEDIUM);
             break;
         case MEDIUM:
-            data.musicVol = Volume.HIGH;
+            data.setMusicVol(Volume.HIGH);
             break;
         case HIGH:
-            data.musicVol = Volume.MAX;
+            data.setMusicVol(Volume.MAX);
             break;
         case MAX:
-            data.musicVol = Volume.MUTE;
+            data.setMusicVol(Volume.MUTE);
             break;
         default:
-            data.musicVol = Volume.MEDIUM;
+            data.setMusicVol(Volume.LOW);
         }
         ResourceManager.save(data, PATH);
     }
     
     public static Text getMusicVolumeText() {
-        switch (ResourceManager.load(PATH).musicVol) {
+        switch (ResourceManager.load(PATH).getMusicVol()) {
         case MUTE:
             return Text.MUTE;
         case LOW:

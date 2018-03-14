@@ -25,7 +25,7 @@ public class MenuButton extends StackPane {
         
         getChildren().clear();
         
-        final double sfxVol = ResourceManager.load("configdata.dat").sfxVol.getVolume();
+        final double sfxVol = ResourceManager.load("configdata.dat").getSFXVol().getVolume();
         
         text = new Text(name);
         text.setFont(Font.font(24));

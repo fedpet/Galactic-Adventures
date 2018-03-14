@@ -44,11 +44,11 @@ public class GameMenu extends Parent {
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.mediaPlayer.setVolume(save.musicVol.getVolume());
+        this.mediaPlayer.setVolume(save.getMusicVol().getVolume());
         this.mediaPlayer.play();
         
         this.lang = new LanguageLoader();
-        lang.loadLanguage(save.language);
+        lang.loadLanguage(save.getLanguage());
 
         menu0.setTranslateX(96);
         menu0.setTranslateY(192);
@@ -135,7 +135,7 @@ public class GameMenu extends Parent {
         btnLanguage.setOnMouseClicked(event -> {
             LanguageManager.next();
             updateSave();
-            lang.loadLanguage(this.save.language);
+            lang.loadLanguage(this.save.getLanguage());
             updateBtn();
         });
         
@@ -143,6 +143,7 @@ public class GameMenu extends Parent {
         btnDiff.setOnMouseClicked(event -> {
             DifficultyManager.next();
             this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(DifficultyManager.getDifficultyText()));
+//            System.out.println(ResourceManager.load("configdata.dat").difficulty);
         });
         
         this.btnDefaults = new MenuButton(lang.getText(Text.DEFAULT_OPT));
@@ -173,16 +174,17 @@ public class GameMenu extends Parent {
         this.btnLanguage.update(lang.getText(Text.LANGUAGE) + lang.getText(LanguageManager.getLanguageText()));
         this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(DifficultyManager.getDifficultyText()));
         this.btnDefaults.update(lang.getText(Text.DEFAULT_OPT));
+//        System.out.println(ResourceManager.load("configdata.dat").difficulty);
     }
     
     private void updateSave() {
         this.save = ResourceManager.load("configdata.dat");
-        this.lang.loadLanguage(save.language);
+        this.lang.loadLanguage(this.save.getLanguage());
     }
     
     private void updateMusic() {
         this.mediaPlayer.stop();
-        this.mediaPlayer.setVolume(save.musicVol.getVolume());
+        this.mediaPlayer.setVolume(this.save.getMusicVol().getVolume());
         this.mediaPlayer.play();
     }
 }
