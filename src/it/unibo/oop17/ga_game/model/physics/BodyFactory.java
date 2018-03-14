@@ -43,4 +43,15 @@ public interface BodyFactory {
      * @return List of @EntityBody
      */
     List<EntityBody> createTerrainFromGrid(Point2D topLeft, Dimension2D cellSize, CollisionGrid collisionGrid);
+
+    /**
+     * An item is not solid and cannot move.
+     * 
+     * @param position
+     *            The position
+     * @param size
+     *            The size
+     * @return The @EntityBody
+     */
+    EntityBody createItem(Point2D position, Dimension2D size);
 }

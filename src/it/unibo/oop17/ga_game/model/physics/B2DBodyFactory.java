@@ -29,9 +29,8 @@ import javafx.geometry.Point2D;
         new B2DFixtureBuilder()
                 .rectangular(size)
                 .buildOn(body);
-        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
-        connectListener(entity, body);
-        return entity;
+
+        return spawnBody(body, size);
     }
 
     @Override
@@ -43,9 +42,8 @@ import javafx.geometry.Point2D;
         new B2DFixtureBuilder()
                 .rectangular(size)
                 .buildOn(body);
-        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
-        connectListener(entity, body);
-        return entity;
+
+        return spawnBody(body, size);
     }
 
     @Override
@@ -67,13 +65,27 @@ import javafx.geometry.Point2D;
                 .rectangular(size)
                 .buildOn(body);
 
-        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
-        connectListener(entity, body);
-        return entity;
+        return spawnBody(body, size);
     }
 
-    private void connectListener(final B2DEntityBody body, final Body b2Body) {
-        engine.map(b2Body, body);
+    @Override
+    public EntityBody createItem(final Point2D position, final Dimension2D size) {
+        final Body body = new B2DBodyBuilder(engine)
+                .position(position)
+                .type(BodyType.STATIC)
+                .build();
+        new B2DFixtureBuilder()
+                .isSensor(true)
+                .rectangular(size)
+                .buildOn(body);
+
+        return spawnBody(body, size);
+    }
+
+    private EntityBody spawnBody(final Body body, final Dimension2D size) {
+        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
+        engine.map(body, entity);
+        return entity;
     }
 
 }
