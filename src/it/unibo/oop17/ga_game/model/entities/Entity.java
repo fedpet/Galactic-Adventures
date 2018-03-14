@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.model.entities;
 import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 
 /**
  * Models a generic Entity in our game.
@@ -34,4 +35,20 @@ public interface Entity {
      *            The time delta (in seconds) since the last call
      */
     void update(double dt);
+
+    /**
+     * Registers a listener for @EntityEvent.
+     * 
+     * @param listener
+     *            the listener
+     */
+    void register(EntityEventListener listener);
+
+    /**
+     * Unregisters the listener for @EntityEvent.
+     * 
+     * @param listener
+     *            the listener
+     */
+    void unregister(EntityEventListener listener);
 }

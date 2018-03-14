@@ -9,6 +9,7 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
+import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
@@ -21,6 +22,7 @@ import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.BasicEnemyView;
 import it.unibo.oop17.ga_game.view.EnemyView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
+import it.unibo.oop17.ga_game.view.PlayerView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -66,7 +68,6 @@ public class Main extends Application {
         primaryStage.show();
 
         final Player player = new Player(physics, new Point2D(4, -4));
-        final ImageView playerView = new ImageView(new Image("/p1_stand.png"));
         final MovingPlatform platform = new MovingPlatform(physics, new Point2D(4, -10), new Dimension2D(4, 1),
                 InfiniteSequence.backAndForth(Arrays.asList(new Point2D(4, -5), new Point2D(4, -25))));
 
@@ -79,27 +80,21 @@ public class Main extends Application {
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));
-        final EnemyView basicEnemyView = new BasicEnemyView(basicEnemy);
-        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4));
-        final EnemyView flyingEnemyView = new FlyingEnemyView(flyingEnemy);
+        final EnemyView basicEnemyView = new BasicEnemyView(worldView);
+        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4), InfiniteSequence
+                .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
+        final EnemyView flyingEnemyView = new FlyingEnemyView(worldView);
 
-        playerView.setFitWidth(ViewUtils.metersToPixels(player.getBody().getDimension().getWidth()));
-        playerView.setFitHeight(ViewUtils.metersToPixels(player.getBody().getDimension().getHeight()));
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
         platformView2.setFitWidth(ViewUtils.metersToPixels(platform2.getBody().getDimension().getWidth()));
         platformView2.setFitHeight(ViewUtils.metersToPixels(platform2.getBody().getDimension().getHeight()));
-        basicEnemyView.setFitWidth(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getWidth()));
-        basicEnemyView.setFitHeight(ViewUtils.metersToPixels(basicEnemy.getBody().getDimension().getHeight()));
-        flyingEnemyView.setFitWidth(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getWidth()));
-        flyingEnemyView.setFitHeight(ViewUtils.metersToPixels(flyingEnemy.getBody().getDimension().getHeight()));
-        worldView.getChildren().add(playerView);
         worldView.getChildren().add(platformView);
         worldView.getChildren().add(platformView2);
-        worldView.getChildren().add(basicEnemyView);
-        worldView.getChildren().add(flyingEnemyView);
 
-        new PlayerController(new KeyboardInputController(scene), player);
+        final PlayerView playerView = new PlayerView(worldView);
+        final PlayerController playerController = new PlayerController(new KeyboardInputController(scene), player,
+                playerView);
         final EnemyController basicEnemyController = new EnemyController(basicEnemy, basicEnemyView);
         final EnemyController flyingEnemyController = new EnemyController(flyingEnemy, flyingEnemyView);
 
@@ -123,34 +118,20 @@ public class Main extends Application {
                     flyingEnemy.update(FRAMERATE);
                     physics.update(FRAMERATE);
 
-                    basicEnemyController.updateView();
-                    flyingEnemyController.updateView();
+                    basicEnemyController.update();
+                    flyingEnemyController.update();
 
-                    Point2D pt = ViewUtils.worldPointToFX(player.getBody().getPosition());
-                    playerView.setTranslateX(pt.getX() - playerView.getBoundsInLocal().getWidth() / 2);
-                    playerView.setTranslateY(pt.getY() - playerView.getBoundsInLocal().getHeight() / 2);
+                    playerController.update();
 
-                    pt = ViewUtils.worldPointToFX(platform.getBody().getPosition());
+                    Point2D pt = ViewUtils.worldPointToFX(platform.getBody().getPosition());
                     platformView.setTranslateX(pt.getX() - platformView.getBoundsInLocal().getWidth() / 2);
                     platformView.setTranslateY(pt.getY() - platformView.getBoundsInLocal().getHeight() / 2);
                     pt = ViewUtils.worldPointToFX(platform2.getBody().getPosition());
                     platformView2.setTranslateX(pt.getX() - platformView2.getBoundsInLocal().getWidth() / 2);
                     platformView2.setTranslateY(pt.getY() - platformView2.getBoundsInLocal().getHeight() / 2);
-                    pt = ViewUtils.worldPointToFX(basicEnemy.getBody().getPosition());
-                    basicEnemyView.setTranslateX(pt.getX() - basicEnemyView.getBoundsInLocal().getWidth() / 2);
-                    basicEnemyView.setTranslateY(pt.getY() - basicEnemyView.getBoundsInLocal().getHeight() / 2);
-                    pt = ViewUtils.worldPointToFX(flyingEnemy.getBody().getPosition());
-                    flyingEnemyView.setTranslateX(pt.getX() - flyingEnemyView.getBoundsInLocal().getWidth() / 2);
-                    flyingEnemyView.setTranslateY(pt.getY() - flyingEnemyView.getBoundsInLocal().getHeight() / 2);
 
-                    System.out.println("player " + playerView.getTranslateX() + "," + playerView.getTranslateY());
-                    System.out.println("playerWinLocal " + playerView.getBoundsInLocal());
-                    System.out.println("scnee " + scene.getWidth() + "," + scene.getHeight());
-                    System.out.println("worldView " + worldView.getTranslateX() + "," + worldView.getTranslateY());
-
-                    worldView.setTranslateX(-playerView.getTranslateX() + scene.getWidth() / 2);
-                    worldView.setTranslateY(-playerView.getTranslateY() + scene.getHeight() / 2);
-
+                    worldView.setTranslateX(-playerView.getPosition().getX() + scene.getWidth() / 2);
+                    worldView.setTranslateY(-playerView.getPosition().getY() + scene.getHeight() / 2);
                 }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

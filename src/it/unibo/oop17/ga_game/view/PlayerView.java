@@ -21,15 +21,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public abstract class EnemyView implements EntityEventListener {
-
-    private final Dimension2D dimension;
+public final class PlayerView implements EntityEventListener {
+    private static final int WIDTH = 72, HEIGHT = 97;
     private final Map<MovementComponent.State, Runnable> animations = new HashMap<>();
     private final ImageView view = new ImageView();
     private Animation currentAnimation;
 
-    public EnemyView(final Group group, int width, int height, Image image) {
-        this.dimension = new Dimension2D(width, height);
+    public PlayerView(final Group group) {
         currentAnimation = new Transition() {
             @Override
             protected void interpolate(final double frac) {
@@ -37,12 +35,23 @@ public abstract class EnemyView implements EntityEventListener {
             }
         };
 
-        animations.put(State.WALKING, setAnimation(image, Duration.millis(700), 2));
+        animations.put(State.IDLE, justAnImage(new Image("/p1_stand.png")));
+        animations.put(State.WALKING, setAnimation(new Image("/p1_walk.png"), Duration.millis(700), 10));
+        animations.put(State.JUMPING, justAnImage(new Image("/p1_jump.png")));
 
-        animations.get(State.WALKING).run();
+        animations.get(State.IDLE).run();
 
         group.getChildren().add(view);
+    }
 
+    @Subscribe
+    public void movementChanged(final MovementEvent event) {
+        animations.getOrDefault(event.getState(), animations.get(State.IDLE)).run();
+    }
+
+    @Subscribe
+    public void faceDirectionChanged(final FaceDirectionEvent event) {
+        view.setScaleX(event.getDirection() == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     public void setPosition(final Point2D point) {
@@ -63,8 +72,7 @@ public abstract class EnemyView implements EntityEventListener {
         return () -> {
             setImage(image);
             currentAnimation.stop();
-            currentAnimation = new SpriteAnimation(view, duration, frames, 0, 0, (int) dimension.getWidth(),
-                    (int) dimension.getHeight());
+            currentAnimation = new SpriteAnimation(view, duration, frames, 0, 0, WIDTH, HEIGHT);
             currentAnimation.setCycleCount(Animation.INDEFINITE);
             currentAnimation.play();
         };
@@ -79,17 +87,6 @@ public abstract class EnemyView implements EntityEventListener {
     private void setImage(final Image image) {
         currentAnimation.stop();
         view.setImage(image);
-        view.setViewport(new Rectangle2D(0, 0, dimension.getWidth(), dimension.getHeight()));
+        view.setViewport(new Rectangle2D(0, 0, WIDTH, HEIGHT));
     }
-
-    @Subscribe
-    public void movementChanged(final MovementEvent event) {
-        animations.getOrDefault(event.getState(), animations.get(State.WALKING)).run();
-    }
-
-    @Subscribe
-    public void faceDirectionChanged(final FaceDirectionEvent event) {
-        view.setScaleX(event.getDirection() == HorizontalDirection.RIGHT ? -1 : 1);
-    }
-
 }
