@@ -13,14 +13,14 @@ import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
-import it.unibo.oop17.ga_game.model.entities.BasicEnemy;
+import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
-import it.unibo.oop17.ga_game.view.BasicEnemyView;
-import it.unibo.oop17.ga_game.view.EnemyView;
+import it.unibo.oop17.ga_game.view.SlimeEnemyView;
+import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.PlayerView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
@@ -79,11 +79,11 @@ public class Main extends Application {
 
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
-        final BasicEnemy basicEnemy = new BasicEnemy(physics, new Point2D(4, -4));
-        final EnemyView basicEnemyView = new BasicEnemyView(worldView);
+        final SlimeEnemy slimeEnemy = new SlimeEnemy(physics, new Point2D(4, -4));
+        final EntityView slimeEnemyView = new SlimeEnemyView(worldView);
         final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4), InfiniteSequence
                 .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
-        final EnemyView flyingEnemyView = new FlyingEnemyView(worldView);
+        final EntityView flyingEnemyView = new FlyingEnemyView(worldView);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -92,11 +92,11 @@ public class Main extends Application {
         worldView.getChildren().add(platformView);
         worldView.getChildren().add(platformView2);
 
-        final PlayerView playerView = new PlayerView(worldView);
-        final PlayerController playerController = new PlayerController(new KeyboardInputController(scene), player,
+        final EntityView playerView = new PlayerView(worldView);
+        final EntityController playerController = new PlayerController(new KeyboardInputController(scene), player,
                 playerView);
-        final EnemyController basicEnemyController = new EnemyController(basicEnemy, basicEnemyView);
-        final EnemyController flyingEnemyController = new EnemyController(flyingEnemy, flyingEnemyView);
+        final EntityController basicEnemyController = new UnplayableEntityController(slimeEnemy, slimeEnemyView);
+        final EntityController flyingEnemyController = new UnplayableEntityController(flyingEnemy, flyingEnemyView);
 
 
         try {
@@ -114,7 +114,7 @@ public class Main extends Application {
                     player.update(FRAMERATE);
                     platform.update(FRAMERATE);
                     platform2.update(FRAMERATE);
-                    basicEnemy.update(FRAMERATE);
+                    slimeEnemy.update(FRAMERATE);
                     flyingEnemy.update(FRAMERATE);
                     physics.update(FRAMERATE);
 

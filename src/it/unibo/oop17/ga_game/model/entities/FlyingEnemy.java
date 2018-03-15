@@ -19,7 +19,7 @@ public class FlyingEnemy extends AbstractEnemy {
      *            The position
      */
     public FlyingEnemy(final PhysicsEngine engine, final Point2D position, final Supplier<Point2D> positions) {
-        super(engine.bodyFactory().createMovingPlatform(position, SIZE), new FlyingEnemyBrain(positions),
+        super(engine.bodyFactory().createCreature(position, SIZE), new FlyingEnemyBrain(positions),
                 new LinearPropeller(5), 1);
         getBody().setGravityScale(0);
     }
