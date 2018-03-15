@@ -9,15 +9,16 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop17.ga_game.controller.Main;
 import it.unibo.oop17.ga_game.model.CheckConfig;
-import it.unibo.oop17.ga_game.model.DifficultyManager;
 import it.unibo.oop17.ga_game.model.ResetSave;
 import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameMenu extends Parent {
@@ -37,12 +38,12 @@ public class GameMenu extends Parent {
     private final ConfigData data;
     private Map<Text, String> currLang;
     
-    public GameMenu() throws IOException, ClassNotFoundException {
+    public GameMenu(final Stage primaryStage) throws IOException, ClassNotFoundException {
         
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
-        this.data = CheckConfig.checkIfConfigExists();
+        this.data = CheckConfig.loadConfig();
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -123,7 +124,7 @@ public class GameMenu extends Parent {
         
         this.btnMusic = new MenuButton(currLang.get(Text.VOLUME_M) + currLang.get(this.data.getMusicVol().asText()));
         btnMusic.setOnMouseClicked(event -> {
-            this.data.setMusicVol(VolumeManager.next());
+            this.data.setMusicVol((Volume.values()[(this.data.getMusicVol().ordinal() + 1) % Volume.values().length]));
             updateLanguage();
             updateMusic();
             this.btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(this.data.getMusicVol().asText()), this.data.getSFXVol());
@@ -131,21 +132,21 @@ public class GameMenu extends Parent {
         
         this.btnSFX = new MenuButton(currLang.get(Text.VOLUME_S) + currLang.get(this.data.getSFXVol().asText()));
         btnSFX.setOnMouseClicked(event -> {
-            this.data.setSFXVol(VolumeManager.next());
+            this.data.setSFXVol((Volume.values()[(this.data.getSFXVol().ordinal() + 1) % Volume.values().length]));
             updateLanguage();
             updateBtn();
         });
         
         this.btnLanguage = new MenuButton(currLang.get(Text.LANGUAGE) + currLang.get(this.data.getLanguage().asText()));
         btnLanguage.setOnMouseClicked(event -> {
-            this.data.setLanguage(LanguageManager.next());
+            this.data.setLanguage(Language.values()[(this.data.getLanguage().ordinal() + 1) % Language.values().length]);
             updateLanguage();
             updateBtn();
         });
         
         this.btnDiff = new MenuButton(currLang.get(Text.DIFFICULTY) + currLang.get(this.data.getDifficulty().asText()));
         btnDiff.setOnMouseClicked(event -> {
-            this.data.setDifficulty(DifficultyManager.next());
+            this.data.setDifficulty(Difficulty.values()[(this.data.getDifficulty().ordinal() + 1) % Difficulty.values().length]);
             this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(this.data.getDifficulty().asText()), this.data.getSFXVol());
         });
         
@@ -159,6 +160,8 @@ public class GameMenu extends Parent {
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
+        
+        
 
         final Rectangle bg = new Rectangle(1024, 512);
         bg.setOpacity(0);

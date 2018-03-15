@@ -11,7 +11,7 @@ public final class CheckConfig {
     private CheckConfig() {
     }
 
-    public static ConfigData checkIfConfigExists() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static ConfigData loadConfig() throws FileNotFoundException, IOException, ClassNotFoundException {
         final File f = new File(PATH);
         ConfigData data = new ConfigData();
         if (!f.exists()) {

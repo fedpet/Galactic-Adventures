@@ -28,10 +28,8 @@ public class MainMenu {
         is.close();
 
         final ImageView imgView = new ImageView(img);
-        imgView.setFitWidth(1024);
-        imgView.setFitHeight(512);
 
-        gameMenu = new GameMenu();
+        gameMenu = new GameMenu(primaryStage);
         gameMenu.setVisible(true);
 
         core.getChildren().addAll(imgView, gameMenu);
