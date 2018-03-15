@@ -5,12 +5,12 @@ import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.W;
 
 import it.unibo.oop17.ga_game.model.entities.Player;
-import it.unibo.oop17.ga_game.view.EntityView;
+import it.unibo.oop17.ga_game.view.PlayerView;
 import javafx.geometry.Point2D;
 
 public class PlayerController extends AbstractEntityController {
 
-    public PlayerController(final KeyboardInputController keyboard, final Player player, final EntityView view) {
+    public PlayerController(final KeyboardInputController keyboard, final Player player, final PlayerView view) {
         super(player, view);
         keyboard.onEvent(e -> updateMovingDirection(keyboard, player));
     }

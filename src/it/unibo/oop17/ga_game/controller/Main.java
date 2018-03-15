@@ -13,16 +13,16 @@ import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
-import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
+import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
-import it.unibo.oop17.ga_game.view.SlimeEnemyView;
 import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.PlayerView;
+import it.unibo.oop17.ga_game.view.SlimeEnemyView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -92,7 +92,7 @@ public class Main extends Application {
         worldView.getChildren().add(platformView);
         worldView.getChildren().add(platformView2);
 
-        final EntityView playerView = new PlayerView(worldView);
+        final PlayerView playerView = new PlayerView(worldView);
         final EntityController playerController = new PlayerController(new KeyboardInputController(scene), player,
                 playerView);
         final EntityController basicEnemyController = new UnplayableEntityController(slimeEnemy, slimeEnemyView);
