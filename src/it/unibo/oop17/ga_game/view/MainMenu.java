@@ -18,7 +18,7 @@ public class MainMenu {
 
     private final GameMenu gameMenu;
 
-    public MainMenu(final Stage primaryStage) throws IOException {
+    public MainMenu(final Stage primaryStage) throws IOException, ClassNotFoundException {
         
         final Pane core = new Pane();
         core.setPrefSize(1024, 512);

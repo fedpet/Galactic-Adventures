@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.view;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import it.unibo.oop17.ga_game.model.ResourceManager;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -14,18 +17,19 @@ import javafx.scene.text.Text;
 public class MenuButton extends StackPane {
     
     private Text text;
+    private double sfxVol;
 
-    public MenuButton(final String name) {
+    public MenuButton(final String name) throws FileNotFoundException, ClassNotFoundException, IOException {
         
-        update(name);
+        update(name, ResourceManager.load("configdata.dat").getSFXVol());
         
     }
     
-    public final void update(final String name) {
+    public final void update(final String name, final Volume sfxVol){
+        
+        this.sfxVol = sfxVol.getVolume();
         
         getChildren().clear();
-        
-        final double sfxVol = ResourceManager.load("configdata.dat").getSFXVol().getVolume();
         
         text = new Text(name);
         text.setFont(Font.font(24));
@@ -45,7 +49,7 @@ public class MenuButton extends StackPane {
             text.setTranslateX(8);
             bg.setFill(Color.BLACK);
             text.setFill(Color.WHITE);
-            SFX.MOUSE_ENTERED.getSFX().play(sfxVol);
+            SFX.MOUSE_ENTERED.getSFX().play(this.sfxVol);
         });
 
         setOnMouseExited(event -> {
@@ -60,7 +64,7 @@ public class MenuButton extends StackPane {
 
         setOnMousePressed(event -> {
             setEffect(drop);
-            SFX.MOUSE_CLICKED.getSFX().play(sfxVol);
+            SFX.MOUSE_CLICKED.getSFX().play(this.sfxVol);
         });
         
         setOnMouseReleased(event -> setEffect(null));

@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.model;
 
+import it.unibo.oop17.ga_game.view.Language;
+import it.unibo.oop17.ga_game.view.Volume;
+
 public class ConfigData implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
