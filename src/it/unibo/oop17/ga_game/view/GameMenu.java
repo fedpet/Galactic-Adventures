@@ -54,7 +54,6 @@ public class GameMenu extends Parent {
             this.languages.put(l, loadLanguage(l));
         }
         updateLanguage();
-        System.out.println(this.languages);
 
         menu0.setTranslateX(96);
         menu0.setTranslateY(192);
@@ -148,7 +147,6 @@ public class GameMenu extends Parent {
         btnDiff.setOnMouseClicked(event -> {
             this.data = DifficultyManager.next(this.data);
             this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(DifficultyManager.getDifficultyText(this.data)), this.data.getSFXVol());
-//            System.out.println(ResourceManager.load("configdata.dat").difficulty);
         });
         
         this.btnDefaults = new MenuButton(currLang.get(Text.DEFAULT_OPT));
@@ -179,7 +177,6 @@ public class GameMenu extends Parent {
         this.btnLanguage.update(currLang.get(Text.LANGUAGE) + currLang.get(LanguageManager.getLanguageText(this.data)), this.data.getSFXVol());
         this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(DifficultyManager.getDifficultyText(this.data)), this.data.getSFXVol());
         this.btnDefaults.update(currLang.get(Text.DEFAULT_OPT), this.data.getSFXVol());
-//        System.out.println(ResourceManager.load("configdata.dat").difficulty);
     }
     
     private void updateLanguage() {
