@@ -11,7 +11,7 @@ public enum Music {
     TRACK5(new File("res/audio/music/generic4.mp3")),
     TRACK6(new File("res/audio/music/generic5.mp3"));
     
-    private File media;
+    private final File media;
         
     private Music(final File media) {
         this.media = media;

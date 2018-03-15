@@ -43,4 +43,11 @@ public class ConfigData implements java.io.Serializable {
     public Language getLanguage() {
         return this.language;
     }
+    
+    public void defaultOptions() {
+        this.musicVol = Volume.MEDIUM;
+        this.sfxVol = Volume.MEDIUM;
+        this.difficulty = Difficulty.MEDIUM;
+        this.language = Language.ITA;
+    }
 }
