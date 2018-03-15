@@ -26,7 +26,7 @@ public abstract class AbstractEntityView implements EntityView {
     private Animation currentAnimation;
     private final Dimension2D dimension;
 
-    public AbstractEntityView(final Group group, Dimension2D dimension) {
+    public AbstractEntityView(final Group group, final Dimension2D dimension) {
         currentAnimation = new Transition() {
             @Override
             protected void interpolate(final double frac) {
@@ -39,11 +39,11 @@ public abstract class AbstractEntityView implements EntityView {
         group.getChildren().add(view);
     }
 
-    protected void startAnimation(MovementComponent.State state) {
+    protected void startAnimation(final MovementComponent.State state) {
         animations.get(state).run();
     }
 
-    protected void mapAnimation(MovementComponent.State state, Runnable runnable) {
+    protected void mapAnimation(final MovementComponent.State state, final Runnable runnable) {
         animations.put(state, runnable);
     }
 
@@ -57,15 +57,18 @@ public abstract class AbstractEntityView implements EntityView {
         view.setScaleX(event.getDirection() == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
+    @Override
     public void setPosition(final Point2D point) {
         view.setTranslateX(point.getX() - view.getBoundsInLocal().getWidth() / 2);
         view.setTranslateY(point.getY() - view.getBoundsInLocal().getHeight() / 2);
     }
 
+    @Override
     public Point2D getPosition() {
         return new Point2D(view.getTranslateX(), view.getTranslateY());
     }
 
+    @Override
     public void setDimension(final Dimension2D dimension) {
         view.setFitWidth(ViewUtils.metersToPixels(dimension.getWidth()));
         view.setFitHeight(ViewUtils.metersToPixels(dimension.getHeight()));

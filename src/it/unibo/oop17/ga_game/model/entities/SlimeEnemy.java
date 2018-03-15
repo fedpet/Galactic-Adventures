@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -27,6 +27,6 @@ public final class SlimeEnemy extends AbstractEnemy {
 
     @Override
     public String toString() {
-        return "Basic enemy";
+        return "Slime enemy";
     }
 }
