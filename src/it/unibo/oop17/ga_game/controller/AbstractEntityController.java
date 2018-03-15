@@ -4,11 +4,11 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 
-public abstract class AbstractController implements EntityController {
+public abstract class AbstractEntityController implements EntityController {
     private final Entity entity;
     private final EntityView entityView;
 
-    public AbstractController(final Entity entity, final EntityView entityView) {
+    public AbstractEntityController(final Entity entity, final EntityView entityView) {
         this.entity = entity;
         this.entityView = entityView;
         entity.register(entityView);
