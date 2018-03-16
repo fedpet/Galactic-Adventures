@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.model.entities;
 
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
 import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
-import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
+import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -20,8 +20,8 @@ public final class SlimeEnemy extends AbstractEnemy {
      * @param position
      *            The position
      */
-    public SlimeEnemy(final PhysicsEngine engine, final Point2D position) {
-        super(engine.bodyFactory().createCreature(position, SIZE), new SlimeEnemyBrain(), new FeetComponent(5, 0), 1);
+    public SlimeEnemy(final BodyFactory bodyFactory, final Point2D position) {
+        super(bodyFactory.createCreature(position, SIZE), new SlimeEnemyBrain(), new FeetComponent(5, 0), 1);
         getMovement().move(new Point2D(1, 0));
     }
 
