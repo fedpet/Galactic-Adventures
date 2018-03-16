@@ -39,18 +39,22 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
 
     @Override
     public final void hurt(final int damageAmount) {
-        if (damageAmount <= 0) {
+        if (damageAmount < 0) {
             throw new IllegalArgumentException("Cannot hurt a life for a negative amount");
         }
-        addLife(-damageAmount);
+        if (!isDead()) {
+            addLife(-damageAmount);
+        }
     }
 
     @Override
     public final void heal(final int restoreAmount) {
-        if (restoreAmount <= 0) {
+        if (restoreAmount < 0) {
             throw new IllegalArgumentException("Cannot heal a life for a negative amount");
         }
-        addLife(restoreAmount);
+        if (current < max && !isDead()) {
+            addLife(restoreAmount);
+        }
     }
 
     /**
@@ -61,7 +65,15 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      */
     protected void addLife(final int amount) {
         current += amount;
-        reportChange(amount);
+        if (current < 0) {
+            current = 0;
+        }
+        if (current > max) {
+            current = max;
+        }
+        if (amount != 0) {
+            reportChange(amount);
+        }
     }
 
     /**
