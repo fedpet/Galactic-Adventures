@@ -21,6 +21,11 @@ public interface EntityComponent {
     void attach(EventfullEntity owner) throws IllegalStateException;
 
     /**
+     * Detaches the component.
+     */
+    void detach();
+
+    /**
      * 
      * @return The @Entity to which its attached to.
      */

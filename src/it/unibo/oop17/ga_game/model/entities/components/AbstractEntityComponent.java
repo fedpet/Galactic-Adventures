@@ -26,12 +26,23 @@ public abstract class AbstractEntityComponent implements EntityComponent {
         return owner.orElseThrow(IllegalStateException::new);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
-    public final void attach(final EventfullEntity owner) throws IllegalStateException {
+    public void attach(final EventfullEntity owner) throws IllegalStateException {
         this.owner.ifPresent(e -> {
             throw new IllegalStateException("Component already attached to an entity");
         });
         this.owner = Optional.of(owner);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void detach() throws IllegalStateException {
+        owner = Optional.empty();
     }
 
     /**
