@@ -36,7 +36,7 @@ public abstract class AbstractMovementComponent extends AbstractEntityComponent 
     protected final void setState(final State newState) {
         if (currentState != newState) {
             currentState = newState;
-            post(new MovementEvent(newState));
+            post(new MovementEvent(getEntity(), newState));
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractMovementComponent extends AbstractEntityComponent 
     protected final void setFaceDirection(final HorizontalDirection newDir) {
         if (newDir != faceDirection) {
             faceDirection = newDir;
-            post(new FaceDirectionEvent(faceDirection));
+            post(new FaceDirectionEvent(getEntity(), faceDirection));
         }
     }
 

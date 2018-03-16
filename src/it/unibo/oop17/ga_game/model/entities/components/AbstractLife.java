@@ -83,6 +83,6 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      *            The amount.
      */
     protected void reportChange(final int amount) {
-        post(new LifeEvent(this, amount));
+        post(new LifeEvent(getEntity(), this, amount));
     }
 }
