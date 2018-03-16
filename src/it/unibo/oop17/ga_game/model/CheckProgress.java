@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import it.unibo.oop17.ga_game.controller.ResourceManager;
+
 public final class CheckProgress {
     
 private final static String PATH = "gamedata.dat";
@@ -24,7 +26,7 @@ private final static String PATH = "gamedata.dat";
     
     public static boolean exists() {
         final File f = new File(PATH);
-        return (f.exists());
+        return f.exists();
     }
     
 }

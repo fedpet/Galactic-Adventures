@@ -1,9 +1,8 @@
 package it.unibo.oop17.ga_game.controller;
 
+import it.unibo.oop17.ga_game.view.MainMenu;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import it.unibo.oop17.ga_game.view.MainMenu;
 
 public class Launcher extends Application {
 
