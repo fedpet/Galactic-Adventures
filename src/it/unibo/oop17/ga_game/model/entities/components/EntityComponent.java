@@ -16,7 +16,7 @@ public interface EntityComponent {
      * @param owner
      *            The @EventfullEntity
      * @throws IllegalStateException
-     *             Transplantating components is not supported
+     *             A component cannot be attached to multiple entities at the same time
      */
     void attach(EventfullEntity owner) throws IllegalStateException;
 
