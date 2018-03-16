@@ -1,21 +1,24 @@
 package it.unibo.oop17.ga_game.view;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import it.unibo.oop17.ga_game.controller.Main;
-import it.unibo.oop17.ga_game.model.DifficultyManager;
-import it.unibo.oop17.ga_game.model.LanguageLoader;
-import it.unibo.oop17.ga_game.model.LanguageManager;
-import it.unibo.oop17.ga_game.model.MusicVolumeManager;
+import it.unibo.oop17.ga_game.model.CheckConfig;
 import it.unibo.oop17.ga_game.model.ResetSave;
-import it.unibo.oop17.ga_game.model.SFXVolumeManager;
 import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.model.Text;
-import it.unibo.oop17.ga_game.model.ResourceManager;
+import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameMenu extends Parent {
@@ -30,28 +33,28 @@ public class GameMenu extends Parent {
     private final MenuButton btnLanguage;
     private final MenuButton btnDiff;
     private final MenuButton btnDefaults;
-    private final LanguageLoader lang;
-    private final MusicVolumeManager mvm;
-    private final SFXVolumeManager svm;
-    private final LanguageManager lm;
-    private final DifficultyManager dm;
     private final MediaPlayer mediaPlayer;
-    private ConfigData save;
+    private final Map<Language, Map<Text, String>> languages;
+    private final ConfigData data;
+    private Map<Text, String> currLang;
     
-    public GameMenu() {
+    public GameMenu(final Stage primaryStage) throws IOException, ClassNotFoundException {
         
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
-        this.save = ResourceManager.load("configdata.dat");
+        this.data = CheckConfig.loadConfig();
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.mediaPlayer.setVolume(save.musicVol.getVolume());
+        this.mediaPlayer.setVolume(data.getMusicVol().getVolume());
         this.mediaPlayer.play();
         
-        this.lang = new LanguageLoader();
-        lang.loadLanguage(save.language);
+        this.languages = new HashMap<Language, Map<Text, String>>();
+        for (final Language l : Language.values()) {
+            this.languages.put(l, loadLanguage(l));
+        }
+        updateLanguage();
 
         menu0.setTranslateX(96);
         menu0.setTranslateY(192);
@@ -63,7 +66,7 @@ public class GameMenu extends Parent {
 
         menu1.setTranslateX(offset);
         
-        this.btnNewGame = new MenuButton(lang.getText(Text.NEW_GAME));
+        this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
         btnNewGame.setOnMouseClicked(event -> {
             // LANCIA IL TEST
             ResetSave.resetProgress();
@@ -71,14 +74,14 @@ public class GameMenu extends Parent {
             Main.main(args);
         });
 
-        this.btnContinue = new MenuButton(lang.getText(Text.CONTINUE));
+        this.btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
         btnContinue.setOnMouseClicked(event -> {
             // LANCIA IL TEST
             final String[] args = {};
             Main.main(args);
         });
 
-        this.btnOptions = new MenuButton(lang.getText(Text.OPTIONS));
+        this.btnOptions = new MenuButton(currLang.get(Text.OPTIONS));
         btnOptions.setOnMouseClicked(event -> {
             getChildren().add(menu1);
 
@@ -96,12 +99,12 @@ public class GameMenu extends Parent {
             });
         });
 
-        this.btnExit = new MenuButton(lang.getText(Text.EXIT));
+        this.btnExit = new MenuButton(currLang.get(Text.EXIT));
         btnExit.setOnMouseClicked(event -> {
             System.exit(0);
         });
 
-        this.btnBack = new MenuButton(lang.getText(Text.BACK));
+        this.btnBack = new MenuButton(currLang.get(Text.BACK));
         btnBack.setOnMouseClicked(event -> {
             getChildren().add(menu0);
 
@@ -119,48 +122,46 @@ public class GameMenu extends Parent {
             });
         });
         
-        this.mvm = new MusicVolumeManager();
-        this.btnMusic = new MenuButton(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
+        this.btnMusic = new MenuButton(currLang.get(Text.VOLUME_M) + currLang.get(this.data.getMusicVol().asText()));
         btnMusic.setOnMouseClicked(event -> {
-            mvm.next();
-            updateSave();
+            this.data.setMusicVol((Volume.values()[(this.data.getMusicVol().ordinal() + 1) % Volume.values().length]));
+            updateLanguage();
             updateMusic();
-            this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
+            this.btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(this.data.getMusicVol().asText()), this.data.getSFXVol());
         });
         
-        this.svm = new SFXVolumeManager();
-        this.btnSFX = new MenuButton(lang.getText(Text.VOLUME_S) + lang.getText(svm.getSFXVolumeText()));
+        this.btnSFX = new MenuButton(currLang.get(Text.VOLUME_S) + currLang.get(this.data.getSFXVol().asText()));
         btnSFX.setOnMouseClicked(event -> {
-            svm.next();
-            updateSave();
+            this.data.setSFXVol((Volume.values()[(this.data.getSFXVol().ordinal() + 1) % Volume.values().length]));
+            updateLanguage();
             updateBtn();
         });
         
-        this.lm = new LanguageManager();
-        this.btnLanguage = new MenuButton(lang.getText(Text.LANGUAGE) + lang.getText(lm.getLanguageText()));
+        this.btnLanguage = new MenuButton(currLang.get(Text.LANGUAGE) + currLang.get(this.data.getLanguage().asText()));
         btnLanguage.setOnMouseClicked(event -> {
-            lm.next();
-            updateSave();
-            lang.loadLanguage(this.save.language);
+            this.data.setLanguage(Language.values()[(this.data.getLanguage().ordinal() + 1) % Language.values().length]);
+            updateLanguage();
             updateBtn();
         });
         
-        this.dm = new DifficultyManager();
-        this.btnDiff = new MenuButton(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
+        this.btnDiff = new MenuButton(currLang.get(Text.DIFFICULTY) + currLang.get(this.data.getDifficulty().asText()));
         btnDiff.setOnMouseClicked(event -> {
-            dm.next();
-            this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
+            this.data.setDifficulty(Difficulty.values()[(this.data.getDifficulty().ordinal() + 1) % Difficulty.values().length]);
+            this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(this.data.getDifficulty().asText()), this.data.getSFXVol());
         });
         
-        this.btnDefaults = new MenuButton(lang.getText(Text.DEFAULT_OPT));
+        this.btnDefaults = new MenuButton(currLang.get(Text.DEFAULT_OPT));
         btnDefaults.setOnMouseClicked(event -> {
-//            ResetSave.defaultOptions();
-//            updateSave();
-//            updateBtn();
+            this.data.defaultOptions();
+            updateMusic();
+            updateLanguage();
+            updateBtn();
         });
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
+        
+        
 
         final Rectangle bg = new Rectangle(1024, 512);
         bg.setOpacity(0);
@@ -169,26 +170,33 @@ public class GameMenu extends Parent {
     }
     
     private void updateBtn() {
-        this.btnContinue.update(lang.getText(Text.NEW_GAME));
-        this.btnNewGame.update(lang.getText(Text.CONTINUE));
-        this.btnOptions.update(lang.getText(Text.OPTIONS));
-        this.btnExit.update(lang.getText(Text.EXIT));
-        this.btnBack.update(lang.getText(Text.BACK));
-        this.btnMusic.update(lang.getText(Text.VOLUME_M) + lang.getText(mvm.getMusicVolumeText()));
-        this.btnSFX.update(lang.getText(Text.VOLUME_S) + lang.getText(svm.getSFXVolumeText()));
-        this.btnLanguage.update(lang.getText(Text.LANGUAGE) + lang.getText(lm.getLanguageText()));
-        this.btnDiff.update(lang.getText(Text.DIFFICULTY) + lang.getText(dm.getDifficultyText()));
-        this.btnDefaults.update(lang.getText(Text.DEFAULT_OPT));
+        this.btnContinue.update(currLang.get(Text.NEW_GAME), this.data.getSFXVol());
+        this.btnNewGame.update(currLang.get(Text.CONTINUE), this.data.getSFXVol());
+        this.btnOptions.update(currLang.get(Text.OPTIONS), this.data.getSFXVol());
+        this.btnExit.update(currLang.get(Text.EXIT), this.data.getSFXVol());
+        this.btnBack.update(currLang.get(Text.BACK), this.data.getSFXVol());
+        this.btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(this.data.getMusicVol().asText()), this.data.getSFXVol());
+        this.btnSFX.update(currLang.get(Text.VOLUME_S) + currLang.get(this.data.getSFXVol().asText()), this.data.getSFXVol());
+        this.btnLanguage.update(currLang.get(Text.LANGUAGE) + currLang.get(this.data.getLanguage().asText()), this.data.getSFXVol());
+        this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(this.data.getDifficulty().asText()), this.data.getSFXVol());
+        this.btnDefaults.update(currLang.get(Text.DEFAULT_OPT), this.data.getSFXVol());
     }
     
-    private void updateSave() {
-        this.save = ResourceManager.load("configdata.dat");
-        this.lang.loadLanguage(save.language);
+    private void updateLanguage() {
+        this.currLang = this.languages.get(this.data.getLanguage());
     }
     
     private void updateMusic() {
         this.mediaPlayer.stop();
-        this.mediaPlayer.setVolume(save.musicVol.getVolume());
+        this.mediaPlayer.setVolume(this.data.getMusicVol().getVolume());
         this.mediaPlayer.play();
     }
+    
+    private Map<Text, String> loadLanguage(final Language l) throws IOException {
+        return  Files.lines(Paths.get("res", "languages", l.toString() + ".txt"))
+                .map(line -> line.split("=", 2))
+                .collect(Collectors.toMap(key -> Text.valueOf(key[0]), val -> val[1]));
+    }
+    
+    
 }

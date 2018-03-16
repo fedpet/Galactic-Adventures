@@ -18,7 +18,7 @@ public class MainMenu {
 
     private final GameMenu gameMenu;
 
-    public MainMenu(final Stage primaryStage) throws IOException {
+    public MainMenu(final Stage primaryStage) throws IOException, ClassNotFoundException {
         
         final Pane core = new Pane();
         core.setPrefSize(1024, 512);
@@ -28,10 +28,8 @@ public class MainMenu {
         is.close();
 
         final ImageView imgView = new ImageView(img);
-        imgView.setFitWidth(1024);
-        imgView.setFitHeight(512);
 
-        gameMenu = new GameMenu();
+        gameMenu = new GameMenu(primaryStage);
         gameMenu.setVisible(true);
 
         core.getChildren().addAll(imgView, gameMenu);

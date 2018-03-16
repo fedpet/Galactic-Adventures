@@ -6,23 +6,13 @@ import static javafx.scene.input.KeyCode.W;
 
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.view.PlayerView;
-import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.geometry.Point2D;
 
-public class PlayerController {
-    private final Player player;
-    private final PlayerView view;
+public class PlayerController extends AbstractEntityController {
 
     public PlayerController(final KeyboardInputController keyboard, final Player player, final PlayerView view) {
-        this.player = player;
-        this.view = view;
+        super(player, view);
         keyboard.onEvent(e -> updateMovingDirection(keyboard, player));
-        player.register(view);
-        view.setDimension(player.getBody().getDimension());
-    }
-
-    public void update() {
-        view.setPosition(ViewUtils.worldPointToFX(player.getBody().getPosition()));
     }
 
     private void updateMovingDirection(final KeyboardInputController keyboard, final Player player) {
