@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.Volume;
@@ -48,6 +48,5 @@ public class ConfigData implements java.io.Serializable {
         this.musicVol = Volume.MEDIUM;
         this.sfxVol = Volume.MEDIUM;
         this.difficulty = Difficulty.MEDIUM;
-        this.language = Language.ITA;
     }
 }

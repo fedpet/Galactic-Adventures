@@ -29,7 +29,7 @@ public class MainMenu {
 
         final ImageView imgView = new ImageView(img);
 
-        gameMenu = new GameMenu(primaryStage);
+        gameMenu = new GameMenu();
         gameMenu.setVisible(true);
 
         core.getChildren().addAll(imgView, gameMenu);

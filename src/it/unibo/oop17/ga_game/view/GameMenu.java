@@ -7,18 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import it.unibo.oop17.ga_game.controller.CheckConfig;
+import it.unibo.oop17.ga_game.controller.ConfigData;
+import it.unibo.oop17.ga_game.controller.Difficulty;
 import it.unibo.oop17.ga_game.controller.Main;
-import it.unibo.oop17.ga_game.model.CheckConfig;
-import it.unibo.oop17.ga_game.model.ResetSave;
-import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameMenu extends Parent {
@@ -38,7 +36,7 @@ public class GameMenu extends Parent {
     private final ConfigData data;
     private Map<Text, String> currLang;
     
-    public GameMenu(final Stage primaryStage) throws IOException, ClassNotFoundException {
+    public GameMenu() throws IOException, ClassNotFoundException {
         
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
@@ -69,7 +67,6 @@ public class GameMenu extends Parent {
         this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
         btnNewGame.setOnMouseClicked(event -> {
             // LANCIA IL TEST
-            ResetSave.resetProgress();
             final String[] args = {};
             Main.main(args);
         });
