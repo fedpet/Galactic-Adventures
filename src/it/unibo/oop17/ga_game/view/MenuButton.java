@@ -3,8 +3,8 @@ package it.unibo.oop17.ga_game.view;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.ResourceManager;
+import it.unibo.oop17.ga_game.model.ConfigData;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;

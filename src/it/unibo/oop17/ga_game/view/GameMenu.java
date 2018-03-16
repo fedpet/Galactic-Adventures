@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import it.unibo.oop17.ga_game.controller.CheckConfig;
-import it.unibo.oop17.ga_game.controller.CheckProgress;
-import it.unibo.oop17.ga_game.controller.ConfigData;
-import it.unibo.oop17.ga_game.controller.Difficulty;
 import it.unibo.oop17.ga_game.controller.Main;
+import it.unibo.oop17.ga_game.model.CheckConfig;
+import it.unibo.oop17.ga_game.model.CheckProgress;
+import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
