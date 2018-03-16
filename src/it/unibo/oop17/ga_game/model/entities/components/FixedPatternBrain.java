@@ -29,16 +29,6 @@ public abstract class FixedPatternBrain extends AbstractBrain {
         followPattern();
     }
 
-    @Override
-    public void beginContact(final EntityBody other) {
-        // does nothing
-    }
-
-    @Override
-    public void endContact(final EntityBody other) {
-        // does nothing
-    }
-
     /**
      * Follows the pattern.
      */

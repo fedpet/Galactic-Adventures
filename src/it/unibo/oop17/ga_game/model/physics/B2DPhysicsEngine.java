@@ -133,21 +133,22 @@ import javafx.geometry.Point2D;
             callbacks(contact, (listener, other) -> listener.endContact(other));
         }
 
-        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
+        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, BodyContact> handler) {
             if (contact.isEnabled()) {
                 final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
                 final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
 
                 if (first != null && second != null) {
-                    dispatchCollisionEvent(first, handler, second);
-                    dispatchCollisionEvent(second, handler, first);
+                    dispatchCollisionEvent(contact, first, handler, second);
+                    dispatchCollisionEvent(contact, second, handler, first);
                 }
             }
         }
 
-        private void dispatchCollisionEvent(final B2DEntityBody entity,
-                final BiConsumer<CollisionListener, EntityBody> handler, final EntityBody other) {
-            entity.getCollisionListener().ifPresent(listener -> handler.accept(listener, other));
+        private void dispatchCollisionEvent(final Contact contact, final B2DEntityBody entity,
+                final BiConsumer<CollisionListener, BodyContact> handler, final EntityBody other) {
+            entity.getCollisionListener().ifPresent(listener -> handler.accept(listener,
+                    new BodyContactImpl(other, B2DUtils.vecToPoint(contact.getManifold().localPoint))));
         }
 
         private boolean isThereARemovedBody(final Contact contact) {

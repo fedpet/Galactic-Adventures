@@ -11,17 +11,6 @@ public class FlyingEnemyBrain extends FixedPatternBrain {
     }
 
     @Override
-    public void beginContact(final EntityBody other) {
-
-    }
-
-
-    @Override
-    public void endContact(final EntityBody other) {
-
-    }
-
-    @Override
     public Personality getPersonality() {
         return EntityPersonality.EVIL;
     }
