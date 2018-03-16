@@ -55,4 +55,24 @@ public final class FXUtils {
         return -(Math.atan2(X_AXIS.getY(), X_AXIS.getX())
                 - Math.atan2(vector.getY(), vector.getX()));
     }
+
+    /**
+     * Caps the absolute coordinates of the supplied vector to the given values mantaining the original vector
+     * coordinates signs.
+     * 
+     * @param vector
+     *            The vector
+     * @param maxAbsX
+     *            The maximum value for the X (it'll be treated as an unsigned value)
+     * @param maxAbsY
+     *            The maximum value for the Y (it'll be treated as an unsigned value)
+     * @return The capped vector
+     */
+    public static Point2D absCap(final Point2D vector, final double maxAbsX, final double maxAbsY) {
+        return new Point2D(absCap(vector.getX(), maxAbsX), absCap(vector.getY(), maxAbsY));
+    }
+
+    private static double absCap(final double value, final double cap) {
+        return Math.abs(value) > Math.abs(cap) ? Math.copySign(Math.abs(cap), value) : value;
+    }
 }
