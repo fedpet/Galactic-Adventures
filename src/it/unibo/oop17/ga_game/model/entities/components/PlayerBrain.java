@@ -1,6 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
+import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.utils.PositionCompare;
+import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 
 public class PlayerBrain extends AbstractBrain {
     @Override
@@ -9,17 +12,17 @@ public class PlayerBrain extends AbstractBrain {
     }
 
     @Override
-    public void beginContact(final EntityBody other) {
-        // TODO refactor this mess
-        other.getOwner().ifPresent(owner -> {
-            if (other.getOwner().get() instanceof SlimeEnemy) {
-                other.getOwner().get().getLife().hurt(10);
+    public void beginContact(final BodyContact contact) {
+        contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
+            if (PositionCompare.contact(getEntity().getBody(), contact.getOtherBody()) == Side.BOTTOM && hate(otherEntity)) {
+                otherEntity.getLife().hurt(1);
+                getEntity().getBody().applyImpulse(new Point2D(0, 20));
             }
-        });
+        }); 
     }
 
     @Override
-    public void endContact(final EntityBody other) {
-
+    public final Personality getPersonality() {
+        return EntityPersonality.GOOD;
     }
 }
