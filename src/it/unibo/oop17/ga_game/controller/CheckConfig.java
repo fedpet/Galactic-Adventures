@@ -1,8 +1,10 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import it.unibo.oop17.ga_game.view.Language;
 
 public final class CheckConfig {
     
@@ -15,11 +17,12 @@ public final class CheckConfig {
         final File f = new File(PATH);
         ConfigData data = new ConfigData();
         if (!f.exists()) {
+            data.defaultOptions();
+            data.setLanguage(Language.ITA);
             ResourceManager.save(data, PATH);
-            data = ResourceManager.load(PATH);
-            data = ResetSave.defaultOptions();
+        } else {
+            data = (ConfigData)ResourceManager.load(PATH);
         }
-        data = ResourceManager.load(PATH);
         return data;
     }
     

@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.controller;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,9 +19,9 @@ public final class ResourceManager {
         }
     }
 
-    public static ConfigData load(final String path) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static Object load(final String path) throws FileNotFoundException, IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
-            return (ConfigData)ois.readObject();
+            return ois.readObject();
         }
     }
 }

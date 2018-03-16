@@ -11,7 +11,7 @@ public enum SFX {
     JUMP(new AudioClip("file:res/audio/sfx/phaserUp2.wav")),
     COIN(new AudioClip("file:res/audio/sfx/phaserUp7.wav")),
     KEY(new AudioClip("file:res/audio/sfx/zapThreeToneUp.wav")),
-    LEVER(new AudioClip("file:res/audio/sfx/lowThreeTone.wav.wav"));
+    LEVER(new AudioClip("file:res/audio/sfx/lowThreeTone.wav"));
 
     private final AudioClip clip;
     

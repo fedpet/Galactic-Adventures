@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.view.Text;
 
