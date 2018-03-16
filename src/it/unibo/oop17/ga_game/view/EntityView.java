@@ -1,10 +1,13 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import java.util.Map;
+
+import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
 
-public interface EntityView extends EntityEventListener {
+public interface EntityView {
 
     /**
      * Used to set the entity view position.
@@ -26,5 +29,15 @@ public interface EntityView extends EntityEventListener {
      * @return the current entity view position.
      */
     Point2D getPosition();
+
+    /**
+     * @return the mapped entity view animations.
+     */
+    Map<MovementComponent.State, Runnable> getAnimations();
+
+    /**
+     * @return the entity image view.
+     */
+    ImageView getView();
 
 }
