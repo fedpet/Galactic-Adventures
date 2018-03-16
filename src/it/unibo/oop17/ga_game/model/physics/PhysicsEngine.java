@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import javafx.geometry.Point2D;
 
 /**
@@ -20,6 +21,14 @@ public interface PhysicsEngine {
      * @return A factory for bodies.
      */
     BodyFactory bodyFactory();
+
+    /**
+     * Removes the body from the simulation.
+     * 
+     * @param body
+     *            the @EntityBody to remove.
+     */
+    void remove(EntityBody body);
 
     /**
      * Static factory.
