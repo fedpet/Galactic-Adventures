@@ -3,8 +3,8 @@ package it.unibo.oop17.ga_game.debug;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.ResourceManager;
+import it.unibo.oop17.ga_game.model.ConfigData;
 
 public final class CleanSave {
     

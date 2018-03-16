@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.controller;
+package it.unibo.oop17.ga_game.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
