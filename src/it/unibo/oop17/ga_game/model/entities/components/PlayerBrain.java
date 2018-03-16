@@ -15,7 +15,7 @@ public class PlayerBrain extends AbstractBrain {
             if (hate(otherEntity)
                     && contact.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2) {
                 otherEntity.getLife().hurt(1);
-                getEntity().getBody().applyImpulse(new Point2D(0, -60));
+                getEntity().getBody().applyImpulse(new Point2D(0, 60));
             }
         }); 
     }
