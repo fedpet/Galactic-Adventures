@@ -7,13 +7,12 @@ import javafx.geometry.Point2D;
 /**
  * A @Brain following a fixed pattern.
  */
-public class FixedPatternBrain extends AbstractBrain {
+public abstract class FixedPatternBrain extends AbstractBrain {
     private static final double DISTANCE_THRESHOLD = 0.1;
     private final Supplier<Point2D> nextPositionSupplier;
     private Point2D nextPosition;
 
     /**
-     * 
      * @param nextPositionSupplier
      *            A supplier of the positions to follow.
      */

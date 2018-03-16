@@ -23,6 +23,11 @@ public final class PlatformBrain extends FixedPatternBrain {
         takeCareOfPassengers();
     }
 
+    @Override
+    public Personality getPersonality() {
+        return EntityPersonality.NONE;
+    }
+
     /**
      * adjust passengers velocity so they don't fall of the platform.
      */

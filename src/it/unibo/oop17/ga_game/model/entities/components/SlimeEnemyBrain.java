@@ -32,4 +32,8 @@ public class SlimeEnemyBrain extends AbstractEntityComponent implements Brain {
         }
     }
 
+    @Override
+    public final Personality getPersonality() {
+        return EntityPersonality.EVIL;
+    }
 }

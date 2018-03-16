@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 
 public class FlyingEnemyBrain extends FixedPatternBrain {
 
-    public FlyingEnemyBrain(Supplier<Point2D> nextPositionSupplier) {
+    public FlyingEnemyBrain(final Supplier<Point2D> nextPositionSupplier) {
         super(nextPositionSupplier);
     }
 
@@ -21,4 +21,8 @@ public class FlyingEnemyBrain extends FixedPatternBrain {
 
     }
 
+    @Override
+    public Personality getPersonality() {
+        return EntityPersonality.EVIL;
+    }
 }

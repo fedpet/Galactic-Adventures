@@ -14,4 +14,11 @@ public interface Brain extends EntityComponent, CollisionListener {
      *            Time delta in seconds since the last call
      */
     void update(double dt);
+
+    /**
+     * Brains have personality.
+     * 
+     * @return the @Personality.
+     */
+    Personality getPersonality();
 }
