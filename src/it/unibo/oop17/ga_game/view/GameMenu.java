@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import it.unibo.oop17.ga_game.controller.CheckConfig;
+import it.unibo.oop17.ga_game.controller.CheckProgress;
 import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.Difficulty;
 import it.unibo.oop17.ga_game.controller.Main;
@@ -72,6 +73,7 @@ public class GameMenu extends Parent {
         });
 
         this.btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
+        this.btnContinue.setVisible(CheckProgress.exists());
         btnContinue.setOnMouseClicked(event -> {
             // LANCIA IL TEST
             final String[] args = {};

@@ -12,15 +12,19 @@ private final static String PATH = "gamedata.dat";
     }
 
     public static GameData loadSave() throws FileNotFoundException, IOException, ClassNotFoundException {
-        final File f = new File(PATH);
         GameData save = new GameData();
-        if (!f.exists()) {
+        if (!exists()) {
             save.resetProgress();
             ResourceManager.save(save, PATH);
         } else {
             save = (GameData)ResourceManager.load(PATH);
         }
         return save;
+    }
+    
+    public static boolean exists() {
+        final File f = new File(PATH);
+        return (f.exists());
     }
     
 }
