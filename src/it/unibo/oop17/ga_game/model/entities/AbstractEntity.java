@@ -22,17 +22,24 @@ public abstract class AbstractEntity implements EventfullEntity {
     private final Life life;
     private MovementComponent movement;
     private Brain brain;
+    private final Optional<Inventory> inventory;
 
-    public AbstractEntity(final EntityBody body, final Brain brain, final MovementComponent movement, final Life life) {
+    public AbstractEntity(final EntityBody body, final Brain brain, final MovementComponent movement, final Life life,
+            final Optional<Inventory> inventory) {
         this.body = body;
         this.brain = brain;
         this.movement = movement;
         this.life = life;
+        this.inventory = inventory;
         register(new MyEntityEventListener());
         life.attach(this);
         body.attach(this);
         brain.attach(this);
         movement.attach(this);
+    }
+
+    public AbstractEntity(final EntityBody body, final Brain brain, final MovementComponent movement, final Life life) {
+        this(body, brain, movement, life, Optional.empty());
     }
 
     @Override
@@ -65,7 +72,7 @@ public abstract class AbstractEntity implements EventfullEntity {
 
     @Override
     public Optional<Inventory> getInventory() {
-        return Optional.empty();
+        return inventory;
     }
 
     /**
