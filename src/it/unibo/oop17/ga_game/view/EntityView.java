@@ -1,11 +1,9 @@
 package it.unibo.oop17.ga_game.view;
 
-import java.util.Map;
-
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
-import javafx.scene.image.ImageView;
 
 public interface EntityView {
 
@@ -30,15 +28,21 @@ public interface EntityView {
      */
     Point2D getPosition();
 
-    /**
-     * @return the mapped entity view animations.
-     */
-    Map<MovementComponent.State, Runnable> getAnimations();
-
-    /**
-     * @return the entity image view.
-     */
-    ImageView getView();
-
     void remove();
+
+    /**
+     * Used to change the entity view movement.
+     * 
+     * @param state
+     *            The state to be associated to the entity view movement.
+     */
+    void changeMovement(State state);
+
+    /**
+     * Used to change the entity view direction.
+     * 
+     * @param direction
+     *            The direction to set for the entity view.
+     */
+    void changeFaceDirection(HorizontalDirection direction);
 }

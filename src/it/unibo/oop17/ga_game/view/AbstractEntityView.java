@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -44,16 +46,6 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public Map<MovementComponent.State, Runnable> getAnimations() {
-        return this.animations;
-    }
-
-    @Override
-    public ImageView getView() {
-        return this.view;
-    }
-
-    @Override
     public void setPosition(final Point2D point) {
         view.setTranslateX(point.getX() - view.getBoundsInLocal().getWidth() / 2);
         view.setTranslateY(point.getY() - view.getBoundsInLocal().getHeight() / 2);
@@ -73,6 +65,16 @@ public abstract class AbstractEntityView implements EntityView {
     @Override
     public void remove() {
         parentView.getChildren().remove(view);
+    }
+
+    @Override
+    public void changeMovement(MovementComponent.State state) {
+        animations.getOrDefault(state, animations.get(State.IDLE)).run();
+    }
+
+    @Override
+    public void changeFaceDirection(HorizontalDirection direction) {
+        view.setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {
