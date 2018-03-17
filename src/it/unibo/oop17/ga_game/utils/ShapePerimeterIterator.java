@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.utils;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;

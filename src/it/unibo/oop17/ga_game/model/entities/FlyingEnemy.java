@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import it.unibo.oop17.ga_game.model.entities.components.FlyingEnemyBrain;
 import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
-import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
+import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -18,8 +18,8 @@ public class FlyingEnemy extends AbstractEnemy {
      * @param position
      *            The position
      */
-    public FlyingEnemy(final PhysicsEngine engine, final Point2D position, final Supplier<Point2D> positions) {
-        super(engine.bodyFactory().createCreature(position, SIZE), new FlyingEnemyBrain(positions),
+    public FlyingEnemy(final BodyFactory bodyFactory, final Point2D position, final Supplier<Point2D> positions) {
+        super(bodyFactory.createCreature(position, SIZE), new FlyingEnemyBrain(positions),
                 new LinearPropeller(5), 1);
         getBody().setGravityScale(0);
     }

@@ -3,16 +3,10 @@ package it.unibo.oop17.ga_game.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.eventbus.Subscribe;
-
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
-import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
-import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -47,14 +41,14 @@ public abstract class AbstractEntityView implements EntityView {
         animations.put(state, runnable);
     }
 
-    @Subscribe
-    public void movementChanged(final MovementEvent event) {
-        animations.getOrDefault(event.getState(), animations.get(State.IDLE)).run();
+    @Override
+    public Map<MovementComponent.State, Runnable> getAnimations() {
+        return this.animations;
     }
 
-    @Subscribe
-    public void faceDirectionChanged(final FaceDirectionEvent event) {
-        view.setScaleX(event.getDirection() == HorizontalDirection.RIGHT ? 1 : -1);
+    @Override
+    public ImageView getView() {
+        return this.view;
     }
 
     @Override

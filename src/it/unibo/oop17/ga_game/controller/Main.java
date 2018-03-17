@@ -12,12 +12,12 @@ import org.mapeditor.io.TMXMapReader;
 import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
-import it.unibo.oop17.ga_game.model.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
+import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
@@ -67,21 +67,23 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        final Player player = new Player(physics, new Point2D(4, -4));
-        final MovingPlatform platform = new MovingPlatform(physics, new Point2D(4, -10), new Dimension2D(4, 1),
+        final Player player = new Player(physics.bodyFactory(), new Point2D(4, -4));
+        final MovingPlatform platform = new MovingPlatform(physics.bodyFactory(), new Point2D(4, -10),
+                new Dimension2D(4, 1),
                 InfiniteSequence.backAndForth(Arrays.asList(new Point2D(4, -5), new Point2D(4, -25))));
 
         final Shape shape = new Ellipse2D.Double(8, -22, 5, 5);
         final InfiniteSequence<Point2D> circlePattern = InfiniteSequence
                 .repeat(() -> new ShapePerimeterIterator(shape));
-        final MovingPlatform platform2 = new MovingPlatform(physics, new Point2D(4, -26), new Dimension2D(4, 1),
+        final MovingPlatform platform2 = new MovingPlatform(physics.bodyFactory(), new Point2D(4, -26),
+                new Dimension2D(4, 1),
                 circlePattern);
 
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
-        final SlimeEnemy slimeEnemy = new SlimeEnemy(physics, new Point2D(4, -4));
+        final SlimeEnemy slimeEnemy = new SlimeEnemy(physics.bodyFactory(), new Point2D(4, -4));
         final EntityView slimeEnemyView = new SlimeEnemyView(worldView);
-        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics, new Point2D(4, -4), InfiniteSequence
+        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics.bodyFactory(), new Point2D(4, -4), InfiniteSequence
                 .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
         final EntityView flyingEnemyView = new FlyingEnemyView(worldView);
 

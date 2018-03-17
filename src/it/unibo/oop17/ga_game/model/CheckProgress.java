@@ -26,7 +26,7 @@ private final static String PATH = "gamedata.dat";
     
     public static boolean exists() {
         final File f = new File(PATH);
-        return (f.exists());
+        return f.exists();
     }
     
 }

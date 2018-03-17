@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Point2D;
 
 
@@ -15,6 +16,7 @@ public class FeetComponent extends AbstractMovementComponent {
     @Override
     public void update(final double dt) {
         Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
+        movement = FXUtils.absCap(movement, walkingSpeed, jumpingSpeed);
         if (!canJump()) {
             movement = new Point2D(movement.getX(), 0);
             // no jump if in air

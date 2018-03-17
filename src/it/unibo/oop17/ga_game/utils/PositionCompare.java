@@ -18,7 +18,7 @@ public final class PositionCompare {
             return Side.RIGHT;
         } else if (relativePosition.getX() < 0 && relativePosition.getY() < other.getDimension().getHeight() / 2) {
             return Side.LEFT;
-        } else if (relativePosition.getY() > 0 && relativePosition.getX() < other.getDimension().getWidth() / 2) {
+        } else if (relativePosition.getY() > 0) {
             return Side.TOP;
         } else {
             return Side.BOTTOM;

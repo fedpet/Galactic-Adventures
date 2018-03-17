@@ -1,22 +1,26 @@
 package it.unibo.oop17.ga_game.model.entities.events;
 
+import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 
 /**
  * Models an @EntityEvent reagrding its @Life.
  */
-public class LifeEvent implements EntityEvent {
+public class LifeEvent extends AbstractEntityEvent {
     private final Life life;
     private final int change;
 
     /**
      * 
+     * @param source
+     *            The @Entity source of this event.
      * @param life
      *            The @Life
      * @param changeAmount
      *            The change in its health points.
      */
-    public LifeEvent(final Life life, final int changeAmount) {
+    public LifeEvent(final Entity source, final Life life, final int changeAmount) {
+        super(source);
         this.life = life;
         this.change = changeAmount;
     }
