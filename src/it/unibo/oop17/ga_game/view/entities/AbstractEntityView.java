@@ -1,10 +1,11 @@
-package it.unibo.oop17.ga_game.view;
+package it.unibo.oop17.ga_game.view.entities;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
+import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;

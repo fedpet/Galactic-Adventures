@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.view;
+package it.unibo.oop17.ga_game.view.entities;
 
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;

@@ -6,8 +6,8 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
-import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.ViewUtils;
+import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 public abstract class AbstractEntityController implements EntityController {
     private final Entity entity;

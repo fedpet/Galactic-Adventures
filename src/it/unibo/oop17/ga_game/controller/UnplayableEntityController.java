@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.view.EntityView;
+import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 public class UnplayableEntityController extends AbstractEntityController {
 
