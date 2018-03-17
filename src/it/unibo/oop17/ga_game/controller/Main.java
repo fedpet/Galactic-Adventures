@@ -96,7 +96,7 @@ public class Main extends Application {
                 .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
         gameWorld.addEntity(flyingEnemy);
         final EntityView flyingEnemyView = new FlyingEnemyView(worldView);
-        final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 1);
+        final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
         gameWorld.addEntity(coin);
         final EntityView coinView = new CoinBronzeView(worldView);
 

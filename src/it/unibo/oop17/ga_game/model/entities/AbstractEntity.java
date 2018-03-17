@@ -63,9 +63,6 @@ public abstract class AbstractEntity implements EventfullEntity {
         updateComponents(dt);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Optional<Inventory> getInventory() {
         return Optional.empty();
