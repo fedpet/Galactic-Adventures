@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.utils;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public interface InfiniteSequence<T> extends Supplier<T> {
     /**
-     * Builds a sequence going back and forth.
+     * Generates an infinite sequence going back and forth. (circular).
      * 
      * @param list
      *            The list
@@ -37,7 +37,7 @@ public interface InfiniteSequence<T> extends Supplier<T> {
     }
 
     /**
-     * It restarts from the beginning as soon as the end is reached.
+     * Generates an infinite sequence restarts from the beginning as soon as the end is reached.
      * 
      * @param iterable
      *            the @Iterable
@@ -50,6 +50,8 @@ public interface InfiniteSequence<T> extends Supplier<T> {
     }
 
     /**
+     * Generates an infinite sequence starting with the first iterator and continuing with the ones supplied by the
+     * supplier.
      * 
      * @param beginning
      *            starting iterator

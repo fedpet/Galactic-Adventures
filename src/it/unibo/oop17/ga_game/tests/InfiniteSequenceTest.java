@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-import it.unibo.oop17.ga_game.model.InfiniteSequence;
+import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 
 /**
  * Tests @InfiniteSequence static factories.
