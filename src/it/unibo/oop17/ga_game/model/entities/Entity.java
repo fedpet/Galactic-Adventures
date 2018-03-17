@@ -1,7 +1,10 @@
 package it.unibo.oop17.ga_game.model.entities;
 
+import java.util.Optional;
+
 import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
@@ -35,6 +38,13 @@ public interface Entity {
      * @return The Entity's @Life.
      */
     Life getLife();
+
+    /**
+     * Some entities carries items and money.
+     * 
+     * @return @Inventory
+     */
+    Optional<Inventory> getInventory();
 
     /**
      * Used to synchronize the entities.
