@@ -19,8 +19,10 @@ public abstract class AbstractEntityView implements EntityView {
     private final ImageView view = new ImageView();
     private Animation currentAnimation;
     private final Dimension2D dimension;
+    private final Group parentView;
 
     public AbstractEntityView(final Group group, final Dimension2D dimension) {
+        parentView = group;
         currentAnimation = new Transition() {
             @Override
             protected void interpolate(final double frac) {
@@ -66,6 +68,11 @@ public abstract class AbstractEntityView implements EntityView {
     public void setDimension(final Dimension2D dimension) {
         view.setFitWidth(ViewUtils.metersToPixels(dimension.getWidth()));
         view.setFitHeight(ViewUtils.metersToPixels(dimension.getHeight()));
+    }
+
+    @Override
+    public void remove() {
+        parentView.getChildren().remove(view);
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {

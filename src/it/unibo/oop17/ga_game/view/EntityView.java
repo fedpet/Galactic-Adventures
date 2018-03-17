@@ -40,4 +40,5 @@ public interface EntityView {
      */
     ImageView getView();
 
+    void remove();
 }

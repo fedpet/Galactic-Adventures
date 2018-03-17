@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
+import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.view.EntityView;
@@ -34,5 +35,11 @@ public abstract class AbstractEntityController implements EntityController {
     @Subscribe
     public void faceDirectionChanged(final FaceDirectionEvent event) {
         entityView.getView().setScaleX(event.getDirection() == HorizontalDirection.RIGHT ? 1 : -1);
+    }
+
+    @Subscribe
+    public void onEntityDestruction(final DestructionEvent destruction) {
+        destruction.getSource().unregister(this);
+        entityView.remove();
     }
 }
