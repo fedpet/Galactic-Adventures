@@ -10,10 +10,14 @@ import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import it.unibo.oop17.ga_game.model.CircleIterator;
+import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.GameWorld;
+import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
+import it.unibo.oop17.ga_game.model.entities.Key;
+import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
@@ -22,9 +26,11 @@ import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.ViewUtils;
-import it.unibo.oop17.ga_game.view.entities.CoinBronzeView;
+import it.unibo.oop17.ga_game.view.entities.CoinView;
 import it.unibo.oop17.ga_game.view.entities.EntityView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
+import it.unibo.oop17.ga_game.view.entities.KeyView;
+import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
 import javafx.animation.KeyFrame;
@@ -98,7 +104,16 @@ public class Main extends Application {
         final EntityView flyingEnemyView = new FlyingEnemyView(worldView);
         final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
         gameWorld.addEntity(coin);
-        final EntityView coinView = new CoinBronzeView(worldView);
+        final EntityView coinView = new CoinView(worldView, CoinType.BRONZE);
+        final Key blueKey = new Key(bodyFactory, new Point2D(10, -28), KeyLockType.BLUE);
+        gameWorld.addEntity(blueKey);
+        final EntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
+        final Key redKey = new Key(bodyFactory, new Point2D(7, -25.5), KeyLockType.RED);
+        gameWorld.addEntity(redKey);
+        final EntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
+        final Lock lock = new Lock(bodyFactory, new Point2D(14, -28.5), KeyLockType.BLUE);
+        gameWorld.addEntity(lock);
+        final EntityView lockView = new LockView(worldView, KeyLockType.BLUE);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -113,6 +128,9 @@ public class Main extends Application {
         final EntityController basicEnemyController = new UnplayableEntityController(slimeEnemy, slimeEnemyView);
         final EntityController flyingEnemyController = new UnplayableEntityController(flyingEnemy, flyingEnemyView);
         final EntityController coinController = new UnplayableEntityController(coin, coinView);
+        final EntityController blueKeyController = new UnplayableEntityController(blueKey, blueKeyView);
+        final EntityController redKeyController = new UnplayableEntityController(redKey, redKeyView);
+        final EntityController lockController = new UnplayableEntityController(lock, lockView);
 
 
         try {
@@ -131,6 +149,9 @@ public class Main extends Application {
                     basicEnemyController.update();
                     flyingEnemyController.update();
                     coinController.update();
+                    blueKeyController.update();
+                    redKeyController.update();
+                    lockController.update();
 
                     playerController.update();
 

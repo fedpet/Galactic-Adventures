@@ -54,7 +54,8 @@ import javafx.geometry.Point2D;
                 .collect(Collectors.toList());
     }
 
-    private EntityBody createTerrain(final Point2D position, final Dimension2D size) {
+    @Override
+    public EntityBody createTerrain(final Point2D position, final Dimension2D size) {
         final Body body = new B2DBodyBuilder(engine)
                 .position(position)
                 .type(BodyType.STATIC)

@@ -54,4 +54,15 @@ public interface BodyFactory {
      * @return The @EntityBody
      */
     EntityBody createItem(Point2D position, Dimension2D size);
+
+    /**
+     * Terrain bodies are not subject to forces and won't move.
+     * 
+     * @param position
+     *            The position
+     * @param size
+     *            The size
+     * @return The @EntityBody
+     */
+    EntityBody createTerrain(Point2D position, Dimension2D size);
 }

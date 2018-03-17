@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.model.KeyType;
+import it.unibo.oop17.ga_game.model.KeyLockType;
 
 /**
  * Inventories can contain money and keys.
@@ -24,7 +24,7 @@ public interface Inventory {
     /**
      * @return The keys bunch.
      */
-    Set<KeyType> getKeysBunch();
+    Set<KeyLockType> getKeysBunch();
 
     /**
      * Adds the key.
@@ -32,5 +32,5 @@ public interface Inventory {
      * @param key
      *            the @KeyType
      */
-    void add(KeyType key);
+    void add(KeyLockType key);
 }

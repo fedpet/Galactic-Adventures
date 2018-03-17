@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.model.KeyType;
+import it.unibo.oop17.ga_game.model.KeyLockType;
 
 /**
  * Basic implementation of @Inventory.
  */
 public final class InventoryImpl implements Inventory {
-    private final Set<KeyType> keys = new HashSet<>();
+    private final Set<KeyLockType> keys = new HashSet<>();
     private int money;
 
     @Override
@@ -24,12 +24,12 @@ public final class InventoryImpl implements Inventory {
     }
 
     @Override
-    public Set<KeyType> getKeysBunch() {
+    public Set<KeyLockType> getKeysBunch() {
         return Collections.unmodifiableSet(keys);
     }
 
     @Override
-    public void add(final KeyType key) {
+    public void add(final KeyLockType key) {
         keys.add(key);
     }
 }
