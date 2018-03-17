@@ -27,6 +27,7 @@ public class GameWorld {
 
     public void addEntity(final Entity entity) {
         entities.add(entity);
+        entity.register(new MyListener());
     }
 
     public void update(final double dt) {
