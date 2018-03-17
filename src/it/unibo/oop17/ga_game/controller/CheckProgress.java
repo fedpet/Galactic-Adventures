@@ -1,10 +1,8 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import it.unibo.oop17.ga_game.controller.ResourceManager;
 
 public final class CheckProgress {
     

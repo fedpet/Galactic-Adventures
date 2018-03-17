@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import it.unibo.oop17.ga_game.controller.CheckConfig;
+import it.unibo.oop17.ga_game.controller.CheckProgress;
+import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.Main;
-import it.unibo.oop17.ga_game.model.CheckConfig;
-import it.unibo.oop17.ga_game.model.CheckProgress;
-import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
@@ -67,6 +67,7 @@ public class GameMenu extends Parent {
         
         this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
         btnNewGame.setOnMouseClicked(event -> {
+            System.out.println("NG");
             // LANCIA IL TEST
             final String[] args = {};
             Main.main(args);
@@ -169,8 +170,8 @@ public class GameMenu extends Parent {
     }
     
     private void updateBtn() {
-        this.btnContinue.update(currLang.get(Text.NEW_GAME), this.data.getSFXVol());
-        this.btnNewGame.update(currLang.get(Text.CONTINUE), this.data.getSFXVol());
+        this.btnContinue.update(currLang.get(Text.CONTINUE), this.data.getSFXVol());
+        this.btnNewGame.update(currLang.get(Text.NEW_GAME), this.data.getSFXVol());
         this.btnOptions.update(currLang.get(Text.OPTIONS), this.data.getSFXVol());
         this.btnExit.update(currLang.get(Text.EXIT), this.data.getSFXVol());
         this.btnBack.update(currLang.get(Text.BACK), this.data.getSFXVol());
