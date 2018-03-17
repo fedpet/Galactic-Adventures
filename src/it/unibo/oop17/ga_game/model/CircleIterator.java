@@ -7,9 +7,9 @@ import javafx.geometry.Point2D;
 public class CircleIterator implements Iterator<Point2D> {
 
     private final Point2D startingPoint;
-    private float angle;
-    private final float maxX;
-    private final float maxY;
+    private double angle;
+    private final double maxX;
+    private final double maxY;
 
     public CircleIterator(final Point2D startingPoint, final float maxX, final float maxY) {
         this.startingPoint = startingPoint;
@@ -24,8 +24,8 @@ public class CircleIterator implements Iterator<Point2D> {
 
     @Override
     public Point2D next() {
-        return new Point2D((float) (Math.cos(Math.toRadians(angle)) * maxX + this.startingPoint.getX()),
-                (float) (Math.sin(Math.toRadians(angle++)) * maxY + this.startingPoint.getY()));
+        return new Point2D(Math.cos(Math.toRadians(angle)) * maxX + this.startingPoint.getX(),
+                Math.sin(Math.toRadians(angle++)) * maxY + this.startingPoint.getY());
     }
 
 }

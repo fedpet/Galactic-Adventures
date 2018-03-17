@@ -13,6 +13,7 @@ import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.InfiniteSequence;
 import it.unibo.oop17.ga_game.model.ModelSettings;
+import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
@@ -20,6 +21,7 @@ import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
+import it.unibo.oop17.ga_game.view.CoinBronzeView;
 import it.unibo.oop17.ga_game.view.EntityView;
 import it.unibo.oop17.ga_game.view.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.PlayerView;
@@ -94,6 +96,9 @@ public class Main extends Application {
                 .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
         gameWorld.addEntity(flyingEnemy);
         final EntityView flyingEnemyView = new FlyingEnemyView(worldView);
+        final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 1);
+        gameWorld.addEntity(coin);
+        final EntityView coinView = new CoinBronzeView(worldView);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -107,6 +112,7 @@ public class Main extends Application {
                 playerView);
         final EntityController basicEnemyController = new UnplayableEntityController(slimeEnemy, slimeEnemyView);
         final EntityController flyingEnemyController = new UnplayableEntityController(flyingEnemy, flyingEnemyView);
+        final EntityController coinController = new UnplayableEntityController(coin, coinView);
 
 
         try {
@@ -124,6 +130,7 @@ public class Main extends Application {
 
                     basicEnemyController.update();
                     flyingEnemyController.update();
+                    coinController.update();
 
                     playerController.update();
 

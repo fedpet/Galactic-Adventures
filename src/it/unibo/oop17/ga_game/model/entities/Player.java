@@ -1,6 +1,10 @@
 package it.unibo.oop17.ga_game.model.entities;
 
+import java.util.Optional;
+
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Inventory;
+import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.PlayerBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
@@ -16,6 +20,8 @@ public final class Player extends AbstractEntity {
     private static final double WALK_SPEED = 10;
     private static final double JUMP_SPEED = 22;
 
+    private final Optional<Inventory> inventory;
+
     /**
      * 
      * @param world
@@ -26,6 +32,12 @@ public final class Player extends AbstractEntity {
     public Player(final BodyFactory bodyFactory, final Point2D position) {
         super(bodyFactory.createCreature(position, SIZE), new PlayerBrain(),
                 new FeetComponent(WALK_SPEED, JUMP_SPEED), new LinearLife(DEFAULT_LIFE));
+        inventory = Optional.of(new InventoryImpl());
+    }
+
+    @Override
+    public Optional<Inventory> getInventory() {
+        return inventory;
     }
 
     @Override
