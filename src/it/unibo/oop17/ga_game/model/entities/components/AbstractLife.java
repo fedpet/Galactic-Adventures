@@ -64,6 +64,7 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      *            The amount.
      */
     protected void addLife(final int amount) {
+        final int previous = current;
         current += amount;
         if (current < 0) {
             current = 0;
@@ -71,9 +72,7 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
         if (current > max) {
             current = max;
         }
-        if (amount != 0) {
-            reportChange(amount);
-        }
+        reportChange(current - previous);
     }
 
     /**
@@ -83,9 +82,11 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      *            The amount.
      */
     protected void reportChange(final int amount) {
-        post(new LifeEvent(getEntity(), this, amount));
-        if (isDead()) {
-            getEntity().destroy();
+        if (amount != 0) {
+            post(new LifeEvent(getEntity(), this, amount));
+            if (isDead()) {
+                getEntity().destroy();
+            }
         }
     }
 }
