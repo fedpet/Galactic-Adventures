@@ -8,6 +8,12 @@ import java.util.stream.Stream;
  * It works like a Map<Interface -> Implementation> where Interface is an extension of the Parent interface specified in
  * the generic type.
  * 
+ * It is different from Guava's @ClassToInstanceMap as this works with interfaces only and we account for super
+ * interfaces and multiple interfaces:
+ * E.g. class A implements B,C where B extends P then
+ * bag.put(new A())
+ * bag.get(B.class) .get(C.class) .get(P.class) are all valid uses and must return the instance of A.
+ * 
  * @param <T>
  *            Parent interface of all the interfaces this bag can contain.
  */
