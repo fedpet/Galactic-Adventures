@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import it.unibo.oop17.ga_game.view.ViewUtils;
@@ -100,7 +99,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     @Override
     public void deathAnimation(Entity entity) {
-        if (entity.getBrain().getPersonality() == EntityPersonality.NONE) {
+        if (entity.getLife().isAlive()) {
             remove();
         } else {
             flip(VerticalDirection.DOWN);
