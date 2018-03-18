@@ -3,6 +3,8 @@ package it.unibo.oop17.ga_game.view.entities;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import it.unibo.oop17.ga_game.view.ViewUtils;
@@ -19,11 +21,14 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public abstract class AbstractEntityView implements EntityView {
+    private static final double DEATH_FALLING_SPEED = 0.05;
+
     private final Map<MovementComponent.State, Runnable> animations = new HashMap<>();
     private final ImageView view = new ImageView();
     private Animation currentAnimation;
     private final Dimension2D dimension;
     private final Group parentView;
+    private Point2D pointFromDeath;
 
     public AbstractEntityView(final Group group, final Dimension2D dimension) {
         parentView = group;
@@ -82,6 +87,25 @@ public abstract class AbstractEntityView implements EntityView {
     @Override
     public void flip(VerticalDirection direction) {
         view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
+    }
+
+    @Override
+    public Point2D updatePointFromDeath(Point2D startingPoint) {
+        if (pointFromDeath == null) {
+            pointFromDeath = startingPoint;
+        }
+        pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
+        return pointFromDeath;
+    }
+
+    @Override
+    public void deathAnimation(Entity entity) {
+        if (entity.getBrain().getPersonality() == EntityPersonality.NONE) {
+            remove();
+        } else {
+            flip(VerticalDirection.DOWN);
+            changeMovement(MovementComponent.State.IDLE);
+        }
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {

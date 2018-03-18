@@ -83,10 +83,10 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      */
     protected void reportChange(final int amount) {
         if (amount != 0) {
-            post(new LifeEvent(getEntity(), this, amount));
             if (isDead()) {
                 getEntity().destroy();
             }
+            post(new LifeEvent(getEntity(), this, amount));
         }
     }
 }
