@@ -55,6 +55,11 @@ public interface Entity {
     void update(double dt);
 
     /**
+     * Destroy this entity.
+     */
+    void destroy();
+
+    /**
      * Registers a listener for @EntityEvent.
      * 
      * @param listener

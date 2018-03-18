@@ -1,14 +1,13 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
-import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.physics.BodyContact;
 
 public class LockBrain extends AbstractBrain {
 
     private final KeyLockType type;
 
-    public LockBrain(KeyLockType type) {
+    public LockBrain(final KeyLockType type) {
         this.type = type;
     }
 
@@ -17,7 +16,7 @@ public class LockBrain extends AbstractBrain {
         if (contact.getOtherBody().getOwner().isPresent()
                 && contact.getOtherBody().getOwner().get().getInventory().isPresent()
                 && contact.getOtherBody().getOwner().get().getInventory().get().getKeysBunch().contains(type)) {
-            this.post(new DestructionEvent(getEntity()));
+            getEntity().destroy();
         }
     }
 

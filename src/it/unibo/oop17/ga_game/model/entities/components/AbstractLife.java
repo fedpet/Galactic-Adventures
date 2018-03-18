@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
@@ -85,7 +84,7 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      */
     protected void reportChange(final int amount) {
         if (isDead()) {
-            post(new DestructionEvent(getEntity()));
+            getEntity().destroy();
         } else {
             post(new LifeEvent(getEntity(), this, amount));
         }

@@ -12,6 +12,7 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
@@ -73,6 +74,11 @@ public abstract class AbstractEntity implements EventfullEntity {
     @Override
     public Optional<Inventory> getInventory() {
         return inventory;
+    }
+
+    @Override
+    public void destroy() {
+        post(new DestructionEvent(this));
     }
 
     /**
