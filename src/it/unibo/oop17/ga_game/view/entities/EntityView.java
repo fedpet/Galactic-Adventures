@@ -4,6 +4,7 @@ import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
+import javafx.geometry.VerticalDirection;
 
 public interface EntityView {
 
@@ -45,4 +46,12 @@ public interface EntityView {
      *            The direction to set for the entity view.
      */
     void changeFaceDirection(HorizontalDirection direction);
+
+    /**
+     * Used to change the entity view vertical direction.
+     * 
+     * @param direction
+     *            The vertical direction to set for the entity view.
+     */
+    void flip(VerticalDirection direction);
 }

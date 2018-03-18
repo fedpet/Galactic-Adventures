@@ -12,6 +12,7 @@ public final class FlyingEnemyView extends AbstractEntityView {
     public FlyingEnemyView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
+        mapAnimation(State.IDLE, justAnImage(new Image("/bee.png")));
         mapAnimation(State.FLYING, setAnimation(new Image("/bee_moving.png"), Duration.millis(700), 2));
 
         startAnimation(State.FLYING);

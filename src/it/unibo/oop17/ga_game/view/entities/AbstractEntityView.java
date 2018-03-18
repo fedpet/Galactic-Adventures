@@ -12,6 +12,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,6 +77,11 @@ public abstract class AbstractEntityView implements EntityView {
     @Override
     public void changeFaceDirection(HorizontalDirection direction) {
         view.setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
+    }
+
+    @Override
+    public void flip(VerticalDirection direction) {
+        view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {
