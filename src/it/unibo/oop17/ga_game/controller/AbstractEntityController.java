@@ -5,7 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
-import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
@@ -30,12 +29,14 @@ public abstract class AbstractEntityController implements EntityController {
 
     @Override
     public void update() {
-        if (entity.get(Life.class).isPresent() && entity.get(Life.class).get().isAlive()) {
-            entityView.setPosition(ViewUtils.worldPointToFX(entity.getBody().getPosition()));
-        } else if (entity.get(Brain.class).isPresent()
-                && entity.get(Brain.class).get().getPersonality() != EntityPersonality.NONE) {
-            entityView.setPosition(ViewUtils.worldPointToFX(updatePointFromDeath()));
-        }
+        entityView.setPosition(ViewUtils.worldPointToFX(entity.getBody().getPosition()));
+        /*
+         * if (entity.get(Life.class).isPresent() && entity.get(Life.class).get().isAlive()) {
+         * } else if (entity.get(Brain.class).isPresent()
+         * && entity.get(Brain.class).get().getPersonality() != EntityPersonality.NONE) {
+         * entityView.setPosition(ViewUtils.worldPointToFX(updatePointFromDeath()));
+         * }
+         */
     }
     
     @Subscribe

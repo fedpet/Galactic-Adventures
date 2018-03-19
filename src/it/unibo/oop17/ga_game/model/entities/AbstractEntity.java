@@ -10,7 +10,6 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.components.InterfacesBag;
 import it.unibo.oop17.ga_game.model.entities.components.InterfacesBagImpl;
-import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
@@ -22,13 +21,10 @@ public abstract class AbstractEntity implements EventfullEntity {
     private final EntityBody body;
     private final InterfacesBag<EntityComponent> components = new InterfacesBagImpl<>(EntityComponent.class);
 
-    public AbstractEntity(final EntityBody body, final Brain brain, final MovementComponent movement, final Life life) {
+    public AbstractEntity(final EntityBody body) {
         this.body = body;
         register(new MyEntityEventListener());
         body.attach(this);
-        add(life);
-        add(brain);
-        add(movement);
     }
 
     @Override
@@ -87,9 +83,13 @@ public abstract class AbstractEntity implements EventfullEntity {
         component.attach(this);
     }
 
+    protected final <C extends EntityComponent> void remove(final Class<C> component) {
+        components.remove(component).ifPresent(EntityComponent::detach);
+    }
+
     private void die() {
-        components.remove(MovementComponent.class);
-        components.remove(Brain.class);
+        remove(MovementComponent.class);
+        remove(Brain.class);
     }
 
     private final class MyEntityEventListener implements EntityEventListener {

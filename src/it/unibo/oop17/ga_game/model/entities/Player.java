@@ -25,9 +25,11 @@ public final class Player extends AbstractEntity {
      *            The position
      */
     public Player(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createCreature(position, SIZE), new PlayerBrain(),
-                new FeetComponent(WALK_SPEED, JUMP_SPEED), new LinearLife(DEFAULT_LIFE));
+        super(bodyFactory.createCreature(position, SIZE));
         add(new InventoryImpl());
+        add(new LinearLife(DEFAULT_LIFE));
+        add(new FeetComponent(WALK_SPEED, JUMP_SPEED));
+        add(new PlayerBrain());
     }
 
     @Override
