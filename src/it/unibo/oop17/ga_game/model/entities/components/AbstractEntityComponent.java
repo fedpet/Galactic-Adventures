@@ -5,8 +5,9 @@ import java.util.Optional;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 
-public abstract class AbstractEntityComponent implements EntityComponent {
+public abstract class AbstractEntityComponent implements EntityComponent, EntityEventListener {
     private Optional<EventfullEntity> owner = Optional.empty();
 
     @Override
@@ -23,6 +24,7 @@ public abstract class AbstractEntityComponent implements EntityComponent {
             throw new IllegalStateException("Component already attached to an entity");
         });
         this.owner = Optional.of(owner);
+        owner.register(this);
     }
 
     /**
@@ -30,6 +32,9 @@ public abstract class AbstractEntityComponent implements EntityComponent {
      */
     @Override
     public void detach() throws IllegalStateException {
+        owner.ifPresent(entity -> {
+            entity.unregister(this);
+        });
         owner = Optional.empty();
     }
 

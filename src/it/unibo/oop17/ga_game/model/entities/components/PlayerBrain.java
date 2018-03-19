@@ -1,6 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import com.google.common.eventbus.Subscribe;
+
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import javafx.geometry.Point2D;
 
 public class PlayerBrain extends AbstractBrain {
@@ -11,8 +13,8 @@ public class PlayerBrain extends AbstractBrain {
 
     }
 
-    @Override
-    public void beginContact(final BodyContact contact) {
+    @Subscribe
+    public void beginContact(final BeginContactEvent contact) {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
             if (hate(otherEntity)
                     && contact.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2) {

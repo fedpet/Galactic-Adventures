@@ -1,6 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import com.google.common.eventbus.Subscribe;
+
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
@@ -8,8 +10,8 @@ import javafx.geometry.Side;
 
 public class SlimeEnemyBrain extends AbstractBrain {
 
-    @Override
-    public void beginContact(final BodyContact contact) {
+    @Subscribe
+    public void beginContact(final BeginContactEvent contact) {
         Point2D newDirection = Point2D.ZERO;
         if (PositionCompare.contact(getEntity().getBody(), contact.getOtherBody()).equals(Side.LEFT)) {
             newDirection = new Point2D(1, 0);
