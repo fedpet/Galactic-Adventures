@@ -7,7 +7,7 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 /**
  * Inventories can contain money and keys.
  */
-public interface Inventory {
+public interface Inventory extends EntityComponent {
     /**
      * @return Amount of money
      */

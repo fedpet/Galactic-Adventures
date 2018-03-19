@@ -15,18 +15,6 @@ public abstract class AbstractEntityComponent implements EntityComponent {
     }
 
     /**
-     * Convenience method to avoid the optional.
-     * 
-     * @return The @EventfullEntity
-     * 
-     * @throws IllegalStateException
-     *             is the component is not attached to an Entity
-     */
-    protected final EventfullEntity getEntity() {
-        return owner.orElseThrow(IllegalStateException::new);
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -43,6 +31,23 @@ public abstract class AbstractEntityComponent implements EntityComponent {
     @Override
     public void detach() throws IllegalStateException {
         owner = Optional.empty();
+    }
+
+    @Override
+    public void update(final double dt) {
+        //
+    }
+
+    /**
+     * Convenience method to avoid the optional.
+     * 
+     * @return The @EventfullEntity
+     * 
+     * @throws IllegalStateException
+     *             is the component is not attached to an Entity
+     */
+    protected final EventfullEntity getEntity() {
+        return owner.orElseThrow(IllegalStateException::new);
     }
 
     /**

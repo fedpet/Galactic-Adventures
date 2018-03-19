@@ -27,6 +27,9 @@ public abstract class AbstractBrain extends AbstractEntityComponent implements B
      * @return true if we hate him.
      */
     protected boolean hate(final Entity other) {
-        return getPersonality().hates(other.getBrain().getPersonality());
+        if (other.get(Brain.class).isPresent()) {
+            return getPersonality().hates(other.get(Brain.class).get().getPersonality());
+        }
+        return getPersonality().hates(EntityPersonality.NONE);
     }
 }

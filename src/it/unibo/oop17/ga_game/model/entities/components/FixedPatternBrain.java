@@ -33,10 +33,12 @@ public abstract class FixedPatternBrain extends AbstractBrain {
      * Follows the pattern.
      */
     protected final void followPattern() {
-        if (getEntity().getBody().getPosition().distance(nextPosition) < DISTANCE_THRESHOLD) {
-            nextPosition = nextPositionSupplier.get();
-        }
-        final Point2D direction = nextPosition.subtract(getEntity().getBody().getPosition());
-        getEntity().getMovement().move(direction);
+        getEntity().get(MovementComponent.class).ifPresent(movement -> {
+            if (getEntity().getBody().getPosition().distance(nextPosition) < DISTANCE_THRESHOLD) {
+                nextPosition = nextPositionSupplier.get();
+            }
+            final Point2D direction = nextPosition.subtract(getEntity().getBody().getPosition());
+            movement.move(direction);
+        });
     }
 }

@@ -13,11 +13,13 @@ public class LockBrain extends AbstractBrain {
 
     @Override
     public void beginContact(final BodyContact contact) {
-        if (contact.getOtherBody().getOwner().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().get().getKeysBunch().contains(type)) {
-            getEntity().destroy();
-        }
+        contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
+            otherEntity.get(Inventory.class).ifPresent(inv -> {
+                if (inv.getKeysBunch().contains(type)) {
+                    getEntity().destroy();
+                }
+            });
+        });
     }
 
     public KeyLockType getType() {

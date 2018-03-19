@@ -12,11 +12,12 @@ public class CoinBrain extends AbstractBrain {
 
     @Override
     public void beginContact(final BodyContact contact) {
-        if (contact.getOtherBody().getOwner().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().isPresent()) {
-            contact.getOtherBody().getOwner().get().getInventory().get().addMoney(value);
-            getEntity().destroy();
-        }
+        contact.getOtherBody().getOwner().ifPresent(entity -> {
+            entity.get(Inventory.class).ifPresent(inv -> {
+                inv.addMoney(value);
+                getEntity().destroy();
+            });
+        });
     }
 
     public int getValue() {

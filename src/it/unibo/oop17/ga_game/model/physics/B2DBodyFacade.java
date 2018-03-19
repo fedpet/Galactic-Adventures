@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import org.jbox2d.dynamics.Body;
 
 import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -58,10 +59,11 @@ import javafx.geometry.Point2D;
 
     @Override
     public Optional<CollisionListener> getCollisionListener() {
-        if (!getOwner().isPresent()) {
+        if (!getOwner().isPresent() || !getOwner().get().get(Brain.class).isPresent()) {
             return Optional.empty();
         }
-        return Optional.of(getOwner().get().getBrain());
+        final Brain brain = getOwner().get().get(Brain.class).get();
+        return Optional.of(brain);
     }
 
     @Override

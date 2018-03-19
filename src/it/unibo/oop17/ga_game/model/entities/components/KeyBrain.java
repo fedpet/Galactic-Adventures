@@ -14,7 +14,7 @@ public class KeyBrain extends AbstractBrain {
     @Override
     public void beginContact(final BodyContact contact) {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
-            otherEntity.getInventory().ifPresent(inv -> {
+            otherEntity.get(Inventory.class).ifPresent(inv -> {
                 inv.add(type);
                 getEntity().destroy();
             });

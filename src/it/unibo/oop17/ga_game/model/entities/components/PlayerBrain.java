@@ -16,7 +16,9 @@ public class PlayerBrain extends AbstractBrain {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
             if (hate(otherEntity)
                     && contact.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2) {
-                otherEntity.getLife().hurt(1);
+                otherEntity.get(Life.class).ifPresent(life -> {
+                    life.hurt(1);
+                });
                 getEntity().getBody().applyImpulse(new Point2D(0, KNOCKBACK));
             }
         }); 

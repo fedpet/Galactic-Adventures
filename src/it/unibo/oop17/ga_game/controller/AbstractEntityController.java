@@ -3,7 +3,9 @@ package it.unibo.oop17.ga_game.controller;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
+import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
@@ -28,9 +30,10 @@ public abstract class AbstractEntityController implements EntityController {
 
     @Override
     public void update() {
-        if (entity.getLife().isAlive()) {
+        if (entity.get(Life.class).isPresent() && entity.get(Life.class).get().isAlive()) {
             entityView.setPosition(ViewUtils.worldPointToFX(entity.getBody().getPosition()));
-        } else if (entity.getBrain().getPersonality() != EntityPersonality.NONE) {
+        } else if (entity.get(Brain.class).isPresent()
+                && entity.get(Brain.class).get().getPersonality() != EntityPersonality.NONE) {
             entityView.setPosition(ViewUtils.worldPointToFX(updatePointFromDeath()));
         }
     }
@@ -48,7 +51,8 @@ public abstract class AbstractEntityController implements EntityController {
     @Subscribe
     public void onEntityDestruction(final DestructionEvent destruction) {
         destruction.getSource().unregister(this);
-        if (destruction.getSource().getBrain().getPersonality() == EntityPersonality.NONE) {
+        if (destruction.getSource().get(Brain.class).isPresent()
+                && destruction.getSource().get(Brain.class).get().getPersonality() == EntityPersonality.NONE) {
             entityView.remove();
         } else {
             entityView.flip(VerticalDirection.DOWN);

@@ -4,18 +4,19 @@ import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.W;
 
-import it.unibo.oop17.ga_game.model.entities.Player;
+import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import javafx.geometry.Point2D;
 
 public class PlayerController extends AbstractEntityController {
 
-    public PlayerController(final KeyboardInputController keyboard, final Player player, final PlayerView view) {
+    public PlayerController(final KeyboardInputController keyboard, final Entity player, final PlayerView view) {
         super(player, view);
         keyboard.onEvent(e -> updateMovingDirection(keyboard, player));
     }
 
-    private void updateMovingDirection(final KeyboardInputController keyboard, final Player player) {
+    private void updateMovingDirection(final KeyboardInputController keyboard, final Entity player) {
         Point2D movement = Point2D.ZERO;
         if (keyboard.isPressed(D)) {
             movement = movement.add(1, 0);
@@ -26,6 +27,10 @@ public class PlayerController extends AbstractEntityController {
         if (keyboard.isPressed(W)) {
             movement = movement.add(0, 1);
         }
-        player.getMovement().move(movement);
+        move(player, movement);
+    }
+
+    private void move(final Entity player, final Point2D direction) {
+        player.get(MovementComponent.class).ifPresent(move -> move.move(direction));
     }
 }
