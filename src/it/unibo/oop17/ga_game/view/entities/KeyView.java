@@ -13,13 +13,13 @@ public class KeyView extends AbstractEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == KeyLockType.RED) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\keyRed.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/keyRed.png")));
         } else if (type == KeyLockType.BLUE) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\keyBlue.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/keyBlue.png")));
         } else if (type == KeyLockType.YELLOW) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\keyYellow.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/keyYellow.png")));
         } else if (type == KeyLockType.GREEN) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\keyGreen.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/keyGreen.png")));
         }
 
         startAnimation(State.IDLE);
