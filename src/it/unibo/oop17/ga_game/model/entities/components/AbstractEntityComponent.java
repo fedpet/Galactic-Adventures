@@ -64,4 +64,8 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     protected void post(final EntityEvent event) {
         getEntity().post(event);
     }
+
+    protected final void selfDetach() {
+        getEntity().remove(this);
+    }
 }

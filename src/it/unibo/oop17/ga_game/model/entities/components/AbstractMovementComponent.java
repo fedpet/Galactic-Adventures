@@ -1,6 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import com.google.common.eventbus.Subscribe;
+
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
+import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
@@ -13,6 +16,13 @@ public abstract class AbstractMovementComponent extends AbstractEntityComponent 
     private State currentState = MovementComponent.State.IDLE;
     private HorizontalDirection faceDirection = HorizontalDirection.RIGHT;
 
+
+    @Subscribe
+    public void onLifeChange(final LifeEvent event) {
+        if (event.isDead()) {
+            selfDetach();
+        }
+    }
 
     /**
      * @return HorizontalDirection based on getDesiredMovement().getX()

@@ -3,18 +3,14 @@ package it.unibo.oop17.ga_game.model.entities;
 import java.util.Optional;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 
-import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.components.InterfacesBag;
 import it.unibo.oop17.ga_game.model.entities.components.InterfacesBagImpl;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
-import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 public abstract class AbstractEntity implements EventfullEntity {
     private final EventBus eventBus = new EventBus();
@@ -23,7 +19,6 @@ public abstract class AbstractEntity implements EventfullEntity {
 
     public AbstractEntity(final EntityBody body) {
         this.body = body;
-        register(new MyEntityEventListener());
         body.attach(this);
     }
 
@@ -68,6 +63,18 @@ public abstract class AbstractEntity implements EventfullEntity {
         return components.get(component);
     }
 
+    @Override
+    public final <C extends EntityComponent> void remove(final Class<C> component) {
+        components.get(component).ifPresent(this::remove);
+        // components.remove(component).ifPresent(EntityComponent::detach);
+    }
+
+    @Override
+    public final void remove(final EntityComponent component) {
+        components.remove(component);
+        component.detach();
+    }
+
     /**
      * Calls update(dt) on the components.
      * 
@@ -81,23 +88,5 @@ public abstract class AbstractEntity implements EventfullEntity {
     protected final void add(final EntityComponent component) {
         components.put(component);
         component.attach(this);
-    }
-
-    protected final <C extends EntityComponent> void remove(final Class<C> component) {
-        components.remove(component).ifPresent(EntityComponent::detach);
-    }
-
-    private void die() {
-        remove(MovementComponent.class);
-        remove(Brain.class);
-    }
-
-    private final class MyEntityEventListener implements EntityEventListener {
-        @Subscribe
-        public void onLifeChange(final LifeEvent event) {
-            if (event.isDead()) {
-                die();
-            }
-        }
     }
 }
