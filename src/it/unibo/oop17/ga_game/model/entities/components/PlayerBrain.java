@@ -8,11 +8,6 @@ import javafx.geometry.Point2D;
 public class PlayerBrain extends AbstractBrain {
     private static final double KNOCKBACK = 60;
 
-    @Override
-    public void update(final double dt) {
-
-    }
-
     @Subscribe
     public void beginContact(final BeginContactEvent contact) {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
