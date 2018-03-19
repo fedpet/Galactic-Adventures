@@ -11,8 +11,11 @@ import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 public abstract class AbstractEntityController implements EntityController {
+    private static final double DEATH_TIME = 60;
+
     private final Entity entity;
     private final EntityView entityView;
+    private int deathTimeCount;
 
     public AbstractEntityController(final Entity entity, final EntityView entityView) {
         this.entity = entity;
@@ -28,6 +31,7 @@ public abstract class AbstractEntityController implements EntityController {
         } else {
             entityView.setPosition(
                     ViewUtils.worldPointToFX(entityView.updatePointFromDeath(entity.getBody().getPosition())));
+            updateDeathMoment();
         }
     }
     
@@ -44,7 +48,19 @@ public abstract class AbstractEntityController implements EntityController {
     @Subscribe
     public void onEntityDestruction(final DestructionEvent destruction) {
         destruction.getSource().unregister(this);
-        entityView.remove(); // death animation se ha la Life ma isDead() e poi Timer per remove?
+        if (destruction.getSource().get(Life.class).isPresent()
+                && destruction.getSource().get(Life.class).get().isDead()) {
+            entityView.deathAnimation();
+        } else {
+            entityView.remove();
+        }
+    }
+
+    private void updateDeathMoment() {
+        deathTimeCount++;
+        if (deathTimeCount == DEATH_TIME) {
+            entityView.remove();
+        }
     }
 
 }

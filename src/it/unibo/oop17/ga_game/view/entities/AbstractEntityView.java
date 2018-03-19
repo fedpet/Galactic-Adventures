@@ -83,11 +83,6 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void flip(final VerticalDirection direction) {
-        view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
-    }
-
-    @Override
     public Point2D updatePointFromDeath(final Point2D startingPoint) {
         if (pointFromDeath == null) {
             pointFromDeath = startingPoint;
@@ -99,7 +94,11 @@ public abstract class AbstractEntityView implements EntityView {
     @Override
     public void deathAnimation() {
         flip(VerticalDirection.DOWN);
-            changeMovement(MovementComponent.State.IDLE);
+        changeMovement(MovementComponent.State.IDLE);
+    }
+
+    private void flip(final VerticalDirection direction) {
+        view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {
