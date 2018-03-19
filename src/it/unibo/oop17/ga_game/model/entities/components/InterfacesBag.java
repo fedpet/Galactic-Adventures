@@ -51,8 +51,9 @@ public interface InterfacesBag<T> {
      *            the type
      * @param type
      *            the type
+     * @return The removed component
      */
-    <C extends T> void remove(Class<C> type);
+    <C extends T> Optional<C> remove(Class<C> type);
 
     /**
      * Removes the element from the bag.

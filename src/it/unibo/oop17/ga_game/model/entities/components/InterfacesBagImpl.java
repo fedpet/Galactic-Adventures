@@ -53,8 +53,8 @@ public final class InterfacesBagImpl<T> implements InterfacesBag<T> {
     }
 
     @Override
-    public <C extends T> void remove(final Class<C> type) {
-        elements.remove(type);
+    public <C extends T> Optional<C> remove(final Class<C> type) {
+        return Optional.ofNullable(type.cast(elements.remove(type)));
     }
 
     @Override
