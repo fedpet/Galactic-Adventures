@@ -16,7 +16,7 @@ public abstract class AbstractBrain extends AbstractEntityComponent implements B
     @Subscribe
     public void onLifeChange(final LifeEvent event) {
         if (event.isDead()) {
-            selfDetach();
+            detach();
         }
     }
 

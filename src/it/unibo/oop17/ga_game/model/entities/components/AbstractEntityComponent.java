@@ -34,8 +34,9 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     public void detach() throws IllegalStateException {
         owner.ifPresent(entity -> {
             entity.unregister(this);
+            owner = Optional.empty();
+            entity.remove(this);
         });
-        owner = Optional.empty();
     }
 
     @Override
@@ -63,9 +64,5 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
      */
     protected void post(final EntityEvent event) {
         getEntity().post(event);
-    }
-
-    protected final void selfDetach() {
-        getEntity().remove(this);
     }
 }

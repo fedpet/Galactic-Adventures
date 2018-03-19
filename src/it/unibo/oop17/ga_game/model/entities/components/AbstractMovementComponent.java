@@ -20,7 +20,7 @@ public abstract class AbstractMovementComponent extends AbstractEntityComponent 
     @Subscribe
     public void onLifeChange(final LifeEvent event) {
         if (event.isDead()) {
-            selfDetach();
+            detach();
         }
     }
 
