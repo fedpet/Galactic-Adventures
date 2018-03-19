@@ -7,12 +7,19 @@ import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
  * Base class for @Brain.
+ * It self-detaches on death
  */
 public abstract class AbstractBrain extends AbstractEntityComponent implements Brain {
     @Override
     public void update(final double dt) {
     }
 
+    /**
+     * Self-detaches on death.
+     * 
+     * @param event
+     *            The @LifeEvent
+     */
     @Subscribe
     public void onLifeChange(final LifeEvent event) {
         if (event.isDead()) {
