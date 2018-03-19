@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -70,4 +71,14 @@ public interface InterfacesBag<T> {
      * @return A stream of elements.
      */
     Stream<T> stream();
+
+    /**
+     * Convenience method.
+     * 
+     * @param action
+     *            an action to be executed on each element.
+     */
+    default void forEach(final Consumer<T> action) {
+        stream().forEach(action);
+    }
 }
