@@ -5,9 +5,18 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import javafx.geometry.Point2D;
 
-public class PlayerBrain extends AbstractBrain {
+/**
+ * Attacks EVILs.
+ */
+public final class PlayerBrain extends AbstractBrain {
     private static final double KNOCKBACK = 60;
 
+    /**
+     * When a contact happens we check if we're touching an hated entity. In this case we attack it!
+     * 
+     * @param contact
+     *            The @BeginContactEvent
+     */
     @Subscribe
     public void beginContact(final BeginContactEvent contact) {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
@@ -22,7 +31,7 @@ public class PlayerBrain extends AbstractBrain {
     }
 
     @Override
-    public final Personality getPersonality() {
+    public Personality getPersonality() {
         return EntityPersonality.GOOD;
     }
 }
