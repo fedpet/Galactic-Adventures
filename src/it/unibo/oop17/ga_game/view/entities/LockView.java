@@ -13,13 +13,13 @@ public class LockView extends AbstractEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == KeyLockType.RED) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\tiles\\lock_red.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/tiles/lock_red.png")));
         } else if (type == KeyLockType.BLUE) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\tiles\\lock_blue.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/tiles/lock_blue.png")));
         } else if (type == KeyLockType.YELLOW) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\tiles\\lock_yellow.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/tiles/lock_yellow.png")));
         } else if (type == KeyLockType.GREEN) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\tiles\\lock_green.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/tiles/lock_green.png")));
         }
 
         startAnimation(State.IDLE);

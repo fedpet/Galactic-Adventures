@@ -13,11 +13,11 @@ public class CoinView extends AbstractEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == CoinType.BRONZE) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\coinBronze.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/coinBronze.png")));
         } else if (type == CoinType.SILVER) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\coinSilver.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/coinSilver.png")));
         } else if (type == CoinType.GOLD) {
-            mapAnimation(State.IDLE, justAnImage(new Image("\\tiles\\base_pack\\items\\coinGold.png")));
+            mapAnimation(State.IDLE, justAnImage(new Image("/tiles/base_pack/items/coinGold.png")));
         }
 
         startAnimation(State.IDLE);

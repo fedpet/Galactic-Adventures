@@ -19,11 +19,14 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public abstract class AbstractEntityView implements EntityView {
+    private static final double DEATH_FALLING_SPEED = 0.05;
+
     private final Map<MovementComponent.State, Runnable> animations = new HashMap<>();
     private final ImageView view = new ImageView();
     private Animation currentAnimation;
     private final Dimension2D dimension;
     private final Group parentView;
+    private Point2D pointFromDeath;
 
     public AbstractEntityView(final Group group, final Dimension2D dimension) {
         parentView = group;
@@ -70,18 +73,33 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void changeMovement(MovementComponent.State state) {
+    public void changeMovement(final MovementComponent.State state) {
         animations.getOrDefault(state, animations.get(State.IDLE)).run();
     }
 
     @Override
-    public void changeFaceDirection(HorizontalDirection direction) {
+    public void changeFaceDirection(final HorizontalDirection direction) {
         view.setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     @Override
-    public void flip(VerticalDirection direction) {
+    public void flip(final VerticalDirection direction) {
         view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
+    }
+
+    @Override
+    public Point2D updatePointFromDeath(final Point2D startingPoint) {
+        if (pointFromDeath == null) {
+            pointFromDeath = startingPoint;
+        }
+        pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
+        return pointFromDeath;
+    }
+
+    @Override
+    public void deathAnimation() {
+        flip(VerticalDirection.DOWN);
+            changeMovement(MovementComponent.State.IDLE);
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {
