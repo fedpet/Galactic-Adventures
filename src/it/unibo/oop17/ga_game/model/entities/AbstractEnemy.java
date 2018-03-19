@@ -10,8 +10,11 @@ public abstract class AbstractEnemy extends AbstractEntity implements Enemy {
     private final int damage;
 
     public AbstractEnemy(final EntityBody body, final Brain brain, final MovementComponent movement, final int damage) {
-        super(body, brain, movement, new LinearLife(5));
+        super(body);
         this.damage = damage;
+        add(brain);
+        add(movement);
+        add(new LinearLife(5));
     }
 
     @Override

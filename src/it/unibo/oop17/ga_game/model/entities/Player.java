@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import java.util.Optional;
-
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
 import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
@@ -27,9 +25,11 @@ public final class Player extends AbstractEntity {
      *            The position
      */
     public Player(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createCreature(position, SIZE), new PlayerBrain(),
-                new FeetComponent(WALK_SPEED, JUMP_SPEED), new LinearLife(DEFAULT_LIFE),
-                Optional.of(new InventoryImpl()));
+        super(bodyFactory.createCreature(position, SIZE));
+        add(new InventoryImpl());
+        add(new LinearLife(DEFAULT_LIFE));
+        add(new FeetComponent(WALK_SPEED, JUMP_SPEED));
+        add(new PlayerBrain());
     }
 
     @Override

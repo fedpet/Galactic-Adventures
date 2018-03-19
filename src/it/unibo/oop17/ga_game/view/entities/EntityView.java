@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
@@ -72,5 +71,5 @@ public interface EntityView {
      * @param entity
      *            The reference entity
      */
-    void deathAnimation(Entity entity);
+    void deathAnimation();
 }

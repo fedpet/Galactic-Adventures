@@ -26,6 +26,14 @@ public interface EntityComponent {
     void detach();
 
     /**
+     * Synchronizes the component.
+     * 
+     * @param dt
+     *            Delta time since last call in seconds.
+     */
+    void update(double dt);
+
+    /**
      * 
      * @return The @Entity to which its attached to.
      */

@@ -3,7 +3,6 @@ package it.unibo.oop17.ga_game.view.entities;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import it.unibo.oop17.ga_game.view.ViewUtils;
@@ -74,22 +73,22 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void changeMovement(MovementComponent.State state) {
+    public void changeMovement(final MovementComponent.State state) {
         animations.getOrDefault(state, animations.get(State.IDLE)).run();
     }
 
     @Override
-    public void changeFaceDirection(HorizontalDirection direction) {
+    public void changeFaceDirection(final HorizontalDirection direction) {
         view.setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     @Override
-    public void flip(VerticalDirection direction) {
+    public void flip(final VerticalDirection direction) {
         view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
     }
 
     @Override
-    public Point2D updatePointFromDeath(Point2D startingPoint) {
+    public Point2D updatePointFromDeath(final Point2D startingPoint) {
         if (pointFromDeath == null) {
             pointFromDeath = startingPoint;
         }
@@ -98,13 +97,9 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void deathAnimation(Entity entity) {
-        if (entity.getLife().isAlive()) {
-            remove();
-        } else {
-            flip(VerticalDirection.DOWN);
+    public void deathAnimation() {
+        flip(VerticalDirection.DOWN);
             changeMovement(MovementComponent.State.IDLE);
-        }
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {

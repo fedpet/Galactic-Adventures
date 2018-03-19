@@ -147,8 +147,7 @@ import javafx.geometry.Point2D;
 
         private void dispatchCollisionEvent(final Contact contact, final B2DEntityBody entity,
                 final BiConsumer<CollisionListener, BodyContact> handler, final EntityBody other) {
-            entity.getCollisionListener().ifPresent(listener -> handler.accept(listener,
-                    new BodyContactImpl(other, B2DUtils.vecToPoint(contact.getManifold().localPoint))));
+            handler.accept(entity, new BodyContactImpl(other, B2DUtils.vecToPoint(contact.getManifold().localPoint)));
         }
 
         private boolean isThereARemovedBody(final Contact contact) {

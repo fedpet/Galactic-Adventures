@@ -9,7 +9,7 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 /**
  * Basic implementation of @Inventory.
  */
-public final class InventoryImpl implements Inventory {
+public final class InventoryImpl extends AbstractEntityComponent implements Inventory {
     private final Set<KeyLockType> keys = new HashSet<>();
     private int money;
 

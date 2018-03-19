@@ -1,7 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import com.google.common.eventbus.Subscribe;
+
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
  * Base class for @Brain.
@@ -11,12 +13,11 @@ public abstract class AbstractBrain extends AbstractEntityComponent implements B
     public void update(final double dt) {
     }
 
-    @Override
-    public void beginContact(final BodyContact contact) {
-    }
-
-    @Override
-    public void endContact(final BodyContact contact) {
+    @Subscribe
+    public void onLifeChange(final LifeEvent event) {
+        if (event.isDead()) {
+            selfDetach();
+        }
     }
 
     /**
@@ -27,6 +28,9 @@ public abstract class AbstractBrain extends AbstractEntityComponent implements B
      * @return true if we hate him.
      */
     protected boolean hate(final Entity other) {
-        return getPersonality().hates(other.getBrain().getPersonality());
+        if (other.get(Brain.class).isPresent()) {
+            return getPersonality().hates(other.get(Brain.class).get().getPersonality());
+        }
+        return getPersonality().hates(EntityPersonality.NONE);
     }
 }

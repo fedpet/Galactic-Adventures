@@ -2,11 +2,8 @@ package it.unibo.oop17.ga_game.model.entities;
 
 import java.util.Optional;
 
-import it.unibo.oop17.ga_game.model.entities.components.Brain;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.entities.components.Inventory;
-import it.unibo.oop17.ga_game.model.entities.components.Life;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 
 /**
@@ -19,32 +16,14 @@ public interface Entity {
     EntityBody getBody();
 
     /**
-     * The Brain controls the Entity.
+     * Gets a component by its type.
+     * Remember to work with interfaces and not concrete types!
      * 
-     * @return The entity's @Brain
+     * @param component
+     *            type
+     * @return the component
      */
-    Brain getBrain();
-
-    /**
-     * Manages the entity's movement.
-     * 
-     * @return The entity's @MovementComponent
-     */
-    MovementComponent getMovement();
-
-    /**
-     * Every entity live in our game. Though some can be invincible..
-     * 
-     * @return The Entity's @Life.
-     */
-    Life getLife();
-
-    /**
-     * Some entities carries items and money.
-     * 
-     * @return @Inventory
-     */
-    Optional<Inventory> getInventory();
+    <C extends EntityComponent> Optional<C> get(Class<C> component);
 
     /**
      * Used to synchronize the entities.

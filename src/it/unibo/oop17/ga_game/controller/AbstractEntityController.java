@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.controller;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
@@ -22,7 +23,7 @@ public abstract class AbstractEntityController implements EntityController {
 
     @Override
     public void update() {
-        if (entity.getLife().isAlive()) {
+        if (!entity.get(Life.class).isPresent() || entity.get(Life.class).get().isAlive()) {
             entityView.setPosition(ViewUtils.worldPointToFX(entity.getBody().getPosition()));
         } else {
             entityView.setPosition(
@@ -43,7 +44,7 @@ public abstract class AbstractEntityController implements EntityController {
     @Subscribe
     public void onEntityDestruction(final DestructionEvent destruction) {
         destruction.getSource().unregister(this);
-        entityView.deathAnimation(destruction.getSource());
+        entityView.remove(); // death animation se ha la Life ma isDead() e poi Timer per remove?
     }
 
 }

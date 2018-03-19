@@ -1,6 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import com.google.common.eventbus.Subscribe;
+
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 
 public class CoinBrain extends AbstractBrain {
 
@@ -10,13 +12,15 @@ public class CoinBrain extends AbstractBrain {
         this.value = value;
     }
 
-    @Override
-    public void beginContact(final BodyContact contact) {
-        if (contact.getOtherBody().getOwner().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().isPresent()) {
-            contact.getOtherBody().getOwner().get().getInventory().get().addMoney(value);
-            getEntity().destroy();
-        }
+
+    @Subscribe
+    public void beginContact(final BeginContactEvent contact) {
+        contact.getOtherBody().getOwner().ifPresent(entity -> {
+            entity.get(Inventory.class).ifPresent(inv -> {
+                inv.addMoney(value);
+                getEntity().destroy();
+            });
+        });
     }
 
     public int getValue() {

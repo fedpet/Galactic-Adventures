@@ -1,7 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import com.google.common.eventbus.Subscribe;
+
 import it.unibo.oop17.ga_game.model.KeyLockType;
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 
 public class LockBrain extends AbstractBrain {
 
@@ -11,13 +13,15 @@ public class LockBrain extends AbstractBrain {
         this.type = type;
     }
 
-    @Override
-    public void beginContact(final BodyContact contact) {
-        if (contact.getOtherBody().getOwner().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().isPresent()
-                && contact.getOtherBody().getOwner().get().getInventory().get().getKeysBunch().contains(type)) {
-            getEntity().destroy();
-        }
+    @Subscribe
+    public void beginContact(final BeginContactEvent contact) {
+        contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
+            otherEntity.get(Inventory.class).ifPresent(inv -> {
+                if (inv.getKeysBunch().contains(type)) {
+                    getEntity().destroy();
+                }
+            });
+        });
     }
 
     public KeyLockType getType() {

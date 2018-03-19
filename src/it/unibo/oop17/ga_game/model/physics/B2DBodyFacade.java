@@ -1,13 +1,16 @@
 package it.unibo.oop17.ga_game.model.physics;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.jbox2d.dynamics.Body;
 
 import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
+import it.unibo.oop17.ga_game.model.entities.events.EndContactEvent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -18,6 +21,7 @@ import javafx.geometry.Point2D;
     private final Body body;
     private final Dimension2D boundingBoxDimension;
     private final Map<Body, B2DEntityBody> bodyMap;
+    private final List<CollisionListener> listeners = new LinkedList<>();
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension,
             final Map<Body, B2DEntityBody> bodyMap) {
@@ -57,14 +61,6 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public Optional<CollisionListener> getCollisionListener() {
-        if (!getOwner().isPresent()) {
-            return Optional.empty();
-        }
-        return Optional.of(getOwner().get().getBrain());
-    }
-
-    @Override
     public void setGravityScale(final double scale) {
         body.setGravityScale((float) scale);
     }
@@ -81,4 +77,17 @@ import javafx.geometry.Point2D;
                 });
     }
 
+    @Override
+    public void beginContact(final BodyContact contact) {
+        getOwner().ifPresent(entity -> {
+            post(new BeginContactEvent(entity, contact));
+        });
+    }
+
+    @Override
+    public void endContact(final BodyContact contact) {
+        getOwner().ifPresent(entity -> {
+            post(new EndContactEvent(entity, contact));
+        });
+    }
 }
