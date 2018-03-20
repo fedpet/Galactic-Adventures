@@ -30,6 +30,10 @@ public class SpriteAnimation extends Transition {
 
     @Override
     protected void interpolate(final double k) {
+        if (getStatus() != Status.RUNNING) {
+            // sometimes this happens..
+            return;
+        }
         final int cols = (int) (imageView.getImage().getWidth() / width);
         final int rows = (int) (imageView.getImage().getHeight() / height);
 
