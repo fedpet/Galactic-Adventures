@@ -34,13 +34,8 @@ public interface MovementComponent extends EntityComponent {
      * @param dt
      *            Time delta in seconds since the last update call.
      */
+    @Override
     void update(double dt);
-
-    /**
-     * 
-     * @return Speed (walking speed if ground entity)
-     */
-    double getSpeed();
 
     /**
      * Possible states of movement.

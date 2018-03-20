@@ -1,13 +1,27 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import com.google.common.eventbus.Subscribe;
+
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.FXUtils;
+import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
 
 
-public class FeetComponent extends AbstractMovementComponent {
+/**
+ * Feet for ground creatures unable to fly!
+ */
+public final class FeetComponent extends AbstractMovementComponent {
     private static final double AIR_FRICTION_FACTOR = 0.07;
     private final double walkingSpeed, jumpingSpeed;
 
+    /**
+     * 
+     * @param walkingSpeed
+     *            Horizontal speed while on ground
+     * @param jumpingSpeed
+     *            Vertical jump speed
+     */
     public FeetComponent(final double walkingSpeed, final double jumpingSpeed) {
         this.walkingSpeed = walkingSpeed;
         this.jumpingSpeed = jumpingSpeed;
@@ -17,7 +31,7 @@ public class FeetComponent extends AbstractMovementComponent {
     public void update(final double dt) {
         Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
         movement = FXUtils.absCap(movement, walkingSpeed, jumpingSpeed);
-        if (!canJump()) {
+        if (!isOnGround()) {
             movement = new Point2D(movement.getX(), 0);
             // no jump if in air
             // but we can still move a little
@@ -32,8 +46,19 @@ public class FeetComponent extends AbstractMovementComponent {
     @Override
     public void move(final Point2D directionVector) {
         final double hf = directionVector.getX() > 0 ? 1 : directionVector.getX() < 0 ? -1 : 0;
-        final double vf = directionVector.getY() > 0 ? 1 : 0;
+        final double vf = directionVector.getY() > 0 ? 1 : 0; // can't move toward bottom
         setDesiredMovement(new Point2D(walkingSpeed * hf, jumpingSpeed * vf));
+        updateState();
+    }
+
+    /**
+     * When we touch the ground we update the state to change from JUMPING to IDLE.
+     * 
+     * @param event
+     *            The @BeginContactEvent
+     */
+    @Subscribe
+    public void beginContact(final BeginContactEvent event) {
         updateState();
     }
 
@@ -41,20 +66,17 @@ public class FeetComponent extends AbstractMovementComponent {
      * 
      * @return true if the owner's @EntityBody is on another one.
      */
-    public boolean canJump() {
+    private boolean isOnGround() {
         return getEntity().getBody().getContacts()
-                .filter(c -> c.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2)
+                .filter(c -> PositionCompare.atBottom(getEntity().getBody().getDimension(), c.getPoint()))
                 .findAny()
                 .isPresent();
     }
 
     private void updateState() {
-        setState(getDesiredMovement().getY() > 0 ? State.JUMPING
-                : getDesiredMovement().getX() != 0 ? State.WALKING : State.IDLE);
-    }
-
-    @Override
-    public double getSpeed() {
-        return walkingSpeed;
+        if (isOnGround()) {
+            setState(getDesiredMovement().getY() > 0 ? State.JUMPING
+                    : getDesiredMovement().getX() != 0 ? State.WALKING : State.IDLE);
+        }
     }
 }
