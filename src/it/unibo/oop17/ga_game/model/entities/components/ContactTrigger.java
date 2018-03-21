@@ -12,6 +12,7 @@ public class ContactTrigger extends AbstractEntityComponent implements TriggerCo
 
     public ContactTrigger(final String password, final boolean triggered) {
         this.password = password;
+        this.triggered = triggered;
     }
 
     @Override
@@ -21,10 +22,11 @@ public class ContactTrigger extends AbstractEntityComponent implements TriggerCo
 
     @Subscribe
     public void beginContact(final BeginContactEvent contact) {
-        if (!triggered) {
+        if (!hasTriggered()) {
             triggered = true;
             post(new TriggerEvent(getEntity(), password));
         }
+
     }
 
     @Override

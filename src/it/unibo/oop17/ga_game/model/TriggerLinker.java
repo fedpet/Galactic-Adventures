@@ -17,7 +17,7 @@ public class TriggerLinker {
     private final Map<String, Set<TriggerableComponent>> map = new HashMap<>();
     private final MyTriggerListener listener = new MyTriggerListener();
 
-    public void track(Entity entity) {
+    public void track(final Entity entity) {
         entity.register(listener);
         entity.get(TriggerableComponent.class).ifPresent(component -> {
             map.merge(component.getPassword(), new HashSet<>(Arrays.asList(component)), (x, y) -> {
@@ -27,7 +27,7 @@ public class TriggerLinker {
         });
     }
 
-    public void untrack(Entity entity) {
+    public void untrack(final Entity entity) {
         entity.unregister(listener);
         entity.get(TriggerableComponent.class).ifPresent(component -> {
             map.remove(component.getPassword());

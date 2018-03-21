@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.OneTimeTriggerable;
+import it.unibo.oop17.ga_game.model.entities.components.TriggerableDoorComponent;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -10,7 +10,7 @@ public class Door extends AbstractEntity {
 
     public Door(final BodyFactory bodyFactory, final Point2D position, String password, boolean open) {
         super(bodyFactory.createItem(position, SIZE));
-        add(new OneTimeTriggerable(password, open));
+        add(new TriggerableDoorComponent(password, open));
     }
 
     @Override
