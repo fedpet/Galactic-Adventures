@@ -13,13 +13,13 @@ public class TriggerableDoorComponent extends OneTimeTriggerable {
 
     @Subscribe
     public void beginContact(final BeginContactEvent contact) {
-        contact.getOtherBody().getOwner().ifPresent(entity -> {
-            entity.get(Inventory.class).ifPresent(inv -> {
-                if (isTriggered()) {
+        if (isTriggered()) {
+            contact.getOtherBody().getOwner().ifPresent(entity -> {
+                entity.get(Inventory.class).ifPresent(inv -> {
                     post(new FinishedLevelEvent(entity));
-                }
+                });
             });
-        });
+        }
     }
 
 }
