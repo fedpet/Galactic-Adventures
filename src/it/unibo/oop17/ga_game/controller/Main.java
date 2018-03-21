@@ -15,8 +15,10 @@ import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.entities.Coin;
+import it.unibo.oop17.ga_game.model.entities.Door;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.Key;
+import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
@@ -27,9 +29,11 @@ import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
+import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.EntityView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.entities.KeyView;
+import it.unibo.oop17.ga_game.view.entities.LeverView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
@@ -114,6 +118,12 @@ public class Main extends Application {
         final Lock lock = new Lock(bodyFactory, new Point2D(14, -28.5), KeyLockType.BLUE);
         gameWorld.addEntity(lock);
         final EntityView lockView = new LockView(worldView, KeyLockType.BLUE);
+        final Lever lever = new Lever(bodyFactory, new Point2D(18, -25.5), "Door", false);
+        gameWorld.addEntity(lever);
+        final EntityView leverView = new LeverView(worldView);
+        final Door door = new Door(bodyFactory, new Point2D(12, -25.5), "Door", false);
+        gameWorld.addEntity(door);
+        final EntityView doorView = new DoorView(worldView, false);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -131,6 +141,8 @@ public class Main extends Application {
         final EntityController blueKeyController = new UnplayableEntityController(blueKey, blueKeyView);
         final EntityController redKeyController = new UnplayableEntityController(redKey, redKeyView);
         final EntityController lockController = new UnplayableEntityController(lock, lockView);
+        final EntityController leverController = new UnplayableEntityController(lever, leverView);
+        final EntityController doorController = new UnplayableEntityController(door, doorView);
 
 
         try {
@@ -152,6 +164,8 @@ public class Main extends Application {
                     blueKeyController.update();
                     redKeyController.update();
                     lockController.update();
+                    leverController.update();
+                    doorController.update();
 
                     playerController.update();
 
