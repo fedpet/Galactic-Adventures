@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
-import it.unibo.oop17.ga_game.model.entities.events.LevelFinishedEvent;
+import it.unibo.oop17.ga_game.model.entities.events.FinishedLevelEvent;
 
 public class TriggerableDoorComponent extends OneTimeTriggerable {
 
@@ -13,9 +13,13 @@ public class TriggerableDoorComponent extends OneTimeTriggerable {
 
     @Subscribe
     public void beginContact(final BeginContactEvent contact) {
-        if (isTriggered()) {
-            post(new LevelFinishedEvent(getEntity()));
-        }
+        contact.getOtherBody().getOwner().ifPresent(entity -> {
+            entity.get(Inventory.class).ifPresent(inv -> {
+                if (isTriggered()) {
+                    post(new FinishedLevelEvent(entity));
+                }
+            });
+        });
     }
 
 }
