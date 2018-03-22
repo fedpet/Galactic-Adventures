@@ -39,6 +39,7 @@ public class TriggerLinker {
         @Subscribe
         public void activateEvent(final TriggerEvent event) {
             map.get(event.getPassword()).forEach(TriggerableComponent::trigger);
+            map.get(event.getPassword()).clear();
         }
     }
 }

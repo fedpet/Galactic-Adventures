@@ -9,13 +9,16 @@ public class LeverView extends AbstractDeadEntityView {
 
     private static final int WIDTH = 70, HEIGHT = 70;
 
-    public LeverView(final Group group) {
+    public LeverView(final Group group, final boolean activatedFromStart) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         mapAnimation(DeadState.ON, justAnImage(new Image("/tiles/base_pack/items/switchRight.png")));
         mapAnimation(DeadState.OFF, justAnImage(new Image("/tiles/base_pack/items/switchLeft.png")));
 
-        startAnimation(DeadState.OFF);
+        if (activatedFromStart) {
+            startAnimation(DeadState.ON);
+        } else {
+            startAnimation(DeadState.OFF);
+        }
     }
-
 }
