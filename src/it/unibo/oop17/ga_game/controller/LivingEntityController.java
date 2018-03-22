@@ -10,14 +10,14 @@ import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
-public class UnplayableLivingEntityController implements EntityController {
+public class LivingEntityController implements EntityController {
 
     private static final double DEATH_TIME = 60;
     private final Entity entity;
     private final LivingEntityView entityView;
     private int deathTimeCount;
 
-    public UnplayableLivingEntityController(final Entity entity, final LivingEntityView entityView) {
+    public LivingEntityController(final Entity entity, final LivingEntityView entityView) {
         this.entity = entity;
         this.entityView = entityView;
         entity.register(this);

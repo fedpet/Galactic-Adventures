@@ -1,25 +1,26 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.CoinType;
-import it.unibo.oop17.ga_game.model.entities.components.DeadState;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-public class CoinView extends AbstractDeadEntityView {
+// estensione temporanea
+public class CoinView extends AbstractTriggerEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
+    private static final String BRONZE_COIN = "/tiles/base_pack/items/coinBronze.png";
+    private static final String SILVER_COIN = "/tiles/base_pack/items/coinSilver.png";
+    private static final String GOLD_COIN = "/tiles/base_pack/items/coinGold.png";
 
     public CoinView(final Group group, final CoinType type) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == CoinType.BRONZE) {
-            mapAnimation(DeadState.ON, justAnImage(new Image("/tiles/base_pack/items/coinBronze.png")));
+            justAnImage(new Image(BRONZE_COIN)).run();
         } else if (type == CoinType.SILVER) {
-            mapAnimation(DeadState.ON, justAnImage(new Image("/tiles/base_pack/items/coinSilver.png")));
+            justAnImage(new Image(SILVER_COIN)).run();
         } else if (type == CoinType.GOLD) {
-            mapAnimation(DeadState.ON, justAnImage(new Image("/tiles/base_pack/items/coinGold.png")));
+            justAnImage(new Image(GOLD_COIN)).run();
         }
-
-        startAnimation(DeadState.ON);
     }
 }

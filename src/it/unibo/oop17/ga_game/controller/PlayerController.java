@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
 /**
  * Translates view input to model input and updates the view.
  */
-public final class PlayerController extends UnplayableLivingEntityController {
+public final class PlayerController extends LivingEntityController {
 
     /**
      * @param input

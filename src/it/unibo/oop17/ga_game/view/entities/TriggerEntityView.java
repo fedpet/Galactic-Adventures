@@ -1,8 +1,8 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.DeadState;
+import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
 
-public interface DeadEntityView extends EntityView {
+public interface TriggerEntityView extends EntityView {
 
     /**
      * Used to change the entity view state.
@@ -10,6 +10,6 @@ public interface DeadEntityView extends EntityView {
      * @param state
      *            The state to be associated to the entity view.
      */
-    void changeState(DeadState state);
+    void changeState(TriggerState state);
 
 }

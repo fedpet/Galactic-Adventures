@@ -30,7 +30,6 @@ import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.PlayerKeyboardInput;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
-import it.unibo.oop17.ga_game.view.entities.DeadEntityView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.entities.KeyView;
@@ -39,6 +38,7 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
+import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -110,22 +110,22 @@ public class Main extends Application {
         final LivingEntityView flyingEnemyView = new FlyingEnemyView(worldView);
         final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
         gameWorld.addEntity(coin);
-        final DeadEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
+        final TriggerEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
         final Key blueKey = new Key(bodyFactory, new Point2D(10, -28), KeyLockType.BLUE);
         gameWorld.addEntity(blueKey);
-        final DeadEntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
+        final TriggerEntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
         final Key redKey = new Key(bodyFactory, new Point2D(7, -25.5), KeyLockType.RED);
         gameWorld.addEntity(redKey);
-        final DeadEntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
+        final TriggerEntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
         final Lock lock = new Lock(bodyFactory, new Point2D(14, -28.5), KeyLockType.BLUE);
         gameWorld.addEntity(lock);
-        final DeadEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
+        final TriggerEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
         final Lever lever = new Lever(bodyFactory, new Point2D(18, -25.5), "Door", false);
         gameWorld.addEntity(lever);
-        final DeadEntityView leverView = new LeverView(worldView, false);
+        final TriggerEntityView leverView = new LeverView(worldView, false);
         final Door door = new Door(bodyFactory, new Point2D(12, -25.5), "Door", false);
         gameWorld.addEntity(door);
-        final DeadEntityView doorView = new DoorView(worldView, false);
+        final TriggerEntityView doorView = new DoorView(worldView, false);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -137,15 +137,15 @@ public class Main extends Application {
         final PlayerView playerView = new PlayerView(worldView);
         final EntityController playerController = new PlayerController(new PlayerKeyboardInput(scene), player,
                 playerView);
-        final EntityController basicEnemyController = new UnplayableLivingEntityController(slimeEnemy, slimeEnemyView);
-        final EntityController flyingEnemyController = new UnplayableLivingEntityController(flyingEnemy,
+        final EntityController basicEnemyController = new LivingEntityController(slimeEnemy, slimeEnemyView);
+        final EntityController flyingEnemyController = new LivingEntityController(flyingEnemy,
                 flyingEnemyView);
-        final EntityController coinController = new DeadEntityController(coin, coinView);
-        final EntityController blueKeyController = new DeadEntityController(blueKey, blueKeyView);
-        final EntityController redKeyController = new DeadEntityController(redKey, redKeyView);
-        final EntityController lockController = new DeadEntityController(lock, lockView);
-        final EntityController leverController = new DeadEntityController(lever, leverView);
-        final EntityController doorController = new DeadEntityController(door, doorView);
+        final EntityController coinController = new TriggerEntityController(coin, coinView);
+        final EntityController blueKeyController = new TriggerEntityController(blueKey, blueKeyView);
+        final EntityController redKeyController = new TriggerEntityController(redKey, redKeyView);
+        final EntityController lockController = new TriggerEntityController(lock, lockView);
+        final EntityController leverController = new TriggerEntityController(lever, leverView);
+        final EntityController doorController = new TriggerEntityController(door, doorView);
 
 
         try {

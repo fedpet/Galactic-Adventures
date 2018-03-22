@@ -3,21 +3,21 @@ package it.unibo.oop17.ga_game.controller;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.DeadState;
+import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
-import it.unibo.oop17.ga_game.view.entities.DeadEntityView;
+import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 
-public class DeadEntityController implements EntityController {
+public class TriggerEntityController implements EntityController {
 
     private final Entity entity;
-    private final DeadEntityView entityView;
+    private final TriggerEntityView entityView;
 
-    public DeadEntityController(final Entity entity, final DeadEntityView entityView) {
+    public TriggerEntityController(final Entity entity, final TriggerEntityView entityView) {
         this.entity = entity;
         this.entityView = entityView;
         entity.register(this);
@@ -43,12 +43,12 @@ public class DeadEntityController implements EntityController {
     public void triggered(final TriggerEvent event) {
         entity.get(TriggerableComponent.class).ifPresent(x -> {
             if (event.getPassword().equals(x.getPassword())) {
-                entityView.changeState(DeadState.ON);
+                entityView.changeState(TriggerState.ON);
             }
         });
         entity.get(TriggerComponent.class).ifPresent(x -> {
             if (event.getPassword().equals(x.getPassword())) {
-                entityView.changeState(DeadState.ON);
+                entityView.changeState(TriggerState.ON);
             }
         });
     }
