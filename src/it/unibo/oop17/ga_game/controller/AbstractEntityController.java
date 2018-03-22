@@ -12,7 +12,6 @@ import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 public abstract class AbstractEntityController implements EntityController {
     private static final double DEATH_TIME = 60;
-
     private final Entity entity;
     private final EntityView entityView;
     private int deathTimeCount;
@@ -54,6 +53,10 @@ public abstract class AbstractEntityController implements EntityController {
         } else {
             entityView.remove();
         }
+    }
+
+    protected final Entity getEntity() {
+        return entity;
     }
 
     private void updateDeathMoment() {

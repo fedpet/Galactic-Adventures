@@ -1,36 +1,29 @@
 package it.unibo.oop17.ga_game.controller;
 
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.D;
-import static javafx.scene.input.KeyCode.W;
-
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import javafx.geometry.Point2D;
 
-public class PlayerController extends AbstractEntityController {
+/**
+ * Translates view input to model input and updates the view.
+ */
+public final class PlayerController extends AbstractEntityController {
 
-    public PlayerController(final KeyboardInputController keyboard, final Entity player, final PlayerView view) {
+    /**
+     * @param input
+     *            The @PlayerInput
+     * @param player
+     *            The @Entity model
+     * @param view
+     *            The view
+     */
+    public PlayerController(final PlayerInput input, final Entity player, final PlayerView view) {
         super(player, view);
-        keyboard.onEvent(e -> updateMovingDirection(keyboard, player));
+        input.onInput(this::move);
     }
 
-    private void updateMovingDirection(final KeyboardInputController keyboard, final Entity player) {
-        Point2D movement = Point2D.ZERO;
-        if (keyboard.isPressed(D)) {
-            movement = movement.add(1, 0);
-        }
-        if (keyboard.isPressed(A)) {
-            movement = movement.add(-1, 0);
-        }
-        if (keyboard.isPressed(W)) {
-            movement = movement.add(0, 1);
-        }
-        move(player, movement);
-    }
-
-    private void move(final Entity player, final Point2D direction) {
-        player.get(MovementComponent.class).ifPresent(move -> move.move(direction));
+    private void move(final Point2D direction) {
+        getEntity().get(MovementComponent.class).ifPresent(movement -> movement.move(direction));
     }
 }

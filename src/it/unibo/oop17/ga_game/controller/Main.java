@@ -27,6 +27,7 @@ import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
+import it.unibo.oop17.ga_game.view.PlayerKeyboardInput;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
@@ -133,7 +134,7 @@ public class Main extends Application {
         worldView.getChildren().add(platformView2);
 
         final PlayerView playerView = new PlayerView(worldView);
-        final EntityController playerController = new PlayerController(new KeyboardInputController(scene), player,
+        final EntityController playerController = new PlayerController(new PlayerKeyboardInput(scene), player,
                 playerView);
         final EntityController basicEnemyController = new UnplayableEntityController(slimeEnemy, slimeEnemyView);
         final EntityController flyingEnemyController = new UnplayableEntityController(flyingEnemy, flyingEnemyView);
