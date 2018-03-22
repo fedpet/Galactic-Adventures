@@ -62,16 +62,6 @@ public interface InfiniteSequence<T> extends Supplier<T> {
      * @return The sequence.
      */
     static <T> InfiniteSequence<T> fromIterators(final Iterator<T> beginning, final Supplier<Iterator<T>> iteratorSupplier) {
-        return new InfiniteSequence<T>() {
-            private Iterator<T> it = beginning;
-
-            @Override
-            public T get() {
-                if (!it.hasNext()) {
-                    it = iteratorSupplier.get();
-                }
-                return it.next();
-            }
-        };
+        return new InfiniteSequenceOfIterators<>(beginning, iteratorSupplier);
     }
 }
