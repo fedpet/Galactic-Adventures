@@ -67,6 +67,7 @@ public final class FeetComponent extends AbstractMovementComponent {
     private boolean isOnGround() {
         return getEntity().getBody().getContacts()
                 .filter(c -> PositionCompare.atBottom(getEntity().getBody().getDimension(), c.getPoint()))
+                .filter(c -> c.getOtherBody().isSolid())
                 .findAny()
                 .isPresent();
     }
