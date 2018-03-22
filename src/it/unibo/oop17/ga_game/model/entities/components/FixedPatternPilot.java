@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 import javafx.geometry.Point2D;
 
 /**
- * A @Brain following a fixed pattern.
+ * A @AutoPilot following a fixed pattern.
  */
-public abstract class FixedPatternBrain extends AbstractBrain {
+public class FixedPatternPilot extends AbstractEntityComponent implements AutoPilot {
     private static final double DISTANCE_THRESHOLD = 0.1;
     private final Supplier<Point2D> nextPositionSupplier;
     private Point2D nextPosition;
@@ -16,7 +16,7 @@ public abstract class FixedPatternBrain extends AbstractBrain {
      * @param nextPositionSupplier
      *            A supplier of the positions to follow.
      */
-    public FixedPatternBrain(final Supplier<Point2D> nextPositionSupplier) {
+    public FixedPatternPilot(final Supplier<Point2D> nextPositionSupplier) {
         this.nextPositionSupplier = nextPositionSupplier;
         nextPosition = nextPositionSupplier.get();
     }

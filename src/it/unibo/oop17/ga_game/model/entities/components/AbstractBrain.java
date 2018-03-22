@@ -7,6 +7,24 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
  * It self-detaches on death
  */
 public abstract class AbstractBrain extends AbstractEntityComponent implements Brain {
+    private final Personality personality;
+
+    /**
+     * @param personality
+     *            Brain @Personality
+     */
+    public AbstractBrain(final Personality personality) {
+        this.personality = personality;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Personality getPersonality() {
+        return personality;
+    }
+
     /**
      * Default method to decide if we hate another @Entity.
      * 

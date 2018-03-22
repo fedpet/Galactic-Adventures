@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.model.entities;
 
 import java.util.function.Supplier;
 
+import it.unibo.oop17.ga_game.model.entities.components.FixedPatternPilot;
 import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
 import it.unibo.oop17.ga_game.model.entities.components.PlatformBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
@@ -15,7 +16,8 @@ public class MovingPlatform extends AbstractEntity {
             final Supplier<Point2D> positions) {
         super(bodyFactory.createMovingPlatform(position, size));
         add(new LinearPropeller(SPEED));
-        add(new PlatformBrain(positions));
+        add(new PlatformBrain());
+        add(new FixedPatternPilot(positions));
     }
 
 }

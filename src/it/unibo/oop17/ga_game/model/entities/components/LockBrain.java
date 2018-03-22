@@ -10,6 +10,7 @@ public class LockBrain extends AbstractBrain {
     private final KeyLockType type;
 
     public LockBrain(final KeyLockType type) {
+        super(EntityPersonality.NONE);
         this.type = type;
     }
 
@@ -23,14 +24,4 @@ public class LockBrain extends AbstractBrain {
             });
         });
     }
-
-    public KeyLockType getType() {
-        return type;
-    }
-
-    @Override
-    public Personality getPersonality() {
-        return EntityPersonality.NONE;
-    }
-
 }

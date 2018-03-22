@@ -1,31 +1,24 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import java.util.function.Supplier;
-
 import it.unibo.oop17.ga_game.model.physics.BodyContact;
 import javafx.geometry.Point2D;
 
 /**
  * A PlatformBrain follows a pattern and takes care of passengers safety.
  */
-public final class PlatformBrain extends FixedPatternBrain {
+public final class PlatformBrain extends AbstractBrain {
+
     /**
      * 
-     * @param nextPositionSupplier A Supplier for the positions to follow.
      */
-    public PlatformBrain(final Supplier<Point2D> nextPositionSupplier) {
-        super(nextPositionSupplier);
+    public PlatformBrain() {
+        super(EntityPersonality.NONE);
     }
 
     @Override
     public void update(final double dt) {
         super.update(dt);
         takeCareOfPassengers();
-    }
-
-    @Override
-    public Personality getPersonality() {
-        return EntityPersonality.NONE;
     }
 
     /**

@@ -5,9 +5,18 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 
 /**
- * Attacks EVILs.
+ * A @Brain which attacks hated entities during contacts.
+ * It just tries to use its weapon as if it was a melee one.
  */
-public final class PlayerBrain extends AbstractBrain {
+public class ViolentBrain extends AbstractBrain {
+    /**
+     * @param personality
+     *            Brain @Personality
+     */
+    public ViolentBrain(final Personality personality) {
+        super(personality);
+    }
+
     /**
      * When a contact happens we check if we're touching an hated entity. In this case we attack it!
      * 
@@ -22,11 +31,6 @@ public final class PlayerBrain extends AbstractBrain {
                     weapon.use(contact.getPoint());
                 });
             }
-        }); 
-    }
-
-    @Override
-    public Personality getPersonality() {
-        return EntityPersonality.GOOD;
+        });
     }
 }

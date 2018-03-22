@@ -1,17 +1,20 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import com.google.common.eventbus.Subscribe;
-
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
-public class SlimeEnemyBrain extends AbstractBrain {
+public class SlimeEnemyBrain extends ViolentBrain {
 
-    @Subscribe
+    public SlimeEnemyBrain() {
+        super(EntityPersonality.EVIL);
+    }
+
+    @Override
     public void beginContact(final BeginContactEvent contact) {
+        super.beginContact(contact);
         Point2D newDirection = Point2D.ZERO;
         if (PositionCompare.contact(getEntity().getBody(), contact.getOtherBody()).equals(Side.LEFT)) {
             newDirection = new Point2D(1, 0);
@@ -36,10 +39,5 @@ public class SlimeEnemyBrain extends AbstractBrain {
                 movement.move(new Point2D(-1, 0));
             }
         });
-    }
-
-    @Override
-    public final Personality getPersonality() {
-        return EntityPersonality.EVIL;
     }
 }

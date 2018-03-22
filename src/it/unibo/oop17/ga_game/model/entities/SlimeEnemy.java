@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities;
 
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
@@ -11,7 +12,7 @@ import javafx.geometry.Point2D;
  * Models an enemy that switches moving direction when collides against an
  * obstacle.
  */
-public final class SlimeEnemy extends AbstractEnemy {
+public final class SlimeEnemy extends AbstractEntity {
     public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
 
     /**
@@ -22,7 +23,10 @@ public final class SlimeEnemy extends AbstractEnemy {
      *            The position
      */
     public SlimeEnemy(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createCreature(position, SIZE), new SlimeEnemyBrain(), new FeetComponent(5, 0), 1);
+        super(bodyFactory.createCreature(position, SIZE));
+        add(new SlimeEnemyBrain());
+        add(new FeetComponent(5, 0));
+        add(new LinearLife(5));
         get(MovementComponent.class).ifPresent(movement -> {
             movement.move(new Point2D(1, 0));
         });

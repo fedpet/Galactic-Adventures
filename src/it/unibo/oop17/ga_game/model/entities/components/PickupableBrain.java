@@ -11,6 +11,7 @@ public class PickupableBrain extends AbstractBrain {
     Consumer<Inventory> inventoryAdder;
 
     public PickupableBrain(final Consumer<Inventory> inventoryAdder) {
+        super(EntityPersonality.NONE);
         this.inventoryAdder = inventoryAdder;
     }
 
@@ -23,10 +24,4 @@ public class PickupableBrain extends AbstractBrain {
             });
         });
     }
-
-    @Override
-    public Personality getPersonality() {
-        return EntityPersonality.NONE;
-    }
-
 }
