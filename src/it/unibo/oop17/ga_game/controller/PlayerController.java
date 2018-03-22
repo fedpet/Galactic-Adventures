@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
-import it.unibo.oop17.ga_game.view.entities.PlayerView;
+import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import javafx.geometry.Point2D; 
 
 /**
@@ -18,7 +18,7 @@ public final class PlayerController extends UnplayableLivingEntityController {
      * @param view
      *            The view
      */
-    public PlayerController(final PlayerInput input, final Entity player, final PlayerView view) {
+    public PlayerController(final PlayerInput input, final Entity player, final LivingEntityView view) {
         super(player, view);
         input.onInput(this::move);
     }
