@@ -6,11 +6,11 @@ import com.google.common.eventbus.EventBus;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
-import it.unibo.oop17.ga_game.model.entities.components.InterfacesBag;
-import it.unibo.oop17.ga_game.model.entities.components.InterfacesBagImpl;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.utils.InterfacesBag;
+import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
 
 public abstract class AbstractEntity implements EventfullEntity {
     private final EventBus eventBus = new EventBus();

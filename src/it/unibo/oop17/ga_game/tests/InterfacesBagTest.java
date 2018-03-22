@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import it.unibo.oop17.ga_game.model.entities.components.InterfacesBag;
-import it.unibo.oop17.ga_game.model.entities.components.InterfacesBagImpl;
+import it.unibo.oop17.ga_game.utils.InterfacesBag;
+import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
 
 interface Parent {
 }

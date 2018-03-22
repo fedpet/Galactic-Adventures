@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model.entities.components;
+package it.unibo.oop17.ga_game.utils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
