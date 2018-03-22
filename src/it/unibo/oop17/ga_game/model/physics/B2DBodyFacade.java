@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.model.physics;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -21,7 +19,6 @@ import javafx.geometry.Point2D;
     private final Body body;
     private final Dimension2D boundingBoxDimension;
     private final Map<Body, B2DEntityBody> bodyMap;
-    private final List<CollisionListener> listeners = new LinkedList<>();
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension,
             final Map<Body, B2DEntityBody> bodyMap) {
