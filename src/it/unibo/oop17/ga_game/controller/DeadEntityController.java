@@ -3,8 +3,8 @@ package it.unibo.oop17.ga_game.controller;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
 import it.unibo.oop17.ga_game.model.entities.components.DeadState;
+import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
@@ -51,7 +51,6 @@ public class DeadEntityController implements EntityController {
                 entityView.changeState(DeadState.ON);
             }
         });
-        System.out.println(entity);
     }
 
 }

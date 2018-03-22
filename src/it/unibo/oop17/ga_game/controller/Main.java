@@ -121,7 +121,7 @@ public class Main extends Application {
         final DeadEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
         final Lever lever = new Lever(bodyFactory, new Point2D(18, -25.5), "Door", false);
         gameWorld.addEntity(lever);
-        final DeadEntityView leverView = new LeverView(worldView);
+        final DeadEntityView leverView = new LeverView(worldView, false);
         final Door door = new Door(bodyFactory, new Point2D(12, -25.5), "Door", false);
         gameWorld.addEntity(door);
         final DeadEntityView doorView = new DoorView(worldView, false);
