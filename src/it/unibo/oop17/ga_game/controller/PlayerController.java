@@ -9,7 +9,7 @@ import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import javafx.geometry.Point2D;
 
-public class PlayerController extends AbstractEntityController {
+public class PlayerController extends UnplayableLivingEntityController {
 
     public PlayerController(final KeyboardInputController keyboard, final Entity player, final PlayerView view) {
         super(player, view);

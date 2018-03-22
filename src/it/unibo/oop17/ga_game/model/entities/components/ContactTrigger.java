@@ -26,7 +26,6 @@ public class ContactTrigger extends AbstractEntityComponent implements TriggerCo
             triggered = true;
             post(new TriggerEvent(getEntity(), password));
         }
-
     }
 
     @Override
