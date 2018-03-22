@@ -8,15 +8,16 @@ import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
-import it.unibo.oop17.ga_game.view.entities.EntityView;
+import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
-public abstract class AbstractEntityController implements EntityController {
+public class UnplayableLivingEntityController implements EntityController {
+
     private static final double DEATH_TIME = 60;
     private final Entity entity;
-    private final EntityView entityView;
+    private final LivingEntityView entityView;
     private int deathTimeCount;
 
-    public AbstractEntityController(final Entity entity, final EntityView entityView) {
+    public UnplayableLivingEntityController(final Entity entity, final LivingEntityView entityView) {
         this.entity = entity;
         this.entityView = entityView;
         entity.register(this);
@@ -33,7 +34,7 @@ public abstract class AbstractEntityController implements EntityController {
             updateDeathMoment();
         }
     }
-    
+
     @Subscribe
     public void movementChanged(final MovementEvent event) {
         entityView.changeMovement(event.getState());
@@ -65,5 +66,6 @@ public abstract class AbstractEntityController implements EntityController {
             entityView.remove();
         }
     }
+
 
 }

@@ -18,6 +18,7 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
     @Override
     public void trigger() {
         if (!isTriggered()) {
+            // post(new TriggerEvent(getEntity(), password));
             triggered = true;
         }
     }

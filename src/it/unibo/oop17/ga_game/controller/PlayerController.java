@@ -3,12 +3,12 @@ package it.unibo.oop17.ga_game.controller;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
-import javafx.geometry.Point2D;
+import javafx.geometry.Point2D; 
 
 /**
  * Translates view input to model input and updates the view.
  */
-public final class PlayerController extends AbstractEntityController {
+public final class PlayerController extends UnplayableLivingEntityController {
 
     /**
      * @param input

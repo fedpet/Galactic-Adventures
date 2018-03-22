@@ -6,7 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-public final class FlyingEnemyView extends AbstractEntityView {
+public final class FlyingEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 112, HEIGHT = 88;
 
     public FlyingEnemyView(final Group group) {
