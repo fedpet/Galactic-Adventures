@@ -3,14 +3,28 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Point2D;
 
+/**
+ * A basic propeller which can fly to any direction.
+ */
 public class PropellerComponent extends AbstractMovementComponent {
     private static final double MIN_THRESHOLD = 0.01;
     private final double speed;
 
+    /**
+     * @param speed
+     *            Propeller's power
+     */
     public PropellerComponent(final double speed) {
+        super();
         this.speed = speed;
     }
 
+    /**
+     * Move towards the given direction.
+     * 
+     * @param direction
+     *            the direction vector
+     */
     @Override
     public void move(final Point2D direction) {
         if (direction.equals(Point2D.ZERO)) {
@@ -30,20 +44,24 @@ public class PropellerComponent extends AbstractMovementComponent {
         updateState();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(final double dt) {
-        if (!getDesiredMovement().equals(Point2D.ZERO)) {
-            Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
-            if (getDesiredMovement().getY() == 0) {
-                // so we don't remove gravity
-                movement = new Point2D(movement.getX(), 0);
-            }
-            // movement = movement.multiply(dt);
-
-            if (!movement.equals(Point2D.ZERO)) {
-                getEntity().getBody().applyImpulse(movement);
-            }
+    protected Point2D computeMovement(final double dt) {
+        Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
+        if (getDesiredMovement().getY() == 0) {
+            // so we don't remove gravity
+            movement = new Point2D(movement.getX(), 0);
         }
+        return movement;
+    }
+
+    /**
+     * @return The propeller's speed.
+     */
+    protected double getSpeed() {
+        return speed;
     }
 
     private void updateState() {

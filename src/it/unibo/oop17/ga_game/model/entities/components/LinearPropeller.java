@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import javafx.geometry.Point2D;
+
 /**
  * This propeller works without inertia nor friction.
  */
@@ -15,8 +17,12 @@ public final class LinearPropeller extends PropellerComponent {
     }
 
     @Override
-    public void update(final double dt) {
-        getEntity().getBody().setLinearVelocity(getDesiredMovement());
+    protected Point2D computeMovement(final double dt) {
+        return getDesiredMovement().multiply(getSpeed());
     }
 
+    @Override
+    protected void applyMovement(final EntityBody body, final Point2D force) {
+        body.setLinearVelocity(getDesiredMovement());
+    }
 }

@@ -24,6 +24,39 @@ public abstract class AbstractMovementComponent extends AbstractEntityComponent 
     }
 
     /**
+     * Applies movement.
+     */
+    @Override
+    public void update(final double dt) {
+        super.update(dt);
+        final Point2D movementVector = computeMovement(dt);
+        if (!movementVector.equals(Point2D.ZERO)) {
+            applyMovement(getEntity().getBody(), movementVector);
+        }
+    }
+
+    /**
+     * Returns the movement vector to be applied to the body.
+     * 
+     * @param dt
+     *            Delta time in seconds since last call.
+     * @return Movement vector to be applied
+     */
+    protected abstract Point2D computeMovement(double dt);
+
+    /**
+     * Apply force to the entity's body to move it.
+     * 
+     * @param body
+     *            The owner body
+     * @param force
+     *            Movement force
+     */
+    protected void applyMovement(final EntityBody body, final Point2D force) {
+        body.applyImpulse(force);
+    }
+
+    /**
      * Sets the new state and generates an event if needed.
      * 
      * @param newState

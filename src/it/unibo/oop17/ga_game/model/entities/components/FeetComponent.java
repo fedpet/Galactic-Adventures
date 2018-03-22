@@ -23,24 +23,9 @@ public final class FeetComponent extends AbstractMovementComponent {
      *            Vertical jump speed
      */
     public FeetComponent(final double walkingSpeed, final double jumpingSpeed) {
+        super();
         this.walkingSpeed = walkingSpeed;
         this.jumpingSpeed = jumpingSpeed;
-    }
-
-    @Override
-    public void update(final double dt) {
-        Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
-        movement = FXUtils.absCap(movement, walkingSpeed, jumpingSpeed);
-        if (!isOnGround()) {
-            movement = new Point2D(movement.getX(), 0);
-            // no jump if in air
-            // but we can still move a little
-            movement = movement.multiply(AIR_FRICTION_FACTOR);
-        }
-
-        if (!movement.equals(Point2D.ZERO)) {
-            getEntity().getBody().applyImpulse(movement);
-        }
     }
 
     @Override
@@ -60,6 +45,19 @@ public final class FeetComponent extends AbstractMovementComponent {
     @Subscribe
     public void beginContact(final BeginContactEvent event) {
         updateState();
+    }
+
+    @Override
+    protected Point2D computeMovement(final double dt) {
+        Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
+        movement = FXUtils.absCap(movement, walkingSpeed, jumpingSpeed);
+        if (!isOnGround()) {
+            movement = new Point2D(movement.getX(), 0);
+            // no jump if in air
+            // but we can still move a little
+            movement = movement.multiply(AIR_FRICTION_FACTOR);
+        }
+        return movement;
     }
 
     /**
