@@ -6,8 +6,8 @@ import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
  * Base class for @Life implementations.
  */
 public class AbstractLife extends AbstractEntityComponent implements Life {
-    private int current;
     private final int max;
+    private int current;
 
     /**
      * 
@@ -17,6 +17,8 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
      *            Current amount of life.
      */
     protected AbstractLife(final int max, final int current) {
+        super();
+
         this.current = current;
         this.max = max;
         if (max < 1) {
@@ -55,6 +57,11 @@ public class AbstractLife extends AbstractEntityComponent implements Life {
         if (current < max && !isDead()) {
             addLife(restoreAmount);
         }
+    }
+
+    @Override
+    protected final boolean detachesOnDeath() {
+        return false;
     }
 
     /**

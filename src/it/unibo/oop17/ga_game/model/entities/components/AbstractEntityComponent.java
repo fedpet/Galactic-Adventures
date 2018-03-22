@@ -2,11 +2,19 @@ package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.Optional;
 
+import com.google.common.eventbus.Subscribe;
+
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
+/**
+ * Base class for @EntityComponent.
+ * 
+ * Components detaches on owner's death by default.
+ */
 public abstract class AbstractEntityComponent implements EntityComponent, EntityEventListener {
     private Optional<EventfullEntity> owner = Optional.empty();
 
@@ -45,6 +53,29 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     }
 
     /**
+     * Should the component detach on death?
+     * Defaults to true.
+     * 
+     * @return true if the component should detach on death.
+     */
+    protected boolean detachesOnDeath() {
+        return true;
+    }
+
+    /**
+     * Called on life changes (if the owner has @Life).
+     * 
+     * @param event
+     *            The @LifeEvent
+     */
+    @Subscribe
+    protected void onLifeChange(final LifeEvent event) {
+        if (detachesOnDeath() && event.isDead()) {
+            detach();
+        }
+    }
+
+    /**
      * Convenience method to avoid the optional.
      * 
      * @return The @EventfullEntity
@@ -62,7 +93,7 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
      * @param event
      *            The event
      */
-    protected void post(final EntityEvent event) {
+    protected final void post(final EntityEvent event) {
         getEntity().post(event);
     }
 }
