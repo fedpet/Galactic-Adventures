@@ -22,6 +22,7 @@ import javafx.geometry.Point2D;
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension,
             final Map<Body, B2DEntityBody> bodyMap) {
+        super();
         this.body = Objects.requireNonNull(body);
         boundingBoxDimension = Objects.requireNonNull(dimension);
         this.bodyMap = Objects.requireNonNull(bodyMap);
@@ -86,5 +87,14 @@ import javafx.geometry.Point2D;
         getOwner().ifPresent(entity -> {
             post(new EndContactEvent(entity, contact));
         });
+    }
+
+    @Override
+    public boolean isSolid() {
+        // we assume one non-sensor fixture is enough to treat the body as a solid.
+        return B2DUtils.stream(body.getFixtureList())
+                .filter(f -> !f.isSensor())
+                .findAny()
+                .isPresent();
     }
 }

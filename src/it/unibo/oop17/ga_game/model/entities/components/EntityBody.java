@@ -56,4 +56,9 @@ public interface EntityBody extends EntityComponent {
      * @return a Stream of @BodyContact
      */
     Stream<BodyContact> getContacts();
+
+    /**
+     * @return true if the body is solid, rigid, cannot be passed through.
+     */
+    boolean isSolid();
 }
