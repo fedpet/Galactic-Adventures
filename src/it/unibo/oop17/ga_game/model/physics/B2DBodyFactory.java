@@ -77,6 +77,7 @@ import javafx.geometry.Point2D;
                 .build();
         new B2DFixtureBuilder()
                 .isSensor(true)
+                .friction(0)
                 .rectangular(size)
                 .buildOn(body);
 
