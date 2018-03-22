@@ -18,6 +18,7 @@ public final class Player extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double WALK_SPEED = 10;
     private static final double JUMP_SPEED = 22;
+    private static final double JUMP_WHEN_ENEMY_HIT = 60;
 
     /**
      * 
@@ -32,7 +33,7 @@ public final class Player extends AbstractEntity {
         add(new LinearLife(DEFAULT_LIFE));
         add(new FeetComponent(WALK_SPEED, JUMP_SPEED));
         add(new PlayerBrain());
-        add(new MeleeWeapon(1, 60.0, PositionCompare::atBottom));
+        add(new MeleeWeapon(1, JUMP_WHEN_ENEMY_HIT, 0, PositionCompare::atBottom));
     }
 
     @Override
