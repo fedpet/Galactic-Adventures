@@ -97,7 +97,7 @@ public final class PositionCompare {
     }
 
     /**
-     * Checks if a given position, relative to the center of a box of the given size, is at LEFT or RIGHT side.
+     * Checks if a given position, relative to the center of a box of the given size, is at LEFT or RIGHT @Side.
      * 
      * @param size
      *            The size
@@ -107,5 +107,33 @@ public final class PositionCompare {
      */
     public static boolean atHorizontalSides(final Dimension2D size, final Point2D relativePosition) {
         return atSide(size, relativePosition, Side.LEFT) || atSide(size, relativePosition, Side.RIGHT);
+    }
+
+    /**
+     * Checks if a given position, relative to the center of a box of the given size, is not at the given @Side.
+     * 
+     * @param size
+     *            The size
+     * @param relativePosition
+     *            Relative to the center of a box of the given size
+     * @param side
+     *            The @Side
+     * @return true if the relativePosition is not at the given side (relatively to the size)
+     */
+    public static boolean exceptSide(final Dimension2D size, final Point2D relativePosition, final Side side) {
+        return !atSide(size, relativePosition, side);
+    }
+
+    /**
+     * a shortcut for exceptSide(size, relativePosition, Side.BOTTOM)
+     * 
+     * @param size
+     *            The size
+     * @param relativePosition
+     *            Relative to the center of a box of the given size
+     * @return true if the relativePosition is not at the BOTTOM side (relatively to the size)
+     */
+    public static boolean exceptBottom(final Dimension2D size, final Point2D relativePosition) {
+        return exceptSide(size, relativePosition, Side.BOTTOM);
     }
 }
