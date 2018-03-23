@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -12,9 +11,9 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
     public FlyingEnemyView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
-        mapAnimation(State.IDLE, justAnImage(new Image("/bee.png")));
-        mapAnimation(State.FLYING, setAnimation(new Image("/bee_moving.png"), Duration.millis(700), 2));
+        mapAnimation(CreatureState.IDLE, justAnImage(new Image("/bee.png")));
+        mapAnimation(CreatureState.FLYING, setAnimation(new Image("/bee_moving.png"), Duration.millis(700), 2));
 
-        startAnimation(State.FLYING);
+        startAnimation(CreatureState.FLYING);
     }
 }

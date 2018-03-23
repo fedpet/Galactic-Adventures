@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
@@ -8,7 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
 
-public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<MovementComponent.State>
+public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<CreatureState>
         implements LivingEntityView {
 
     private static final double DEATH_FALLING_SPEED = 0.05;
@@ -31,7 +30,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
         if (pointFromDeath == null) {
             pointFromDeath = startingPoint;
             flip(VerticalDirection.DOWN);
-            changeState(MovementComponent.State.IDLE);
+            changeState(CreatureState.IDLE);
         }
         pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
         setPosition(ViewUtils.worldPointToFX(pointFromDeath));
