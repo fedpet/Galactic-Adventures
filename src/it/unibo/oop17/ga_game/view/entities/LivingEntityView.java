@@ -15,21 +15,13 @@ public interface LivingEntityView extends StateChangingEntityView<MovementCompon
     void changeFaceDirection(HorizontalDirection direction);
 
     /**
-     * Used to calculate the next point of the entity view when dying.
+     * Starts the death animation for the entity.
      * 
      * @param startingPoint
      *            The initial point for the falling animation.
-     * 
-     * @return the current entity view dying position.
-     */
-    Point2D updatePointFromDeath(Point2D startingPoint);
-
-    /**
-     * Starts the death animation for the entity.
-     * 
      * @param entity
      *            The reference entity
      */
-    void deathAnimation();
+    void deathAnimation(Point2D startingPoint);
 
 }
