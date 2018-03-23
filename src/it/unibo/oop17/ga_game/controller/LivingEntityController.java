@@ -21,7 +21,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     @Override
     public void update() {
-        if (!getEntity().get(Life.class).isPresent() || getEntity().get(Life.class).get().isAlive()) {
+        if (getEntity().get(Life.class).isPresent() && getEntity().get(Life.class).get().isAlive()) {
             getEntityView().setPosition(ViewUtils.worldPointToFX(getEntity().getBody().getPosition()));
         } else {
             getEntityView().setPosition(
