@@ -17,6 +17,7 @@ public class FixedPatternPilot extends AbstractEntityComponent implements AutoPi
      *            A supplier of the positions to follow.
      */
     public FixedPatternPilot(final Supplier<Point2D> nextPositionSupplier) {
+        super();
         this.nextPositionSupplier = nextPositionSupplier;
         nextPosition = nextPositionSupplier.get();
     }
