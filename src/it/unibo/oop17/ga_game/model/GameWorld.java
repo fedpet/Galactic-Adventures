@@ -12,15 +12,15 @@ import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
+/**
+ * Runs the game world simulation.
+ */
 public class GameWorld {
     private static final Point2D GRAVITY = new Point2D(0, -60);
     private final PhysicsEngine engine = PhysicsEngine.create(GRAVITY);
     private final Set<Entity> entities = new LinkedHashSet<>();
     private final TriggerLinker linker = new TriggerLinker();
-
-    public GameWorld() {
-
-    }
+    private final EntityEventListener myListener = new MyListener();
 
     public BodyFactory bodyFactory() {
         return engine.bodyFactory();
@@ -28,7 +28,7 @@ public class GameWorld {
 
     public void addEntity(final Entity entity) {
         entities.add(entity);
-        entity.register(new MyListener());
+        entity.register(myListener);
         linker.track(entity);
     }
 

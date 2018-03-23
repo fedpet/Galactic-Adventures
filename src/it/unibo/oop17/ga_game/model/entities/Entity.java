@@ -19,8 +19,10 @@ public interface Entity {
      * Gets a component by its type.
      * Remember to work with interfaces and not concrete types!
      * 
+     * @param <C>
+     *            Type of components
      * @param component
-     *            type
+     *            Interface of the desired component to get
      * @return the component
      */
     <C extends EntityComponent> Optional<C> get(Class<C> component);
