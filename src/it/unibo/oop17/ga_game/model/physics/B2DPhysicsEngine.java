@@ -98,7 +98,7 @@ import javafx.geometry.Point2D;
 
     private void destroyRemovedBodies() {
         bodiesToRemove.stream()
-                .map(b -> b.getB2DBody())
+                .map(B2DEntityBody::getB2DBody)
                 .peek(collisionMap::remove)
                 .forEach(world::destroyBody);
         bodiesToRemove.clear();
