@@ -19,8 +19,6 @@ public interface LivingEntityView extends StateChangingEntityView<MovementCompon
      * 
      * @param startingPoint
      *            The initial point for the falling animation.
-     * @param entity
-     *            The reference entity
      */
     void deathAnimation(Point2D startingPoint);
 
