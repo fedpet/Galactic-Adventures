@@ -7,7 +7,7 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
  */
 public class FinishedLevelEvent extends AbstractEntityEvent {
 
-    public FinishedLevelEvent(Entity source) {
+    public FinishedLevelEvent(final Entity source) {
         super(source);
     }
 

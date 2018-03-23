@@ -18,7 +18,8 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
-    private static final Map<MovementComponent.State, CreatureState> stateMap = new HashMap<MovementComponent.State, CreatureState>() {
+    private static final Map<MovementComponent.State, CreatureState> STATE_MAP = new HashMap<MovementComponent.State, CreatureState>() {
+        private static final long serialVersionUID = 1L;
         {
             put(MovementComponent.State.IDLE, CreatureState.IDLE);
             put(MovementComponent.State.WALKING, CreatureState.WALKING);
@@ -43,7 +44,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     @Subscribe
     public void movementChanged(final MovementEvent event) {
-        getEntityView().changeState(stateMap.getOrDefault(event.getState(), CreatureState.IDLE));
+        getEntityView().changeState(STATE_MAP.getOrDefault(event.getState(), CreatureState.IDLE));
     }
 
     @Subscribe

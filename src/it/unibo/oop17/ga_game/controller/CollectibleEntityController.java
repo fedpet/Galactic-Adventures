@@ -5,7 +5,7 @@ import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 
 public class CollectibleEntityController extends AbstractLifelessEntityController<LifelessEntityView> {
 
-    public CollectibleEntityController(Entity entity, LifelessEntityView entityView) {
+    public CollectibleEntityController(final Entity entity, final LifelessEntityView entityView) {
         super(entity, entityView);
     }
 
