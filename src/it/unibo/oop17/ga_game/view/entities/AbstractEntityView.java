@@ -4,10 +4,8 @@ import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -56,13 +54,8 @@ public abstract class AbstractEntityView implements EntityView {
         parentView.getChildren().remove(view);
     }
 
-    @Override
-    public void changeFaceDirection(final HorizontalDirection direction) {
-        view.setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
-    }
-
-    protected void flip(final VerticalDirection direction) {
-        view.setScaleY(direction == VerticalDirection.UP ? 1 : -1);
+    protected ImageView getView() {
+        return view;
     }
 
     protected Runnable setAnimation(final Image image, final Duration duration, final int frames) {

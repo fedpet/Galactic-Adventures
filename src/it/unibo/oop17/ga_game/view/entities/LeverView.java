@@ -5,7 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-public class LeverView extends AbstractTriggerEntityView {
+public class LeverView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
 
     private static final int WIDTH = 70, HEIGHT = 70;
 

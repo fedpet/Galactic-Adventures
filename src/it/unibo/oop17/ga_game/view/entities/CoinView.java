@@ -5,8 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-// estensione temporanea
-public class CoinView extends AbstractTriggerEntityView {
+public class CoinView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
     private static final String BRONZE_COIN = "/tiles/base_pack/items/coinBronze.png";
     private static final String SILVER_COIN = "/tiles/base_pack/items/coinSilver.png";

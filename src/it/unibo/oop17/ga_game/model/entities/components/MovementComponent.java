@@ -40,7 +40,7 @@ public interface MovementComponent extends EntityComponent {
     /**
      * Possible states of movement.
      */
-    enum State {
+    enum State implements GenericState {
         IDLE, WALKING, JUMPING, FLYING;
     }
 }

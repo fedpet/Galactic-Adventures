@@ -5,8 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-// classe estesa temporanea
-public class LockView extends AbstractTriggerEntityView {
+public class LockView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
     private static final String RED_LOCK = "/tiles/base_pack/tiles/lock_red.png";
     private static final String BLUE_LOCK = "/tiles/base_pack/tiles/lock_blue.png";

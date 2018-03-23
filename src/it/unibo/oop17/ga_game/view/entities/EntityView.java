@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import javafx.geometry.Dimension2D;
-import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 
 public interface EntityView {
@@ -28,14 +27,6 @@ public interface EntityView {
     Point2D getPosition();
 
     void remove();
-
-    /**
-     * Used to change the entity view direction.
-     * 
-     * @param direction
-     *            The direction to set for the entity view.
-     */
-    void changeFaceDirection(HorizontalDirection direction);
 
 
 }

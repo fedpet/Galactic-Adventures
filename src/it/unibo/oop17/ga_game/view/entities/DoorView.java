@@ -5,7 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-public class DoorView extends AbstractTriggerEntityView {
+public class DoorView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
     private static final int WIDTH = 130, HEIGHT = 203;
 
     public DoorView(final Group group, final boolean open) {

@@ -1,37 +1,26 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
 
-public abstract class AbstractLivingEntityView extends AbstractEntityView implements LivingEntityView {
+public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<MovementComponent.State>
+        implements LivingEntityView {
 
     private static final double DEATH_FALLING_SPEED = 0.05;
 
-    private final Map<MovementComponent.State, Runnable> animations = new HashMap<>();
     private Point2D pointFromDeath;
 
     public AbstractLivingEntityView(Group group, Dimension2D dimension) {
         super(group, dimension);
     }
 
-    protected void startAnimation(final MovementComponent.State state) {
-        animations.get(state).run();
-    }
-
-    protected void mapAnimation(final MovementComponent.State state, final Runnable runnable) {
-        animations.put(state, runnable);
-    }
-
     @Override
-    public void changeMovement(final MovementComponent.State state) {
-        animations.getOrDefault(state, animations.get(State.IDLE)).run();
+    public void changeFaceDirection(final HorizontalDirection direction) {
+        getView().setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     @Override
@@ -43,10 +32,14 @@ public abstract class AbstractLivingEntityView extends AbstractEntityView implem
         return pointFromDeath;
     }
 
+    private void flip(final VerticalDirection direction) {
+        getView().setScaleY(direction == VerticalDirection.UP ? 1 : -1);
+    }
+
     @Override
     public void deathAnimation() {
         flip(VerticalDirection.DOWN);
-        changeMovement(MovementComponent.State.IDLE);
+        changeState(MovementComponent.State.IDLE);
     }
 
 }

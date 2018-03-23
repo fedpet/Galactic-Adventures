@@ -5,8 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-// classe estesa temporanea
-public class KeyView extends AbstractTriggerEntityView {
+public class KeyView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
     private static final String RED_KEY = "/tiles/base_pack/items/keyRed.png";
     private static final String BLUE_KEY = "/tiles/base_pack/items/keyBlue.png";

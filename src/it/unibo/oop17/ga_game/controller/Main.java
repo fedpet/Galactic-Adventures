@@ -34,6 +34,7 @@ import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.entities.KeyView;
 import it.unibo.oop17.ga_game.view.entities.LeverView;
+import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
@@ -110,16 +111,16 @@ public class Main extends Application {
         final LivingEntityView flyingEnemyView = new FlyingEnemyView(worldView);
         final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
         gameWorld.addEntity(coin);
-        final TriggerEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
+        final LifelessEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
         final Key blueKey = new Key(bodyFactory, new Point2D(10, -28), KeyLockType.BLUE);
         gameWorld.addEntity(blueKey);
-        final TriggerEntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
+        final LifelessEntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
         final Key redKey = new Key(bodyFactory, new Point2D(7, -25.5), KeyLockType.RED);
         gameWorld.addEntity(redKey);
-        final TriggerEntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
+        final LifelessEntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
         final Lock lock = new Lock(bodyFactory, new Point2D(14, -28.5), KeyLockType.BLUE);
         gameWorld.addEntity(lock);
-        final TriggerEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
+        final LifelessEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
         final Lever lever = new Lever(bodyFactory, new Point2D(18, -25.5), "Door", false);
         gameWorld.addEntity(lever);
         final TriggerEntityView leverView = new LeverView(worldView, false);
@@ -140,10 +141,10 @@ public class Main extends Application {
         final EntityController basicEnemyController = new LivingEntityController(slimeEnemy, slimeEnemyView);
         final EntityController flyingEnemyController = new LivingEntityController(flyingEnemy,
                 flyingEnemyView);
-        final EntityController coinController = new TriggerEntityController(coin, coinView);
-        final EntityController blueKeyController = new TriggerEntityController(blueKey, blueKeyView);
-        final EntityController redKeyController = new TriggerEntityController(redKey, redKeyView);
-        final EntityController lockController = new TriggerEntityController(lock, lockView);
+        final EntityController coinController = new CollectibleEntityController(coin, coinView);
+        final EntityController blueKeyController = new CollectibleEntityController(blueKey, blueKeyView);
+        final EntityController redKeyController = new CollectibleEntityController(redKey, redKeyView);
+        final EntityController lockController = new CollectibleEntityController(lock, lockView);
         final EntityController leverController = new TriggerEntityController(lever, leverView);
         final EntityController doorController = new TriggerEntityController(door, doorView);
 
