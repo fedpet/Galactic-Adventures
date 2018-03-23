@@ -16,7 +16,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     private int deathTimeCount;
     private Point2D pointFromDeath;
 
-    public AbstractLivingEntityView(Group group, Dimension2D dimension) {
+    public AbstractLivingEntityView(final Group group, final Dimension2D dimension) {
         super(group, dimension);
     }
 

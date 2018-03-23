@@ -7,9 +7,10 @@ import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 
-public abstract class AbstractLifelessEntityController<LV extends LifelessEntityView> extends AbstractEntityController<LV> {
+public abstract class AbstractLifelessEntityController<L extends LifelessEntityView>
+        extends AbstractEntityController<L> {
 
-    public AbstractLifelessEntityController(final Entity entity, final LV entityView) {
+    public AbstractLifelessEntityController(final Entity entity, final L entityView) {
             super(entity, entityView);
         }
 

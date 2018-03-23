@@ -12,7 +12,7 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
 
     private final Map<S, Runnable> animations = new HashMap<>();
 
-    public AbstractStateChangingEntityView(Group group, Dimension2D dimension) {
+    public AbstractStateChangingEntityView(final Group group, final Dimension2D dimension) {
         super(group, dimension);
     }
 

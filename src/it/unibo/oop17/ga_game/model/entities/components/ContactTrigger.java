@@ -11,6 +11,7 @@ public class ContactTrigger extends AbstractEntityComponent implements TriggerCo
     private final String password;
 
     public ContactTrigger(final String password, final boolean triggered) {
+        super();
         this.password = password;
         this.triggered = triggered;
     }

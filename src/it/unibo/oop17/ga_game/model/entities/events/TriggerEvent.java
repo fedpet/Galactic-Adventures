@@ -16,7 +16,7 @@ public class TriggerEvent extends AbstractEntityEvent {
      * @param password
      *            the relative password
      */
-    public TriggerEvent(Entity source, String password) {
+    public TriggerEvent(final Entity source, final String password) {
         super(source);
         this.password = password;
     }

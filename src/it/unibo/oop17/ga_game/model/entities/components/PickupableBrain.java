@@ -8,7 +8,7 @@ import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 
 public class PickupableBrain extends AbstractBrain {
 
-    Consumer<Inventory> inventoryAdder;
+    private final Consumer<Inventory> inventoryAdder;
 
     public PickupableBrain(final Consumer<Inventory> inventoryAdder) {
         super(EntityPersonality.NONE);
