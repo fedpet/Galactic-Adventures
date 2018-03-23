@@ -14,6 +14,7 @@ public final class PlayerView extends AbstractLivingEntityView {
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/p1_stand.png")));
         mapAnimation(CreatureState.WALKING, setAnimation(new Image("/p1_walk.png"), Duration.millis(700), 10));
         mapAnimation(CreatureState.JUMPING, justAnImage(new Image("/p1_jump.png")));
+        mapAnimation(CreatureState.SUFFERING, justAnImage(new Image("/p1_hurt.png")));
 
         startAnimation(CreatureState.IDLE);
     }

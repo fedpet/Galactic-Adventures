@@ -10,6 +10,7 @@ import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
+import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CreatureState;
@@ -48,6 +49,16 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     @Subscribe
     public void faceDirectionChanged(final FaceDirectionEvent event) {
         getEntityView().changeFaceDirection(event.getDirection());
+    }
+
+    @Subscribe
+    public void lifeChange(final LifeEvent life) {
+        if (life.isDead()) {
+            getEntityView().changeState(CreatureState.DEAD);
+        } else if (life.getChange() < 0) {
+            // we've been damaged but still alive
+            getEntityView().changeState(CreatureState.SUFFERING);
+        }
     }
 
     @Override

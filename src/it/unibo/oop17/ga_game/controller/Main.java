@@ -102,7 +102,7 @@ public class Main extends Application {
 
         final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
         final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
-        final SlimeEnemy slimeEnemy = new SlimeEnemy(bodyFactory, new Point2D(4, -4));
+        final SlimeEnemy slimeEnemy = new SlimeEnemy(bodyFactory, new Point2D(20, -20));
         gameWorld.addEntity(slimeEnemy);
         final LivingEntityView slimeEnemyView = new SlimeEnemyView(worldView);
         final FlyingEnemy flyingEnemy = new FlyingEnemy(bodyFactory, new Point2D(4, -4), InfiniteSequence
