@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Point2D;
 
@@ -42,6 +43,15 @@ public class PropellerComponent extends AbstractMovementComponent {
             setDesiredMovement(new Point2D(getDesiredMovement().getX(), 0));
         }
         updateState();
+    }
+
+    /**
+     * Removes gravity effects from the owner.
+     */
+    @Override
+    public void attach(final EventfullEntity owner) throws IllegalStateException {
+        super.attach(owner);
+        owner.getBody().setGravityScale(0);
     }
 
     /**

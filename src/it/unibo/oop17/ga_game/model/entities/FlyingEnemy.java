@@ -30,7 +30,6 @@ public class FlyingEnemy extends AbstractEntity {
         add(new FixedPatternPilot(positions));
         add(new LinearPropeller(5));
         add(new LinearLife(5));
-        getBody().setGravityScale(0);
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, PositionCompare::atHorizontalSides));
     }
 
