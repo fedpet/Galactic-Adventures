@@ -12,11 +12,20 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 import it.unibo.oop17.ga_game.utils.InterfacesBag;
 import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
 
+/**
+ * Base class for @Entity.
+ * It supports events and components.
+ */
 public abstract class AbstractEntity implements EventfullEntity {
     private final EventBus eventBus = new EventBus();
     private final EntityBody body;
     private final InterfacesBag<EntityComponent> components = new InterfacesBagImpl<>(EntityComponent.class);
 
+    /**
+     * 
+     * @param body
+     *            The @EntityBody is the only required component for an @Entity.
+     */
     public AbstractEntity(final EntityBody body) {
         this.body = body;
         body.attach(this);
@@ -35,9 +44,13 @@ public abstract class AbstractEntity implements EventfullEntity {
         updateComponents(dt);
     }
 
+    /**
+     * Generates a @DestructionEvent and then detaches all components.
+     */
     @Override
     public void destroy() {
         post(new DestructionEvent(this));
+        components.forEach(this::remove);
     }
 
     /**
@@ -66,7 +79,6 @@ public abstract class AbstractEntity implements EventfullEntity {
     @Override
     public final <C extends EntityComponent> void remove(final Class<C> component) {
         components.get(component).ifPresent(this::remove);
-        // components.remove(component).ifPresent(EntityComponent::detach);
     }
 
     @Override
@@ -85,6 +97,11 @@ public abstract class AbstractEntity implements EventfullEntity {
         components.forEach(c -> c.update(dt));
     }
 
+    /**
+     * 
+     * @param component
+     *            The @EntityComponent to add to this Entity.
+     */
     protected final void add(final EntityComponent component) {
         components.put(component);
         component.attach(this);
