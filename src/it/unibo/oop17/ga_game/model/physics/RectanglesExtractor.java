@@ -3,7 +3,6 @@ package it.unibo.oop17.ga_game.model.physics;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.stream.IntStream;
 
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.Matrix;
@@ -39,24 +38,11 @@ public final class RectanglesExtractor {
             final Dimension2D tileSize) {
         buildingBody = false;
         final Set<Rectangle2D> rectangles = new HashSet<>();
-        final MutableMatrix<Boolean> matrix = asMatrix(grid);
+        final MutableMatrix<Boolean> matrix = CollisionGrid.asMatrix(grid);
 
         rectangles.addAll(extractLongestRectangles(matrix, tileSize, topLeft, Orientation.HORIZONTAL, 2));
         rectangles.addAll(extractLongestRectangles(matrix, tileSize, topLeft, Orientation.VERTICAL, 0));
         return rectangles;
-    }
-
-    /**
-     * Converts a @CollisionGrid to a @MutableMatrix of Booleans.
-     * Changing the Matrix does not change the CollisionGrid
-     * 
-     * @param grid
-     *            The grid
-     * @return @MutableMatrix of Booleans
-     */
-    public static MutableMatrix<Boolean> asMatrix(final CollisionGrid grid) {
-        return MutableMatrix.create(IntStream.range(0, grid.getRows())
-                .mapToObj(row -> IntStream.range(0, grid.getColumns()).mapToObj(column -> grid.isSolid(row, column))));
     }
 
     /**
