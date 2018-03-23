@@ -29,6 +29,7 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
      */
     public MeleeWeapon(final int damage, final double selfKnockback, final double otherKnockback,
             final BiPredicate<Dimension2D, Point2D> positionChecker) {
+        super();
         this.damage = damage;
         this.selfKnockback = selfKnockback;
         this.otherKnockback = otherKnockback;

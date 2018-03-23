@@ -8,6 +8,7 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
     private boolean triggered;
 
     public OneTimeTriggerable(final String password, final boolean triggered) {
+        super();
         this.password = password;
         this.triggered = triggered;
     }
