@@ -33,7 +33,7 @@ public final class PlayerView extends AbstractLivingEntityView {
     private Runnable painAnimation() {
         return () -> {
             final CreatureState previous = previousState;
-            getView().setImage(IMG_HURT);
+            setImage(IMG_HURT);
             setAnimation(new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
                         super.changeState(previous);

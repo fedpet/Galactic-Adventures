@@ -15,8 +15,8 @@ import javafx.util.Duration;
 public abstract class AbstractStateChangingEntityView<S extends GenericState> extends AbstractEntityView
         implements StateChangingEntityView<S> {
 
-    private Animation currentAnimation;
     private final Map<S, Runnable> animations = new HashMap<>();
+    private Animation currentAnimation;
 
     public AbstractStateChangingEntityView(final Group group, final Dimension2D dimension) {
         super(group, dimension);
@@ -27,21 +27,18 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
             }
         };
     }
-
-    protected void startAnimation(final S state) {
-        currentAnimation.stop();
-        animations.get(state).run();
-    }
-
-    protected void mapAnimation(final S state, final Runnable runnable) {
-        animations.put(state, runnable);
-    }
     
     @Override
     public void changeState(final S state) {
         if (animations.containsKey(state)) {
             animations.get(state).run();
         }
+    }
+
+    @Override
+    public void remove() {
+        currentAnimation.stop();
+        super.remove();
     }
 
     protected Runnable aSpriteAnimation(final Image image, final Duration duration, final int frames) {
@@ -61,14 +58,22 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
         };
     }
 
+    protected void startAnimation(final S state) {
+        currentAnimation.stop();
+        animations.get(state).run();
+    }
+
+    protected void mapAnimation(final S state, final Runnable runnable) {
+        animations.put(state, runnable);
+    }
+
     protected void setAnimation(final Animation animation) {
         currentAnimation.stop();
         currentAnimation = animation;
         currentAnimation.play();
     }
 
-    private void setImage(final Image image) {
-        currentAnimation.stop();
+    protected void setImage(final Image image) {
         getView().setImage(image);
         getView().setViewport(new Rectangle2D(0, 0, getDimension().getWidth(), getDimension().getHeight()));
     }
