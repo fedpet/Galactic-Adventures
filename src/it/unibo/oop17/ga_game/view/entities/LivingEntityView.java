@@ -15,14 +15,6 @@ public interface LivingEntityView extends StateChangingEntityView<MovementCompon
     void changeFaceDirection(HorizontalDirection direction);
 
     /**
-     * Used to change the entity view movement.
-     * 
-     * @param state
-     *            The state to be associated to the entity view movement.
-     */
-    // void changeMovement(State state);
-
-    /**
      * Used to calculate the next point of the entity view when dying.
      * 
      * @param startingPoint
