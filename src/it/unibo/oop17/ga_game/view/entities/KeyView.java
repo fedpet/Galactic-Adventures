@@ -16,13 +16,13 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == KeyLockType.RED) {
-            justAnImage(new Image(RED_KEY)).run();
+            getView().setImage(new Image(RED_KEY));
         } else if (type == KeyLockType.BLUE) {
-            justAnImage(new Image(BLUE_KEY)).run();
+            getView().setImage(new Image(BLUE_KEY));
         } else if (type == KeyLockType.YELLOW) {
-            justAnImage(new Image(YELLOW_KEY)).run();
+            getView().setImage(new Image(YELLOW_KEY));
         } else if (type == KeyLockType.GREEN) {
-            justAnImage(new Image(GREEN_KEY)).run();
+            getView().setImage(new Image(GREEN_KEY));
         }
     }
 }

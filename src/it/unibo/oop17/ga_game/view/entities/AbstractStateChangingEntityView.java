@@ -4,19 +4,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.model.entities.components.GenericState;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 public abstract class AbstractStateChangingEntityView<S extends GenericState> extends AbstractEntityView
         implements StateChangingEntityView<S> {
 
+    private Animation currentAnimation;
     private final Map<S, Runnable> animations = new HashMap<>();
 
-    public AbstractStateChangingEntityView(Group group, Dimension2D dimension) {
+    public AbstractStateChangingEntityView(final Group group, final Dimension2D dimension) {
         super(group, dimension);
+        currentAnimation = new Transition() {
+            @Override
+            protected void interpolate(final double frac) {
+                // dummy animation
+            }
+        };
     }
 
     protected void startAnimation(final S state) {
+        currentAnimation.stop();
         animations.get(state).run();
     }
 
@@ -30,5 +43,33 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
             animations.get(state).run();
         }
     }
-    
+
+    protected Runnable aSpriteAnimation(final Image image, final Duration duration, final int frames) {
+        return () -> {
+            setImage(image);
+            final Animation newAnim = new SpriteAnimation(getView(), duration, frames,
+                    getDimension().getWidth(),
+                    getDimension().getHeight());
+            newAnim.setCycleCount(Animation.INDEFINITE);
+            setAnimation(newAnim);
+        };
+    }
+
+    protected Runnable justAnImage(final Image image) {
+        return () -> {
+            setImage(image);
+        };
+    }
+
+    protected void setAnimation(final Animation animation) {
+        currentAnimation.stop();
+        currentAnimation = animation;
+        currentAnimation.play();
+    }
+
+    private void setImage(final Image image) {
+        currentAnimation.stop();
+        getView().setImage(image);
+        getView().setViewport(new Rectangle2D(0, 0, getDimension().getWidth(), getDimension().getHeight()));
+    }
 }

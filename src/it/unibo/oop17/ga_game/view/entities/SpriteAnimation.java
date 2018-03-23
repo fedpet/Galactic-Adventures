@@ -9,19 +9,15 @@ import javafx.util.Duration;
 public class SpriteAnimation extends Transition {
     private final ImageView imageView;
     private final int count;
-    private final double offsetX;
-    private final double offsetY;
     private final double width;
     private final double height;
 
     private int lastIndex;
 
-    public SpriteAnimation(final ImageView imageView, final Duration duration, final int count,
-            final double offsetX, final double offsetY, final double width, final double height) {
+    public SpriteAnimation(final ImageView imageView, final Duration duration, final int count, final double width,
+            final double height) {
         this.imageView = imageView;
         this.count = count;
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
         this.width = width;
         this.height = height;
         setCycleDuration(duration);
@@ -39,8 +35,8 @@ public class SpriteAnimation extends Transition {
 
         final int index = Math.min((int) Math.floor(k * count), count - 1);
         if (index != lastIndex) {
-            final double x = index % cols * width + offsetX;
-            final double y = index % rows * height + offsetY;
+            final double x = cols == 0 ? 0 : index % cols * width;
+            final double y = rows == 0 ? 0 : index % rows * height;
             imageView.setViewport(new Rectangle2D(x, y, width, height));
             lastIndex = index;
         }

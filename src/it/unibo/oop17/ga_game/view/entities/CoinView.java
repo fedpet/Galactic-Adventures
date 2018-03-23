@@ -15,11 +15,11 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         if (type == CoinType.BRONZE) {
-            justAnImage(new Image(BRONZE_COIN)).run();
+            getView().setImage(new Image(BRONZE_COIN));
         } else if (type == CoinType.SILVER) {
-            justAnImage(new Image(SILVER_COIN)).run();
+            getView().setImage(new Image(SILVER_COIN));
         } else if (type == CoinType.GOLD) {
-            justAnImage(new Image(GOLD_COIN)).run();
+            getView().setImage(new Image(GOLD_COIN));
         }
     }
 }
