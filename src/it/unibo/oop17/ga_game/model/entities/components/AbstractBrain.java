@@ -14,6 +14,7 @@ public abstract class AbstractBrain extends AbstractEntityComponent implements B
      *            Brain @Personality
      */
     public AbstractBrain(final Personality personality) {
+        super();
         this.personality = personality;
     }
 
