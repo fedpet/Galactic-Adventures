@@ -30,7 +30,7 @@ public class FlyingEnemy extends AbstractEntity {
         add(new FixedPatternPilot(positions));
         add(new LinearPropeller(5));
         add(new LinearLife(5));
-        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, PositionCompare::atHorizontalSides));
+        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, PositionCompare::exceptBottom));
     }
 
     @Override

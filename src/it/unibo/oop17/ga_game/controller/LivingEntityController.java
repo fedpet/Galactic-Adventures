@@ -12,9 +12,6 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
-    private static final double DEATH_TIME = 60;
-    private int deathTimeCount;
-
     public LivingEntityController(final Entity entity, final LivingEntityView entityView) {
         super(entity, entityView);
     }
@@ -24,10 +21,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
         if (getEntity().get(Life.class).isPresent() && getEntity().get(Life.class).get().isAlive()) {
             getEntityView().setPosition(ViewUtils.worldPointToFX(getEntity().getBody().getPosition()));
         } else {
-            getEntityView().setPosition(
-                    ViewUtils
-                            .worldPointToFX(getEntityView().updatePointFromDeath(getEntity().getBody().getPosition())));
-            updateDeathMoment();
+            getEntityView().deathAnimation(getEntity().getBody().getPosition());
         }
     }
 
@@ -45,20 +39,10 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     @Subscribe
     public void onEntityDestruction(final DestructionEvent destruction) {
         destruction.getSource().unregister(this);
-        if (destruction.getSource().get(Life.class).isPresent()
-                && destruction.getSource().get(Life.class).get().isDead()) {
-            getEntityView().deathAnimation();
-        } else {
+        if (!(destruction.getSource().get(Life.class).isPresent()
+                && destruction.getSource().get(Life.class).get().isDead())) {
             getEntityView().remove();
         }
     }
-
-    private void updateDeathMoment() {
-        deathTimeCount++;
-        if (deathTimeCount == DEATH_TIME) {
-            getEntityView().remove();
-        }
-    }
-
 
 }
