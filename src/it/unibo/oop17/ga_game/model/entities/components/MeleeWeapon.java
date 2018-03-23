@@ -54,8 +54,8 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
     }
 
     private void knockback(final Entity entity, final Point2D fromDirection) {
-        final double horizontalForce = Math.copySign(otherKnockback, -fromDirection.getX());
-        entity.getBody().applyImpulse(new Point2D(horizontalForce, 1));
+        final double force = Math.copySign(otherKnockback, -fromDirection.getX());
+        entity.getBody().applyImpulse(new Point2D(force, Math.abs(force)));
     }
 
     private boolean canUseToward(final Point2D direction) {
