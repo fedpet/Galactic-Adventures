@@ -95,4 +95,17 @@ public final class PositionCompare {
             throw new IllegalArgumentException("Unknown side " + side);
         }
     }
+
+    /**
+     * Checks if a given position, relative to the center of a box of the given size, is at LEFT or RIGHT side.
+     * 
+     * @param size
+     *            The size
+     * @param relativePosition
+     *            Relative to the center of a box of the given size
+     * @return true if the relativePosition is at the bottom (relatively to the size)
+     */
+    public static boolean atHorizontalSides(final Dimension2D size, final Point2D relativePosition) {
+        return atSide(size, relativePosition, Side.LEFT) || atSide(size, relativePosition, Side.RIGHT);
+    }
 }
