@@ -12,8 +12,8 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
     public LeverView(final Group group, final boolean activatedFromStart) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
-        mapAnimation(TriggerState.ON, justAnImage(new Image("/tiles/base_pack/items/switchRight.png")));
-        mapAnimation(TriggerState.OFF, justAnImage(new Image("/tiles/base_pack/items/switchLeft.png")));
+        mapAnimation(TriggerState.ON, justAnImage(new Image("/switchRight.png")));
+        mapAnimation(TriggerState.OFF, justAnImage(new Image("/switchLeft.png")));
 
         if (activatedFromStart) {
             startAnimation(TriggerState.ON);

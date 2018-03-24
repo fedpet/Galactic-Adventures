@@ -2,12 +2,18 @@ package it.unibo.oop17.ga_game.controller;
 
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.UnknownFormatConversionException;
 
 import org.mapeditor.core.Map;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
+
+import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.CoinType;
@@ -27,6 +33,7 @@ import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
+import it.unibo.oop17.ga_game.utils.ZipUtils;
 import it.unibo.oop17.ga_game.view.PlayerKeyboardInput;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
@@ -100,8 +107,8 @@ public class Main extends Application {
                 circlePattern);
         gameWorld.addEntity(platform2);
 
-        final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
-        final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
+        final ImageView platformView = new ImageView(new Image("/stone.png"));
+        final ImageView platformView2 = new ImageView(new Image("/stone.png"));
         final SlimeEnemy slimeEnemy = new SlimeEnemy(bodyFactory, new Point2D(20, -20));
         gameWorld.addEntity(slimeEnemy);
         final LivingEntityView slimeEnemyView = new SlimeEnemyView(worldView);
@@ -148,12 +155,13 @@ public class Main extends Application {
         final EntityController leverController = new TriggerEntityController(lever, leverView);
         final EntityController doorController = new TriggerEntityController(door, doorView);
 
-
-        try {
-            final Map map = loadLevel("res\\level1.tmx");
-        } catch (final Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        final File tempDir = Files.createTempDir();
+        try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
+            ZipUtils.extract(is, tempDir);
+            final Map map = loadLevel(new File(tempDir, "level1.tmx"));
+        } catch (final IOException ex) {
+            // TODO: show an error message
+            ex.printStackTrace();
             Platform.exit();
         }
 
@@ -187,8 +195,19 @@ public class Main extends Application {
         timer.play();
     }
 
-    private Map loadLevel(final String path) throws Exception {
-        final Map map = new TMXMapReader().readMap(path); // readMap throws a generic Exception :(
+    private Map loadLevel(final File file) throws IOException {
+        Map map;
+        try {
+            map = new TMXMapReader().readMap(file.getAbsolutePath());
+            // readMap throws a generic Exception :(
+        } catch (final IOException e) {
+            // this is to prevent "A catch statement that catches an exception only to rethrow it should be avoided...
+            System.out.println("map read error");
+            throw e;
+        } catch (final Exception e) {
+            // we assume map reading can only fail because of an IOException or a bad file format
+            throw new UnknownFormatConversionException(e.getMessage());
+        }
 
 
         map.forEach(layer -> {

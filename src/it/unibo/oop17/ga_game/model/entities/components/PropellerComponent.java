@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import javafx.geometry.Point2D;
 
@@ -8,7 +7,10 @@ import javafx.geometry.Point2D;
  * A basic propeller which can fly to any direction.
  */
 public class PropellerComponent extends AbstractMovementComponent {
-    private static final double MIN_THRESHOLD = 0.01;
+    /**
+     * Minimum speed below which it completely stops.
+     */
+    private static final double MIN_SPEED = 0.01;
     private final double speed;
 
     /**
@@ -35,23 +37,14 @@ public class PropellerComponent extends AbstractMovementComponent {
             setDesiredMovement(new Point2D(speed * Math.cos(r), speed * Math.sin(r)));
         }
 
-        if (Math.abs(getDesiredMovement().getX()) < MIN_THRESHOLD) {
+        if (Math.abs(getDesiredMovement().getX()) < MIN_SPEED) {
             setDesiredMovement(new Point2D(0, getDesiredMovement().getY()));
         }
 
-        if (Math.abs(getDesiredMovement().getY()) < MIN_THRESHOLD) {
+        if (Math.abs(getDesiredMovement().getY()) < MIN_SPEED) {
             setDesiredMovement(new Point2D(getDesiredMovement().getX(), 0));
         }
         updateState();
-    }
-
-    /**
-     * Removes gravity effects from the owner.
-     */
-    @Override
-    public void attach(final EventfullEntity owner) throws IllegalStateException {
-        super.attach(owner);
-        owner.getBody().setGravityScale(0);
     }
 
     /**

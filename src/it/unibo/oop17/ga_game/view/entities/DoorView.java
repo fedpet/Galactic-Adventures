@@ -11,8 +11,8 @@ public class DoorView extends AbstractStateChangingEntityView<TriggerState> impl
     public DoorView(final Group group, final boolean open) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
-        mapAnimation(TriggerState.ON, justAnImage(new Image("/tiles/base_pack/tiles/door_open.png")));
-        mapAnimation(TriggerState.OFF, justAnImage(new Image("/tiles/base_pack/tiles/door_closed.png")));
+        mapAnimation(TriggerState.ON, justAnImage(new Image("/door_open.png")));
+        mapAnimation(TriggerState.OFF, justAnImage(new Image("/door_closed.png")));
 
         if (open) {
             startAnimation(TriggerState.ON);
