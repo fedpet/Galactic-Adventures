@@ -7,9 +7,9 @@ import javafx.scene.image.Image;
 
 public class CoinView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
-    private static final String BRONZE_COIN = "/tiles/base_pack/items/coinBronze.png";
-    private static final String SILVER_COIN = "/tiles/base_pack/items/coinSilver.png";
-    private static final String GOLD_COIN = "/tiles/base_pack/items/coinGold.png";
+    private static final String BRONZE_COIN = "/coinBronze.png";
+    private static final String SILVER_COIN = "/coinSilver.png";
+    private static final String GOLD_COIN = "/coinGold.png";
 
     public CoinView(final Group group, final CoinType type) {
         super(group, new Dimension2D(WIDTH, HEIGHT));

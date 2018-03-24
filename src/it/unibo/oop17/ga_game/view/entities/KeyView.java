@@ -7,10 +7,10 @@ import javafx.scene.image.Image;
 
 public class KeyView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
-    private static final String RED_KEY = "/tiles/base_pack/items/keyRed.png";
-    private static final String BLUE_KEY = "/tiles/base_pack/items/keyBlue.png";
-    private static final String YELLOW_KEY = "/tiles/base_pack/items/keyYellow.png";
-    private static final String GREEN_KEY = "/tiles/base_pack/items/keyGreen.png";
+    private static final String RED_KEY = "/keyRed.png";
+    private static final String BLUE_KEY = "/keyBlue.png";
+    private static final String YELLOW_KEY = "/keyYellow.png";
+    private static final String GREEN_KEY = "/keyGreen.png";
 
     public KeyView(final Group group, final KeyLockType type) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
