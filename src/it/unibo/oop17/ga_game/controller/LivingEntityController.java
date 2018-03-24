@@ -18,19 +18,10 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
-    private static final Map<MovementComponent.State, CreatureState> STATE_MAP = new HashMap<MovementComponent.State, CreatureState>() {
-        private static final long serialVersionUID = 1L;
-        {
-            put(MovementComponent.State.IDLE, CreatureState.IDLE);
-            put(MovementComponent.State.WALKING, CreatureState.WALKING);
-            put(MovementComponent.State.JUMPING, CreatureState.JUMPING);
-            put(MovementComponent.State.FLYING, CreatureState.FLYING);
-        }
-    };
+    private final Map<MovementComponent.State, CreatureState> stateMap = mapToCreatureState();
 
     public LivingEntityController(final Entity entity, final LivingEntityView entityView) {
         super(entity, entityView);
-
     }
 
     @Override
@@ -44,7 +35,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     @Subscribe
     public void movementChanged(final MovementEvent event) {
-        getEntityView().changeState(STATE_MAP.getOrDefault(event.getState(), CreatureState.IDLE));
+        getEntityView().changeState(stateMap.getOrDefault(event.getState(), CreatureState.IDLE));
     }
 
     @Subscribe
@@ -70,6 +61,15 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
                 && destruction.getSource().get(Life.class).get().isDead())) {
             getEntityView().remove();
         }
+    }
+
+    private Map<MovementComponent.State, CreatureState> mapToCreatureState() {
+        final Map<MovementComponent.State, CreatureState> stateMap = new HashMap<>();
+        stateMap.put(MovementComponent.State.IDLE, CreatureState.IDLE);
+        stateMap.put(MovementComponent.State.WALKING, CreatureState.WALKING);
+        stateMap.put(MovementComponent.State.JUMPING, CreatureState.JUMPING);
+        stateMap.put(MovementComponent.State.FLYING, CreatureState.FLYING);
+        return stateMap;
     }
 
 }
