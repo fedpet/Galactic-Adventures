@@ -10,7 +10,7 @@ public class Lever extends AbstractEntity {
 
     public Lever(final BodyFactory bodyFactory, final Point2D position, final String password,
             final boolean activated) {
-        super(bodyFactory.createTerrain(position, SIZE));
+        super(bodyFactory.createItem(position, SIZE));
         add(new ContactTrigger(password, activated));
     }
 
