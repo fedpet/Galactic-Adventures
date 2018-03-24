@@ -34,6 +34,10 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
         }
         pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
         setPosition(ViewUtils.worldPointToFX(pointFromDeath));
+        manageDespawn();
+    }
+
+    private void manageDespawn() {
         deathTimeCount++;
         if (deathTimeCount == DEATH_TIME) {
             remove();
