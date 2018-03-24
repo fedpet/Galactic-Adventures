@@ -84,8 +84,8 @@ public class GameWindow {
     
     public final void buildGame() {
         
-//        final GameScreenTest game = new GameScreenTest(this.scene);
-        final GameScreen game = new GameScreen(this.scene, Level.LEVEL_1, this.data);
+        final GameScreenTest game = new GameScreenTest(this.scene);
+//        final GameScreen game = new GameScreen(this.scene, Level.LEVEL_1, this.data);
         
         final Group core = game.getWorldView();
         

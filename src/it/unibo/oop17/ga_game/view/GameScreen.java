@@ -7,9 +7,7 @@ import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import it.unibo.oop17.ga_game.controller.ConfigData;
-import it.unibo.oop17.ga_game.controller.DeadEntityController;
 import it.unibo.oop17.ga_game.controller.EntityController;
-import it.unibo.oop17.ga_game.controller.UnplayableLivingEntityController;
 import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.Level;
@@ -20,7 +18,6 @@ import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
-import it.unibo.oop17.ga_game.view.entities.DeadEntityView;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
@@ -141,7 +138,7 @@ public class GameScreen extends Parent {
                         }
                         if (tile.getType().equals("goldCoin")) {
                             final Coin coin = new Coin(bodyFactory, new Point2D(obj.getX(), obj.getY()), 100);
-                            final DeadEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
+                            final CoinView coinView = new CoinView(worldView, CoinType.BRONZE);
 //                            this.coinController = new DeadEntityController(coin, coinView);
                             gameWorld.addEntity(coin);
                             

@@ -9,10 +9,11 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
-import it.unibo.oop17.ga_game.controller.DeadEntityController;
+import it.unibo.oop17.ga_game.controller.CollectibleEntityController;
 import it.unibo.oop17.ga_game.controller.EntityController;
+import it.unibo.oop17.ga_game.controller.LivingEntityController;
 import it.unibo.oop17.ga_game.controller.PlayerController;
-import it.unibo.oop17.ga_game.controller.UnplayableLivingEntityController;
+import it.unibo.oop17.ga_game.controller.TriggerEntityController;
 import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.GameWorld;
@@ -32,7 +33,6 @@ import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
-import it.unibo.oop17.ga_game.view.entities.DeadEntityView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
 import it.unibo.oop17.ga_game.view.entities.KeyView;
@@ -84,8 +84,8 @@ public class GameScreenTest extends Parent {
                 circlePattern);
         gameWorld.addEntity(platform2);
 
-        final ImageView platformView = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
-        final ImageView platformView2 = new ImageView(new Image("/tiles/base_pack/tiles/stone.png"));
+        final ImageView platformView = new ImageView(new Image("/stone.png"));
+        final ImageView platformView2 = new ImageView(new Image("/stone.png"));
         final SlimeEnemy slimeEnemy = new SlimeEnemy(bodyFactory, new Point2D(4, -4));
         gameWorld.addEntity(slimeEnemy);
         final LivingEntityView slimeEnemyView = new SlimeEnemyView(worldView);
@@ -95,22 +95,22 @@ public class GameScreenTest extends Parent {
         final LivingEntityView flyingEnemyView = new FlyingEnemyView(worldView);
         final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
         gameWorld.addEntity(coin);
-        final DeadEntityView coinView = new CoinView(worldView, CoinType.BRONZE);
+        final CoinView coinView = new CoinView(worldView, CoinType.BRONZE);
         final Key blueKey = new Key(bodyFactory, new Point2D(10, -28), KeyLockType.BLUE);
         gameWorld.addEntity(blueKey);
-        final DeadEntityView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
+        final KeyView blueKeyView = new KeyView(worldView, KeyLockType.BLUE);
         final Key redKey = new Key(bodyFactory, new Point2D(7, -25.5), KeyLockType.RED);
         gameWorld.addEntity(redKey);
-        final DeadEntityView redKeyView = new KeyView(worldView, KeyLockType.RED);
+        final KeyView redKeyView = new KeyView(worldView, KeyLockType.RED);
         final Lock lock = new Lock(bodyFactory, new Point2D(14, -28.5), KeyLockType.BLUE);
         gameWorld.addEntity(lock);
-        final DeadEntityView lockView = new LockView(worldView, KeyLockType.BLUE);
+        final LockView lockView = new LockView(worldView, KeyLockType.BLUE);
         final Lever lever = new Lever(bodyFactory, new Point2D(18, -25.5), "Door", false);
         gameWorld.addEntity(lever);
-        final DeadEntityView leverView = new LeverView(worldView, false);
+        final LeverView leverView = new LeverView(worldView, false);
         final Door door = new Door(bodyFactory, new Point2D(12, -25.5), "Door", false);
         gameWorld.addEntity(door);
-        final DeadEntityView doorView = new DoorView(worldView, false);
+        final DoorView doorView = new DoorView(worldView, false);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -122,16 +122,15 @@ public class GameScreenTest extends Parent {
         final PlayerView playerView = new PlayerView(worldView);
         final EntityController playerController = new PlayerController(new PlayerKeyboardInput(scene), player,
                 playerView);
-        final EntityController basicEnemyController = new UnplayableLivingEntityController(slimeEnemy, slimeEnemyView);
-        final EntityController flyingEnemyController = new UnplayableLivingEntityController(flyingEnemy,
+        final EntityController basicEnemyController = new LivingEntityController(slimeEnemy, slimeEnemyView);
+        final EntityController flyingEnemyController = new LivingEntityController(flyingEnemy,
                 flyingEnemyView);
-        final EntityController coinController = new DeadEntityController(coin, coinView);
-        final EntityController blueKeyController = new DeadEntityController(blueKey, blueKeyView);
-        final EntityController redKeyController = new DeadEntityController(redKey, redKeyView);
-        final EntityController lockController = new DeadEntityController(lock, lockView);
-        final EntityController leverController = new DeadEntityController(lever, leverView);
-        final EntityController doorController = new DeadEntityController(door, doorView);
-
+        final EntityController coinController = new CollectibleEntityController(coin, coinView);
+        final EntityController blueKeyController = new CollectibleEntityController(blueKey, blueKeyView);
+        final EntityController redKeyController = new CollectibleEntityController(redKey, redKeyView);
+        final EntityController lockController = new CollectibleEntityController(lock, lockView);
+        final EntityController leverController = new TriggerEntityController(lever, leverView);
+        final EntityController doorController = new TriggerEntityController(door, doorView);
 
         try {
             loadLevel("res\\level1.tmx");
