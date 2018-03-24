@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.controller.ConfigData;
-import it.unibo.oop17.ga_game.controller.ResourceManager;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
@@ -17,9 +15,9 @@ public class MenuButton extends StackPane {
     private Text text;
     private double sfxVol;
 
-    public MenuButton(final String name) {
+    public MenuButton(final String name, final Volume sfxVol) {
         
-        update(name, ((ConfigData)ResourceManager.load("configdata.dat")).getSFXVol());
+        update(name, sfxVol);
         
     }
     
