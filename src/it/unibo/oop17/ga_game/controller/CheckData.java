@@ -1,19 +1,17 @@
 package it.unibo.oop17.ga_game.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import it.unibo.oop17.ga_game.view.Language;
 
-public final class CheckConfig {
+public final class CheckData {
     
     private final static String PATH = "configdata.dat";
     
-    private CheckConfig() {
+    private CheckData() {
     }
 
-    public static ConfigData loadConfig() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static ConfigData loadConfig() {
         final File f = new File(PATH);
         ConfigData data = new ConfigData();
         if (!f.exists()) {

@@ -15,7 +15,7 @@ public enum Difficulty {
     }
     
     public Text asText() {
-        return text;
+        return this.text;
     }
     
 }

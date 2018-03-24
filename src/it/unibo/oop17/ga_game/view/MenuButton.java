@@ -1,8 +1,5 @@
 package it.unibo.oop17.ga_game.view;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.ResourceManager;
 import javafx.geometry.Pos;
@@ -20,7 +17,7 @@ public class MenuButton extends StackPane {
     private Text text;
     private double sfxVol;
 
-    public MenuButton(final String name) throws FileNotFoundException, ClassNotFoundException, IOException {
+    public MenuButton(final String name) {
         
         update(name, ((ConfigData)ResourceManager.load("configdata.dat")).getSFXVol());
         

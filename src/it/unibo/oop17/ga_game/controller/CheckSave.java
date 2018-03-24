@@ -1,17 +1,15 @@
 package it.unibo.oop17.ga_game.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-public final class CheckProgress {
+public final class CheckSave {
     
 private final static String PATH = "gamedata.dat";
     
-    private CheckProgress() {
+    private CheckSave() {
     }
 
-    public static GameData loadSave() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static GameData loadSave() {
         GameData save = new GameData();
         if (!exists()) {
             save.resetProgress();

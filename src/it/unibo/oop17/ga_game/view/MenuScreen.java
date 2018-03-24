@@ -7,12 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import it.unibo.oop17.ga_game.controller.CheckConfig;
-import it.unibo.oop17.ga_game.controller.CheckProgress;
 import it.unibo.oop17.ga_game.controller.ConfigData;
-import it.unibo.oop17.ga_game.controller.Main;
+import it.unibo.oop17.ga_game.controller.GameData;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -20,7 +19,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class GameMenu extends Parent {
+public class MenuScreen extends Parent {
     
     private final MenuButton btnNewGame;
     private final MenuButton btnContinue;
@@ -35,14 +34,16 @@ public class GameMenu extends Parent {
     private final MediaPlayer mediaPlayer;
     private final Map<Language, Map<Text, String>> languages;
     private final ConfigData data;
+    private final GameData save;
     private Map<Text, String> currLang;
     
-    public GameMenu() throws IOException, ClassNotFoundException {
+    public MenuScreen(final ConfigData data, final GameData save) {
         
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
-        this.data = CheckConfig.loadConfig();
+        this.data = data;
+        this.save = save;
         
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -64,23 +65,12 @@ public class GameMenu extends Parent {
         final int offset = 384;
 
         menu1.setTranslateX(offset);
-        
+
         this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
-        btnNewGame.setOnMouseClicked(event -> {
-            System.out.println("NG");
-            // LANCIA IL TEST
-            final String[] args = {};
-            Main.main(args);
-        });
-
+        
         this.btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
-        this.btnContinue.setVisible(CheckProgress.exists());
-        btnContinue.setOnMouseClicked(event -> {
-            // LANCIA IL TEST
-            final String[] args = {};
-            Main.main(args);
-        });
-
+        this.btnContinue.setVisible(this.save.getLevelProgress() != 0);
+        
         this.btnOptions = new MenuButton(currLang.get(Text.OPTIONS));
         btnOptions.setOnMouseClicked(event -> {
             getChildren().add(menu1);
@@ -101,7 +91,7 @@ public class GameMenu extends Parent {
 
         this.btnExit = new MenuButton(currLang.get(Text.EXIT));
         btnExit.setOnMouseClicked(event -> {
-            System.exit(0);
+            Platform.exit();;
         });
 
         this.btnBack = new MenuButton(currLang.get(Text.BACK));
@@ -160,8 +150,6 @@ public class GameMenu extends Parent {
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
-        
-        
 
         final Rectangle bg = new Rectangle(1024, 512);
         bg.setOpacity(0);
@@ -171,7 +159,7 @@ public class GameMenu extends Parent {
     
     private void updateBtn() {
         this.btnContinue.update(currLang.get(Text.CONTINUE), this.data.getSFXVol());
-        this.btnNewGame.update(currLang.get(Text.NEW_GAME), this.data.getSFXVol());
+        this.getBtnNewGame().update(currLang.get(Text.NEW_GAME), this.data.getSFXVol());
         this.btnOptions.update(currLang.get(Text.OPTIONS), this.data.getSFXVol());
         this.btnExit.update(currLang.get(Text.EXIT), this.data.getSFXVol());
         this.btnBack.update(currLang.get(Text.BACK), this.data.getSFXVol());
@@ -192,11 +180,36 @@ public class GameMenu extends Parent {
         this.mediaPlayer.play();
     }
     
-    private Map<Text, String> loadLanguage(final Language l) throws IOException {
-        return  Files.lines(Paths.get("res", "languages", l.toString() + ".txt"))
-                .map(line -> line.split("=", 2))
-                .collect(Collectors.toMap(key -> Text.valueOf(key[0]), val -> val[1]));
+    private Map<Text, String> loadLanguage(final Language l) {
+        try {
+            return  Files.lines(Paths.get("res", "languages", l.toString() + ".txt"))
+                    .map(line -> line.split("=", 2))
+                    .collect(Collectors.toMap(key -> Text.valueOf(key[0]), val -> val[1]));
+        } catch (IOException e) {
+            System.out.println("ERROR: CANNOT LOAD LANGUAGE RESOURCES!");
+            Platform.exit();
+            return null;
+        }
+    }
+
+    public MenuButton getBtnNewGame() {
+        return btnNewGame;
     }
     
+    public MenuButton getBtnContinue() {
+        return btnContinue;
+    }
+    
+    public MediaPlayer getMediaPlayer() {
+        return this.mediaPlayer;
+    }
+    
+    public GameData getGameData() {
+        return this.save;
+    }
+    
+    public ConfigData getConfigData() {
+        return this.data;
+    }
     
 }

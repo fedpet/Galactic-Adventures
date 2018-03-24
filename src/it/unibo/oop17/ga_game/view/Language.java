@@ -15,6 +15,6 @@ public enum Language {
     }
     
     public Text asText() {
-        return text;
+        return this.text;
     }
 }

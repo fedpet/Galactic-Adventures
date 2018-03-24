@@ -8,7 +8,7 @@ public class RandomBackground {
     
     public RandomBackground() {
         final int randomNum = ThreadLocalRandom.current().nextInt(0, 3 + 1);
-        final String pathTo = "res/tiles/mushroom_expansion/backgrounds/";
+        final String pathTo = "res/";
         String backgroundPath = null;
         
         switch (randomNum) {
