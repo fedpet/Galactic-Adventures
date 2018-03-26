@@ -29,6 +29,7 @@ import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
+import it.unibo.oop17.ga_game.model.entities.Spikes;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.utils.ShapePerimeterIterator;
@@ -46,6 +47,7 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
+import it.unibo.oop17.ga_game.view.entities.SpikesView;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -134,6 +136,9 @@ public class Main extends Application {
         final Door door = new Door(bodyFactory, new Point2D(12, -25.5), "Door", false);
         gameWorld.addEntity(door);
         final TriggerEntityView doorView = new DoorView(worldView, false);
+        final Spikes spike = new Spikes(bodyFactory, new Point2D(26, -28.5));
+        gameWorld.addEntity(spike);
+        final LifelessEntityView spikeView = new SpikesView(worldView);
 
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
@@ -148,12 +153,14 @@ public class Main extends Application {
         final EntityController basicEnemyController = new LivingEntityController(slimeEnemy, slimeEnemyView);
         final EntityController flyingEnemyController = new LivingEntityController(flyingEnemy,
                 flyingEnemyView);
-        final EntityController coinController = new CollectibleEntityController(coin, coinView);
-        final EntityController blueKeyController = new CollectibleEntityController(blueKey, blueKeyView);
-        final EntityController redKeyController = new CollectibleEntityController(redKey, redKeyView);
-        final EntityController lockController = new CollectibleEntityController(lock, lockView);
+        final EntityController coinController = new LifelessEntityController(coin, coinView);
+        final EntityController blueKeyController = new LifelessEntityController(blueKey, blueKeyView);
+        final EntityController redKeyController = new LifelessEntityController(redKey, redKeyView);
+        final EntityController lockController = new LifelessEntityController(lock, lockView);
         final EntityController leverController = new TriggerEntityController(lever, leverView);
         final EntityController doorController = new TriggerEntityController(door, doorView);
+        final EntityController spikeController = new LifelessEntityController(spike, spikeView);
+
 
         final File tempDir = Files.createTempDir();
         try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
@@ -178,6 +185,7 @@ public class Main extends Application {
                     lockController.update();
                     leverController.update();
                     doorController.update();
+                    spikeController.update();
 
                     playerController.update();
 
