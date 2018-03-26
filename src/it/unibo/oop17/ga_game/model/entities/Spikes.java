@@ -21,7 +21,7 @@ public class Spikes extends AbstractEntity {
     public Spikes(final BodyFactory bodyFactory, final Point2D position) {
         super(bodyFactory.createTerrain(position, SIZE));
         add(new ViolentBrain(EntityPersonality.EVIL));
-        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, (x, y) -> true));
+        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, (size, relativePosition) -> true));
     }
 
     @Override
