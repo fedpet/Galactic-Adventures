@@ -51,6 +51,7 @@ public abstract class AbstractEntity implements EventfullEntity {
     public void destroy() {
         post(new DestructionEvent(this));
         components.forEach(this::remove);
+        remove(body);
     }
 
     /**

@@ -6,7 +6,7 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
  * Base class for @Brain.
  * It self-detaches on death
  */
-public abstract class AbstractBrain extends AbstractEntityComponent implements Brain {
+public abstract class AbstractBrain extends AbstractContactAwareComponent implements Brain {
     private final Personality personality;
 
     /**

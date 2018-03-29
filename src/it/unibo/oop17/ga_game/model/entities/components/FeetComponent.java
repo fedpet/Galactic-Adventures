@@ -1,11 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import com.google.common.eventbus.Subscribe;
-
-import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 
 
 /**
@@ -36,14 +34,8 @@ public final class FeetComponent extends AbstractMovementComponent {
         updateState();
     }
 
-    /**
-     * When we touch the ground we update the state to change from JUMPING to IDLE.
-     * 
-     * @param event
-     *            The @BeginContactEvent
-     */
-    @Subscribe
-    public void beginContact(final BeginContactEvent event) {
+    @Override
+    protected void handleContact(final EntityBody other) {
         updateState();
     }
 
@@ -66,8 +58,8 @@ public final class FeetComponent extends AbstractMovementComponent {
      */
     private boolean isOnGround() {
         return getEntity().getBody().getContacts()
-                .filter(c -> PositionCompare.atBottom(getEntity().getBody().getDimension(), c.getPoint()))
-                .filter(c -> c.getOtherBody().isSolid())
+                .filter(body -> PositionCompare.relativeSide(getEntity().getBody(), body) == Side.BOTTOM)
+                .filter(EntityBody::isSolid)
                 .findAny()
                 .isPresent();
     }

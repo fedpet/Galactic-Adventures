@@ -19,6 +19,7 @@ public class GameWorld {
     private static final Point2D GRAVITY = new Point2D(0, -60);
     private final PhysicsEngine engine = PhysicsEngine.create(GRAVITY);
     private final Set<Entity> entities = new LinkedHashSet<>();
+    private final Set<Entity> removedEntities = new LinkedHashSet<>();
     private final TriggerLinker linker = new TriggerLinker();
     private final EntityEventListener myListener = new MyListener();
 
@@ -33,16 +34,24 @@ public class GameWorld {
     }
 
     public void update(final double dt) {
-        entities.forEach(e -> e.update(dt));
+        entities.stream()
+                .filter(e -> !removedEntities.contains(e))
+                .forEach(e -> e.update(dt));
         engine.update(dt);
+        removedEntities.forEach(this::remove);
+        removedEntities.clear();
+    }
+
+    private void remove(final Entity entity) {
+        linker.untrack(entity);
+        entities.remove(entity);
+        engine.remove(entity.getBody());
     }
 
     private final class MyListener implements EntityEventListener {
         @Subscribe
         public void onEntityDestruction(final DestructionEvent destruction) {
-            linker.untrack(destruction.getSource());
-            entities.remove(destruction.getSource());
-            engine.remove(destruction.getSource().getBody());
+            removedEntities.add(destruction.getSource());
         }
     }
 }
