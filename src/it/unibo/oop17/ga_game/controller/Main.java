@@ -22,7 +22,9 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.model.entities.Door;
+import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
+import it.unibo.oop17.ga_game.model.entities.JumpingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Key;
 import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
@@ -40,6 +42,7 @@ import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;
+import it.unibo.oop17.ga_game.view.entities.JumpingPlatformView;
 import it.unibo.oop17.ga_game.view.entities.KeyView;
 import it.unibo.oop17.ga_game.view.entities.LeverView;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
@@ -140,6 +143,11 @@ public class Main extends Application {
         gameWorld.addEntity(spike);
         final LifelessEntityView spikeView = new SpikesView(worldView);
 
+        final Entity jumper = new JumpingPlatform(bodyFactory, new Point2D(25, -28.5));
+        gameWorld.addEntity(jumper);
+        final EntityController jumperController = new TriggerEntityController(jumper,
+                new JumpingPlatformView(worldView));
+
         platformView.setFitWidth(ViewUtils.metersToPixels(platform.getBody().getDimension().getWidth()));
         platformView.setFitHeight(ViewUtils.metersToPixels(platform.getBody().getDimension().getHeight()));
         platformView2.setFitWidth(ViewUtils.metersToPixels(platform2.getBody().getDimension().getWidth()));
@@ -186,6 +194,7 @@ public class Main extends Application {
                     leverController.update();
                     doorController.update();
                     spikeController.update();
+                    jumperController.update();
 
                     playerController.update();
 
