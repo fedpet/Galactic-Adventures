@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyType;
-
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.FXUtils;
@@ -14,36 +11,27 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /* package-private */ final class B2DBodyFactory implements BodyFactory {
-    private final B2DPhysicsEngine engine;
+    private final B2DBodySpawner spawner;
 
-    /* package-private */ B2DBodyFactory(final B2DPhysicsEngine box2dPhysicsEngine) {
-        engine = Objects.requireNonNull(box2dPhysicsEngine);
+    /* package-private */ B2DBodyFactory(final B2DBodySpawner spawner) {
+        this.spawner = Objects.requireNonNull(spawner);
     }
 
     @Override
     public EntityBody createCreature(final Point2D position, final Dimension2D size) {
-        final Body body = new B2DBodyBuilder(engine)
+        return custom()
                 .position(position)
-                .type(BodyType.DYNAMIC)
+                .size(size)
                 .build();
-        new B2DFixtureBuilder()
-                .rectangular(size)
-                .buildOn(body);
-
-        return spawnBody(body, size);
     }
 
     @Override
     public EntityBody createMovingPlatform(final Point2D position, final Dimension2D size) {
-        final Body body = new B2DBodyBuilder(engine)
+        return custom()
                 .position(position)
-                .type(BodyType.KINEMATIC)
+                .size(size)
+                .subjectToForces(false)
                 .build();
-        new B2DFixtureBuilder()
-                .rectangular(size)
-                .buildOn(body);
-
-        return spawnBody(body, size);
     }
 
     @Override
@@ -56,38 +44,27 @@ import javafx.geometry.Point2D;
 
     @Override
     public EntityBody createTerrain(final Point2D position, final Dimension2D size) {
-        final Body body = new B2DBodyBuilder(engine)
+        return custom()
                 .position(position)
-                .type(BodyType.STATIC)
-                .build();
-        new B2DFixtureBuilder()
-                .density(1)
+                .size(size)
+                .moveable(false)
                 .friction(0)
-                .rectangular(size)
-                .buildOn(body);
-
-        return spawnBody(body, size);
+                .build();
     }
 
     @Override
     public EntityBody createItem(final Point2D position, final Dimension2D size) {
-        final Body body = new B2DBodyBuilder(engine)
+        return custom()
                 .position(position)
-                .type(BodyType.STATIC)
-                .build();
-        new B2DFixtureBuilder()
-                .isSensor(true)
+                .size(size)
+                .moveable(false)
+                .solid(false)
                 .friction(0)
-                .rectangular(size)
-                .buildOn(body);
-
-        return spawnBody(body, size);
+                .build();
     }
 
-    private EntityBody spawnBody(final Body body, final Dimension2D size) {
-        final B2DEntityBody entity = new B2DBodyFacade(body, size, engine.getBodiesMap());
-        engine.map(body, entity);
-        return entity;
+    @Override
+    public BodyBuilder custom() {
+        return new B2DBodyBuilder(spawner);
     }
-
 }
