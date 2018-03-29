@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -15,7 +14,6 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
-import it.unibo.oop17.ga_game.model.physics.CollisionListener;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
@@ -86,9 +84,12 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
         public void beginContact(final Contact contact) {
             if (isThereARemovedBody(contact)) {
                 handleContactBetweenRemovedBodies(contact);
-            } else {
-                callbacks(contact, (listener, other) -> listener.beginContact(other));
             }
+            /*
+             * else {
+             * callbacks(contact, (listener, other) -> listener.beginContact(other));
+             * }
+             */
         }
 
         @Override
@@ -107,20 +108,22 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
                 handleContactBetweenRemovedBodies(contact);
             }
             // report the end of contact anyway
-            callbacks(contact, (listener, other) -> listener.endContact(other));
+            //callbacks(contact, (listener, other) -> listener.endContact(other));
         }
 
-        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
-            if (contact.isEnabled()) {
-                final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
-                final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
-
-                if (first != null && second != null) {
-                    handler.accept(first, second);
-                    handler.accept(second, first);
-                }
-            }
-        }
+        /*
+         * private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
+         * if (contact.isEnabled()) {
+         * final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
+         * final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
+         * 
+         * if (first != null && second != null) {
+         * handler.accept(first, second);
+         * handler.accept(second, first);
+         * }
+         * }
+         * }
+         */
 
         private boolean isThereARemovedBody(final Contact contact) {
             final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());

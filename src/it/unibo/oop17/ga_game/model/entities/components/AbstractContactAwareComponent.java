@@ -1,0 +1,20 @@
+package it.unibo.oop17.ga_game.model.entities.components;
+
+public abstract class AbstractContactAwareComponent extends AbstractEntityComponent {
+    /**
+     * Detects contacts with other bodies.
+     */
+    @Override
+    public void update(final double dt) {
+        super.update(dt);
+        getEntity().getBody().getContacts().forEach(this::handleContact);
+    }
+
+    /**
+     * Handle contact with other @EntityBody.
+     * 
+     * @param other
+     *            Other @EntityBody in contact with ours.
+     */
+    protected abstract void handleContact(EntityBody other);
+}

@@ -1,8 +1,5 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import com.google.common.eventbus.Subscribe;
-
-import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
@@ -37,14 +34,8 @@ public final class FeetComponent extends AbstractMovementComponent {
         updateState();
     }
 
-    /**
-     * When we touch the ground we update the state to change from JUMPING to IDLE.
-     * 
-     * @param event
-     *            The @BeginContactEvent
-     */
-    @Subscribe
-    public void beginContact(final BeginContactEvent event) {
+    @Override
+    protected void handleContact(final EntityBody other) {
         updateState();
     }
 

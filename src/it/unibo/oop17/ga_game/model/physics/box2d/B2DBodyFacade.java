@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.model.physics.box2d;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -10,9 +8,6 @@ import org.jbox2d.dynamics.Body;
 
 import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
-import it.unibo.oop17.ga_game.model.entities.events.ContactEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EndContactEvent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -23,7 +18,6 @@ import javafx.geometry.Point2D;
     private final Body body;
     private final Dimension2D boundingBoxDimension;
     private final Map<Body, B2DEntityBody> bodyMap;
-    private final List<ContactEvent> queuedEvents = new LinkedList<>();
 
     /* package-private */ B2DBodyFacade(final Body body, final Dimension2D dimension,
             final Map<Body, B2DEntityBody> bodyMap) {
@@ -31,13 +25,6 @@ import javafx.geometry.Point2D;
         this.body = Objects.requireNonNull(body);
         boundingBoxDimension = Objects.requireNonNull(dimension);
         this.bodyMap = Objects.requireNonNull(bodyMap);
-    }
-
-    @Override
-    public void update(final double dt) {
-        super.update(dt);
-        queuedEvents.forEach(this::post);
-        queuedEvents.clear();
     }
 
     @Override
@@ -82,20 +69,6 @@ import javafx.geometry.Point2D;
                 .filter(c -> c.contact.isTouching())
                 .filter(c -> bodyMap.containsKey(c.other))
                 .map(c -> bodyMap.get(c.other));
-    }
-
-    @Override
-    public void beginContact(final EntityBody other) {
-        getOwner().ifPresent(entity -> {
-            queuedEvents.add(new BeginContactEvent(entity, other));
-        });
-    }
-
-    @Override
-    public void endContact(final EntityBody other) {
-        getOwner().ifPresent(entity -> {
-            queuedEvents.add(new EndContactEvent(entity, other));
-        });
     }
 
     @Override

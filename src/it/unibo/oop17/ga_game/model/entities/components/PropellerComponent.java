@@ -67,6 +67,11 @@ public class PropellerComponent extends AbstractMovementComponent {
         return speed;
     }
 
+    @Override
+    protected void handleContact(final EntityBody other) {
+        // no special actions yet
+    }
+
     private void updateState() {
         setState(getDesiredMovement().equals(Point2D.ZERO) ? State.IDLE : State.FLYING);
     }
