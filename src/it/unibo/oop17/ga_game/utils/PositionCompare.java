@@ -75,6 +75,19 @@ public final class PositionCompare {
     }
 
     /**
+     * Helper method. Really just a shortcut for atSide(size, relativePosition, Side.TOP)
+     * 
+     * @param size
+     *            The size
+     * @param relativePosition
+     *            Relative to the center of a box of the given size
+     * @return true if the relativePosition is at the bottom (relatively to the size)
+     */
+    public static boolean atTop(final Dimension2D size, final Point2D relativePosition) {
+        return atSide(size, relativePosition, Side.TOP);
+    }
+
+    /**
      * Converts a @Side to a direction vector.
      * 
      * @param side
