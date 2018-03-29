@@ -19,7 +19,7 @@ public class Spikes extends AbstractEntity {
      *            The position
      */
     public Spikes(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createTerrain(position, SIZE));
+        super(bodyFactory.createStatic(position, SIZE));
         add(new ViolentBrain(EntityPersonality.EVIL));
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, (size, relativePosition) -> true));
     }

@@ -11,7 +11,7 @@ public class Lock extends AbstractEntity {
 
     public Lock(final BodyFactory bodyFactory, final Point2D position,
             final KeyLockType type) {
-        super(bodyFactory.createTerrain(position, SIZE));
+        super(bodyFactory.createStatic(position, SIZE));
         add(new LockBrain(type));
     }
 

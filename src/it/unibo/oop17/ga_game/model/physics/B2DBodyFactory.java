@@ -38,12 +38,12 @@ import javafx.geometry.Point2D;
     public List<EntityBody> createTerrainFromGrid(final Point2D topLeft, final Dimension2D cellSize,
             final CollisionGrid grid) {
         return new RectanglesExtractor().rectangles(topLeft, grid, cellSize).stream()
-                .map(rect -> createTerrain(FXUtils.invertY(FXUtils.center(rect)), FXUtils.dimension(rect)))
+                .map(rect -> createStatic(FXUtils.invertY(FXUtils.center(rect)), FXUtils.dimension(rect)))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public EntityBody createTerrain(final Point2D position, final Dimension2D size) {
+    public EntityBody createStatic(final Point2D position, final Dimension2D size) {
         return custom()
                 .position(position)
                 .size(size)

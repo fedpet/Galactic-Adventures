@@ -58,7 +58,7 @@ public interface BodyFactory {
     EntityBody createItem(Point2D position, Dimension2D size);
 
     /**
-     * Terrain bodies are not subject to forces and won't move.
+     * Static bodies are solid, not subject to forces and unmoveable.
      * 
      * @param position
      *            The position
@@ -66,7 +66,7 @@ public interface BodyFactory {
      *            The size
      * @return The @EntityBody
      */
-    EntityBody createTerrain(Point2D position, Dimension2D size);
+    EntityBody createStatic(Point2D position, Dimension2D size);
 
     /**
      * @return a @BodyBuilder to create custom bodies.
