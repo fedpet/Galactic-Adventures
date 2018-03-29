@@ -32,7 +32,9 @@ public interface BodyFactory {
     EntityBody createMovingPlatform(Point2D position, Dimension2D size);
 
     /**
-     * Terrain bodies are not subject to forces and won't move.
+     * Terrain bodies are solid, not subject to forces and unmoveable.
+     * Prefer this method over manually creating a grid of custom bodies because physics engine may need special tuning
+     * to handle connected bodies.
      * 
      * @param topLeft
      *            Top-left point relative to the grid
@@ -56,11 +58,6 @@ public interface BodyFactory {
     EntityBody createItem(Point2D position, Dimension2D size);
 
     /**
-     * @return a @BodyBuilder to create custom bodies.
-     */
-    BodyBuilder custom();
-
-    /**
      * Terrain bodies are not subject to forces and won't move.
      * 
      * @param position
@@ -70,4 +67,9 @@ public interface BodyFactory {
      * @return The @EntityBody
      */
     EntityBody createTerrain(Point2D position, Dimension2D size);
+
+    /**
+     * @return a @BodyBuilder to create custom bodies.
+     */
+    BodyBuilder custom();
 }
