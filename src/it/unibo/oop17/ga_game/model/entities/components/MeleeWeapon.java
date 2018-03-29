@@ -1,10 +1,13 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import java.util.Optional;
 import java.util.function.BiPredicate;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 
 /**
  * Deals damage to entities in contact with the owner.
@@ -39,26 +42,42 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
     @Override
     public void use(final Point2D direction) {
         if (canUseToward(direction)) {
-            getEntity().getBody().getContacts()
-                    .filter(body -> body.getPoint().equals(direction))
-                    .filter(contact -> contact.getOtherBody().getOwner().isPresent())
-                    .map(contact -> contact.getOtherBody().getOwner().get())
-                    .filter(entity -> entity.get(Life.class).isPresent())
-                    .findAny()
-                    .ifPresent(target -> {
-                        target.get(Life.class).get().hurt(damage);
-                        knockback(target, direction);
-                        getEntity().getBody().applyImpulse(new Point2D(0, selfKnockback));
-                    });
+            findTarget(direction).ifPresent(e -> hit(e, direction));
         }
-    }
-
-    private void knockback(final Entity entity, final Point2D fromDirection) {
-        final double force = Math.copySign(otherKnockback, -fromDirection.getX());
-        entity.getBody().applyImpulse(new Point2D(force, Math.abs(force)));
     }
 
     private boolean canUseToward(final Point2D direction) {
         return positionChecker.test(getEntity().getBody().getDimension(), direction);
+    }
+
+    private Optional<? extends Entity> findTarget(final Point2D direction) {
+        return getEntity().getBody().getContacts()
+                .filter(body -> body.getPoint().equals(direction))
+                .filter(contact -> contact.getOtherBody().getOwner().isPresent())
+                .map(contact -> contact.getOtherBody().getOwner().get())
+                .filter(entity -> entity.get(Life.class).isPresent())
+                .findAny();
+    }
+
+    private void hit(final Entity target, final Point2D direction) {
+        target.get(Life.class).get().hurt(damage);
+        knockback(target, direction);
+        getEntity().getBody().applyImpulse(new Point2D(0, selfKnockback));
+    }
+
+    private void knockback(final Entity entity, final Point2D direction) {
+        final Side knockbackSide = PositionCompare.relativeSide(getEntity().getBody().getDimension(), direction);
+        final Point2D knockbackDirection = PositionCompare.sideToDirection(knockbackSide).multiply(-1);
+
+        double verticalForce = otherKnockback * knockbackDirection.getY() * 2;
+        if (knockbackSide.isVertical()) {
+            final double sign = direction.subtract(entity.getBody().getPosition()).getY();
+            verticalForce = Math.copySign(otherKnockback, sign);
+        }
+
+        entity.getBody()
+                .applyImpulse(
+                        new Point2D(otherKnockback * knockbackDirection.getX(),
+                                verticalForce));
     }
 }
