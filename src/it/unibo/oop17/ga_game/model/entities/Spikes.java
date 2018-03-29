@@ -28,7 +28,7 @@ public class Spikes extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Spike";
+        return "Spikes";
     }
 
 }
