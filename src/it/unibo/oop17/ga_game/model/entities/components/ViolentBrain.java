@@ -16,21 +16,13 @@ public class ViolentBrain extends AbstractBrain {
     }
 
     /**
-     * Checks if we're touching an hated entity. In this case we attack it!.
-     */
-    @Override
-    public void update(final double dt) {
-        super.update(dt);
-        getEntity().getBody().getContacts().forEach(this::handleContact);
-    }
-
-    /**
      * Attack!
      * 
      * @param other
      *            The other @EntityBody.
      */
-    private void handleContact(final EntityBody other) {
+    @Override
+    protected void handleContact(final EntityBody other) {
         other.getOwner().ifPresent(otherEntity -> {
             if (hate(otherEntity)) {
                 getEntity().get(Weapon.class).ifPresent(weapon -> {
