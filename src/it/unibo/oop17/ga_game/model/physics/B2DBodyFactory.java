@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.FXUtils;
+import it.unibo.oop17.ga_game.utils.RectanglesExtractor;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 

@@ -8,10 +8,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import it.unibo.oop17.ga_game.model.physics.RectanglesExtractor;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.Matrix;
 import it.unibo.oop17.ga_game.utils.MutableMatrix;
+import it.unibo.oop17.ga_game.utils.RectanglesExtractor;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

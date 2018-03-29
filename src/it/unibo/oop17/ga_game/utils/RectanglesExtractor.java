@@ -1,12 +1,9 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.utils;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import it.unibo.oop17.ga_game.utils.CollisionGrid;
-import it.unibo.oop17.ga_game.utils.Matrix;
-import it.unibo.oop17.ga_game.utils.MutableMatrix;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
