@@ -1,8 +1,11 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
+import com.google.common.eventbus.Subscribe;
 
-public class ContactTrigger extends AbstractContactAwareComponent implements TriggerComponent {
+import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
+import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggerEvent;
+
+public class ContactTrigger extends AbstractEntityComponent implements TriggerComponent {
 
     private boolean triggered;
     private final String password;
@@ -18,16 +21,16 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
         return password;
     }
 
-    @Override
-    public boolean hasTriggered() {
-        return triggered;
+    @Subscribe
+    public void beginContact(final BeginContactEvent contact) {
+        if (!hasTriggered()) {
+            triggered = true;
+            post(new PasswordTriggerEvent(getEntity(), password));
+        }
     }
 
     @Override
-    protected void handleContact(final EntityBody other) {
-        if (!hasTriggered()) {
-            triggered = true;
-            post(new TriggerEvent(getEntity(), password));
-        }
+    public boolean hasTriggered() {
+        return triggered;
     }
 }
