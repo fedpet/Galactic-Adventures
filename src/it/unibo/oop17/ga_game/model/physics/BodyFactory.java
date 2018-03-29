@@ -22,16 +22,6 @@ public interface BodyFactory {
     EntityBody createCreature(Point2D position, Dimension2D size);
 
     /**
-     * 
-     * @param position
-     *            Position (relative to the body's center)
-     * @param size
-     *            Width and height
-     * @return @EntityBody
-     */
-    EntityBody createMovingPlatform(Point2D position, Dimension2D size);
-
-    /**
      * Terrain bodies are solid, not subject to forces and unmoveable.
      * Prefer this method over manually creating a grid of custom bodies because physics engine may need special tuning
      * to handle connected bodies.

@@ -26,15 +26,6 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public EntityBody createMovingPlatform(final Point2D position, final Dimension2D size) {
-        return custom()
-                .position(position)
-                .size(size)
-                .subjectToForces(false)
-                .build();
-    }
-
-    @Override
     public List<EntityBody> createTerrainFromGrid(final Point2D topLeft, final Dimension2D cellSize,
             final CollisionGrid grid) {
         return new RectanglesExtractor().rectangles(topLeft, grid, cellSize).stream()
