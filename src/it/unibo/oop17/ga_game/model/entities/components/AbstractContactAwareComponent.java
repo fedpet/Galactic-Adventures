@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+/**
+ * Base class for contact aware components.
+ */
 public abstract class AbstractContactAwareComponent extends AbstractEntityComponent {
     /**
      * Detects contacts with other bodies.
