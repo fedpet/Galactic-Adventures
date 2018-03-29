@@ -16,7 +16,7 @@ import javafx.geometry.Side;
  */
 public final class SlimeEnemy extends AbstractEntity {
     public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
-    private static final double ATTACK_KNOCKBACK = 30;
+    private static final double ATTACK_KNOCKBACK = 20;
 
     /**
      * 

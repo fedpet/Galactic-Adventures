@@ -62,7 +62,7 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
         double verticalForce = otherKnockback * knockbackDirection.getY();
         if (knockbackSide.isVertical()) {
             final double sign = target.getBody().getPosition().subtract(getEntity().getBody().getPosition()).getY();
-            verticalForce = Math.copySign(otherKnockback, sign);
+            verticalForce = Math.copySign(otherKnockback, sign) / 2;
         }
 
         target.getBody().setLinearVelocity(
