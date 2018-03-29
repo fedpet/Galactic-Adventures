@@ -2,38 +2,29 @@ package it.unibo.oop17.ga_game.model.entities.events;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
-import javafx.geometry.Point2D;
 
 /**
  * Event for entity collisions.
  */
 public class ContactEvent extends AbstractEntityEvent {
-    private final BodyContact contact;
+    private final EntityBody other;
 
     /**
      * 
      * @param source
      *            Entity generating the event.
-     * @param contact
-     *            The @BodyContact
+     * @param other
+     *            The @EntityBody
      */
-    public ContactEvent(final Entity source, final BodyContact contact) {
+    public ContactEvent(final Entity source, final EntityBody other) {
         super(source);
-        this.contact = contact;
+        this.other = other;
     }
 
     /**
      * @return The @EntityBody of the other entity.
      */
     public final EntityBody getOtherBody() {
-        return contact.getOtherBody();
-    }
-
-    /**
-     * @return The Point (relative to the @Entity) in the middle of the collision surface.
-     */
-    public final Point2D getPoint() {
-        return contact.getPoint();
+        return other;
     }
 }

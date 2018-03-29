@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
+import javafx.geometry.Point2D;
 
 /**
  * A @Brain which attacks hated entities during contacts.
@@ -28,9 +29,13 @@ public class ViolentBrain extends AbstractBrain {
         contact.getOtherBody().getOwner().ifPresent(otherEntity -> {
             if (hate(otherEntity)) {
                 getEntity().get(Weapon.class).ifPresent(weapon -> {
-                    weapon.use(contact.getPoint());
+                    weapon.use(weaponUseDirection(otherEntity.getBody()));
                 });
             }
         });
+    }
+
+    private Point2D weaponUseDirection(final EntityBody other) {
+        return getEntity().getBody().getPosition().subtract(other.getPosition());
     }
 }

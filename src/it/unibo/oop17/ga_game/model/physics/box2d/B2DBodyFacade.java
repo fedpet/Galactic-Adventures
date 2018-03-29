@@ -7,10 +7,9 @@ import java.util.stream.Stream;
 import org.jbox2d.dynamics.Body;
 
 import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
+import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EndContactEvent;
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
-import it.unibo.oop17.ga_game.model.physics.BodyContactImpl;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -66,28 +65,25 @@ import javafx.geometry.Point2D;
     }
 
     @Override
-    public Stream<BodyContact> getContacts() {
+    public Stream<EntityBody> getContacts() {
         return B2DUtils.stream(getB2DBody().getContactList())
                 .filter(c -> c.contact.isEnabled())
                 .filter(c -> c.contact.isTouching())
                 .filter(c -> bodyMap.containsKey(c.other))
-                .map(c -> {
-                    return new BodyContactImpl(bodyMap.get(c.other),
-                            B2DUtils.vecToPoint(c.contact.getManifold().localPoint));
-                });
+                .map(c -> bodyMap.get(c.other));
     }
 
     @Override
-    public void beginContact(final BodyContact contact) {
+    public void beginContact(final EntityBody other) {
         getOwner().ifPresent(entity -> {
-            post(new BeginContactEvent(entity, contact));
+            post(new BeginContactEvent(entity, other));
         });
     }
 
     @Override
-    public void endContact(final BodyContact contact) {
+    public void endContact(final EntityBody other) {
         getOwner().ifPresent(entity -> {
-            post(new EndContactEvent(entity, contact));
+            post(new EndContactEvent(entity, other));
         });
     }
 

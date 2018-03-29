@@ -14,8 +14,6 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
-import it.unibo.oop17.ga_game.model.physics.BodyContactImpl;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.model.physics.CollisionListener;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
@@ -112,7 +110,7 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
             callbacks(contact, (listener, other) -> listener.endContact(other));
         }
 
-        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, BodyContact> handler) {
+        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
             if (contact.isEnabled()) {
                 final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
                 final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
@@ -125,8 +123,8 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
         }
 
         private void dispatchCollisionEvent(final Contact contact, final B2DEntityBody entity,
-                final BiConsumer<CollisionListener, BodyContact> handler, final EntityBody other) {
-            handler.accept(entity, new BodyContactImpl(other, B2DUtils.vecToPoint(contact.getManifold().localPoint)));
+                final BiConsumer<CollisionListener, EntityBody> handler, final EntityBody other) {
+            handler.accept(entity, other);
         }
 
         private boolean isThereARemovedBody(final Contact contact) {

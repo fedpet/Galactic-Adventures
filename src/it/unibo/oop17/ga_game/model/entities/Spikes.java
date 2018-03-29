@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities;
 
+import static com.google.common.base.Predicates.alwaysTrue;
+
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
@@ -21,7 +23,7 @@ public class Spikes extends AbstractEntity {
     public Spikes(final BodyFactory bodyFactory, final Point2D position) {
         super(bodyFactory.createStatic(position, SIZE));
         add(new ViolentBrain(EntityPersonality.EVIL));
-        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, (size, relativePosition) -> true));
+        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, alwaysTrue()));
     }
 
     @Override

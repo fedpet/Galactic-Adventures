@@ -4,7 +4,6 @@ import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
-import javafx.geometry.Side;
 
 public class SlimeEnemyBrain extends ViolentBrain {
 
@@ -15,17 +14,13 @@ public class SlimeEnemyBrain extends ViolentBrain {
     @Override
     public void beginContact(final BeginContactEvent contact) {
         super.beginContact(contact);
-        Point2D newDirection = Point2D.ZERO;
-        if (PositionCompare.contact(getEntity().getBody(), contact.getOtherBody()).equals(Side.LEFT)) {
-            newDirection = new Point2D(1, 0);
-        } else if (PositionCompare.contact(getEntity().getBody(), contact.getOtherBody()).equals(Side.RIGHT)) {
-            newDirection = new Point2D(-1, 0);
-        }
+        final Point2D newDirection = PositionCompare
+                .sideToDirection(PositionCompare.relativeSide(getEntity().getBody(), contact.getOtherBody()));
 
-        final Point2D dir = newDirection;
+        final Point2D dir = new Point2D(newDirection.getX(), 0);
         if (!newDirection.equals(Point2D.ZERO)) {
             getEntity().get(MovementComponent.class).ifPresent(movement -> {
-                movement.move(dir);
+                movement.move(dir.multiply(-1));
             });
         }
     }

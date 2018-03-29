@@ -1,7 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 
 /**
  * A PlatformBrain follows a pattern and takes care of passengers safety.
@@ -32,8 +33,7 @@ public final class PlatformBrain extends AbstractBrain {
         }
         final Point2D correction = velocity;
         getEntity().getBody().getContacts()
-                .filter(c -> c.getPoint().getY() <= -getEntity().getBody().getDimension().getHeight() / 2)
-                .map(BodyContact::getOtherBody)
+                .filter(body -> PositionCompare.relativeSide(getEntity().getBody(), body) == Side.TOP)
                 .forEach(passenger -> {
                     if (passenger.getLinearVelocity().getY() <= 0) {
                         passenger.applyImpulse(correction);
