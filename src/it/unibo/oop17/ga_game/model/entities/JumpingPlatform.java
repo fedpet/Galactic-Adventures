@@ -39,7 +39,7 @@ public class JumpingPlatform extends AbstractEntity {
                 .filter(body -> PositionCompare.relativeSide(getBody(), body) == Side.TOP)
                 .findAny()
                 .ifPresent(b -> {
-                    post(new TriggerEvent(this, ""));
+                    post(new TriggerEvent(this));
                 });
     }
 }
