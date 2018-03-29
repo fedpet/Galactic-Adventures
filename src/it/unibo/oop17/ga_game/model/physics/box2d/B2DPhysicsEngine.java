@@ -116,13 +116,13 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
                 final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
 
                 if (first != null && second != null) {
-                    dispatchCollisionEvent(contact, first, handler, second);
-                    dispatchCollisionEvent(contact, second, handler, first);
+                    dispatchCollisionEvent(first, handler, second);
+                    dispatchCollisionEvent(second, handler, first);
                 }
             }
         }
 
-        private void dispatchCollisionEvent(final Contact contact, final B2DEntityBody entity,
+        private void dispatchCollisionEvent(final B2DEntityBody entity,
                 final BiConsumer<CollisionListener, EntityBody> handler, final EntityBody other) {
             handler.accept(entity, other);
         }
@@ -135,7 +135,7 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
 
         private void handleContactBetweenRemovedBodies(final Contact contact) {
             contact.setEnabled(false);
-            contact.flagForFiltering();
+            // contact.flagForFiltering();
         }
     }
 }
