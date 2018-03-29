@@ -12,6 +12,7 @@ import javafx.geometry.Point2D;
  */
 public interface BodyFactory {
     /**
+     * Creature bodies are solid, moveable and subject to forces.
      * 
      * @param position
      *            Position (relative to the body's center)
