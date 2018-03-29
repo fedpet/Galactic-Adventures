@@ -14,7 +14,7 @@ public class TriggerEntityController extends AbstractLifelessEntityController<Tr
     }
 
     @Subscribe
-    public void triggered(final TriggerEvent event) {
+    public void trigger(final TriggerEvent event) {
         getEntityView().changeState(TriggerState.ON);
     }
 

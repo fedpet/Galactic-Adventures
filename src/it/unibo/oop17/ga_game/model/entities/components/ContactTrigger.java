@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggerEvent;
+import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeringEvent;
 
 public class ContactTrigger extends AbstractContactAwareComponent implements TriggerComponent {
 
@@ -27,7 +27,7 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
     protected void handleContact(final EntityBody other) {
         if (!hasTriggered()) {
             triggered = true;
-            post(new PasswordTriggerEvent(getEntity(), password));
+            post(new PasswordTriggeringEvent(getEntity(), password));
         }
     }
 }

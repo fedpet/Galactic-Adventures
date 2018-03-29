@@ -5,7 +5,7 @@ import static com.google.common.base.Predicates.equalTo;
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
-import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
+import it.unibo.oop17.ga_game.model.entities.events.TriggeringEvent;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Dimension2D;
@@ -39,7 +39,7 @@ public class JumpingPlatform extends AbstractEntity {
                 .filter(body -> PositionCompare.relativeSide(getBody(), body) == Side.TOP)
                 .findAny()
                 .ifPresent(b -> {
-                    post(new TriggerEvent(this));
+                    post(new TriggeringEvent(this));
                 });
     }
 }
