@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

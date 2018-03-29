@@ -1,10 +1,12 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
+import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.CollisionGrid;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.RectanglesExtractor;

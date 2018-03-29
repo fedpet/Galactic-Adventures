@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -14,12 +14,17 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.model.physics.BodyContactImpl;
+import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.CollisionListener;
+import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
 /**
- * Manages the game world physics.
+ * Manages the game world physics through Box2D.
  */
-/* package-protected */ final class B2DPhysicsEngine implements PhysicsEngine {
+public final class B2DPhysicsEngine implements PhysicsEngine {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
     private final Map<Body, B2DEntityBody> collisionMap = new HashMap<>();
@@ -32,7 +37,7 @@ import javafx.geometry.Point2D;
      * @param gravity
      *            The force of the gravity
      */
-    /* package-protected */ B2DPhysicsEngine(final Point2D gravity) {
+    public B2DPhysicsEngine(final Point2D gravity) {
         world = new World(B2DUtils.pointToVec(gravity));
         world.setContactListener(new MyContactListener());
     }

@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
 import java.util.Map;
 import java.util.Objects;
@@ -9,6 +9,8 @@ import org.jbox2d.dynamics.Body;
 import it.unibo.oop17.ga_game.model.entities.components.AbstractEntityComponent;
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EndContactEvent;
+import it.unibo.oop17.ga_game.model.physics.BodyContact;
+import it.unibo.oop17.ga_game.model.physics.BodyContactImpl;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 

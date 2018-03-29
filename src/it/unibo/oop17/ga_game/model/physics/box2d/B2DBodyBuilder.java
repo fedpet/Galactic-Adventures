@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
