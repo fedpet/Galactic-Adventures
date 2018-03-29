@@ -1,10 +1,8 @@
 package it.unibo.oop17.ga_game.model.physics;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -12,16 +10,18 @@ import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
  * Manages the game world physics.
  */
-/* package-protected */ final class B2DPhysicsEngine implements PhysicsEngine {
+/* package-protected */ final class B2DPhysicsEngine implements PhysicsEngine, B2DBodySpawner {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
     private final Map<Body, B2DEntityBody> collisionMap = new HashMap<>();
@@ -60,33 +60,12 @@ import javafx.geometry.Point2D;
         return new B2DBodyFactory(this);
     }
 
-    /**
-     * For internal use only.
-     * 
-     * @return World
-     */
-    public World getB2DWorld() {
-        return world;
-    }
-
-    /**
-     * Maps a Box2D's Body to a @B2DEntityBody.
-     * 
-     * @param b2Body
-     *            the body
-     * @param body
-     *            the @B2DEntityBody
-     */
-    public void map(final Body b2Body, final B2DEntityBody body) {
-        collisionMap.put(Objects.requireNonNull(b2Body), Objects.requireNonNull(body));
-    }
-
-    /**
-     * 
-     * @return the map of bodies.
-     */
-    public Map<Body, B2DEntityBody> getBodiesMap() {
-        return Collections.unmodifiableMap(collisionMap);
+    @Override
+    public B2DBodyFacade spawn(final BodyDef bodyDef, final Dimension2D size) {
+        final Body b2Body = world.createBody(bodyDef);
+        final B2DBodyFacade body = new B2DBodyFacade(b2Body, size, collisionMap);
+        collisionMap.put(b2Body, body);
+        return body;
     }
 
     @Override
