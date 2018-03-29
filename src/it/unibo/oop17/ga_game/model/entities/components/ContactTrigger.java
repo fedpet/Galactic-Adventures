@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
-import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
+import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggerEvent;
 
 public class ContactTrigger extends AbstractEntityComponent implements TriggerComponent {
 
@@ -25,7 +25,7 @@ public class ContactTrigger extends AbstractEntityComponent implements TriggerCo
     public void beginContact(final BeginContactEvent contact) {
         if (!hasTriggered()) {
             triggered = true;
-            post(new TriggerEvent(getEntity(), password));
+            post(new PasswordTriggerEvent(getEntity(), password));
         }
     }
 
