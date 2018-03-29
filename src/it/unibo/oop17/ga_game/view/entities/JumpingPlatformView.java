@@ -23,12 +23,18 @@ public class JumpingPlatformView extends AbstractStateChangingEntityView<Trigger
         changeState(TriggerState.OFF);
     }
 
+    @Override
+    public void setDimension(final Dimension2D dimension) {
+        // we don't change dimension..
+        // TODO: improve
+    }
+
     private Runnable jumpAnimation() {
         return () -> {
             setImage(IMG_JUMP);
             setAnimation(new Timeline(
                     new KeyFrame(Duration.millis(JUMP_ANIM_DURATION), e -> {
-                        super.changeState(TriggerState.OFF);
+                        changeState(TriggerState.OFF);
                     })));
         };
     }
