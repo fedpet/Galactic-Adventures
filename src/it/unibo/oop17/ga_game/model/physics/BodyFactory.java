@@ -56,6 +56,11 @@ public interface BodyFactory {
     EntityBody createItem(Point2D position, Dimension2D size);
 
     /**
+     * @return a @BodyBuilder to create custom bodies.
+     */
+    BodyBuilder custom();
+
+    /**
      * Terrain bodies are not subject to forces and won't move.
      * 
      * @param position
