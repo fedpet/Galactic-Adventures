@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.view;
 
+/**
+ *  Supported languages.
+ */
 public enum Language {
     
     ITA(Text.ITALIAN),

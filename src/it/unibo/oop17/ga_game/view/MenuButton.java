@@ -17,6 +17,7 @@ public class MenuButton extends StackPane {
 
     public MenuButton(final String name, final Volume sfxVol) {
         
+        super();
         update(name, sfxVol);
         
     }

@@ -2,6 +2,9 @@ package it.unibo.oop17.ga_game.model;
 
 import it.unibo.oop17.ga_game.view.Text;
 
+/**
+ *  Difficulty values.
+ */
 public enum Difficulty {
     
     EASY(Text.EASY),

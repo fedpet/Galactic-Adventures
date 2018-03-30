@@ -2,6 +2,9 @@ package it.unibo.oop17.ga_game.view;
 
 import java.io.File;
 
+/**
+ *  In-game music tracks.
+ */
 public enum Music {
     
     TRACK1(new File("res/audio/music/action1.mp3")),

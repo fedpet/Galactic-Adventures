@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.view;
 
+/**
+ *  Name of every text for translation.
+ */
 public enum Text {
     
     CONTINUE,

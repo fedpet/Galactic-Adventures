@@ -12,6 +12,9 @@ public class RandomBackground {
             "/bg_shroom.png",
             "/bg_desert.png");
     
+    /**
+     *  @return random background image.
+     */
     public String getBackgroundPath() {
         return BACKGROUNDS.get(new Random().nextInt(BACKGROUNDS.size()));
     }

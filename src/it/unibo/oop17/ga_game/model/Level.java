@@ -2,6 +2,9 @@ package it.unibo.oop17.ga_game.model;
 
 import it.unibo.oop17.ga_game.view.Music;
 
+/**
+ *  In-game levels paired with music tracks.
+ */
 public enum Level {
     
     LEVEL_1("res\\LEVEL_1.tmx", Music.TRACK1),

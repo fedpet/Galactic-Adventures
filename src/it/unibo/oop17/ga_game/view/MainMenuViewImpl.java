@@ -12,7 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class MainMenuViewImpl extends Parent implements MainMenuViewInterface {
+public class MainMenuViewImpl extends Parent implements MainMenuView {
     
     private final static Music MAINMENU_M = Music.TRACK1;
     private final static int OFFSET = 364;

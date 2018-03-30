@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.view;
 
+/**
+ *  Volume values.
+ */
 public enum Volume {
     
     MUTE(0, Text.MUTE),        // no audio

@@ -12,7 +12,7 @@ import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.MainMenuViewImpl;
-import it.unibo.oop17.ga_game.view.MainMenuViewInterface;
+import it.unibo.oop17.ga_game.view.MainMenuView;
 import it.unibo.oop17.ga_game.view.Text;
 import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
@@ -20,7 +20,7 @@ import javafx.application.Platform;
 public class MainMenuController implements MainMenuObserver {
     
     private final ConfigData data;
-    private final MainMenuViewInterface view;
+    private final MainMenuView view;
     private final Map<Language, Map<Text, String>> languages;
     
     MainMenuController(final ConfigData data, final GameData save) {
@@ -56,12 +56,12 @@ public class MainMenuController implements MainMenuObserver {
     
     @Override
     public final void newGame() {
-        
+        // TODO
     }
     
     @Override
     public final void continueGame() {
-        
+        // TODO
     }
     
     @Override

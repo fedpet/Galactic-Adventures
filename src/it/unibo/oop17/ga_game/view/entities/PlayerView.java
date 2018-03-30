@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.view.entities;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -11,7 +12,7 @@ public final class PlayerView extends AbstractLivingEntityView {
     private static final int WIDTH = 72, HEIGHT = 97;
     private static final Image IMG_HURT = new Image("/p1_hurt.png");
     private static final int PAIN_ANIM_DURATION = 300; // ms
-    private CreatureState previousState = CreatureState.IDLE;
+    private CreatureState currentState = CreatureState.IDLE;
 
     public PlayerView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
@@ -21,23 +22,34 @@ public final class PlayerView extends AbstractLivingEntityView {
         mapAnimation(CreatureState.JUMPING, justAnImage(new Image("/p1_jump.png")));
         mapAnimation(CreatureState.SUFFERING, painAnimation());
 
-        startAnimation(CreatureState.IDLE);
+        startAnimation(currentState);
     }
 
     @Override
     public void changeState(final CreatureState state) {
+        if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
+            return; // don't stop suffer animation in this case.
+        }
+        currentState = state;
         super.changeState(state);
-        previousState = state;
+    }
+
+    @Override
+    public void setPosition(final Point2D pos) {
+        super.setPosition(pos);
+        getView().getParent().setTranslateX(-getView().getTranslateX() + getView().getScene().getWidth() / 2);
+        getView().getParent().setTranslateY(-getView().getTranslateY() + getView().getScene().getHeight() / 2);
     }
 
     private Runnable painAnimation() {
         return () -> {
-            final CreatureState previous = previousState;
             setImage(IMG_HURT);
-            setAnimation(new Timeline(
+            final Timeline anim = new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
-                        super.changeState(previous);
-                    })));
+                        currentState = CreatureState.IDLE;
+                        changeState(CreatureState.IDLE);
+                    }));
+            setAnimation(anim);
         };
     }
 }

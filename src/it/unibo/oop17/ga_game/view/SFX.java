@@ -2,6 +2,9 @@ package it.unibo.oop17.ga_game.view;
 
 import javafx.scene.media.AudioClip;
 
+/**
+ *  In-game sound effects.
+ */
 public enum SFX {
     
     MOUSE_ENTERED(new AudioClip("file:res/audio/sfx/zap1.wav")),

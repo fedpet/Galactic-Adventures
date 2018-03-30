@@ -10,10 +10,10 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import it.unibo.oop17.ga_game.controller.PlayerInput;
-import it.unibo.oop17.ga_game.controller.PlayerInput.Listener;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Manages key presses.
@@ -23,24 +23,26 @@ public final class PlayerKeyboardInput implements PlayerInput {
     private Optional<Listener> listener = Optional.empty();
 
     /**
-     * 
      * @param scene
      *            The @Scene from which to capture key presses.
      */
     public PlayerKeyboardInput(final Scene scene) {
-        scene.setOnKeyPressed(e -> {
-            pressedKeys.add(e.getCode());
-            notifyDirectionChange();
-        });
-        scene.setOnKeyReleased(e -> {
-            pressedKeys.remove(e.getCode());
-            notifyDirectionChange();
-        });
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, this::onKeyEvent);
+        scene.addEventHandler(KeyEvent.KEY_RELEASED, this::onKeyEvent);
     }
 
     @Override
     public void onInput(final Listener listener) {
         this.listener = Optional.of(listener);
+    }
+
+    private void onKeyEvent(final KeyEvent event) {
+        if (event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+            pressedKeys.add(event.getCode());
+        } else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+            pressedKeys.remove(event.getCode());
+        }
+        notifyDirectionChange();
     }
 
     private void notifyDirectionChange() {

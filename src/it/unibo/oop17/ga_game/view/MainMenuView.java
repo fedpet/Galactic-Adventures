@@ -8,7 +8,7 @@ import it.unibo.oop17.ga_game.model.Difficulty;
 /**
  * Main Menu view interface.
  */
-public interface MainMenuViewInterface {
+public interface MainMenuView {
     
     /**
      * @param observer the controller to attach
