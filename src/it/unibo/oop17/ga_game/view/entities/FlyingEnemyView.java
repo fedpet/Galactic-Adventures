@@ -13,6 +13,7 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
 
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/bee.png")));
         mapAnimation(CreatureState.FLYING, aSpriteAnimation(new Image("/bee_moving.png"), Duration.millis(700), 2));
+        mapAnimation(CreatureState.DEAD, justAnImage(new Image("/bee_dead.png")));
 
         startAnimation(CreatureState.FLYING);
     }
