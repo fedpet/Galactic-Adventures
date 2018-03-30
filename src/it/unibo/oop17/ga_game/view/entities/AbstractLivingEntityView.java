@@ -30,7 +30,6 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
         if (pointFromDeath == null) {
             pointFromDeath = startingPoint;
             flip(VerticalDirection.DOWN);
-            changeState(CreatureState.IDLE);
         }
         pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
         setPosition(ViewUtils.worldPointToFX(pointFromDeath));
