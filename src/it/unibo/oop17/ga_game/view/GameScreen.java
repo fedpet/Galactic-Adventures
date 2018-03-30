@@ -6,9 +6,9 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
-import it.unibo.oop17.ga_game.controller.ConfigData;
 import it.unibo.oop17.ga_game.controller.EntityController;
 import it.unibo.oop17.ga_game.model.CoinType;
+import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.model.ModelSettings;

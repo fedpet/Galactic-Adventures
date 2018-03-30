@@ -1,39 +1,18 @@
 package it.unibo.oop17.ga_game.view;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class RandomBackground {
     
-    final private String BackgroundPath;
-    
-    public RandomBackground() {
-        final int randomNum = ThreadLocalRandom.current().nextInt(0, 3 + 1);
-        final String pathTo = "res/";
-        String backgroundPath = null;
-        
-        switch (randomNum) {
-        case 0:
-            backgroundPath = pathTo + "bg_castle.png";
-            break;
-        case 1:
-            backgroundPath = pathTo + "bg_desert.png";
-            break;
-        case 2:
-            backgroundPath = pathTo + "bg_grasslands.png";
-            break;
-        case 3:
-            backgroundPath = pathTo + "bg_shroom.png";
-            break;
-        default:
-            backgroundPath = pathTo + "bg_castle.png";
-        }
-        
-        this.BackgroundPath = backgroundPath;
-        
-    }
+    private static final List<String> BACKGROUNDS = Arrays.asList(
+            "/bg_castle.png",
+            "/bg_grasslands.png",
+            "/bg_shroom.png",
+            "/bg_desert.png");
     
     public String getBackgroundPath() {
-        return this.BackgroundPath;
+        return BACKGROUNDS.get(new Random().nextInt(BACKGROUNDS.size()));
     }
-
 }

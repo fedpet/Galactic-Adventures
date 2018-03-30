@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="32.0" layoutX="-271.0" layoutY="-282.0" opacity="0.5" strokeType="INSIDE" width="384.0">
+         <effect>
+            <GaussianBlur radius="3.5" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="-271.0" layoutY="-258.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="DejaVu Sans Bold" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

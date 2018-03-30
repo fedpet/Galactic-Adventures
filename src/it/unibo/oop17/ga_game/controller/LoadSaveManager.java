@@ -9,9 +9,9 @@ import java.io.Serializable;
 
 import javafx.application.Platform;
 
-public final class ResourceManager {
+public final class LoadSaveManager {
     
-    private ResourceManager() {
+    private LoadSaveManager() {
     }
     
     public static void save(final Serializable data, final String path) {

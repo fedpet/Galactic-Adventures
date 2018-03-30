@@ -7,7 +7,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        new GameWindow(primaryStage, CheckData.loadConfig(), CheckSave.loadSave());
+        new GameWindow(primaryStage);
     }
 
     public static void main(final String[] args) {

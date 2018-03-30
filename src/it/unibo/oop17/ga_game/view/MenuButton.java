@@ -21,7 +21,7 @@ public class MenuButton extends StackPane {
         
     }
     
-    public final void update(final String name, final Volume sfxVol){
+    public final void update(final String name, final Volume sfxVol) {
         
         this.sfxVol = sfxVol.getVolume();
         
