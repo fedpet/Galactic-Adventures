@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
+import it.unibo.oop17.ga_game.model.entities.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Dimension2D;
@@ -8,12 +9,19 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
+/**
+ * Models a {@link Player} view.
+ */
 public final class PlayerView extends AbstractLivingEntityView {
     private static final int WIDTH = 72, HEIGHT = 97;
     private static final Image IMG_HURT = new Image("/p1_hurt.png");
     private static final int PAIN_ANIM_DURATION = 300; // ms
     private CreatureState currentState = CreatureState.IDLE;
 
+    /**
+     * @param group
+     *            The @Group in which the player view is added.
+     */
     public PlayerView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 

@@ -5,6 +5,9 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
+/**
+ * Models a {@link Lock} view.
+ */
 public class LockView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
     private static final String RED_LOCK = "/lock_red.png";
@@ -12,6 +15,12 @@ public class LockView extends AbstractEntityView implements LifelessEntityView {
     private static final String YELLOW_LOCK = "/lock_yellow.png";
     private static final String GREEN_LOCK = "/lock_green.png";
 
+    /**
+     * @param group
+     *            The @Group in which the lock view is added.
+     * @param type
+     *            The lock type to represent (RED, BLUE, YELLOW or GREEN).
+     */
     public LockView(final Group group, final KeyLockType type) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 

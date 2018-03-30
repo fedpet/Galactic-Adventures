@@ -3,6 +3,9 @@ package it.unibo.oop17.ga_game.view.entities;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
+/**
+ * Models a standard {@link Entity} view.
+ */
 public interface EntityView {
 
     /**
@@ -26,6 +29,9 @@ public interface EntityView {
      */
     Point2D getPosition();
 
+    /**
+     * Used to remove the entity view from the world view.
+     */
     void remove();
 
 

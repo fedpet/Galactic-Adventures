@@ -6,16 +6,24 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
+/**
+ * Base class for @EntityView.
+ */
 public abstract class AbstractEntityView implements EntityView {
 
     private final ImageView view = new ImageView();
     private final Dimension2D dimension;
     private final Group parentView;
 
+    /**
+     * @param group
+     *            The @Group in which the entity view is added.
+     * @param dimension
+     *            The entity view dimension.
+     */
     public AbstractEntityView(final Group group, final Dimension2D dimension) {
         parentView = group;
         this.dimension = dimension;
-
 
         group.getChildren().add(view);
     }
@@ -42,10 +50,18 @@ public abstract class AbstractEntityView implements EntityView {
         parentView.getChildren().remove(view);
     }
 
+    /**
+     * 
+     * @return the dimension.
+     */
     protected Dimension2D getDimension() {
         return dimension;
     }
 
+    /**
+     * 
+     * @return the @ImageView.
+     */
     protected ImageView getView() {
         return view;
     }

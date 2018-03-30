@@ -7,6 +7,9 @@ import javafx.geometry.Point2D;
 import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
 
+/**
+ * Base class for @LivingEntityView.
+ */
 public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<CreatureState>
         implements LivingEntityView {
 
@@ -16,6 +19,12 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     private int deathTimeCount;
     private Point2D pointFromDeath;
 
+    /**
+     * @param group
+     *            The @Group in which the entity view is added.
+     * @param dimension
+     *            The entity view dimension.
+     */
     public AbstractLivingEntityView(final Group group, final Dimension2D dimension) {
         super(group, dimension);
     }
