@@ -9,16 +9,19 @@ import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
+/**
+ * Models a group of spikes that damage the player at contact.
+ */
 public class Spikes extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double ATTACK_KNOCKBACK = 20;
 
     /**
      * 
-     * @param world
-     *            The world in which to spawn the player.
+     * @param bodyFactory
+     *            the @BodyFactory.
      * @param position
-     *            The position
+     *            Its position (relative to its center).
      */
     public Spikes(final BodyFactory bodyFactory, final Point2D position) {
         super(bodyFactory.createStatic(position, SIZE));

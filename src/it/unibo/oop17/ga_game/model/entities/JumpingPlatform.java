@@ -42,4 +42,9 @@ public class JumpingPlatform extends AbstractEntity {
                     post(new TriggeringEvent(this));
                 });
     }
+
+    @Override
+    public String toString() {
+        return "Jumping platform";
+    }
 }

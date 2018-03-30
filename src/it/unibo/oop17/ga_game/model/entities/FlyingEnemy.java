@@ -16,16 +16,21 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
+/**
+ * Models a flying enemy entity.
+ */
 public class FlyingEnemy extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double ATTACK_KNOCKBACK = 30;
 
     /**
      * 
-     * @param world
-     *            The world in which to spawn the player.
+     * @param bodyFactory
+     *            the @BodyFactory.
      * @param position
-     *            The position
+     *            Its position (relative to its center).
+     * @param positions
+     *            The path the entity has to follow.
      */
     public FlyingEnemy(final BodyFactory bodyFactory, final Point2D position, final Supplier<Point2D> positions) {
         super(bodyFactory.createCreature(position, SIZE));

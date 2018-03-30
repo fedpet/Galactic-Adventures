@@ -13,6 +13,10 @@ import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeringEvent;
 
+/**
+ * It keeps track of entities' triggerable components in the @GameWorld and it triggers them at
+ * a @PasswordTriggeringEvent.
+ */
 public class TriggerLinker {
     private final Map<String, Set<TriggerableComponent>> map = new HashMap<>();
     private final MyTriggerListener listener = new MyTriggerListener();
