@@ -1,31 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities.events;
 
-import it.unibo.oop17.ga_game.model.entities.Entity;
-
 /**
- * Models a new trigger event.
+ * Event for trigger-related @Entity.
  */
-public class TriggerEvent extends AbstractEntityEvent {
+public interface TriggerEvent extends EntityEvent {
 
-    private final String password;
-
-    /**
-     * 
-     * @param source
-     *            The @Entity source of this event.
-     * @param password
-     *            the relative password
-     */
-    public TriggerEvent(final Entity source, final String password) {
-        super(source);
-        this.password = password;
-    }
-
-    /**
-     * 
-     * @return The password associated to the event
-     */
-    public String getPassword() {
-        return password;
-    }
 }

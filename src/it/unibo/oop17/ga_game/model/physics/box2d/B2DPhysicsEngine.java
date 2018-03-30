@@ -1,12 +1,9 @@
-package it.unibo.oop17.ga_game.model.physics;
+package it.unibo.oop17.ga_game.model.physics.box2d;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -16,12 +13,14 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
 /**
- * Manages the game world physics.
+ * Manages the game world physics through Box2D.
  */
-/* package-protected */ final class B2DPhysicsEngine implements PhysicsEngine {
+public final class B2DPhysicsEngine implements PhysicsEngine {
     private static final int VELOCITY_ITERATIONS = 8; // recommended box2d values
     private static final int POSITION_ITERATIONS = 3;
     private final Map<Body, B2DEntityBody> collisionMap = new HashMap<>();
@@ -34,7 +33,7 @@ import javafx.geometry.Point2D;
      * @param gravity
      *            The force of the gravity
      */
-    /* package-protected */ B2DPhysicsEngine(final Point2D gravity) {
+    public B2DPhysicsEngine(final Point2D gravity) {
         world = new World(B2DUtils.pointToVec(gravity));
         world.setContactListener(new MyContactListener());
     }
@@ -57,36 +56,12 @@ import javafx.geometry.Point2D;
 
     @Override
     public BodyFactory bodyFactory() {
-        return new B2DBodyFactory(this);
-    }
-
-    /**
-     * For internal use only.
-     * 
-     * @return World
-     */
-    public World getB2DWorld() {
-        return world;
-    }
-
-    /**
-     * Maps a Box2D's Body to a @B2DEntityBody.
-     * 
-     * @param b2Body
-     *            the body
-     * @param body
-     *            the @B2DEntityBody
-     */
-    public void map(final Body b2Body, final B2DEntityBody body) {
-        collisionMap.put(Objects.requireNonNull(b2Body), Objects.requireNonNull(body));
-    }
-
-    /**
-     * 
-     * @return the map of bodies.
-     */
-    public Map<Body, B2DEntityBody> getBodiesMap() {
-        return Collections.unmodifiableMap(collisionMap);
+        return new B2DBodyFactory((bodyDef, size) -> {
+            final Body b2Body = world.createBody(bodyDef);
+            final B2DBodyFacade body = new B2DBodyFacade(b2Body, size, collisionMap);
+            collisionMap.put(b2Body, body);
+            return body;
+        });
     }
 
     @Override
@@ -109,9 +84,12 @@ import javafx.geometry.Point2D;
         public void beginContact(final Contact contact) {
             if (isThereARemovedBody(contact)) {
                 handleContactBetweenRemovedBodies(contact);
-            } else {
-                callbacks(contact, (listener, other) -> listener.beginContact(other));
             }
+            /*
+             * else {
+             * callbacks(contact, (listener, other) -> listener.beginContact(other));
+             * }
+             */
         }
 
         @Override
@@ -130,25 +108,22 @@ import javafx.geometry.Point2D;
                 handleContactBetweenRemovedBodies(contact);
             }
             // report the end of contact anyway
-            callbacks(contact, (listener, other) -> listener.endContact(other));
+            //callbacks(contact, (listener, other) -> listener.endContact(other));
         }
 
-        private void callbacks(final Contact contact, final BiConsumer<CollisionListener, BodyContact> handler) {
-            if (contact.isEnabled()) {
-                final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
-                final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
-
-                if (first != null && second != null) {
-                    dispatchCollisionEvent(contact, first, handler, second);
-                    dispatchCollisionEvent(contact, second, handler, first);
-                }
-            }
-        }
-
-        private void dispatchCollisionEvent(final Contact contact, final B2DEntityBody entity,
-                final BiConsumer<CollisionListener, BodyContact> handler, final EntityBody other) {
-            handler.accept(entity, new BodyContactImpl(other, B2DUtils.vecToPoint(contact.getManifold().localPoint)));
-        }
+        /*
+         * private void callbacks(final Contact contact, final BiConsumer<CollisionListener, EntityBody> handler) {
+         * if (contact.isEnabled()) {
+         * final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
+         * final B2DEntityBody second = collisionMap.get(contact.getFixtureB().getBody());
+         * 
+         * if (first != null && second != null) {
+         * handler.accept(first, second);
+         * handler.accept(second, first);
+         * }
+         * }
+         * }
+         */
 
         private boolean isThereARemovedBody(final Contact contact) {
             final B2DEntityBody first = collisionMap.get(contact.getFixtureA().getBody());
@@ -158,7 +133,7 @@ import javafx.geometry.Point2D;
 
         private void handleContactBetweenRemovedBodies(final Contact contact) {
             contact.setEnabled(false);
-            contact.flagForFiltering();
+            // contact.flagForFiltering();
         }
     }
 }

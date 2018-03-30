@@ -1,8 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import com.google.common.eventbus.Subscribe;
+import java.util.Optional;
 
-import it.unibo.oop17.ga_game.model.entities.events.BeginContactEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FinishedLevelEvent;
 
 public class TriggerableDoorComponent extends OneTimeTriggerable {
@@ -11,15 +10,19 @@ public class TriggerableDoorComponent extends OneTimeTriggerable {
         super(password, triggered);
     }
 
-    @Subscribe
-    public void beginContact(final BeginContactEvent contact) {
-        if (isTriggered()) {
-            contact.getOtherBody().getOwner().ifPresent(entity -> {
-                entity.get(Inventory.class).ifPresent(inv -> {
+    @Override
+    public void update(final double dt) {
+        super.update(dt);
+        getEntity().getBody()
+                .getContacts()
+                .map(EntityBody::getOwner)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(entity -> entity.get(Inventory.class).isPresent())
+                .findAny()
+                .ifPresent(entity -> {
                     post(new FinishedLevelEvent(entity));
-                });
             });
-        }
     }
 
 }

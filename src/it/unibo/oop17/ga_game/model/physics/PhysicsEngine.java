@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model.physics;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
+import it.unibo.oop17.ga_game.model.physics.box2d.B2DPhysicsEngine;
 import javafx.geometry.Point2D;
 
 /**
@@ -31,7 +32,7 @@ public interface PhysicsEngine {
     void remove(EntityBody body);
 
     /**
-     * Static factory.
+     * Creates an instance of our best PhysicsEngine.
      * 
      * @param gravity
      *            The gravity for this world.

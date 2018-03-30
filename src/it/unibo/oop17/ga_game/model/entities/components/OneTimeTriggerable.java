@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
+import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 
 public class OneTimeTriggerable extends AbstractEntityComponent implements TriggerableComponent {
 
@@ -21,7 +21,7 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
     @Override
     public void trigger() {
         if (!isTriggered()) {
-            post(new TriggerEvent(getEntity(), password));
+            post(new TriggeredEvent(getEntity()));
             triggered = true;
         }
     }

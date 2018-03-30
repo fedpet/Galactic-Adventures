@@ -13,6 +13,7 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
 
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/slimeGreen.png")));
         mapAnimation(CreatureState.WALKING, aSpriteAnimation(new Image("/slimeGreen_moving.png"), Duration.millis(700), 2));
+        mapAnimation(CreatureState.DEAD, justAnImage(new Image("/slimeGreen_dead.png")));
 
         startAnimation(CreatureState.WALKING);
     }

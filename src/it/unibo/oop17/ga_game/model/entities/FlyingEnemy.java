@@ -1,5 +1,8 @@
 package it.unibo.oop17.ga_game.model.entities;
 
+import static com.google.common.base.Predicates.equalTo;
+import static com.google.common.base.Predicates.not;
+
 import java.util.function.Supplier;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
@@ -9,9 +12,9 @@ import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
-import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 
 public class FlyingEnemy extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
@@ -30,7 +33,7 @@ public class FlyingEnemy extends AbstractEntity {
         add(new FixedPatternPilot(positions));
         add(new LinearPropeller(5));
         add(new LinearLife(5));
-        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, PositionCompare::exceptBottom));
+        add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, not(equalTo(Side.TOP))));
     }
 
     @Override

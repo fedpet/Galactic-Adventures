@@ -2,7 +2,6 @@ package it.unibo.oop17.ga_game.model.entities.components;
 
 import java.util.stream.Stream;
 
-import it.unibo.oop17.ga_game.model.physics.BodyContact;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -51,11 +50,11 @@ public interface EntityBody extends EntityComponent {
     void setGravityScale(double scale);
 
     /**
-     * Gets the list of @EntityBody colliding with this one.
+     * Gets all @EntityBody colliding with this one.
      * 
-     * @return a Stream of @BodyContact
+     * @return a Stream of @EntityBody
      */
-    Stream<BodyContact> getContacts();
+    Stream<EntityBody> getContacts();
 
     /**
      * @return true if the body is solid, rigid, cannot be passed through.

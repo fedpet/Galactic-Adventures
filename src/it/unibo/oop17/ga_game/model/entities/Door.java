@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
 public class Door extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
 
-    public Door(final BodyFactory bodyFactory, final Point2D position, final String password, boolean open) {
+    public Door(final BodyFactory bodyFactory, final Point2D position, final String password, final boolean open) {
         super(bodyFactory.createItem(position, SIZE));
         add(new TriggerableDoorComponent(password, open));
     }
