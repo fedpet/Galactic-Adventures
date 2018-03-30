@@ -20,10 +20,10 @@ public final class SlimeEnemy extends AbstractEntity {
 
     /**
      * 
-     * @param world
-     *            The world in which to spawn the player.
+     * @param bodyFactory
+     *            the @BodyFactory.
      * @param position
-     *            The position
+     *            Its position (relative to its center).
      */
     public SlimeEnemy(final BodyFactory bodyFactory, final Point2D position) {
         super(bodyFactory.createCreature(position, SIZE));
