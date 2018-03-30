@@ -4,6 +4,9 @@ import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
+/**
+ * A @ViolentBrain that makes the entity change direction when it collides at right or left.
+ */
 public class SlimeEnemyBrain extends ViolentBrain {
 
     public SlimeEnemyBrain() {
