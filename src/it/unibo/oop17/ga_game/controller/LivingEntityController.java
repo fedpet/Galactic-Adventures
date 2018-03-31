@@ -42,16 +42,34 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
         }
     }
 
+    /**
+     * It changes the entity state at a @MovementEvent signal.
+     * 
+     * @param event
+     *            The @MovementEvent to listen to.
+     */
     @Subscribe
     public void movementChanged(final MovementEvent event) {
         getEntityView().changeState(stateMap.getOrDefault(event.getState(), CreatureState.IDLE));
     }
 
+    /**
+     * It changes the face direction at a @FaceDirectionEvent signal.
+     * 
+     * @param event
+     *            The @FaceDirectionEvent to listen to.
+     */
     @Subscribe
     public void faceDirectionChanged(final FaceDirectionEvent event) {
         getEntityView().changeFaceDirection(event.getDirection());
     }
 
+    /**
+     * It updates the entity state at a @LifeEvent signal.
+     * 
+     * @param event
+     *            The @LifeEvent to listen to.
+     */
     @Subscribe
     public void lifeChange(final LifeEvent life) {
         if (life.isDead()) {
@@ -64,10 +82,10 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     @Override
     @Subscribe
-    public void onEntityDestruction(final DestructionEvent destruction) {
-        destruction.getSource().unregister(this);
-        if (!(destruction.getSource().get(Life.class).isPresent()
-                && destruction.getSource().get(Life.class).get().isDead())) {
+    public void onEntityDestruction(final DestructionEvent event) {
+        event.getSource().unregister(this);
+        if (!(event.getSource().get(Life.class).isPresent()
+                && event.getSource().get(Life.class).get().isDead())) {
             getEntityView().remove();
         }
     }

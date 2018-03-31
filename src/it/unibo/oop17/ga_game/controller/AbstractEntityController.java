@@ -34,7 +34,7 @@ public abstract class AbstractEntityController<V extends EntityView> implements 
      * @param destruction
      *            The @DestructionEvent to listen to.
      */
-    public abstract void onEntityDestruction(final DestructionEvent destruction);
+    public abstract void onEntityDestruction(final DestructionEvent event);
 
     /**
      * @return The associated @Entity.

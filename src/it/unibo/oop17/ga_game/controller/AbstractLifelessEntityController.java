@@ -30,7 +30,7 @@ public abstract class AbstractLifelessEntityController<L extends LifelessEntityV
 
     @Override
     @Subscribe
-    public void onEntityDestruction(final DestructionEvent destruction) {
+    public void onEntityDestruction(final DestructionEvent event) {
         getEntityView().remove();
     }
 
