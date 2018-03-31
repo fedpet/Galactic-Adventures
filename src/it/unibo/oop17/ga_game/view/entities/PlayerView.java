@@ -47,19 +47,14 @@ public final class PlayerView extends AbstractLivingEntityView {
     public void setPosition(final Point2D pos) {
         super.setPosition(pos);
         getView().getParent()
-                .setTranslateX(-getView().getTranslateX() * scalingX() + getView().getScene().getWidth() / 2);
+                .setTranslateX(-getView().getTranslateX() * scaling().getMxx() + getView().getScene().getWidth() / 2);
         getView().getParent()
-                .setTranslateY(-getView().getTranslateY() * scalingY() + getView().getScene().getHeight() / 2);
+                .setTranslateY(-getView().getTranslateY() * scaling().getMyy() + getView().getScene().getHeight() / 2);
     }
 
-    private double scalingX() {
-        return getParentView().getTransforms().stream().filter(t -> t instanceof Scale)
-                .findFirst().orElseGet(() -> new Scale(1, 1)).getMxx();
-    }
-
-    private double scalingY() {
-        return getParentView().getTransforms().stream().filter(t -> t instanceof Scale)
-                .findFirst().orElseGet(() -> new Scale(1, 1)).getMyy();
+    private Scale scaling() {
+        return getParentView().getTransforms().stream().filter(t -> t instanceof Scale).map(t -> (Scale) t)
+                .findFirst().orElseGet(() -> new Scale(1, 1));
     }
 
     private Runnable painAnimation() {
