@@ -65,4 +65,12 @@ public abstract class AbstractEntityView implements EntityView {
     protected ImageView getView() {
         return view;
     }
+
+    /**
+     * 
+     * @return the belonging @Group.
+     */
+    protected Group getParentView() {
+        return parentView;
+    }
 }

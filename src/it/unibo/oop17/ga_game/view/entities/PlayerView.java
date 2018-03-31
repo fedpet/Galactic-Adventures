@@ -7,6 +7,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 /**
@@ -45,8 +46,20 @@ public final class PlayerView extends AbstractLivingEntityView {
     @Override
     public void setPosition(final Point2D pos) {
         super.setPosition(pos);
-        getView().getParent().setTranslateX(-getView().getTranslateX() + getView().getScene().getWidth() / 2);
-        getView().getParent().setTranslateY(-getView().getTranslateY() + getView().getScene().getHeight() / 2);
+        getView().getParent()
+                .setTranslateX(-getView().getTranslateX() * scalingX() + getView().getScene().getWidth() / 2);
+        getView().getParent()
+                .setTranslateY(-getView().getTranslateY() * scalingY() + getView().getScene().getHeight() / 2);
+    }
+
+    private double scalingX() {
+        return getParentView().getTransforms().stream().filter(t -> t instanceof Scale)
+                .findFirst().orElseGet(() -> new Scale(1, 1)).getMxx();
+    }
+
+    private double scalingY() {
+        return getParentView().getTransforms().stream().filter(t -> t instanceof Scale)
+                .findFirst().orElseGet(() -> new Scale(1, 1)).getMyy();
     }
 
     private Runnable painAnimation() {
