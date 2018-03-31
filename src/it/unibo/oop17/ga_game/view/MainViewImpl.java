@@ -7,7 +7,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
-    private static final double GAME_SCALE = 1.8;
+    private static final double GAME_SCALE = 1;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private Screen currentScreen = new EmptyScreen();
