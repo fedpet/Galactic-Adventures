@@ -16,8 +16,6 @@ public final class MainViewImpl implements MainView {
         setScreen(currentScreen);
         stage.setScene(scene);
         stage.show();
-        stage.setWidth(stage.getWidth() * GAME_SCALE);
-        stage.setHeight(stage.getHeight() * GAME_SCALE);
     }
     
 //    @Override
