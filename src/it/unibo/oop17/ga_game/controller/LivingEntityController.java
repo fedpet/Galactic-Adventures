@@ -16,10 +16,19 @@ import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.CreatureState;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
+/**
+ * Translates view input to model input and updates the view for entities with @LivingEntityView.
+ */
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
     private final Map<MovementComponent.State, CreatureState> stateMap = mapToCreatureState();
 
+    /**
+     * @param entity
+     *            The @Entity to control.
+     * @param entityView
+     *            The @LivingEntityView to update.
+     */
     public LivingEntityController(final Entity entity, final LivingEntityView entityView) {
         super(entity, entityView);
     }

@@ -22,13 +22,13 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
     public LeverView(final Group group, final boolean activatedFromStart) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
-        mapAnimation(TriggerState.ON, justAnImage(new Image("/switchRight.png")));
-        mapAnimation(TriggerState.OFF, justAnImage(new Image("/switchLeft.png")));
+        mapAnimation(TriggerState.ACTIVATED, justAnImage(new Image("/switchRight.png")));
+        mapAnimation(TriggerState.DEACTIVATED, justAnImage(new Image("/switchLeft.png")));
 
         if (activatedFromStart) {
-            startAnimation(TriggerState.ON);
+            startAnimation(TriggerState.ACTIVATED);
         } else {
-            startAnimation(TriggerState.OFF);
+            startAnimation(TriggerState.DEACTIVATED);
         }
     }
 }

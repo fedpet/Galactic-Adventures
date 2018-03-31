@@ -7,9 +7,18 @@ import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 
+/**
+ * Translates view input to model input and updates the view for entities with @LifelessEntityView.
+ */
 public abstract class AbstractLifelessEntityController<L extends LifelessEntityView>
         extends AbstractEntityController<L> {
 
+    /**
+     * @param entity
+     *            The @Entity to control.
+     * @param entityView
+     *            The @LifelessEntityView to update.
+     */
     public AbstractLifelessEntityController(final Entity entity, final L entityView) {
             super(entity, entityView);
         }

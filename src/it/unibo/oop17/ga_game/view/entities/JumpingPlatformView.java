@@ -25,10 +25,10 @@ public class JumpingPlatformView extends AbstractStateChangingEntityView<Trigger
     public JumpingPlatformView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
-        mapAnimation(TriggerState.OFF, justAnImage(IMG_IDLE));
-        mapAnimation(TriggerState.ON, jumpAnimation());
+        mapAnimation(TriggerState.DEACTIVATED, justAnImage(IMG_IDLE));
+        mapAnimation(TriggerState.ACTIVATED, jumpAnimation());
 
-        changeState(TriggerState.OFF);
+        changeState(TriggerState.DEACTIVATED);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class JumpingPlatformView extends AbstractStateChangingEntityView<Trigger
             setImage(IMG_JUMP);
             setAnimation(new Timeline(
                     new KeyFrame(Duration.millis(JUMP_ANIM_DURATION), e -> {
-                        changeState(TriggerState.OFF);
+                        changeState(TriggerState.DEACTIVATED);
                     })));
         };
     }
