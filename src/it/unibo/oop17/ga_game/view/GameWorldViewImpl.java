@@ -19,10 +19,7 @@ public class GameWorldViewImpl implements GameWorldView, Screen {
 
     public GameWorldViewImpl(final PlayerInput input, final double scaleFactor) {
         playerInput = input;
-        final Scale scale = new Scale();
-        scale.setX(scaleFactor);
-        scale.setY(scaleFactor);
-        worldView.getTransforms().addAll(scale);
+        worldView.getTransforms().addAll(new Scale(scaleFactor, scaleFactor));
     }
 
     @Override
