@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.view;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -7,7 +8,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
-    private static final double GAME_SCALE = 1;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private Screen currentScreen = new EmptyScreen();
@@ -24,7 +24,7 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public GameWorldView showGame() {
-        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), GAME_SCALE));
+        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()));
     }
 
 
@@ -39,5 +39,10 @@ public final class MainViewImpl implements MainView {
     public void showError(final Text message) {
         // TODO: translate message
         new Alert(AlertType.ERROR, message.toString()).showAndWait();
+    }
+
+    private double getScaleFactor() {
+        final Rectangle2D primaryScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
+        return Math.min(primaryScreenBounds.getWidth() / 1920, primaryScreenBounds.getHeight() / 1080);
     }
 }
