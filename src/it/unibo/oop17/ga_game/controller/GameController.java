@@ -11,9 +11,12 @@ import org.mapeditor.core.TileLayer;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.entities.Player;
+import it.unibo.oop17.ga_game.model.entities.components.Inventory;
+import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.SimpleCollisionGrid;
 import it.unibo.oop17.ga_game.view.GameWorldView;
+import it.unibo.oop17.ga_game.view.HudView;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -22,15 +25,19 @@ public class GameController {
     private static final double FRAMERATE = 1.0 / 60;
     private final GameWorld model;
     private final GameWorldView view;
+    private final HudView hudView;
     private final Set<EntityController> entities = new LinkedHashSet<>();
+    private Player player;
 
-    public GameController(final GameWorld world, final GameWorldView view) {
+    public GameController(final GameWorld world, final GameWorldView view, final HudView hudView) {
         this.model = world;
         this.view = view;
+        this.hudView = hudView;
     }
 
     public void run(final Map level) {
         loadLevel(level);
+        hudView.addHud();
 
         new AnimationTimer() {
             @Override
@@ -43,6 +50,10 @@ public class GameController {
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
+        if (player != null) {
+            hudView.update(player.get(Life.class).get().getHealthPoints(),
+                    player.get(Inventory.class).get().getMoney());
+        }
     }
 
     private void loadLevel(final Map map) {
@@ -55,10 +66,11 @@ public class GameController {
         });
 
         final BodyFactory body = model.bodyFactory();
-        final Player player = new Player(body, new Point2D(4, -4));
+        player = new Player(body, new Point2D(4, -4));
         model.addEntity(player);
         entities.add(new PlayerController(view.getPlayerInput(), player,
                 view.entityFactory().createPlayer()));
+
     }
 
     private void loadEntities(final ObjectGroup layer) {

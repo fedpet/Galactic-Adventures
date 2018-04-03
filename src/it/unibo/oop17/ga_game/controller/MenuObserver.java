@@ -1,9 +1,11 @@
 package it.unibo.oop17.ga_game.controller;
 
+import it.unibo.oop17.ga_game.view.MenuView;
+
 /**
  * Main Menu controller interface.
  */
-public interface MainMenuObserver {
+public interface MenuObserver {
     
     /**
      * Starts new Game.
@@ -54,5 +56,7 @@ public interface MainMenuObserver {
      * Updates view.
      */
     void updateView();
+
+    MenuView getView();
 
 }

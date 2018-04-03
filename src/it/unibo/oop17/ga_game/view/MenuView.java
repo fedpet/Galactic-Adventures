@@ -2,21 +2,21 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MainMenuObserver;
+import it.unibo.oop17.ga_game.controller.MenuObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 
 /**
  * Main Menu view interface.
  */
-public interface MainMenuView {
+public interface MenuView extends Screen {
     
     /**
      * @param observer the controller to attach
      */
-    void setObserver(MainMenuObserver observer);
+    void setObserver(MenuObserver observer);
 
     /**
-     * @param res the result of the last draw
+     * @param 
      */
     void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty);
     

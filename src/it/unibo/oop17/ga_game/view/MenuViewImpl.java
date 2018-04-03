@@ -2,9 +2,11 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MainMenuObserver;
+import it.unibo.oop17.ga_game.controller.MenuObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -12,12 +14,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class MainMenuViewImpl extends Parent implements MainMenuView {
+public class MenuViewImpl extends Parent implements MenuView {
     
     private final static Music MAINMENU_M = Music.TRACK1;
     private final static int OFFSET = 364;
-    
-    private MainMenuObserver observer;
+    private final Group menuView = new Group();;
+    private MenuObserver observer;
     
     private final MenuButton btnNewGame;
     private final MenuButton btnContinue;
@@ -33,7 +35,7 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
     
     private Map<Text, String> currLang;
     
-    public MainMenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
+    public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
         
         this.currLang = currLang;
         this.mediaPlayer = new MediaPlayer(new Media(MAINMENU_M.getMusic()));
@@ -63,7 +65,7 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
         
         this.btnOptions = new MenuButton(currLang.get(Text.OPTIONS), sfxVol);
         this.btnOptions.setOnMouseClicked(event -> {
-            getChildren().add(menu1);
+            this.menuView.getChildren().add(menu1);
 
             final TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu0);
             tt.setToX(menu0.getTranslateX() - OFFSET);
@@ -75,7 +77,7 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
             tt1.play();
 
             tt.setOnFinished(evt -> {
-                getChildren().remove(menu0);
+                this.menuView.getChildren().remove(menu0);
             });
         });
         
@@ -86,7 +88,7 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
 
         this.btnBack = new MenuButton(currLang.get(Text.BACK), sfxVol);
         this.btnBack.setOnMouseClicked(event -> {
-            getChildren().add(menu0);
+            this.menuView.getChildren().add(menu0);
 
             final TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu1);
             tt.setToX(menu1.getTranslateX() + OFFSET);
@@ -98,7 +100,7 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
             tt1.play();
 
             tt.setOnFinished(evt -> {
-                getChildren().remove(menu1);
+                this.menuView.getChildren().remove(menu1);
             });
         });
         
@@ -123,10 +125,10 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
         final Rectangle bg = new Rectangle();
         bg.setOpacity(0);
 
-        getChildren().addAll(bg, menu0);
+        this.menuView.getChildren().addAll(bg, menu0);
     }
     
-    public final void setObserver(MainMenuObserver observer) {
+    public final void setObserver(MenuObserver observer) {
         this.observer = observer;
     }
     
@@ -153,6 +155,10 @@ public class MainMenuViewImpl extends Parent implements MainMenuView {
     
     public void setContinueEnabled(final boolean isVisible) {
         this.btnContinue.setVisible(isVisible);
+    }
+    
+    public Node getNode() {
+        return this.menuView;
     }
         
 }

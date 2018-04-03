@@ -9,20 +9,14 @@ public class ConfigData implements ConfigDataInterface, java.io.Serializable {
      * 
      */
     private static final long serialVersionUID = -3501640550441381180L;
+    private final static Volume MUSICVOL_D = Volume.LOW;
+    private final static Volume SFXVOL_D = Volume.LOW;
+    private final static Difficulty DIFFICULTY_D = Difficulty.EASY;
     
     private Volume musicVol;
     private Volume sfxVol;
     private Difficulty difficulty;
     private Language language;
-    
-    public ConfigData(final Volume musicVol, final Volume sfxVol, final Difficulty difficulty, final Language language) {
-        
-        this.musicVol = musicVol;
-        this.sfxVol = sfxVol;
-        this.difficulty = difficulty;
-        this.language = language;
-        
-    }
     
     public Volume getMusicVol() {
         return this.musicVol;
@@ -57,8 +51,8 @@ public class ConfigData implements ConfigDataInterface, java.io.Serializable {
     }
     
     public void defaultOptions() {
-        this.setMusicVol(Volume.MEDIUM);
-        this.setSFXVol(Volume.MEDIUM);
-        this.setDifficulty(Difficulty.MEDIUM);
+        this.setMusicVol(MUSICVOL_D);
+        this.setSFXVol(SFXVOL_D);
+        this.setDifficulty(DIFFICULTY_D);
     }
 }

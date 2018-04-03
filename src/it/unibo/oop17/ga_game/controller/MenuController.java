@@ -11,27 +11,27 @@ import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.Language;
-import it.unibo.oop17.ga_game.view.MainMenuViewImpl;
-import it.unibo.oop17.ga_game.view.MainMenuView;
+import it.unibo.oop17.ga_game.view.MenuViewImpl;
+import it.unibo.oop17.ga_game.view.MenuView;
 import it.unibo.oop17.ga_game.view.Text;
 import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
 
-public class MainMenuController implements MainMenuObserver {
+public class MenuController implements MenuObserver {
     
     private final ConfigData data;
-    private final MainMenuView view;
+    private final MenuView view;
     private final Map<Language, Map<Text, String>> languages;
     
-    MainMenuController(final ConfigData data, final GameData save) {
+    public MenuController(final ConfigData data, final GameData save) {
         
         this.data = data;
+
         this.languages = new HashMap<Language, Map<Text, String>>();
         for (final Language l : Language.values()) {
             this.languages.put(l, loadLanguage(l));
         }
-        this.updateLanguage();
-        this.view = new MainMenuViewImpl(this.data.getMusicVol(), this.data.getSFXVol(),
+        this.view = new MenuViewImpl(this.data.getMusicVol(), this.data.getSFXVol(),
                 this.data.getLanguage(), this.data.getDifficulty(), this.languages.get(this.data.getLanguage()));
         view.setObserver(this);
         view.setContinueEnabled(save.getLevelProgress() != 0);
@@ -56,11 +56,16 @@ public class MainMenuController implements MainMenuObserver {
     
     @Override
     public final void newGame() {
+        LoadSaveManager.save(data, "configdata.dat");
+        final GameData zero = new GameData();
+        zero.resetProgress();
+        LoadSaveManager.save(zero, "gamedata.dat");
         // TODO
     }
     
     @Override
     public final void continueGame() {
+        LoadSaveManager.save(data, "configdata.dat");
         // TODO
     }
     
@@ -102,6 +107,10 @@ public class MainMenuController implements MainMenuObserver {
     
     public void updateView() {
         this.view.updateView(this.data.getMusicVol(), this.data.getSFXVol(), this.data.getLanguage(), this.data.getDifficulty());
+    }
+    
+    public MenuView getView() {
+        return this.view;
     }
 
 }

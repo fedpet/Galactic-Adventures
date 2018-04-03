@@ -6,20 +6,15 @@ public class GameData implements GameDataInterface, java.io.Serializable {
      * 
      */
     private static final long serialVersionUID = 3425851307309697377L;
+    private final static int COINS_I = 0;
+    private final static int SCORE_I = 0;
+    private final static int LIVES_I = 3;
+    private final static int PROGRESS_I = 0;
     
     private int coins;
     private int score;
     private int lives;
     private int levelProgress;
-    
-    public GameData(final int coins, final int score, final int lives, final int levelProgress) {
-        
-        this.coins = coins;
-        this.score = score;
-        this.lives = lives;
-        this.levelProgress = levelProgress;
-                
-    }
     
     public int getCoins() {
         return this.coins;
@@ -54,9 +49,9 @@ public class GameData implements GameDataInterface, java.io.Serializable {
     }
     
     public void resetProgress() {
-        this.setCoins(0);
-        this.setScore(0);
-        this.setLives(3);
-        this.setLevelProgress(0);
+        this.setCoins(COINS_I);
+        this.setScore(SCORE_I);
+        this.setLives(LIVES_I);
+        this.setLevelProgress(PROGRESS_I);
     }
 }

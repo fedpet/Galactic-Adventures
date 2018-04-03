@@ -4,7 +4,10 @@ public interface MainView {
     
     GameWorldView showGame();
 
-//    MainMenuView showMenu();
+    void showMenu();
+
+    HudView showHud();
 
     void showError(Text message);
+
 }
