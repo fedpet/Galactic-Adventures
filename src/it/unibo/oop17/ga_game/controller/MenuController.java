@@ -50,8 +50,8 @@ public class MenuController implements MenuObserver {
         }
     }
     
-    private Volume updateMusicVol() {
-        return this.data.getMusicVol();
+    private final void updateMusicVol() {
+        this.view.updateMusicVol(this.data.getMusicVol());
     }
     
     @Override

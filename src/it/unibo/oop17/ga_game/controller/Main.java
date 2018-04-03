@@ -24,6 +24,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private MainView view;
+    
     /**
      * Entry point.
      * 
@@ -37,28 +39,29 @@ public class Main extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         
-        final MainView view = new MainViewImpl(stage);
+        this.view = new MainViewImpl(stage);
         
         view.showMenu();
         
-        if (false) {
-            Map level;
-            
-            final File tempDir = Files.createTempDir();
-            try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
-                ZipUtils.extract(is, tempDir);
-                level = loadMap(new File(tempDir, "level1.tmx"));
-            } catch (final IOException ex) {
-                // TODO: add error message
-                view.showError(Text.CONTINUE);
-                ex.printStackTrace();
-                Platform.exit();
-                return;
-            }
-            
-            new GameController(new GameWorld(), view.showGame(), view.showHud()).run(level);
+    }
+    
+    private void selectMap() {
+        
+        Map level;
+        
+        final File tempDir = Files.createTempDir();
+        try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
+            ZipUtils.extract(is, tempDir);
+            level = loadMap(new File(tempDir, "level1.tmx"));
+        } catch (final IOException ex) {
+            // TODO: add error message
+            view.showError(Text.CONTINUE);
+            ex.printStackTrace();
+            Platform.exit();
+            return;
         }
         
+        new GameController(new GameWorld(), view.showGame(), view.showHud()).run(level);
     }
 
     private static Map loadMap(final File path) throws IOException {

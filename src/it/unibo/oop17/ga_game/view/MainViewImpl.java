@@ -20,6 +20,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
+    
+    private final Stage stage;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
@@ -27,18 +29,23 @@ public final class MainViewImpl implements MainView {
     private final GameData save;
 
     public MainViewImpl(final Stage stage) {
+        
+        this.stage = stage;
         this.data = CheckData.loadConfig();
         this.save = CheckSave.loadSave();
         currentScreens.forEach(s -> setScreen(s));
-        // setScreen(currentScreen);
-        stage.setScene(scene);
-        stage.show();
+        this.stage.setScene(scene);
+        this.stage.show();
     }
     
     @Override
     public void showMenu() {
         final MenuObserver menuController = new MenuController(this.data, this.save);
-        root.getChildren().addAll(new ImageView(new Image(new RandomBackground().getBackgroundPath())), menuController.getView().getNode());
+        final ImageView im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        im.fitWidthProperty().bind(this.stage.widthProperty()); 
+        im.fitHeightProperty().bind(this.stage.heightProperty());
+        root.getChildren().addAll(im, menuController.getView().getNode());
+        currentScreens.add(menuController.getView());
     }
 
     @Override
@@ -58,11 +65,8 @@ public final class MainViewImpl implements MainView {
     private <V extends Screen> V setScreen(final V newScreen) {
         currentScreens.forEach(s -> root.getChildren().remove(s.getNode()));
         currentScreens.clear();
-        // root.getChildren().remove(currentScreen.getNode());
         currentScreens.add(newScreen);
-        // currentScreen = newScreen;
         currentScreens.forEach(s -> root.getChildren().add(s.getNode()));
-        // root.getChildren().add(currentScreen.getNode());
         return newScreen;
     }
 

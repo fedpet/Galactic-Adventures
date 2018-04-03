@@ -57,6 +57,9 @@ public interface MenuObserver {
      */
     void updateView();
 
+    /**
+     * @return view
+     */
     MenuView getView();
 
 }
