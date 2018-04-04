@@ -120,7 +120,7 @@ public class TestMain extends Application {
         gameWorld.addEntity(slimeEnemy);
         final LivingEntityView slimeEnemyView = new SlimeEnemyView(worldView);
         final FlyingEnemy flyingEnemy = new FlyingEnemy(bodyFactory, new Point2D(4, -4), InfiniteSequence
-                .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
+                .repeat(() -> new CircleIterator(new Point2D(4, -4), -5, 5)));
         gameWorld.addEntity(flyingEnemy);
         final LivingEntityView flyingEnemyView = new FlyingEnemyView(worldView);
         final Coin coin = new Coin(bodyFactory, new Point2D(2, -28.5), 100);
