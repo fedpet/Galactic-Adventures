@@ -2,7 +2,9 @@ package it.unibo.oop17.ga_game.controller;
 
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -171,9 +173,9 @@ public class TestMain extends Application {
 
 
         final File tempDir = Files.createTempDir();
-        try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
+        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("levels.zip"))) {
             ZipUtils.extract(is, tempDir);
-            final Map map = loadLevel(new File(tempDir, "level1.tmx"));
+            final Map map = loadLevel(new File(tempDir, "test.tmx"));
         } catch (final IOException ex) {
             // TODO: show an error message
             ex.printStackTrace();

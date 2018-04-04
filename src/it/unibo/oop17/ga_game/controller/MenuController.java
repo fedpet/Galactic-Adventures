@@ -50,7 +50,7 @@ public class MenuController implements MenuObserver {
         }
     }
     
-    private final void updateMusicVol() {
+    private void updateMusicVol() {
         this.view.updateMusicVol(this.data.getMusicVol());
     }
     
@@ -98,6 +98,8 @@ public class MenuController implements MenuObserver {
     
     public final void setDefaults() {
         this.data.defaultOptions();
+        this.updateLanguage();
+        this.updateMusicVol();
         this.updateView();
     }
     
