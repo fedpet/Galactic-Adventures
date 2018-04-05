@@ -8,5 +8,5 @@ import javafx.geometry.Dimension2D;
  * Provides a method to convert Box2D's BodyDef to @B2DBodyFacade.
  */
 /* package-protected */ interface B2DBodySpawner {
-    B2DBodyFacade spawn(BodyDef bodyDef, Dimension2D size);
+    B2DEntityBody spawn(BodyDef bodyDef, Dimension2D size);
 }
