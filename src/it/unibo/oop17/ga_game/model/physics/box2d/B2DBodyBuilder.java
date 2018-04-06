@@ -71,7 +71,7 @@ import javafx.geometry.Point2D;
         bodyDef.setFixedRotation(true);
         bodyDef.setType(makeType());
         bodyDef.setPosition(B2DUtils.pointToVec(pos.get()));
-        final B2DBodyFacade body = spawner.spawn(bodyDef, dimension.get());
+        final B2DEntityBody body = spawner.spawn(bodyDef, dimension.get());
         final FixtureDef fixtureDef = new FixtureDef();
         surfaceFriction.ifPresent(fixtureDef::setFriction);
         fixtureDef.setSensor(!isSolid);
