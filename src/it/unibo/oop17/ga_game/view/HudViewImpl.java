@@ -22,7 +22,7 @@ public class HudViewImpl implements HudView {
 
     @Override
     public void update(final int life, final int coins) {
-        label.setText("Life: " + life + " Coins: " + coins);
+        label.setText("Life: " + life + " Score: " + coins);
     }
 
     @Override

@@ -37,6 +37,8 @@ public class MenuViewImpl extends Parent implements MenuView {
     
     public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
         
+        super();
+        
         this.currLang = currLang;
         this.mediaPlayer = new MediaPlayer(new Media(MAINMENU_M.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);

@@ -4,10 +4,16 @@ public interface MainView {
     
     GameWorldView showGame();
 
-    void showMenu();
-
+    void showMenu(MenuView view);
+    
     HudView showHud();
 
     void showError(Text message);
+    
+    void showEndLevel();
+    
+    void showGameOver();
+    
+    void showEndGame();
 
 }
