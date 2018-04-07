@@ -18,7 +18,7 @@ public class MenuViewImpl extends Parent implements MenuView {
     
     private final static Music MAINMENU_M = Music.TRACK1;
     private final static int OFFSET = 364;
-    private final Group menuView = new Group();;
+    private final Group menuView = new Group();
     private MenuObserver observer;
     
     private final MenuButton btnNewGame;
@@ -130,7 +130,7 @@ public class MenuViewImpl extends Parent implements MenuView {
         this.menuView.getChildren().addAll(bg, menu0);
     }
     
-    public final void setObserver(MenuObserver observer) {
+    public final void setObserver(final MenuObserver observer) {
         this.observer = observer;
     }
     

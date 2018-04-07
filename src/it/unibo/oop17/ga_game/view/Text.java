@@ -27,6 +27,10 @@ public enum Text {
     LOW,
     MEDIUM_V,
     HIGH,
-    MAX;
+    MAX,
+    MENU,
+    RETRY,
+    SCORE,
+    HEALTH;
     
 }

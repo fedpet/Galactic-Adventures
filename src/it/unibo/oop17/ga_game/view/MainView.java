@@ -1,5 +1,9 @@
 package it.unibo.oop17.ga_game.view;
 
+import it.unibo.oop17.ga_game.controller.EndGameObserver;
+import it.unibo.oop17.ga_game.controller.EndLevelObserver;
+import it.unibo.oop17.ga_game.controller.GameOverObserver;
+
 public interface MainView {
     
     GameWorldView showGame();
@@ -10,10 +14,10 @@ public interface MainView {
 
     void showError(Text message);
     
-    void showEndLevel();
+    void showEndLevel(CommonView<EndLevelObserver> view);
     
-    void showGameOver();
+    void showGameOver(CommonView<GameOverObserver> view);
     
-    void showEndGame();
+    void showEndGame(CommonView<EndGameObserver> view);
 
 }

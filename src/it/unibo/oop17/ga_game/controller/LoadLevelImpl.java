@@ -8,8 +8,6 @@ import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 
-import com.google.common.eventbus.Subscribe;
-
 import it.unibo.oop17.ga_game.model.CircleIterator;
 import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.GameWorld;
@@ -23,8 +21,6 @@ import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
-import it.unibo.oop17.ga_game.model.entities.events.FinishedLevelEvent;
 import it.unibo.oop17.ga_game.model.physics.BodyFactory;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
@@ -39,12 +35,14 @@ public class LoadLevelImpl implements LoadLevel {
     private final GameWorld model;
     private final GameWorldView view;
     private final Set<EntityController> entities;
+    private final MainController mainController;
 
-    public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view) {
+    public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
         
         this.model = model;
         this.view = view;
         this.entities = new LinkedHashSet<>();
+        this.mainController = mainController;
         map.forEach(layer -> {
             if (layer instanceof TileLayer) {
                 loadTerrain((TileLayer) layer);
@@ -85,16 +83,7 @@ public class LoadLevelImpl implements LoadLevel {
                 final Door door = new Door(bodyFactory, position, "door", false);
                 model.addEntity(door);
                 entities.add(new TriggerEntityController(door, view.entityFactory().createDoor()));
-                
-                class MyDoorEventListener implements EntityEventListener {
-                    @Subscribe
-                    private void endLevel(final FinishedLevelEvent e) {
-                        System.out.println("troll");
-                        // deve chiamare toEndLevel nel Main
-                    }
-                };
-                
-                door.register(new MyDoorEventListener());
+                door.register(new DoorEventListener(this.mainController));
                 break;
             case "gCoin":
                 final Coin gCoin = new Coin(bodyFactory, position, 100);

@@ -34,15 +34,17 @@ public class GameControllerImpl implements GameController {
     private GameWorldView view;
     private Set<EntityController> entities;
     private final HudView hudView;
+    private final MainController mainController;
 //  private final ConfigData data;
 //    private final GameData save;
 
-    public GameControllerImpl(final GameWorld world, final GameWorldView view, final HudView hudView) {
+    public GameControllerImpl(final GameWorld world, final GameWorldView view, final HudView hudView, final MainController mainController) {
         
         this.model = world;
         this.view = view;
         this.hudView = hudView;
         this.entities = new LinkedHashSet<>();
+        this.mainController = mainController;
 //        this.save = (GameData)LoadSaveManager.load("gamedata.dat");
         this.whichLevel();
         
@@ -83,7 +85,7 @@ public class GameControllerImpl implements GameController {
 
     private void run(final Map map) {
         
-        final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view);
+        final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view, this.mainController);
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();

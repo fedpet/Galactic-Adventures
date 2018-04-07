@@ -8,13 +8,8 @@ import it.unibo.oop17.ga_game.model.Difficulty;
 /**
  * Main Menu view interface.
  */
-public interface MenuView extends Screen {
+public interface MenuView extends CommonView<MenuObserver> {
     
-    /**
-     * @param observer the controller to attach
-     */
-    void setObserver(MenuObserver observer);
-
     /**
      * @param 
      */

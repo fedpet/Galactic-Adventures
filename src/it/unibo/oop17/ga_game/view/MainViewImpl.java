@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import it.unibo.oop17.ga_game.controller.EndGameObserver;
+import it.unibo.oop17.ga_game.controller.EndLevelObserver;
+import it.unibo.oop17.ga_game.controller.GameOverObserver;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +22,7 @@ public final class MainViewImpl implements MainView {
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
+    private ImageView im;
 
     public MainViewImpl(final Stage stage) {
         
@@ -71,20 +75,29 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void showEndLevel() {
-        // TODO Auto-generated method stub
-        
+    public void showEndLevel(final CommonView<EndLevelObserver> view) {
+        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        im.fitWidthProperty().bind(this.stage.widthProperty()); 
+        im.fitHeightProperty().bind(this.stage.heightProperty());
+        root.getChildren().addAll(im, view.getNode());
+        currentScreens.add(view);
     }
 
     @Override
-    public void showGameOver() {
-        // TODO Auto-generated method stub
-        
+    public void showGameOver(final CommonView<GameOverObserver> view) {
+        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        im.fitWidthProperty().bind(this.stage.widthProperty()); 
+        im.fitHeightProperty().bind(this.stage.heightProperty());
+        root.getChildren().addAll(im, view.getNode());
+        currentScreens.add(view);
     }
 
     @Override
-    public void showEndGame() {
-        // TODO Auto-generated method stub
-        
+    public void showEndGame(final CommonView<EndGameObserver> view) {
+        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        im.fitWidthProperty().bind(this.stage.widthProperty()); 
+        im.fitHeightProperty().bind(this.stage.heightProperty());
+        root.getChildren().addAll(im, view.getNode());
+        currentScreens.add(view);
     }
 }
