@@ -32,27 +32,27 @@ public class MenuButton extends StackPane {
         text.setFont(Font.font(24));
         text.setFill(Color.BLACK);
 
-        final Rectangle bg = new Rectangle(384, 32);
-        bg.setOpacity(0.5);
-        bg.setFill(Color.WHITE);
-        bg.setEffect(new GaussianBlur(3.5));
+        final Rectangle bg0 = new Rectangle(384, 32);
+        bg0.setOpacity(0.5);
+        bg0.setFill(Color.WHITE);
+        bg0.setEffect(new GaussianBlur(3.5));
 
         setAlignment(Pos.CENTER_LEFT);
         setRotate(-0.5);
-        getChildren().addAll(bg, text);
+        getChildren().addAll(bg0, text);
 
         setOnMouseEntered(event -> {
-            bg.setTranslateX(8);
+            bg0.setTranslateX(8);
             text.setTranslateX(8);
-            bg.setFill(Color.BLACK);
+            bg0.setFill(Color.BLACK);
             text.setFill(Color.WHITE);
             SFX.MOUSE_ENTERED.getSFX().play(this.sfxVol);
         });
 
         setOnMouseExited(event -> {
-            bg.setTranslateX(0);
+            bg0.setTranslateX(0);
             text.setTranslateX(0);
-            bg.setFill(Color.WHITE);
+            bg0.setFill(Color.WHITE);
             text.setFill(Color.BLACK);
         });
 

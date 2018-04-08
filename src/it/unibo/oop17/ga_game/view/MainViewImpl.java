@@ -7,6 +7,7 @@ import java.util.Set;
 import it.unibo.oop17.ga_game.controller.EndGameObserver;
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.controller.GameOverObserver;
+import it.unibo.oop17.ga_game.controller.MainController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -47,12 +48,18 @@ public final class MainViewImpl implements MainView {
     }
     
     @Override
-    public void showMenu(final MenuView view) {
+    public MenuView showMenu(final MainController controller) {
+        final MenuView view = new MenuViewImpl(controller.getConfigData().getMusicVol(),
+                controller.getConfigData().getSFXVol(),
+                controller.getConfigData().getLanguage(),
+                controller.getConfigData().getDifficulty(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()));
         final ImageView im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());
         currentScreens.add(view);
+        return view;
     }
 
     @Override
@@ -75,29 +82,41 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void showEndLevel(final CommonView<EndLevelObserver> view) {
+    public CommonView<EndLevelObserver> showEndLevel(final MainController controller) {
+        final CommonView<EndLevelObserver> view = new EndLevelViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage());
         this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());
         currentScreens.add(view);
+        return view;
     }
 
     @Override
-    public void showGameOver(final CommonView<GameOverObserver> view) {
+    public CommonView<GameOverObserver> showGameOver(final MainController controller) {
+        final CommonView<GameOverObserver> view = new GameOverViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage());
         this.im = new ImageView(new Image("/gameover.png"));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());
         currentScreens.add(view);
+        return view;
     }
 
     @Override
-    public void showEndGame(final CommonView<EndGameObserver> view) {
+    public CommonView<EndGameObserver> showEndGame(final MainController controller) {
+        final CommonView<EndGameObserver> view = new EndGameViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage());
         this.im = new ImageView(new Image("/congrats.png"));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());
         currentScreens.add(view);
+        return view;
     }
 }

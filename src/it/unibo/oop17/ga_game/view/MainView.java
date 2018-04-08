@@ -3,21 +3,22 @@ package it.unibo.oop17.ga_game.view;
 import it.unibo.oop17.ga_game.controller.EndGameObserver;
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.controller.GameOverObserver;
+import it.unibo.oop17.ga_game.controller.MainController;
 
 public interface MainView {
     
     GameWorldView showGame();
 
-    void showMenu(MenuView view);
+    MenuView showMenu(MainController controller);
     
     HudView showHud();
 
     void showError(Text message);
     
-    void showEndLevel(CommonView<EndLevelObserver> view);
+    CommonView<EndLevelObserver> showEndLevel(MainController controller);
     
-    void showGameOver(CommonView<GameOverObserver> view);
+    CommonView<GameOverObserver> showGameOver(MainController controller);
     
-    void showEndGame(CommonView<EndGameObserver> view);
+    CommonView<EndGameObserver> showEndGame(MainController controller);
 
 }

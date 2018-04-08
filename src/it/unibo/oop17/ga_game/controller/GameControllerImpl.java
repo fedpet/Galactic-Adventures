@@ -13,8 +13,9 @@ import org.mapeditor.io.TMXMapReader;
 
 import com.google.common.io.Files;
 
-//import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
+import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
@@ -35,29 +36,31 @@ public class GameControllerImpl implements GameController {
     private Set<EntityController> entities;
     private final HudView hudView;
     private final MainController mainController;
-//  private final ConfigData data;
-//    private final GameData save;
+    private final GameData save;
 
-    public GameControllerImpl(final GameWorld world, final GameWorldView view, final HudView hudView, final MainController mainController) {
+    public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
         
-        this.model = world;
+        this.model = new GameWorld();
         this.view = view;
         this.hudView = hudView;
         this.entities = new LinkedHashSet<>();
         this.mainController = mainController;
-//        this.save = (GameData)LoadSaveManager.load("gamedata.dat");
+        this.save = mainController.getGameData();
         this.whichLevel();
         
     }
     
     private void whichLevel() {
         
-        Map map;
+        if (this.save.getLevelProgress() > Level.values().length) {
+            mainController.toEndGame();
+        }
         
+        Map map;
         final File tempDir = Files.createTempDir();
         try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("levels.zip"))) {
             ZipUtils.extract(is, tempDir);
-            map = loadMap(new File(tempDir, "LEVEL_0.tmx"));
+            map = loadMap(new File(tempDir, "LEVEL_" + this.save.getLevelProgress() + ".tmx"));
         } catch (final IOException ex) {
             // TODO: add error message
             ex.printStackTrace();
@@ -106,11 +109,10 @@ public class GameControllerImpl implements GameController {
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
-        if (SHOW_HUD && player != null) {
+        if (SHOW_HUD && player != null && player.get(Life.class).isPresent()) {
             hudView.update(player.get(Life.class).get().getHealthPoints(),
                     player.get(Inventory.class).get().getMoney());
         }
     }
-
     
 }

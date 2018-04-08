@@ -20,7 +20,6 @@ public final class LoadSaveManager {
             oos.writeObject(data);
             oos.close();
         } catch (IOException e) {
-            System.out.println("ERROR: CANNOT SAVE DATA!");
             Platform.exit();
         }
         
@@ -30,7 +29,6 @@ public final class LoadSaveManager {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
             return ois.readObject();
         } catch (ClassNotFoundException | IOException e) {
-            System.out.println("ERROR: CANNOT LOAD DATA!");
             Platform.exit();
             return null;
         }

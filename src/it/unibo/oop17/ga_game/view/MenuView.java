@@ -26,7 +26,7 @@ public interface MenuView extends CommonView<MenuObserver> {
     void updateMusicVol(final Volume musicVol);
 
     /**
-     * If at least the first level has been completed, the continue game button must appear.
+     * If progress exits, continue button appears.
      * 
      * @param isVisible if progress exits.
      */

@@ -26,7 +26,6 @@ public class LoadLanguage {
                     .map(line -> line.split("=", 2))
                     .collect(Collectors.toMap(key -> Text.valueOf(key[0]), val -> val[1]));
         } catch (IOException e) {
-            System.err.println("ERROR: CANNOT LOAD LANGUAGE RESOURCES!");
             Platform.exit();
             return null;
         }

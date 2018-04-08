@@ -5,7 +5,6 @@ import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
-import it.unibo.oop17.ga_game.view.MenuViewImpl;
 import it.unibo.oop17.ga_game.view.MenuView;
 import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
@@ -14,13 +13,14 @@ public class MenuController implements MenuObserver {
     
     private final ConfigData data;
     private final MenuView view;
+    private final MainController controller;
     
-    public MenuController(final MainController controller) {
+    public MenuController(final MenuView view, final MainController controller) {
         
         this.data = controller.getConfigData();
+        this.controller = controller;
 
-        this.view = new MenuViewImpl(this.data.getMusicVol(), this.data.getSFXVol(),
-                this.data.getLanguage(), this.data.getDifficulty(), new LoadLanguage().getCurrLang(this.data.getLanguage()));
+        this.view = view;
         view.setObserver(this);
         view.setContinueEnabled(controller.getGameData().getLevelProgress() != 0);
         
@@ -36,13 +36,13 @@ public class MenuController implements MenuObserver {
         final GameData zero = new GameData();
         zero.resetProgress();
         LoadSaveManager.save(zero, "gamedata.dat");
-        // TODO
+        this.controller.toGame();
     }
     
     @Override
     public final void continueGame() {
         LoadSaveManager.save(data, "configdata.dat");
-        // TODO
+        this.controller.toGame();
     }
     
     @Override

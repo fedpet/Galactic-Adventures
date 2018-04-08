@@ -44,8 +44,12 @@ public class GameData implements GameDataInterface, java.io.Serializable {
         this.lives = lives;
     }
     
-    public void setLevelProgress(final int levelProgress) {
-        this.levelProgress = levelProgress;
+    public void setLevelProgress(final int progress) {
+        this.levelProgress = progress;
+    }
+    
+    public void nextLevelProgress() {
+        this.levelProgress++;
     }
     
     public void resetProgress() {

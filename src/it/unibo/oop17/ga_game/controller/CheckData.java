@@ -1,9 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
 import java.io.File;
-
 import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.view.Language;
 
 public final class CheckData {
     
@@ -13,11 +11,10 @@ public final class CheckData {
     }
 
     public static ConfigData loadConfig() {
-        final File f = new File(PATH);
+        final File file = new File(PATH);
         ConfigData data = new ConfigData();
-        if (!f.exists()) {
+        if (!file.exists()) {
             data.defaultOptions();
-            data.setLanguage(Language.ITA);
             LoadSaveManager.save(data, PATH);
         } else {
             data = (ConfigData)LoadSaveManager.load(PATH);

@@ -25,7 +25,7 @@ public class Launcher extends Application {
         
         stage.getIcons().add(new Image("file:res/icon.png"));
         stage.setTitle("Galactic Adventures!");
-        stage.setMaximized(true);
+//        stage.setMaximized(true);
         stage.initStyle(StageStyle.UNDECORATED);
         
         new MainControllerImpl(stage);
