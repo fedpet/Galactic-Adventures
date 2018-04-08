@@ -19,7 +19,7 @@ public class MainControllerImpl implements MainController {
         this.data = CheckData.loadConfig();
         this.save = CheckSave.loadSave();
         this.view = new MainViewImpl(stage);
-        this.toGameOver();
+        this.toMenu();
         
     }
 

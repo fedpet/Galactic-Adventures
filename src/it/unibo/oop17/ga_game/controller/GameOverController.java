@@ -9,8 +9,11 @@ public class GameOverController implements GameOverObserver {
     private final MainController mainController;
     
     public GameOverController(final CommonView<GameOverObserver> view, final MainController mainController) {
+        
         this.view = view;
+        view.setObserver(this);
         this.mainController = mainController;
+        
     }
 
     @Override

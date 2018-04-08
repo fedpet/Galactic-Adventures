@@ -9,8 +9,11 @@ public class EndGameController implements EndGameObserver {
     private final MainController mainController;
     
     public EndGameController(final CommonView<EndGameObserver> view, final MainController mainController) {
+        
         this.view = view;
+        view.setObserver(this);
         this.mainController = mainController;
+        
     }
 
     @Override

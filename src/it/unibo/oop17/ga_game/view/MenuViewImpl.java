@@ -58,11 +58,13 @@ public class MenuViewImpl extends Parent implements MenuView {
         this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME), sfxVol);
         this.btnNewGame.setOnMouseClicked(event -> {
             this.mediaPlayer.stop();
+            this.observer.newGame();
         });
         
         this.btnContinue = new MenuButton(currLang.get(Text.CONTINUE), sfxVol);
         this.btnContinue.setOnMouseClicked(event -> {
             this.mediaPlayer.stop();
+            this.observer.continueGame();
         });
         
         this.btnOptions = new MenuButton(currLang.get(Text.OPTIONS), sfxVol);
