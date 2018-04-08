@@ -7,8 +7,8 @@ import it.unibo.oop17.ga_game.view.Music;
  */
 public enum Level {
     
-    LEVEL_0(Music.TRACK2),
-    LEVEL_1(Music.TRACK3),
+    LEVEL_0(Music.TRACK3),
+    LEVEL_1(Music.TRACK2),
     LEVEL_2(Music.TRACK4),
     LEVEL_3(Music.TRACK5),
     LEVEL_4(Music.TRACK6),

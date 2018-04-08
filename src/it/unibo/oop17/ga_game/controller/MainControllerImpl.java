@@ -9,16 +9,16 @@ import javafx.stage.Stage;
 public class MainControllerImpl implements MainController {
     
     private final MainView view;
-    private final ConfigData data;
-    private final GameData save;
     private final Stage stage;
+    private ConfigData data;
+    private GameData save;
     
     MainControllerImpl(final Stage stage) {
         
         this.stage = stage;
         this.data = CheckData.loadConfig();
         this.save = CheckSave.loadSave();
-        this.view = new MainViewImpl(stage);
+        this.view = new MainViewImpl(stage, this.save);
         this.toMenu();
         
     }
@@ -28,7 +28,9 @@ public class MainControllerImpl implements MainController {
     }
     
     public final void toGame() {
-        new GameControllerImpl(view.showGame(), view.showHud(), this);
+        this.data = CheckData.loadConfig();
+        this.save = CheckSave.loadSave();
+        new GameControllerImpl(view.showGame(this.save), view.showHud(), this);
     }
 
     public final void toEndLevel() {
