@@ -41,7 +41,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
             flip(VerticalDirection.DOWN);
         }
         pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
-        setPosition(ViewUtils.worldPointToFX(pointFromDeath));
+        super.setPosition(ViewUtils.worldPointToFX(pointFromDeath));
         manageDespawn();
     }
 
