@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -33,5 +34,11 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
         } else if (type == KeyLockType.GREEN) {
             getView().setImage(new Image(GREEN_KEY));
         }
+    }
+
+    @Override
+    public void remove() {
+        SFX.KEY.getSFX().play();
+        super.remove();
     }
 }

@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.entities.Player;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Dimension2D;
@@ -36,7 +37,9 @@ public final class PlayerView extends AbstractLivingEntityView {
 
     @Override
     public void changeState(final CreatureState state) {
-        if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
+        if (state == CreatureState.JUMPING) {
+            SFX.JUMP.getSFX().play();
+        } else if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
             return; // don't stop suffer animation in this case.
         }
         currentState = state;
@@ -59,6 +62,7 @@ public final class PlayerView extends AbstractLivingEntityView {
 
     private Runnable painAnimation() {
         return () -> {
+            SFX.PLAYER_DAMAGE.getSFX().play();
             setImage(IMG_HURT);
             final Timeline anim = new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
