@@ -24,7 +24,10 @@ public class TriggerableDoorComponent extends OneTimeTriggerable {
                 .filter(entity -> entity.get(Inventory.class).isPresent())
                 .findAny()
                 .ifPresent(entity -> {
-                    post(new FinishedLevelEvent(entity));
+                    if (isTriggered()) {
+                        post(new FinishedLevelEvent(entity));
+                        detach();
+                    }
             });
     }
 
