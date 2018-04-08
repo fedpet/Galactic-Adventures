@@ -15,14 +15,14 @@ public class MenuController implements MenuObserver {
     private final ConfigData data;
     private final MenuView view;
     
-    public MenuController(final ConfigData data, final GameData save) {
+    public MenuController(final MainController controller) {
         
-        this.data = data;
+        this.data = controller.getConfigData();
 
         this.view = new MenuViewImpl(this.data.getMusicVol(), this.data.getSFXVol(),
                 this.data.getLanguage(), this.data.getDifficulty(), new LoadLanguage().getCurrLang(this.data.getLanguage()));
         view.setObserver(this);
-        view.setContinueEnabled(save.getLevelProgress() != 0);
+        view.setContinueEnabled(controller.getGameData().getLevelProgress() != 0);
         
     }
     

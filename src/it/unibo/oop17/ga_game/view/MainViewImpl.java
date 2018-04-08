@@ -85,7 +85,7 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public void showGameOver(final CommonView<GameOverObserver> view) {
-        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        this.im = new ImageView(new Image("/gameover.png"));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());
@@ -94,7 +94,7 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public void showEndGame(final CommonView<EndGameObserver> view) {
-        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        this.im = new ImageView(new Image("/congrats.png"));
         im.fitWidthProperty().bind(this.stage.widthProperty()); 
         im.fitHeightProperty().bind(this.stage.heightProperty());
         root.getChildren().addAll(im, view.getNode());

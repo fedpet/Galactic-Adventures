@@ -69,16 +69,16 @@ public class MenuViewImpl extends Parent implements MenuView {
         this.btnOptions.setOnMouseClicked(event -> {
             this.menuView.getChildren().add(menu1);
 
-            final TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu0);
-            tt.setToX(menu0.getTranslateX() - OFFSET);
+            final TranslateTransition tt0 = new TranslateTransition(Duration.seconds(0.25), menu0);
+            tt0.setToX(menu0.getTranslateX() - OFFSET);
 
             final TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), menu1);
             tt1.setToX(menu0.getTranslateX());
 
-            tt.play();
+            tt0.play();
             tt1.play();
 
-            tt.setOnFinished(evt -> {
+            tt0.setOnFinished(evt -> {
                 this.menuView.getChildren().remove(menu0);
             });
         });
@@ -92,16 +92,16 @@ public class MenuViewImpl extends Parent implements MenuView {
         this.btnBack.setOnMouseClicked(event -> {
             this.menuView.getChildren().add(menu0);
 
-            final TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), menu1);
-            tt.setToX(menu1.getTranslateX() + OFFSET);
+            final TranslateTransition tt0 = new TranslateTransition(Duration.seconds(0.25), menu1);
+            tt0.setToX(menu1.getTranslateX() + OFFSET);
 
             final TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), menu0);
             tt1.setToX(menu1.getTranslateX());
 
-            tt.play();
+            tt0.play();
             tt1.play();
 
-            tt.setOnFinished(evt -> {
+            tt0.setOnFinished(evt -> {
                 this.menuView.getChildren().remove(menu1);
             });
         });
@@ -124,10 +124,10 @@ public class MenuViewImpl extends Parent implements MenuView {
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
 
-        final Rectangle bg = new Rectangle();
-        bg.setOpacity(0);
+        final Rectangle bg0 = new Rectangle();
+        bg0.setOpacity(0);
 
-        this.menuView.getChildren().addAll(bg, menu0);
+        this.menuView.getChildren().addAll(bg0, menu0);
     }
     
     public final void setObserver(final MenuObserver observer) {

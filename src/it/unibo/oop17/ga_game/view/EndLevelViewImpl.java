@@ -5,13 +5,14 @@ import java.util.Map;
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.stage.Stage;
 
 public class EndLevelViewImpl implements CommonView<EndLevelObserver> {
     
     private final Group view = new Group();
     private EndLevelObserver observer;
     
-    public EndLevelViewImpl(final Volume sfxVol, final Map<Text, String> currLang) {
+    public EndLevelViewImpl(final Volume sfxVol, final Map<Text, String> currLang, final Stage stage) {
         
         final MenuButton btnContinue = new MenuButton(currLang.get(Text.CONTINUE), sfxVol);
         btnContinue.setOnMouseClicked(event -> {
@@ -22,6 +23,12 @@ public class EndLevelViewImpl implements CommonView<EndLevelObserver> {
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
+        
+        btnContinue.setLayoutX(stage.getWidth() / 10 * 2);
+        btnContinue.setLayoutY(stage.getHeight() / 4 * 3);
+        
+        btnMenu.setLayoutX(stage.getWidth() / 10 * 5);
+        btnMenu.setLayoutY(stage.getHeight() / 4 * 3);
         
         this.view.getChildren().addAll(btnContinue, btnMenu);
         
