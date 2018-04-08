@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
+import it.unibo.oop17.ga_game.view.SFX;
 import it.unibo.oop17.ga_game.view.ViewUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
@@ -37,6 +38,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     @Override
     public void deathAnimation(final Point2D startingPoint) {
         if (pointFromDeath == null) {
+            SFX.ENEMY_DEATH.getSFX().play();
             pointFromDeath = startingPoint;
             flip(VerticalDirection.DOWN);
         }

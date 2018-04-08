@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -30,5 +31,11 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
         } else {
             startAnimation(TriggerState.DEACTIVATED);
         }
+    }
+
+    @Override
+    public void changeState(final TriggerState state) {
+        SFX.LEVER.getSFX().play();
+        super.changeState(state);
     }
 }

@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.entities.Coin;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -31,5 +32,11 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
         } else if (type == CoinType.GOLD) {
             getView().setImage(new Image(GOLD_COIN));
         }
+    }
+
+    @Override
+    public void remove() {
+        SFX.COIN.getSFX().play();
+        super.remove();
     }
 }
