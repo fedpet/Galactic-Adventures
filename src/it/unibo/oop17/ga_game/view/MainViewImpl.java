@@ -84,6 +84,7 @@ public final class MainViewImpl implements MainView {
     public GameWorldView showGame(final GameData save) {
         this.mediaPlayer.stop();
         this.mediaPlayer = new MediaPlayer(new Media(Level.values()[save.getLevelProgress()].getMusic()));
+        this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
         return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()));
     }
@@ -98,6 +99,7 @@ public final class MainViewImpl implements MainView {
     public CommonView<EndLevelObserver> showEndLevel(final MainController controller) {
         this.mediaPlayer.stop();
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK6.getMusic()));
+        this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
         final CommonView<EndLevelObserver> view = new EndLevelViewImpl(controller.getConfigData().getSFXVol(),
                 new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
