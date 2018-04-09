@@ -37,11 +37,11 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     @Override
     public void deathAnimation() {
         if (!dying) {
-            final TranslateTransition animation = new TranslateTransition(Duration.millis(1000), getView());
-            animation.setCycleCount(1);
-            animation.setByY(100);
-            animation.setRate(DEATH_FALLING_RATE_SPEED);
-            animation.play();
+            final TranslateTransition deathTransition = new TranslateTransition(Duration.millis(1000), getView());
+            deathTransition.setCycleCount(1);
+            deathTransition.setByY(100);
+            deathTransition.setRate(DEATH_FALLING_RATE_SPEED);
+            deathTransition.play();
             flip(VerticalDirection.DOWN);
             dying = true;
         }
