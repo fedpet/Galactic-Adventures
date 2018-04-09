@@ -6,6 +6,7 @@ import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 /**
  * Models a {@link Coin} view.
@@ -36,7 +37,7 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public void remove() {
-        SFX.COIN.getSFX().play();
+        new AudioClip(SFX.COIN.getSFX()).play();
         super.remove();
     }
 }

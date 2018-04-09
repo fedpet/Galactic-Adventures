@@ -27,7 +27,6 @@ public class Launcher extends Application {
         stage.setTitle("Galactic Adventures!");
 //        stage.setMaximized(true);
         stage.initStyle(StageStyle.UNDECORATED);
-        
         new MainControllerImpl(stage);
         
     }

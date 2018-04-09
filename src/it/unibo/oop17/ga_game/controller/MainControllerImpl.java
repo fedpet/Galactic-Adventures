@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 public class MainControllerImpl implements MainController {
     
-    private final MainView view;
     private final Stage stage;
+    private final MainView view;
     private ConfigData data;
     private GameData save;
     

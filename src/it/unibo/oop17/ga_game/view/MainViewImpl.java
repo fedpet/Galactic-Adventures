@@ -23,8 +23,6 @@ import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
     
-    private final Stage stage;
-    private final GameData save;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
@@ -33,13 +31,11 @@ public final class MainViewImpl implements MainView {
 
     public MainViewImpl(final Stage stage, final GameData save) {
         
-        this.save = save;
-        this.mediaPlayer = new MediaPlayer(new Media(Level.values()[this.save.getLevelProgress()].getMusic()));
+        this.mediaPlayer = new MediaPlayer(new Media(Level.values()[save.getLevelProgress()].getMusic()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.stage = stage;
         currentScreens.forEach(s -> setScreen(s));
-        this.stage.setScene(scene);
-        this.stage.show();
+        stage.setScene(scene);
+        stage.show();
         
     }
     
@@ -59,17 +55,12 @@ public final class MainViewImpl implements MainView {
     @Override
     public MenuView showMenu(final MainController controller) {
         this.mediaPlayer.stop();
-        final MenuView view = new MenuViewImpl(controller.getConfigData().getMusicVol(),
+        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
+        return setScreen(new MenuViewImpl(controller.getConfigData().getMusicVol(),
                 controller.getConfigData().getSFXVol(),
                 controller.getConfigData().getLanguage(),
                 controller.getConfigData().getDifficulty(),
-                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()));
-        final ImageView im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
-        im.fitWidthProperty().bind(this.stage.widthProperty()); 
-        im.fitHeightProperty().bind(this.stage.heightProperty());
-        root.getChildren().addAll(im, view.getNode());
-        currentScreens.add(view);
-        return view;
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage())));
     }
 
     @Override
@@ -101,42 +92,27 @@ public final class MainViewImpl implements MainView {
         this.mediaPlayer = new MediaPlayer(new Media(Music.TRACK6.getMusic()));
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
-        final CommonView<EndLevelObserver> view = new EndLevelViewImpl(controller.getConfigData().getSFXVol(),
-                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage());
         this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
-        im.fitWidthProperty().bind(this.stage.widthProperty()); 
-        im.fitHeightProperty().bind(this.stage.heightProperty());
-        root.getChildren().addAll(im, view.getNode());
-        currentScreens.add(view);
-        return view;
+        return setScreen(new EndLevelViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage()));
     }
 
     @Override
     public CommonView<GameOverObserver> showGameOver(final MainController controller) {
         this.mediaPlayer.stop();
-        final CommonView<GameOverObserver> view = new GameOverViewImpl(controller.getConfigData().getSFXVol(),
-                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage());
         this.im = new ImageView(new Image("/gameover.png"));
-        im.fitWidthProperty().bind(this.stage.widthProperty()); 
-        im.fitHeightProperty().bind(this.stage.heightProperty());
-        root.getChildren().addAll(im, view.getNode());
-        currentScreens.add(view);
-        return view;
+        return setScreen(new GameOverViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage()));
     }
 
     @Override
     public CommonView<EndGameObserver> showEndGame(final MainController controller) {
         this.mediaPlayer.stop();
-        final CommonView<EndGameObserver> view = new EndGameViewImpl(controller.getConfigData().getSFXVol(),
-                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage());
         this.im = new ImageView(new Image("/congrats.png"));
-        im.fitWidthProperty().bind(this.stage.widthProperty()); 
-        im.fitHeightProperty().bind(this.stage.heightProperty());
-        root.getChildren().addAll(im, view.getNode());
-        currentScreens.add(view);
-        return view;
+        return setScreen(new EndGameViewImpl(controller.getConfigData().getSFXVol(),
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
+                controller.getStage()));
     }
 }

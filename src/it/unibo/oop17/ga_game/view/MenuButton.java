@@ -5,6 +5,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -46,7 +47,7 @@ public class MenuButton extends StackPane {
             text.setTranslateX(8);
             bg0.setFill(Color.BLACK);
             text.setFill(Color.WHITE);
-            SFX.MOUSE_ENTERED.getSFX().play(this.sfxVol);
+            new AudioClip(SFX.MOUSE_ENTERED.getSFX()).play(this.sfxVol);
         });
 
         setOnMouseExited(event -> {
@@ -61,7 +62,7 @@ public class MenuButton extends StackPane {
 
         setOnMousePressed(event -> {
             setEffect(drop);
-            SFX.MOUSE_CLICKED.getSFX().play(this.sfxVol);
+            new AudioClip(SFX.MOUSE_CLICKED.getSFX()).play(this.sfxVol);
         });
         
         setOnMouseReleased(event -> setEffect(null));

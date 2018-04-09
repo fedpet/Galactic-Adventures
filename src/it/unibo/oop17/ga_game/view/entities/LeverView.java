@@ -6,6 +6,7 @@ import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 /**
  * Models a {@link Lever} view.
@@ -35,7 +36,7 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
 
     @Override
     public void changeState(final TriggerState state) {
-        SFX.LEVER.getSFX().play();
+        new AudioClip(SFX.LEVER.getSFX()).play();
         super.changeState(state);
     }
 }

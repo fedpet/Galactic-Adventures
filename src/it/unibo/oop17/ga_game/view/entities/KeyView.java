@@ -5,6 +5,7 @@ import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 /**
  * Models a {@link Key} view.
@@ -38,7 +39,7 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public void remove() {
-        SFX.KEY.getSFX().play();
+        new AudioClip(SFX.KEY.getSFX()).play();
         super.remove();
     }
 }

@@ -8,6 +8,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
@@ -38,7 +39,7 @@ public final class PlayerView extends AbstractLivingEntityView {
     @Override
     public void changeState(final CreatureState state) {
         if (state == CreatureState.JUMPING) {
-            SFX.JUMP.getSFX().play();
+            new AudioClip(SFX.JUMP.getSFX()).play();
         } else if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
             return; // don't stop suffer animation in this case.
         }
@@ -62,7 +63,7 @@ public final class PlayerView extends AbstractLivingEntityView {
 
     private Runnable painAnimation() {
         return () -> {
-            SFX.PLAYER_DAMAGE.getSFX().play();
+            new AudioClip(SFX.PLAYER_DAMAGE.getSFX()).play();
             setImage(IMG_HURT);
             final Timeline anim = new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
