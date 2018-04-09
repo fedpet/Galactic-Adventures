@@ -11,7 +11,7 @@ import javafx.util.Duration;
  */
 public class TorchView {
 
-    private final ImageView view = new ImageView();
+    private final ImageView view = new ImageView(new Image("/torch.png"));
     private static final int WIDTH = 70, HEIGHT = 70;
 
     /**
@@ -20,7 +20,6 @@ public class TorchView {
      */
     public TorchView(final Group group) {
 
-        view.setImage(new Image("/torch.png"));
         final Animation animation = new SpriteAnimation(view, Duration.millis(700), 2,
                 WIDTH,
                 HEIGHT);
