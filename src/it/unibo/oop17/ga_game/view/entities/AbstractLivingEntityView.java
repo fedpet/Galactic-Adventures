@@ -1,12 +1,11 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.view.SFX;
-import it.unibo.oop17.ga_game.view.ViewUtils;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
-import javafx.geometry.Point2D;
 import javafx.geometry.VerticalDirection;
 import javafx.scene.Group;
+import javafx.util.Duration;
 
 /**
  * Base class for @LivingEntityView.
@@ -14,11 +13,11 @@ import javafx.scene.Group;
 public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<CreatureState>
         implements LivingEntityView {
 
-    private static final double DEATH_FALLING_SPEED = 0.05;
+    private static final double DEATH_FALLING_RATE_SPEED = 0.6;
     private static final double DEATH_TIME = 60;
 
     private int deathTimeCount;
-    private Point2D pointFromDeath;
+    private boolean dying;
 
     /**
      * @param group
@@ -36,14 +35,16 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     }
 
     @Override
-    public void deathAnimation(final Point2D startingPoint) {
-        if (pointFromDeath == null) {
-            SFX.ENEMY_DEATH.getSFX().play();
-            pointFromDeath = startingPoint;
+    public void deathAnimation() {
+        if (!dying) {
+            final TranslateTransition animation = new TranslateTransition(Duration.millis(1000), getView());
+            animation.setCycleCount(1);
+            animation.setByY(100);
+            animation.setRate(DEATH_FALLING_RATE_SPEED);
+            animation.play();
             flip(VerticalDirection.DOWN);
+            dying = true;
         }
-        pointFromDeath = pointFromDeath.subtract(new Point2D(0, DEATH_FALLING_SPEED));
-        super.setPosition(ViewUtils.worldPointToFX(pointFromDeath));
         manageDespawn();
     }
 
