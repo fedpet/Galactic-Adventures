@@ -11,6 +11,7 @@ import it.unibo.oop17.ga_game.view.entities.LeverView;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
+import it.unibo.oop17.ga_game.view.entities.MovingPlatformView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
 import it.unibo.oop17.ga_game.view.entities.SpikesView;
@@ -42,6 +43,11 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
     @Override
     public TriggerEntityView createDoor() {
         return new DoorView(parent, false);
+    }
+
+    @Override
+    public LifelessEntityView createMovingPlatform() {
+        return new MovingPlatformView(parent);
     }
 
     @Override
