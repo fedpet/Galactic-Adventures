@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.model.entities.components.GenericState;
+import it.unibo.oop17.ga_game.view.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Dimension2D;

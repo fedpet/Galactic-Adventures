@@ -16,6 +16,8 @@ public interface EntityViewFactory {
 
     TriggerEntityView createDoor();
 
+    LifelessEntityView createMovingPlatform();
+
     TriggerEntityView createJumpingPlatform();
 
     TriggerEntityView createLever();
