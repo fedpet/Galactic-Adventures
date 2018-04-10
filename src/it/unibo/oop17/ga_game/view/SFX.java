@@ -12,7 +12,10 @@ public enum SFX {
     JUMP("/audio/sfx/phaserUp2.wav"),
     COIN("/audio/sfx/phaserUp7.wav"),
     KEY("/audio/sfx/zapThreeToneUp.wav"),
-    LEVER("/audio/sfx/lowThreeTone.wav");
+    LEVER("/audio/sfx/lowThreeTone.wav"),
+    SPRING("/audio/sfx/phaserUp1.wav"),
+    LOCK("/audio/sfx/phaserUp4.wav"),
+    SUCCESS("/audio/sfx/powerUp11.wav");
 
     private final String path;
     

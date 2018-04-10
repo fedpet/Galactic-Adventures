@@ -52,6 +52,10 @@ public final class MainViewImpl implements MainView {
         return newScreen;
     }
     
+    private void setBackground(final ImageView im) {
+        root.getChildren().add(im);
+    }
+    
     @Override
     public MenuView showMenu(final MainController controller) {
         this.mediaPlayer.stop();

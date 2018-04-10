@@ -119,6 +119,14 @@ public class LoadLevelImpl implements LoadLevel {
                     model.addEntity(flying);
                     entities.add(new LivingEntityController(flying, view.entityFactory().createBee()));
                     break;
+                case "torch":
+                    break;
+                case "spikes":
+                    break;
+                case "spring":
+                    break;
+                case "platform":
+                    break;
                 case "slime":
                 default:
                     final SlimeEnemy slime = new SlimeEnemy(bodyFactory, position);
