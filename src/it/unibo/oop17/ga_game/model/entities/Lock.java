@@ -10,7 +10,7 @@ import javafx.geometry.Point2D;
  * Models a lock entity that the player can make disappear, if it owns a key of the same type in the inventory.
  */
 public class Lock extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
+    private static final Dimension2D SIZE = new Dimension2D(1, 1);
 
     /**
      * 
