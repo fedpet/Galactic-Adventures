@@ -72,6 +72,10 @@ public final class FeetComponent extends AbstractMovementComponent {
         if (isOnGround()) {
             setState(getDesiredMovement().getY() > 0 ? State.JUMPING
                     : getDesiredMovement().getX() != 0 ? State.WALKING : State.IDLE);
+        } else {
+            if (getState() != State.JUMPING) {
+                setState(State.FALLING);
+            }
         }
     }
 }
