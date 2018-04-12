@@ -42,10 +42,6 @@ public final class FeetComponent extends AbstractMovementComponent {
     @Override
     protected Point2D computeMovement(final double dt) {
         Point2D movement = getDesiredMovement().subtract(getEntity().getBody().getLinearVelocity());
-        if (movement.getY() < 0) {
-            // we cannot go under ground nor try to avoid such vertical impulses.
-            movement = new Point2D(movement.getX(), 0);
-        }
         movement = FXUtils.absCap(movement, walkingSpeed, jumpingSpeed);
         if (!isOnGround()) {
             movement = new Point2D(movement.getX(), 0);
