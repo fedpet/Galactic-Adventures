@@ -28,6 +28,7 @@ public class Lever extends AbstractEntity {
                 .position(position)
                 .size(SIZE)
                 .moveable(false)
+                .solid(false)
                 .build());
         add(new ContactTrigger(password, activated));
     }
