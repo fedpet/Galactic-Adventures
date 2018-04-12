@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities;
 
 import it.unibo.oop17.ga_game.model.entities.components.ContactTrigger;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -13,8 +13,8 @@ public class Lever extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      * @param password
@@ -22,9 +22,14 @@ public class Lever extends AbstractEntity {
      * @param activated
      *            The initial state of the lever, if activated or not.
      */
-    public Lever(final BodyFactory bodyFactory, final Point2D position, final String password,
+    public Lever(final BodyBuilder bodyBuilder, final Point2D position, final String password,
             final boolean activated) {
-        super(bodyFactory.createItem(position, SIZE));
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .moveable(false)
+                .solid(false)
+                .build());
         add(new ContactTrigger(password, activated));
     }
 

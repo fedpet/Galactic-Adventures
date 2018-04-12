@@ -5,7 +5,7 @@ import static com.google.common.base.Predicates.alwaysTrue;
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -18,13 +18,17 @@ public class Spikes extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      */
-    public Spikes(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createStatic(position, SIZE));
+    public Spikes(final BodyBuilder bodyBuilder, final Point2D position) {
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .moveable(false)
+                .build());
         add(new ViolentBrain(EntityPersonality.EVIL));
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, alwaysTrue()));
     }

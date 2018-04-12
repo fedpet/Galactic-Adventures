@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.model;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class TriggerLinker {
     private final class MyTriggerListener implements EntityEventListener {
         @Subscribe
         public void activateEvent(final PasswordTriggeringEvent event) {
-            map.get(event.getPassword()).forEach(TriggerableComponent::trigger);
+            map.getOrDefault(event.getPassword(), Collections.emptySet()).forEach(TriggerableComponent::trigger);
         }
     }
 }

@@ -5,7 +5,7 @@ import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
 import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
@@ -15,18 +15,21 @@ import javafx.geometry.Side;
  * obstacle.
  */
 public final class SlimeEnemy extends AbstractEntity {
-    public static final Dimension2D SIZE = new Dimension2D(0.6, 0.6);
+    public static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
     private static final double ATTACK_KNOCKBACK = 20;
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      */
-    public SlimeEnemy(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createCreature(position, SIZE));
+    public SlimeEnemy(final BodyBuilder bodyBuilder, final Point2D position) {
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .build());
         add(new SlimeEnemyBrain());
         add(new FeetComponent(5, 0));
         add(new LinearLife(5));

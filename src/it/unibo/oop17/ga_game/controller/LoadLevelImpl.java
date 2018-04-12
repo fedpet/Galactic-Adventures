@@ -21,7 +21,7 @@ import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
@@ -56,65 +56,69 @@ public class LoadLevelImpl implements LoadLevel {
     }
 
     private void loadObjects(final ObjectGroup layer) {
-        final BodyFactory bodyFactory = model.bodyFactory();
-        final ObjectGroup objLayer = (ObjectGroup) layer;
+        final ObjectGroup objLayer = layer;
         if (objLayer.getName().trim().toLowerCase(Locale.UK).equals("solid")) {
             objLayer.forEach(obj -> {
                 final Pair<Point2D, Dimension2D> pos = mapPositionToWorld(this.map, obj.getX(), obj.getY(),
                         obj.getWidth(), obj.getHeight());
 
-                model.bodyFactory().createStatic(pos.getKey(), pos.getValue());
+                model.bodyBuilder().position(pos.getKey())
+                        .size(pos.getValue())
+                        .moveable(false)
+                        .friction(0)
+                        .build();
             });
         }
         if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects")) {
             layer.forEach(mapObj -> {
                 final Point2D position = FXUtils.invertY(new Point2D(mapObj.getX() / 70, mapObj.getY() / 70));
                 final String type = mapObj.getType();
+                final BodyBuilder bodyBuilder = model.bodyBuilder();
                 switch (type) {
                 case "player":
-                    player = new Player(bodyFactory, position);
+                    player = new Player(bodyBuilder, position);
                     model.addEntity(player);
                     entities.add(
                             new PlayerController(view.getPlayerInput(), player, view.entityFactory().createPlayer()));
                     break;
                 case "keyR":
-                    final Key keyR = new Key(bodyFactory, position, KeyLockType.RED);
+                    final Key keyR = new Key(bodyBuilder, position, KeyLockType.RED);
                     model.addEntity(keyR);
                     entities.add(new LifelessEntityController(keyR, view.entityFactory().createKey(KeyLockType.RED)));
                     break;
                 case "redLock":
-                    final Lock lockR = new Lock(bodyFactory, position, KeyLockType.RED);
+                    final Lock lockR = new Lock(bodyBuilder, position, KeyLockType.RED);
                     model.addEntity(lockR);
                     entities.add(new LifelessEntityController(lockR, view.entityFactory().createLock(KeyLockType.RED)));
                     break;
                 case "lever":
-                    final Lever lever = new Lever(bodyFactory, position, "door", false);
+                    final Lever lever = new Lever(bodyBuilder, position, "door", false);
                     model.addEntity(lever);
                     entities.add(new TriggerEntityController(lever, view.entityFactory().createLever()));
                     break;
                 case "door":
-                    final Door door = new Door(bodyFactory, position, "door", false);
+                    final Door door = new Door(bodyBuilder, position, "door", false);
                     model.addEntity(door);
                     entities.add(new TriggerEntityController(door, view.entityFactory().createDoor()));
                     door.register(new DoorEventListener(this.mainController));
                     break;
                 case "gCoin":
-                    final Coin gCoin = new Coin(bodyFactory, position, 100);
+                    final Coin gCoin = new Coin(bodyBuilder, position, 100);
                     model.addEntity(gCoin);
                     entities.add(new LifelessEntityController(gCoin, view.entityFactory().createCoin(CoinType.GOLD)));
                     break;
                 case "sCoin":
-                    final Coin sCoin = new Coin(bodyFactory, position, 50);
+                    final Coin sCoin = new Coin(bodyBuilder, position, 50);
                     model.addEntity(sCoin);
                     entities.add(new LifelessEntityController(sCoin, view.entityFactory().createCoin(CoinType.SILVER)));
                     break;
                 case "bCoin":
-                    final Coin bCoin = new Coin(bodyFactory, position, 25);
+                    final Coin bCoin = new Coin(bodyBuilder, position, 25);
                     model.addEntity(bCoin);
                     entities.add(new LifelessEntityController(bCoin, view.entityFactory().createCoin(CoinType.BRONZE)));
                     break;
                 case "flying":
-                    final FlyingEnemy flying = new FlyingEnemy(bodyFactory, position, InfiniteSequence
+                    final FlyingEnemy flying = new FlyingEnemy(bodyBuilder, position, InfiniteSequence
                             .repeat(() -> new CircleIterator(position, 5, 5)));
                     model.addEntity(flying);
                     entities.add(new LivingEntityController(flying, view.entityFactory().createBee()));
@@ -129,7 +133,7 @@ public class LoadLevelImpl implements LoadLevel {
                     break;
                 case "slime":
                 default:
-                    final SlimeEnemy slime = new SlimeEnemy(bodyFactory, position);
+                    final SlimeEnemy slime = new SlimeEnemy(bodyBuilder, position);
                     model.addEntity(slime);
                     entities.add(new LivingEntityController(slime, view.entityFactory().createSlime()));
                     break;
