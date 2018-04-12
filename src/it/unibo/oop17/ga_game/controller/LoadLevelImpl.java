@@ -66,6 +66,7 @@ public class LoadLevelImpl implements LoadLevel {
                 bodyBuilder.position(pos.getKey())
                         .size(pos.getValue())
                         .moveable(false)
+                        .friction(0)
                         .build();
             });
         }
