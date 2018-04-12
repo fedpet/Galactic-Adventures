@@ -23,7 +23,7 @@ public enum Level {
     }
     
     public String getMusic() {
-        return this.music.getMusic();
+        return this.music.getPath();
     }
 
 }

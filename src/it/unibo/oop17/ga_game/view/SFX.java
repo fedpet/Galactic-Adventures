@@ -23,7 +23,7 @@ public enum SFX {
         this.path = path;
     }
     
-    public String getSFX() {
+    public String getPath() {
         return getClass().getResource(path).toString();
     }
 }

@@ -39,7 +39,7 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public void remove() {
-        new AudioClip(SFX.KEY.getSFX()).play();
+        new AudioClip(SFX.KEY.getPath()).play();
         super.remove();
     }
 }

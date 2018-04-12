@@ -11,13 +11,16 @@ import javafx.application.Platform;
 
 public class MenuController implements MenuObserver {
     
+    private final static String DATA_P = "configdata.dat";
+    private final static String SAVE_P = "gamedata.dat";
+    
     private final ConfigData data;
     private final MenuView view;
     private final MainController controller;
     
     public MenuController(final MenuView view, final MainController controller) {
         
-        this.data = controller.getConfigData();
+        data = controller.getConfigData();
         this.controller = controller;
 
         this.view = view;
@@ -26,23 +29,17 @@ public class MenuController implements MenuObserver {
         
     }
     
-    private void updateMusicVol() {
-        this.view.updateMusicVol(this.data.getMusicVol());
-    }
-    
     @Override
     public final void newGame() {
-        LoadSaveManager.save(data, "configdata.dat");
         final GameData zero = new GameData();
         zero.resetProgress();
-        LoadSaveManager.save(zero, "gamedata.dat");
-        this.controller.toGame();
+        LoadSaveManager.save(zero, SAVE_P);
+        controller.toGame();
     }
     
     @Override
     public final void continueGame() {
-        LoadSaveManager.save(data, "configdata.dat");
-        this.controller.toGame();
+        controller.toGame();
     }
     
     @Override
@@ -51,32 +48,37 @@ public class MenuController implements MenuObserver {
     }
     
     public final void nextMusicVolume() {
-        this.data.setMusicVol(Volume.values()[(this.data.getMusicVol().ordinal() + 1) % Volume.values().length]);
-        this.updateMusicVol();
-        this.updateView();
+        data.setMusicVol(Volume.values()[(this.data.getMusicVol().ordinal() + 1) % Volume.values().length]);
+        LoadSaveManager.save(data, DATA_P);
+        updateMusicVol();
+        updateView();
     }
     
     public final void nextSFXVolume() {
-        this.data.setSFXVol(Volume.values()[(this.data.getSFXVol().ordinal() + 1) % Volume.values().length]);
-        this.updateView();
+        data.setSFXVol(Volume.values()[(this.data.getSFXVol().ordinal() + 1) % Volume.values().length]);
+        LoadSaveManager.save(data, DATA_P);
+        updateView();
     }
     
     public final void nextLanguage() {
-        this.data.setLanguage(Language.values()[(this.data.getLanguage().ordinal() + 1) % Language.values().length]);
-        this.updateLanguage();
-        this.updateView();
+        data.setLanguage(Language.values()[(this.data.getLanguage().ordinal() + 1) % Language.values().length]);
+        LoadSaveManager.save(data, DATA_P);
+        updateLanguage();
+        updateView();
     }
     
     public final void nextDifficulty() {
-        this.data.setDifficulty(Difficulty.values()[(this.data.getDifficulty().ordinal() + 1) % Difficulty.values().length]);
-        this.updateView();
+        data.setDifficulty(Difficulty.values()[(this.data.getDifficulty().ordinal() + 1) % Difficulty.values().length]);
+        LoadSaveManager.save(data, DATA_P);
+        updateView();
     }
     
     public final void setDefaults() {
-        this.data.defaultOptions();
-        this.updateLanguage();
-        this.updateMusicVol();
-        this.updateView();
+        data.defaultOptions();
+        LoadSaveManager.save(data, DATA_P);
+        updateLanguage();
+        updateMusicVol();
+        updateView();
     }
     
     public final void updateLanguage() {
@@ -85,6 +87,10 @@ public class MenuController implements MenuObserver {
     
     public void updateView() {
         this.view.updateView(this.data.getMusicVol(), this.data.getSFXVol(), this.data.getLanguage(), this.data.getDifficulty());
+    }
+    
+    public void updateMusicVol() {
+        this.controller.updateMusicVol();
     }
     
     public MenuView getView() {

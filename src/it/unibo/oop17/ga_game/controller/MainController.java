@@ -21,4 +21,6 @@ public interface MainController {
     ConfigData getConfigData();
     
     GameData getGameData();
+
+    void updateMusicVol();
 }

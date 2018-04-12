@@ -16,10 +16,10 @@ public class MainControllerImpl implements MainController {
     MainControllerImpl(final Stage stage) {
         
         this.stage = stage;
-        this.data = CheckData.loadConfig();
-        this.save = CheckSave.loadSave();
-        this.view = new MainViewImpl(stage, this.save);
-        this.toMenu();
+        data = CheckData.loadConfig();
+        save = CheckSave.loadSave();
+        view = new MainViewImpl(stage, data);
+        toMenu(); 
         
     }
 
@@ -28,8 +28,8 @@ public class MainControllerImpl implements MainController {
     }
     
     public final void toGame() {
-        this.data = CheckData.loadConfig();
-        this.save = CheckSave.loadSave();
+        data = CheckData.loadConfig();
+        save = CheckSave.loadSave();
         new GameControllerImpl(view.showGame(this.save), view.showHud(), this);
     }
 
@@ -46,15 +46,20 @@ public class MainControllerImpl implements MainController {
     }
     
     public Stage getStage() {
-        return this.stage;
+        return stage;
     }
     
     public ConfigData getConfigData() {
-        return this.data;
+        return data;
     }
     
     public GameData getGameData() {
-        return this.save;
+        return save;
+    }
+
+    @Override
+    public void updateMusicVol() {
+        view.updateMusicVol();
     }
     
 }

@@ -56,6 +56,11 @@ public interface MenuObserver {
      * Updates view.
      */
     void updateView();
+    
+    /**
+     * Updates music volume.
+     */
+    void updateMusicVol();
 
     /**
      * @return view

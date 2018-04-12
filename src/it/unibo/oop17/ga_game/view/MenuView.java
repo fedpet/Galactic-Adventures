@@ -19,11 +19,6 @@ public interface MenuView extends CommonView<MenuObserver> {
      * @param currLang the current language.
      */
     void updateLanguage(final Map<Text, String> currLang);
-    
-    /**
-     * @param musicVol the current music volume.
-     */
-    void updateMusicVol(final Volume musicVol);
 
     /**
      * If progress exits, continue button appears.

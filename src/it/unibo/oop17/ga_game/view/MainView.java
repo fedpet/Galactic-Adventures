@@ -22,4 +22,6 @@ public interface MainView {
     
     CommonView<EndGameObserver> showEndGame(MainController controller);
 
+    void updateMusicVol();
+
 }
