@@ -56,14 +56,13 @@ public class LoadLevelImpl implements LoadLevel {
     }
 
     private void loadObjects(final ObjectGroup layer) {
-        final BodyBuilder bodyBuilder = model.bodyBuilder();
         final ObjectGroup objLayer = layer;
         if (objLayer.getName().trim().toLowerCase(Locale.UK).equals("solid")) {
             objLayer.forEach(obj -> {
                 final Pair<Point2D, Dimension2D> pos = mapPositionToWorld(this.map, obj.getX(), obj.getY(),
                         obj.getWidth(), obj.getHeight());
 
-                bodyBuilder.position(pos.getKey())
+                model.bodyBuilder().position(pos.getKey())
                         .size(pos.getValue())
                         .moveable(false)
                         .friction(0)
@@ -74,6 +73,7 @@ public class LoadLevelImpl implements LoadLevel {
             layer.forEach(mapObj -> {
                 final Point2D position = FXUtils.invertY(new Point2D(mapObj.getX() / 70, mapObj.getY() / 70));
                 final String type = mapObj.getType();
+                final BodyBuilder bodyBuilder = model.bodyBuilder();
                 switch (type) {
                 case "player":
                     player = new Player(bodyBuilder, position);
