@@ -33,15 +33,12 @@ public final class MainViewImpl implements MainView {
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
     private final AudioObserver audioC;
     private ConfigData data;
-    private ImageView im;
 
     public MainViewImpl(final Stage stage, final ConfigData data) {
         
         this.data = data;
         final AudioView audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
         audioC = new AudioController(audioV);
-        
-        currentScreens.forEach(s -> setScreen(s));
         stage.setScene(scene);
         stage.show();
         
@@ -52,9 +49,10 @@ public final class MainViewImpl implements MainView {
         return Math.min(primaryScreenBounds.getWidth() / 1920, primaryScreenBounds.getHeight() / 1080);
     }
 
-    private <V extends Screen> V setScreen(final V newScreen) {
+    private <V extends Screen> V setScreen(final V newScreen, final ImageView im) {
         currentScreens.forEach(s -> root.getChildren().remove(s.getNode()));
         currentScreens.clear();
+        root.getChildren().add(im);
         currentScreens.add(newScreen);
         currentScreens.forEach(s -> root.getChildren().add(s.getNode()));
         return newScreen;
@@ -67,12 +65,12 @@ public final class MainViewImpl implements MainView {
     @Override
     public MenuView showMenu(final MainController controller) {
         audioC.playMusic(MAINMENU_M.getPath());
-        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
         return setScreen(new MenuViewImpl(controller.getConfigData().getMusicVol(),
                 controller.getConfigData().getSFXVol(),
                 controller.getConfigData().getLanguage(),
                 controller.getConfigData().getDifficulty(),
-                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage())));
+                new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage())),
+                new ImageView(new Image(new RandomBackground().getBackgroundPath())));
     }
 
     @Override
@@ -86,7 +84,8 @@ public final class MainViewImpl implements MainView {
     @Override
     public GameWorldView showGame(final GameData save) {
         audioC.playMusic(Level.values()[save.getLevelProgress()].getMusic());
-        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()));
+        final GameWorldView view = new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor());
+        return setScreen(view, );
     }
 
     @Override
@@ -97,25 +96,22 @@ public final class MainViewImpl implements MainView {
     @Override
     public CommonView<EndLevelObserver> showEndLevel(final MainController controller) {
         audioC.playMusic(ENDLEVEL_M.getPath());
-        this.im = new ImageView(new Image(new RandomBackground().getBackgroundPath()));
         return setScreen(new EndLevelViewImpl(new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage()));
+                controller.getStage()), new ImageView(new Image(new RandomBackground().getBackgroundPath())));
     }
 
     @Override
     public CommonView<GameOverObserver> showGameOver(final MainController controller) {
         audioC.stopMusic();
-        this.im = new ImageView(new Image("/gameover.png"));
         return setScreen(new GameOverViewImpl(new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage()));
+                controller.getStage()), new ImageView(new Image("/gameover.png")));
     }
 
     @Override
     public CommonView<EndGameObserver> showEndGame(final MainController controller) {
         audioC.playMusic(ENDLEVEL_M.getPath());
-        this.im = new ImageView(new Image("/congrats.png"));
         return setScreen(new EndGameViewImpl(new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage()));
+                controller.getStage()), new ImageView(new Image("/congrats.png")));
     }
 
     @Override

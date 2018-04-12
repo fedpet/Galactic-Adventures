@@ -23,18 +23,11 @@ public class Launcher extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         
-        stage.getIcons().add(new Image("file:res/icon.png"));
+        stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
 //        stage.setMaximized(true);
-        stage.initStyle(StageStyle.UNDECORATED);
         new MainControllerImpl(stage);
         
     }
     
 }
-
-
-
-
-
-// WE MISS YOU SACCO

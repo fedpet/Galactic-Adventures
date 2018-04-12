@@ -17,7 +17,6 @@ import javafx.scene.text.Text;
 public class MenuButton extends StackPane {
     
     private AudioObserver audioC;
-    private AudioView audioV;
     private Text text;
 
     public MenuButton(final String name) {
@@ -30,7 +29,7 @@ public class MenuButton extends StackPane {
     public final void update(final String name) {
         
         final ConfigData data = (ConfigData)LoadSaveManager.load("configdata.dat");
-        audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
+        final AudioView audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
         audioC = new AudioController(audioV);
         
         getChildren().clear();

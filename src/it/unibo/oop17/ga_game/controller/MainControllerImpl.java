@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
+import java.util.concurrent.TimeUnit;
+
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
@@ -34,14 +36,17 @@ public class MainControllerImpl implements MainController {
     }
 
     public final void toEndLevel() {
+        slowTransiction();
         new EndLevelController(view.showEndLevel(this), this);
     }
     
     public final void toGameOver() {
+        slowTransiction();
         new GameOverController(view.showGameOver(this), this);
     }
     
     public final void toEndGame() {
+        slowTransiction();
         new EndGameController(view.showEndGame(this), this);
     }
     
@@ -60,6 +65,15 @@ public class MainControllerImpl implements MainController {
     @Override
     public void updateMusicVol() {
         view.updateMusicVol();
+    }
+    
+    private void slowTransiction() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
     
 }
