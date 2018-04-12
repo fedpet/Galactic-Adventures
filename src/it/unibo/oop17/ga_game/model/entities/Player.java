@@ -8,7 +8,7 @@ import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
@@ -24,13 +24,16 @@ public final class Player extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      */
-    public Player(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createCreature(position, SIZE));
+    public Player(final BodyBuilder bodyBuilder, final Point2D position) {
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .build());
         add(new InventoryImpl());
         add(new LinearLife(DEFAULT_LIFE));
         add(new FeetComponent(WALK_SPEED, JUMP_SPEED));

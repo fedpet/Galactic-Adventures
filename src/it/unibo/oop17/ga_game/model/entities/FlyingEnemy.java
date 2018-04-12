@@ -11,7 +11,7 @@ import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
@@ -25,15 +25,18 @@ public class FlyingEnemy extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      * @param positions
      *            The path the entity has to follow.
      */
-    public FlyingEnemy(final BodyFactory bodyFactory, final Point2D position, final Supplier<Point2D> positions) {
-        super(bodyFactory.createCreature(position, SIZE));
+    public FlyingEnemy(final BodyBuilder bodyBuilder, final Point2D position, final Supplier<Point2D> positions) {
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .build());
         add(new ViolentBrain(EntityPersonality.EVIL));
         add(new FixedPatternPilot(positions));
         add(new LinearPropeller(5));

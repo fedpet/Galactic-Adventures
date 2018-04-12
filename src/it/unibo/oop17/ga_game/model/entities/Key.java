@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.model.entities;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.entities.components.PickupableBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -14,16 +14,21 @@ public class Key extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      * @param type
      *            Its key type (RED, BLUE, YELLOW or GREEN).
      */
-    public Key(final BodyFactory bodyFactory, final Point2D position,
+    public Key(final BodyBuilder bodyBuilder, final Point2D position,
             final KeyLockType type) {
-        super(bodyFactory.createItem(position, SIZE));
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .solid(false)
+                .moveable(false)
+                .build());
         add(new PickupableBrain(inv -> inv.add(type)));
     }
 

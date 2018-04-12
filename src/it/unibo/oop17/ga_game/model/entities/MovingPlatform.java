@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import it.unibo.oop17.ga_game.model.entities.components.FixedPatternPilot;
 import it.unibo.oop17.ga_game.model.entities.components.LinearPropeller;
 import it.unibo.oop17.ga_game.model.entities.components.PlatformBrain;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -17,8 +17,8 @@ public class MovingPlatform extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      * @param size
@@ -26,9 +26,9 @@ public class MovingPlatform extends AbstractEntity {
      * @param positions
      *            The path the entity has to follow.
      */
-    public MovingPlatform(final BodyFactory bodyFactory, final Point2D position, final Dimension2D size,
+    public MovingPlatform(final BodyBuilder bodyBuilder, final Point2D position, final Dimension2D size,
             final Supplier<Point2D> positions) {
-        super(bodyFactory.custom()
+        super(bodyBuilder
                 .position(position)
                 .size(size)
                 .subjectToForces(false)

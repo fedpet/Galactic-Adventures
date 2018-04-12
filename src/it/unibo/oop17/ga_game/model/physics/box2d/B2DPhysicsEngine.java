@@ -13,7 +13,7 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
@@ -55,8 +55,8 @@ public final class B2DPhysicsEngine implements PhysicsEngine {
     }
 
     @Override
-    public BodyFactory bodyFactory() {
-        return new B2DBodyFactory((bodyDef, size) -> {
+    public BodyBuilder bodyBuilder() {
+        return new B2DBodyBuilder((bodyDef, size) -> {
             final Body b2Body = world.createBody(bodyDef);
             final B2DBodyFacade body = new B2DBodyFacade(b2Body, size, collisionMap);
             collisionMap.put(b2Body, body);

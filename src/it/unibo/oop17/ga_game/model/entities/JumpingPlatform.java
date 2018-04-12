@@ -6,7 +6,7 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
 import it.unibo.oop17.ga_game.model.entities.components.ViolentBrain;
 import it.unibo.oop17.ga_game.model.entities.events.TriggeringEvent;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -21,13 +21,17 @@ public class JumpingPlatform extends AbstractEntity {
 
     /**
      * 
-     * @param bodyFactory
-     *            the @BodyFactory.
+     * @param bodyBuilder
+     *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
      */
-    public JumpingPlatform(final BodyFactory bodyFactory, final Point2D position) {
-        super(bodyFactory.createStatic(position, SIZE));
+    public JumpingPlatform(final BodyBuilder bodyBuilder, final Point2D position) {
+        super(bodyBuilder
+                .position(position)
+                .size(SIZE)
+                .moveable(false)
+                .build());
         add(new ViolentBrain(EntityPersonality.PSYCHO));
         add(new MeleeWeapon(0, 0, JUMP_FORCE, equalTo(Side.TOP)));
     }

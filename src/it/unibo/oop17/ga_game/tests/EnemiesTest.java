@@ -19,7 +19,7 @@ public class EnemiesTest {
 
     @Test
     public void testBasicEnemy() {
-        final SlimeEnemy basicEnemy = new SlimeEnemy(physics.bodyFactory(), new Point2D(4, -4));
+        final SlimeEnemy basicEnemy = new SlimeEnemy(physics.bodyBuilder(), new Point2D(4, -4));
         // assertFalse(basicEnemy.getMovement().canJump());
         assertTrue(basicEnemy.get(MovementComponent.class).isPresent());
         assertTrue(basicEnemy.get(MovementComponent.class).get().getFaceDirection().equals(HorizontalDirection.RIGHT));
@@ -28,7 +28,7 @@ public class EnemiesTest {
     @Test
     public void testFlyingEnemy() throws InterruptedException {
         final PhysicsEngine physics = PhysicsEngine.create(new Point2D(0, -30));
-        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics.bodyFactory(), new Point2D(4, -4), InfiniteSequence
+        final FlyingEnemy flyingEnemy = new FlyingEnemy(physics.bodyBuilder(), new Point2D(4, -4), InfiniteSequence
                 .repeat(() -> new CircleIterator(new Point2D(4, -4), 5, 5)));
         assertTrue(flyingEnemy.get(MovementComponent.class).isPresent());
         assertTrue(flyingEnemy.get(MovementComponent.class).get().getFaceDirection().equals(HorizontalDirection.LEFT));

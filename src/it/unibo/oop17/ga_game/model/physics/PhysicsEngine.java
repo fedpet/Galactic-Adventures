@@ -19,9 +19,9 @@ public interface PhysicsEngine {
 
     /**
      * 
-     * @return A factory for bodies.
+     * @return A builder for bodies.
      */
-    BodyFactory bodyFactory();
+    BodyBuilder bodyBuilder();
 
     /**
      * Removes the body from the simulation.

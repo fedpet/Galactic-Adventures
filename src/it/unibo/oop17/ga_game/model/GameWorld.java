@@ -8,7 +8,7 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
-import it.unibo.oop17.ga_game.model.physics.BodyFactory;
+import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Point2D;
 
@@ -23,8 +23,8 @@ public class GameWorld {
     private final TriggerLinker linker = new TriggerLinker();
     private final EntityEventListener myListener = new MyListener();
 
-    public BodyFactory bodyFactory() {
-        return engine.bodyFactory();
+    public BodyBuilder bodyBuilder() {
+        return engine.bodyBuilder();
     }
 
     public void addEntity(final Entity entity) {
