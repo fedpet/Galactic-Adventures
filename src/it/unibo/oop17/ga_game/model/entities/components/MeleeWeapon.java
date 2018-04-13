@@ -3,7 +3,9 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import it.unibo.oop17.ga_game.model.Timer;
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
 import javafx.geometry.Side;
@@ -12,9 +14,11 @@ import javafx.geometry.Side;
  * Deals damage to entities in contact with the owner.
  */
 public final class MeleeWeapon extends AbstractEntityComponent implements Weapon {
+    private static final double COOLDOWN_TIME = 0.5; // cooldown in seconds to avoid multiple hits in too short time.
     private final Predicate<Side> canUseToward;
     private final int damage;
     private final double selfKnockback, otherKnockback;
+    private final Timer cooldown = Timer.seconds(COOLDOWN_TIME);
 
     /**
      * @param damage
@@ -33,11 +37,20 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
         this.selfKnockback = selfKnockback;
         this.otherKnockback = otherKnockback;
         this.canUseToward = canUseToward;
+        cooldown.update(COOLDOWN_TIME); // so it's elapsed.
+    }
+
+    @Override
+    public void update(final double dt) {
+        super.update(dt);
+        cooldown.update(dt);
     }
 
     @Override
     public void use(final Point2D direction) {
-        findTarget().ifPresent(this::hit);
+        if (cooldown.isElapsed()) {
+            findTarget().ifPresent(this::hit);
+        }
     }
 
     private Optional<? extends Entity> findTarget() {
@@ -51,11 +64,12 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
 
     private void hit(final Entity target) {
         target.get(Life.class).get().hurt(damage);
-        knockback(target);
-        getEntity().getBody().applyImpulse(new Point2D(0, selfKnockback));
+        knockbackOther(target);
+        knockbackSelf();
+        cooldown.restart();
     }
 
-    private void knockback(final Entity target) {
+    private void knockbackOther(final Entity target) {
         final Side knockbackSide = PositionCompare.relativeSide(getEntity().getBody(), target.getBody());
         final Point2D knockbackDirection = PositionCompare.sideToDirection(knockbackSide);
 
@@ -65,7 +79,22 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
             verticalForce = Math.copySign(otherKnockback, sign) / 2;
         }
 
-        target.getBody().setLinearVelocity(
-                new Point2D(otherKnockback * knockbackDirection.getX(), verticalForce));
+        applyKnockback(target.getBody(), new Point2D(otherKnockback * knockbackDirection.getX(), verticalForce));
+    }
+
+    private void knockbackSelf() {
+        applyKnockback(getEntity().getBody(), new Point2D(0, selfKnockback));
+    }
+
+    private void applyKnockback(final EntityBody body, final Point2D force) {
+        body.applyImpulse(limitKnockback(body, force));
+    }
+
+    /**
+     * We limit knockback force depending on the target body velocity to avoid impulses being to big.
+     */
+    private Point2D limitKnockback(final EntityBody body, final Point2D targetForce) {
+        final Point2D knock = targetForce.subtract(body.getLinearVelocity());
+        return FXUtils.absCap(knock, targetForce.getX(), targetForce.getY());
     }
 }
