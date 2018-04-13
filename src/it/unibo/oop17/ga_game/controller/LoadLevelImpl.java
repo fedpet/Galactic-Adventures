@@ -39,7 +39,7 @@ public class LoadLevelImpl implements LoadLevel {
     private final GameWorldView view;
     private final Set<EntityController> entities;
     private final MainController mainController;
-    private final Image background;
+//    private final Image background;
 
     public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
         
@@ -72,14 +72,14 @@ public class LoadLevelImpl implements LoadLevel {
                         .build();
             });
         }
-        if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects")) {
+        if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects") || layer.getName().trim().toLowerCase(Locale.UK).equals("background")) {
             layer.forEach(mapObj -> { 
                 final Point2D position = FXUtils.invertY(new Point2D(mapObj.getX() / 70, mapObj.getY() / 70));
                 final String type = mapObj.getType();
                 final BodyBuilder bodyBuilder = model.bodyBuilder();
                 switch (type) {
                 case "background":
-                    background = SwingFXUtils.toFXImage(mapObj.getImage(0), null);
+//                    background = SwingFXUtils.toFXImage(mapObj.getImage(0), null);
                     break;
                 case "player":
                     player = new Player(bodyBuilder, position);

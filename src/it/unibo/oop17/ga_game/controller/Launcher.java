@@ -3,7 +3,6 @@ package it.unibo.oop17.ga_game.controller;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * Entry point.

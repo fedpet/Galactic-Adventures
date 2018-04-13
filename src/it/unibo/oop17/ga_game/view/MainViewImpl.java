@@ -83,9 +83,11 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public GameWorldView showGame(final GameData save) {
-        audioC.playMusic(Level.values()[save.getLevelProgress()].getMusic());
-        final GameWorldView view = new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor());
-        return setScreen(view, );
+        if (save.getLevelProgress() < Level.values().length) {
+            audioC.playMusic(Level.values()[save.getLevelProgress()].getMusic());
+        }
+        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()),
+                new ImageView(new Image(new RandomBackground().getBackgroundPath())));
     }
 
     @Override

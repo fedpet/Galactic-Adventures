@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.view.CommonView;
 
 public class EndLevelController implements EndLevelObserver {

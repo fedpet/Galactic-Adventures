@@ -15,7 +15,6 @@ import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
-import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
@@ -37,6 +36,12 @@ public class GameControllerImpl implements GameController {
     private final HudView hudView;
     private final MainController mainController;
     private final GameData save;
+    private final AnimationTimer animationTimer = new AnimationTimer() {
+        @Override
+        public void handle(final long now) {
+            update();
+        }
+    };
 
     public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
         
@@ -50,11 +55,12 @@ public class GameControllerImpl implements GameController {
         
     }
     
+    @Override
+    public void stop() {
+        animationTimer.stop();
+    }
+    
     private void whichLevel() {
-        
-        if (this.save.getLevelProgress() > Level.values().length) {
-            mainController.toEndGame();
-        }
         
         Map map;
         final File tempDir = Files.createTempDir();
@@ -98,12 +104,8 @@ public class GameControllerImpl implements GameController {
             hudView.addHud();
         }
         
-        new AnimationTimer() {
-            @Override
-            public void handle(final long now) {
-                update();
-            }
-        }.start();
+        animationTimer.start();
+        
     }
 
     private void update() {
