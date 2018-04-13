@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import it.unibo.oop17.ga_game.model.Timer;
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.events.HitEvent;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
@@ -63,10 +64,13 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
     }
 
     private void hit(final Entity target) {
+        int damageDone = target.get(Life.class).get().getHealthPoints();
         target.get(Life.class).get().hurt(damage);
+        damageDone = target.get(Life.class).get().getHealthPoints() - damageDone;
         knockbackOther(target);
         knockbackSelf();
         cooldown.restart();
+        notifyHit(target, damage);
     }
 
     private void knockbackOther(final Entity target) {
@@ -96,5 +100,9 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
     private Point2D limitKnockback(final EntityBody body, final Point2D targetForce) {
         final Point2D knock = targetForce.subtract(body.getLinearVelocity());
         return FXUtils.absCap(knock, targetForce.getX(), targetForce.getY());
+    }
+
+    private void notifyHit(final Entity target, final int damage) {
+        post(new HitEvent(getEntity(), target, damage));
     }
 }
