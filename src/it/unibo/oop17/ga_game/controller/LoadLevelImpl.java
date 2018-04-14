@@ -76,6 +76,7 @@ public class LoadLevelImpl implements LoadLevel {
                     player = model.spawnEntity(body -> new Player(body, position));
                     entities.add(
                             new PlayerController(view.getPlayerInput(), player, view.entityFactory().createPlayer()));
+                    player.register(new DeathEventListener(mainController));
                     break;
                 case "keyR":
                     entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.RED));

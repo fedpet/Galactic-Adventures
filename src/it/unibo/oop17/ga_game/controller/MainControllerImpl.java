@@ -6,6 +6,8 @@ import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
 import it.unibo.oop17.ga_game.view.MainViewImpl;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class MainControllerImpl implements MainController {

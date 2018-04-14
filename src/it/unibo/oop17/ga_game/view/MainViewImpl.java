@@ -20,8 +20,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
@@ -93,11 +91,6 @@ public final class MainViewImpl implements MainView {
         if (controller.getGameData().getLevelProgress() < LEVELS_NUM) {
             audioC.playMusic(Musics.get(controller.getGameData().getLevelProgress()).getPath());
         }
-        scene.addEventHandler(KeyEvent.KEY_TYPED, e -> {
-            if(e.getCode() == KeyCode.ESCAPE) {
-                controller.toMenu();
-            }
-        });
         return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()),
                 new ImageView(new Image(new RandomBackground().getBackgroundPath())));
     }
