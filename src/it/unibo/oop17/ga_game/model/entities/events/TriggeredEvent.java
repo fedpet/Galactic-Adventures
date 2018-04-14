@@ -12,7 +12,7 @@ public class TriggeredEvent extends AbstractEntityEvent implements TriggerEvent 
      * @param source
      *            The @Entity source of this event.
      */
-    public TriggeredEvent(Entity source) {
+    public TriggeredEvent(final Entity source) {
         super(source);
     }
 
