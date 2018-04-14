@@ -27,6 +27,9 @@ public final class FeetComponent extends AbstractMovementComponent {
         this.jumpingSpeed = jumpingSpeed;
     }
 
+    /**
+     * Attach the component to the entity and updates movement state.
+     */
     @Override
     public void attach(final EventfullEntity owner) {
         super.attach(owner);
