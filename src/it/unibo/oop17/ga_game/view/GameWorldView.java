@@ -6,7 +6,7 @@ import it.unibo.oop17.ga_game.controller.PlayerInput;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
-public interface GameWorldView {
+public interface GameWorldView extends Screen {
     
     EntityViewFactory entityFactory();
 

@@ -23,6 +23,8 @@ import it.unibo.oop17.ga_game.view.GameWorldView;
 import it.unibo.oop17.ga_game.view.HudView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class GameControllerImpl implements GameController {
     
@@ -50,6 +52,11 @@ public class GameControllerImpl implements GameController {
         model = new GameWorld();
         entities = new LinkedHashSet<>();
         save = mainController.getGameData();
+        view.getNode().getScene().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                mainController.toMenu();
+            }
+        });
         this.whichLevel();
         
     }

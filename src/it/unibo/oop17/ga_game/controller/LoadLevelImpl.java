@@ -17,11 +17,14 @@ import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.model.entities.Door;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
+import it.unibo.oop17.ga_game.model.entities.JumpingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Key;
 import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
+import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
+import it.unibo.oop17.ga_game.model.entities.Spikes;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
@@ -67,7 +70,7 @@ public class LoadLevelImpl implements LoadLevel {
             });
         }
         if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects")) {
-            layer.forEach(mapObj -> { 
+            layer.forEach(mapObj -> {
                 final Point2D position = FXUtils.invertY(new Point2D(mapObj.getX() / 70, mapObj.getY() / 70));
                 final String type = mapObj.getType();
                 Entity entity;
@@ -82,10 +85,37 @@ public class LoadLevelImpl implements LoadLevel {
                     entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.RED));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.RED)));
                     break;
+                case "keyB":
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.BLUE));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.BLUE)));
+                    break;
+                case "keyG":
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.GREEN));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.GREEN)));
+                    break;
+                case "keyY":
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.YELLOW));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.YELLOW)));
+                    break;
                 case "redLock":
                     entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.RED));
                     entities.add(
                             new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.RED)));
+                    break;
+                case "blueLock":
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.BLUE));
+                    entities.add(
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.BLUE)));
+                    break;
+                case "greenLock":
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.GREEN));
+                    entities.add(
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.GREEN)));
+                    break;
+                case "yellowLock":
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.YELLOW));
+                    entities.add(
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.YELLOW)));
                     break;
                 case "lever":
                     entity = model.spawnEntity(body -> new Lever(body, position, "door", false));
@@ -116,12 +146,20 @@ public class LoadLevelImpl implements LoadLevel {
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "torch":
+                    //TODO
                     break;
                 case "spikes":
+                    entity = model.spawnEntity(body -> new Spikes(body, position));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpikes()));
                     break;
                 case "spring":
+                    entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createJumpingPlatform()));
                     break;
                 case "platform":
+                    entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
+                            .repeat(() -> new CircleIterator(position, 5, 5))));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":
                 default:
