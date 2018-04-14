@@ -1,5 +1,9 @@
 package it.unibo.oop17.ga_game.tests.entities;
 
+import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.FALLING;
+import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.IDLE;
+import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.JUMPING;
+import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.WALKING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -62,19 +66,15 @@ public class FeetTest extends BaseEntityTest {
         addTerrain(entity.getBody().getPosition()
                 .add(new Point2D(0, -entity.getBody().getDimension().getHeight() - 1)), FLOOR_SIZE);
 
-        assertEquals(MovementComponent.State.FALLING, feet.getState());
-
+        assertState(FALLING);
         advanceSimulation(1);
-        assertEquals(MovementComponent.State.IDLE, feet.getState());
-        MovementEvent event = entity.popEvent(MovementEvent.class);
-        assertEquals(MovementComponent.State.IDLE, event.getState());
+        assertState(IDLE);
 
         double startingX = entity.getBody().getPosition().getX();
         feet.move(direction(Side.RIGHT));
         advanceSimulation(1);
         assertTrue(startingX < entity.getBody().getPosition().getX());
-        event = entity.popEvent(MovementEvent.class);
-        assertEquals(MovementComponent.State.WALKING, event.getState());
+        assertState(WALKING);
 
         startingX = entity.getBody().getPosition().getX();
         feet.move(direction(Side.LEFT));
@@ -89,22 +89,25 @@ public class FeetTest extends BaseEntityTest {
     public final void testJump() {
         // add floor to the bottom of the entity
         final Point2D floorPos = entity.getBody().getPosition()
-                .add(new Point2D(0, -entity.getBody().getDimension().getHeight() - 1)); 
+                .add(new Point2D(0, -entity.getBody().getDimension().getHeight() / 2 - FLOOR_SIZE.getHeight() / 2));
         addTerrain(floorPos, FLOOR_SIZE);
+        assertState(FALLING);
 
         advanceSimulation(1);
-        assertEquals(MovementComponent.State.IDLE, feet.getState());
+        assertState(IDLE);
 
         final double startingY = entity.getBody().getPosition().getY();
         // this must result in a jump
         feet.move(direction(Side.TOP));
-        assertEquals(MovementComponent.State.JUMPING, feet.getState());
-
-        final MovementEvent event = entity.popEvent(MovementEvent.class);
-        assertEquals(MovementComponent.State.JUMPING, event.getState());
+        assertState(JUMPING);
 
         advanceSimulation(1);
         assertTrue(startingY < entity.getBody().getPosition().getY());
+    }
+
+    private void assertState(final MovementComponent.State state) {
+        assertEquals(state, feet.getState());
+        assertEquals(state, entity.popEvent(MovementEvent.class).getState());
     }
 
     private Point2D direction(final Side side) {
