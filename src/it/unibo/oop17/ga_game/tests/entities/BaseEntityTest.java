@@ -15,6 +15,7 @@ import javafx.geometry.Point2D;
  * Builds and manage the @GameWorld offering utilities to place entities and advance the simulation.
  */
 public class BaseEntityTest {
+    private static final double DELAY_PER_STEP = 1.0 / 60;
     private GameWorld world = new GameWorld();
 
     /**
@@ -33,7 +34,10 @@ public class BaseEntityTest {
      *            in seconds
      */
     protected void advanceSimulation(final double seconds) {
-        world.update(seconds);
+        int steps = (int) Math.ceil(seconds / DELAY_PER_STEP);
+        for (; steps >= 0; steps--) {
+            world.update(DELAY_PER_STEP);
+        }
     }
 
     /**
