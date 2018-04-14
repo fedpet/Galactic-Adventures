@@ -61,11 +61,9 @@ public class FeetTest extends BaseEntityTest {
      * Must be able to move horizontally.
      */
     @Test
-    public final void testBasicMovement() {
+    public final void testHorizontalMovement() {
         // add floor to the bottom of the entity
-        addTerrain(entity.getBody().getPosition()
-                .add(new Point2D(0, -entity.getBody().getDimension().getHeight() - 1)), FLOOR_SIZE);
-
+        addFloor();
         assertState(FALLING);
         advanceSimulation(1);
         assertState(IDLE);
@@ -87,12 +85,8 @@ public class FeetTest extends BaseEntityTest {
      */
     @Test
     public final void testJump() {
-        // add floor to the bottom of the entity
-        final Point2D floorPos = entity.getBody().getPosition()
-                .add(new Point2D(0, -entity.getBody().getDimension().getHeight() / 2 - FLOOR_SIZE.getHeight() / 2));
-        addTerrain(floorPos, FLOOR_SIZE);
+        addFloor();
         assertState(FALLING);
-
         advanceSimulation(1);
         assertState(IDLE);
 
@@ -100,7 +94,6 @@ public class FeetTest extends BaseEntityTest {
         // this must result in a jump
         feet.move(direction(Side.TOP));
         assertState(JUMPING);
-
         advanceSimulation(1);
         assertTrue(startingY < entity.getBody().getPosition().getY());
     }
@@ -108,6 +101,12 @@ public class FeetTest extends BaseEntityTest {
     private void assertState(final MovementComponent.State state) {
         assertEquals(state, feet.getState());
         assertEquals(state, entity.popEvent(MovementEvent.class).getState());
+    }
+
+    private void addFloor() {
+        final Point2D floorPos = entity.getBody().getPosition()
+                .add(new Point2D(0, -entity.getBody().getDimension().getHeight() / 2 - FLOOR_SIZE.getHeight() / 2));
+        addTerrain(floorPos, FLOOR_SIZE);
     }
 
     private Point2D direction(final Side side) {
