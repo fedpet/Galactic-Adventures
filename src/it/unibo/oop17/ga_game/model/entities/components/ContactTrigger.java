@@ -29,10 +29,15 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
     }
 
     @Override
-    protected void handleContact(final EntityBody other) {
+    public void trigger() {
         if (!hasTriggered()) {
             triggered = true;
             post(new PasswordTriggeringEvent(getEntity(), password));
         }
+    }
+
+    @Override
+    protected void handleContact(final EntityBody other) {
+        trigger();
     }
 }
