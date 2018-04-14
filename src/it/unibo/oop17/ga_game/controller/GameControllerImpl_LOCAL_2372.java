@@ -15,12 +15,7 @@ import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
-<<<<<<< HEAD
 import it.unibo.oop17.ga_game.model.entities.Player;
-=======
-import it.unibo.oop17.ga_game.model.Level;
-import it.unibo.oop17.ga_game.model.entities.Entity;
->>>>>>> e92c6ae51ddab6ef8daabce4a2762669e381d3b1
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
@@ -33,7 +28,7 @@ public class GameControllerImpl implements GameController {
     
     private static final double FRAMERATE = 1.0 / 60;
     
-    private Entity player;
+    private Player player;
     private GameWorld model;
     private GameWorldView view;
     private Set<EntityController> entities;

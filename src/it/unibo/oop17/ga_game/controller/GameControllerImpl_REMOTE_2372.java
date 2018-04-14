@@ -15,12 +15,8 @@ import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
-<<<<<<< HEAD
-import it.unibo.oop17.ga_game.model.entities.Player;
-=======
 import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.model.entities.Entity;
->>>>>>> e92c6ae51ddab6ef8daabce4a2762669e381d3b1
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
@@ -32,6 +28,7 @@ import javafx.application.Platform;
 public class GameControllerImpl implements GameController {
     
     private static final double FRAMERATE = 1.0 / 60;
+    private static final boolean SHOW_HUD = true;
     
     private Entity player;
     private GameWorld model;
@@ -40,31 +37,24 @@ public class GameControllerImpl implements GameController {
     private final HudView hudView;
     private final MainController mainController;
     private final GameData save;
-    private final AnimationTimer animationTimer = new AnimationTimer() {
-        @Override
-        public void handle(final long now) {
-            update();
-        }
-    };
 
     public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
         
+        this.model = new GameWorld();
         this.view = view;
         this.hudView = hudView;
+        this.entities = new LinkedHashSet<>();
         this.mainController = mainController;
-        model = new GameWorld();
-        entities = new LinkedHashSet<>();
-        save = mainController.getGameData();
+        this.save = mainController.getGameData();
         this.whichLevel();
         
     }
     
-    @Override
-    public void stop() {
-        animationTimer.stop();
-    }
-    
     private void whichLevel() {
+        
+        if (this.save.getLevelProgress() > Level.values().length) {
+            mainController.toEndGame();
+        }
         
         Map map;
         final File tempDir = Files.createTempDir();
@@ -102,17 +92,24 @@ public class GameControllerImpl implements GameController {
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
-        this.player = loader.getPlayer();
-        hudView.addHud();
         
-        animationTimer.start();
+        if (SHOW_HUD) {
+            this.player = loader.getPlayer();
+            hudView.addHud();
+        }
         
+        new AnimationTimer() {
+            @Override
+            public void handle(final long now) {
+                update();
+            }
+        }.start();
     }
 
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
-        if (player != null && player.get(Life.class).isPresent()) {
+        if (SHOW_HUD && player != null && player.get(Life.class).isPresent()) {
             hudView.update(player.get(Life.class).get().getHealthPoints(),
                     player.get(Inventory.class).get().getMoney());
         }

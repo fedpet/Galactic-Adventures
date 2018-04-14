@@ -11,4 +11,10 @@ public interface TriggerComponent extends EntityComponent {
      */
     boolean hasTriggered();
 
+    /**
+     * It triggers the component.
+     * 
+     */
+    void trigger();
+
 }
