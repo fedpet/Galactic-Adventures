@@ -2,6 +2,6 @@ package it.unibo.oop17.ga_game.controller;
 
 public interface GameController {
     
-    public void stop();
+    void stop();
 
 }

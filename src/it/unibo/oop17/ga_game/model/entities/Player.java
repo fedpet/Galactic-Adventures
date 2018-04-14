@@ -17,7 +17,7 @@ import javafx.geometry.Side;
  * Models our player.
  */
 public final class Player extends AbstractEntity {
-    private static final int DEFAULT_LIFE = 500;
+    private static final int DEFAULT_LIFE = 5;
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double WALK_SPEED = 10;
     private static final double JUMP_SPEED = 22;

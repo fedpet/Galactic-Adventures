@@ -27,7 +27,6 @@ import javafx.application.Platform;
 public class GameControllerImpl implements GameController {
     
     private static final double FRAMERATE = 1.0 / 60;
-    private static final boolean SHOW_HUD = true;
     
     private Player player;
     private GameWorld model;
@@ -45,12 +44,12 @@ public class GameControllerImpl implements GameController {
 
     public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
         
-        this.model = new GameWorld();
         this.view = view;
         this.hudView = hudView;
-        this.entities = new LinkedHashSet<>();
         this.mainController = mainController;
-        this.save = mainController.getGameData();
+        model = new GameWorld();
+        entities = new LinkedHashSet<>();
+        save = mainController.getGameData();
         this.whichLevel();
         
     }
@@ -98,11 +97,8 @@ public class GameControllerImpl implements GameController {
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
-        
-        if (SHOW_HUD) {
-            this.player = loader.getPlayer();
-            hudView.addHud();
-        }
+        this.player = loader.getPlayer();
+        hudView.addHud();
         
         animationTimer.start();
         
@@ -111,7 +107,7 @@ public class GameControllerImpl implements GameController {
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
-        if (SHOW_HUD && player != null && player.get(Life.class).isPresent()) {
+        if (player != null && player.get(Life.class).isPresent()) {
             hudView.update(player.get(Life.class).get().getHealthPoints(),
                     player.get(Inventory.class).get().getMoney());
         }

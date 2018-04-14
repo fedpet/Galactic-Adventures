@@ -4,11 +4,10 @@ import it.unibo.oop17.ga_game.controller.EndGameObserver;
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.controller.GameOverObserver;
 import it.unibo.oop17.ga_game.controller.MainController;
-import it.unibo.oop17.ga_game.model.GameData;
 
 public interface MainView {
     
-    GameWorldView showGame(GameData save);
+    GameWorldView showGame(MainController controller);
 
     MenuView showMenu(MainController controller);
     

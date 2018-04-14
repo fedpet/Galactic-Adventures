@@ -25,10 +25,8 @@ import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 public class LoadLevelImpl implements LoadLevel {
@@ -72,15 +70,12 @@ public class LoadLevelImpl implements LoadLevel {
                         .build();
             });
         }
-        if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects") || layer.getName().trim().toLowerCase(Locale.UK).equals("background")) {
+        if (layer.getName().trim().toLowerCase(Locale.UK).equals("objects")) {
             layer.forEach(mapObj -> { 
                 final Point2D position = FXUtils.invertY(new Point2D(mapObj.getX() / 70, mapObj.getY() / 70));
                 final String type = mapObj.getType();
                 final BodyBuilder bodyBuilder = model.bodyBuilder();
                 switch (type) {
-                case "background":
-//                    background = SwingFXUtils.toFXImage(mapObj.getImage(0), null);
-                    break;
                 case "player":
                     player = new Player(bodyBuilder, position);
                     model.addEntity(player);

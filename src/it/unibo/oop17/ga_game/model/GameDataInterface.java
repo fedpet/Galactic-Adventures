@@ -13,11 +13,6 @@ public interface GameDataInterface {
     int getScore();
     
     /**
-     * @return total lives.
-     */
-    int getLives();
-    
-    /**
      * @return last level completed.
      */
     int getLevelProgress();
