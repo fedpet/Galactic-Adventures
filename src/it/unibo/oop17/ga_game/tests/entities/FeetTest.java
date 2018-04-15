@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
 import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Dimension2D;
@@ -44,11 +45,13 @@ public class FeetTest extends BaseEntityTest {
      */
     @Test
     public final void testFaceDirection() {
+        assertState(FALLING);
         feet.move(direction(Side.RIGHT));
         assertEquals(HorizontalDirection.RIGHT, feet.getFaceDirection());
 
         feet.move(direction(Side.LEFT));
         assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
+        assertEquals(HorizontalDirection.LEFT, entity.popEvent(FaceDirectionEvent.class).getDirection());
 
         feet.move(direction(Side.TOP));
         assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
