@@ -1,7 +1,10 @@
 package it.unibo.oop17.ga_game.view;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import it.unibo.oop17.ga_game.controller.AudioController;
@@ -12,8 +15,6 @@ import it.unibo.oop17.ga_game.controller.GameOverObserver;
 import it.unibo.oop17.ga_game.controller.LoadSaveManager;
 import it.unibo.oop17.ga_game.controller.MainController;
 import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.model.GameData;
-import it.unibo.oop17.ga_game.model.Level;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,15 +28,36 @@ public final class MainViewImpl implements MainView {
     
     private final static Music MAINMENU_M = Music.TRACK1;
     private final static Music ENDLEVEL_M = Music.TRACK6;
+    private final static int LEVELS_NUM = 7;
     
+    private final Stage stage;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
     private final AudioObserver audioC;
+    private final List<Music> Musics = Arrays.asList(
+            Music.TRACK3,
+            Music.TRACK2,
+            Music.TRACK4,
+            Music.TRACK5,
+            Music.TRACK3,
+            Music.TRACK2,
+            Music.TRACK4,
+            Music.TRACK5);
+    private final List<Background> Backgrounds = Arrays.asList(
+            Background.BG_GRASSLAND,
+            Background.BG_CASTLE,
+            Background.BG_DESERT,
+            Background.BG_GRASSLAND,
+            Background.BG_DESERT,
+            Background.BG_DESERT,
+            Background.BG_SHROOM,
+            Background.BG_CASTLE);
     private ConfigData data;
 
     public MainViewImpl(final Stage stage, final ConfigData data) {
         
+        this.stage = stage;
         this.data = data;
         final AudioView audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
         audioC = new AudioController(audioV);
@@ -50,6 +72,8 @@ public final class MainViewImpl implements MainView {
     }
 
     private <V extends Screen> V setScreen(final V newScreen, final ImageView im) {
+        im.fitWidthProperty().bind(stage.widthProperty());
+        im.fitHeightProperty().bind(stage.heightProperty());
         currentScreens.forEach(s -> root.getChildren().remove(s.getNode()));
         currentScreens.clear();
         root.getChildren().add(im);
@@ -58,19 +82,16 @@ public final class MainViewImpl implements MainView {
         return newScreen;
     }
     
-//    private void setBackground(final ImageView im) {
-//        root.getChildren().add(im);
-//    }
-    
     @Override
     public MenuView showMenu(final MainController controller) {
         audioC.playMusic(MAINMENU_M.getPath());
+        final List<Background> list = Collections.unmodifiableList(Arrays.asList(Background.values()));
         return setScreen(new MenuViewImpl(controller.getConfigData().getMusicVol(),
                 controller.getConfigData().getSFXVol(),
                 controller.getConfigData().getLanguage(),
                 controller.getConfigData().getDifficulty(),
                 new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage())),
-                new ImageView(new Image(new RandomBackground().getBackgroundPath())));
+                new ImageView(new Image(list.get(new Random().nextInt(list.size())).getPath())));
     }
 
     @Override
@@ -82,10 +103,12 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public GameWorldView showGame(final GameData save) {
-        audioC.playMusic(Level.values()[save.getLevelProgress()].getMusic());
-        final GameWorldView view = new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor());
-        return setScreen(view, );
+    public GameWorldView showGame(final MainController controller) {
+        if (controller.getGameData().getLevelProgress()< LEVELS_NUM) {
+            audioC.playMusic(Musics.get(controller.getGameData().getLevelProgress()).getPath());
+        }
+        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()),
+                new ImageView(new Image(Backgrounds.get(controller.getGameData().getLevelProgress()).getPath())));
     }
 
     @Override
@@ -97,7 +120,8 @@ public final class MainViewImpl implements MainView {
     public CommonView<EndLevelObserver> showEndLevel(final MainController controller) {
         audioC.playMusic(ENDLEVEL_M.getPath());
         return setScreen(new EndLevelViewImpl(new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()),
-                controller.getStage()), new ImageView(new Image(new RandomBackground().getBackgroundPath())));
+                controller.getStage()),
+                new ImageView(new Image(Backgrounds.get(controller.getGameData().getLevelProgress()).getPath())));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.controller;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
@@ -10,10 +10,13 @@ import javafx.stage.Stage;
 
 public class MainControllerImpl implements MainController {
     
+    private final static int LEVELS_NUM = 7;
+    
     private final Stage stage;
     private final MainView view;
     private ConfigData data;
     private GameData save;
+    private Optional<GameController> activeGameController = Optional.empty();
     
     MainControllerImpl(final Stage stage) {
         
@@ -26,27 +29,32 @@ public class MainControllerImpl implements MainController {
     }
 
     public final void toMenu() {
+        stopGameController();
         new MenuController(view.showMenu(this), this);
     }
     
     public final void toGame() {
         data = CheckData.loadConfig();
         save = CheckSave.loadSave();
-        new GameControllerImpl(view.showGame(this.save), view.showHud(), this);
+        if (save.getLevelProgress() > LEVELS_NUM) {
+            toEndGame();
+        } else {
+            activeGameController = Optional.of(new GameControllerImpl(view.showGame(this), view.showHud(), this));
+        }
     }
 
     public final void toEndLevel() {
-        slowTransiction();
+        stopGameController();
         new EndLevelController(view.showEndLevel(this), this);
     }
     
     public final void toGameOver() {
-        slowTransiction();
+        stopGameController();
         new GameOverController(view.showGameOver(this), this);
     }
     
     public final void toEndGame() {
-        slowTransiction();
+        stopGameController();
         new EndGameController(view.showEndGame(this), this);
     }
     
@@ -67,13 +75,9 @@ public class MainControllerImpl implements MainController {
         view.updateMusicVol();
     }
     
-    private void slowTransiction() {
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+    private void stopGameController() {
+        activeGameController.ifPresent(game -> game.stop());
+        activeGameController = Optional.empty();
     }
     
 }
