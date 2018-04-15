@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UnknownFormatConversionException;
@@ -70,7 +71,7 @@ public class GameControllerImpl implements GameController {
         
         Map map;
         final File tempDir = Files.createTempDir();
-        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("levels.zip"))) {
+        try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
             ZipUtils.extract(is, tempDir);
             map = loadMap(new File(tempDir, "LEVEL_" + this.save.getLevelProgress() + ".tmx"));
         } catch (final IOException ex) {

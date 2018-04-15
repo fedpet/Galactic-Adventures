@@ -40,7 +40,7 @@ public class LoadLevelImpl implements LoadLevel {
     private final GameWorldView view;
     private final Set<EntityController> entities;
     private final MainController mainController;
-//    private final Image background;
+    private String background;
 
     public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
         
@@ -75,6 +75,10 @@ public class LoadLevelImpl implements LoadLevel {
                 final String type = mapObj.getType();
                 Entity entity;
                 switch (type) {
+                case "background":
+                    background = mapObj.getImageSource();
+                    System.out.println(background);
+                    break;
                 case "player":
                     player = model.spawnEntity(body -> new Player(body, position));
                     entities.add(
