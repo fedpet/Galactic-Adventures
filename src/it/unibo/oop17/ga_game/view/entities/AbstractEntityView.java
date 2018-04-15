@@ -28,10 +28,13 @@ public abstract class AbstractEntityView implements EntityView {
         group.getChildren().add(view);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
-    public void setPosition(final Point2D point) {
-        view.setTranslateX(point.getX() - view.getBoundsInLocal().getWidth() / 2);
-        view.setTranslateY(point.getY() - view.getBoundsInLocal().getHeight() / 2);
+    public void setPosition(final Point2D worldPointToFx) {
+        view.setTranslateX(worldPointToFx.getX() - view.getBoundsInLocal().getWidth() / 2);
+        view.setTranslateY(worldPointToFx.getY() - view.getBoundsInLocal().getHeight() / 2);
     }
 
     @Override
@@ -39,12 +42,18 @@ public abstract class AbstractEntityView implements EntityView {
         return new Point2D(view.getTranslateX(), view.getTranslateY());
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public void setDimension(final Dimension2D dimension) {
         view.setFitWidth(ViewUtils.metersToPixels(dimension.getWidth()));
         view.setFitHeight(ViewUtils.metersToPixels(dimension.getHeight()));
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public void remove() {
         parentView.getChildren().remove(view);

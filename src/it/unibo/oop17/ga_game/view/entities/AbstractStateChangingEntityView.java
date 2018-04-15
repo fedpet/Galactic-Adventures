@@ -41,6 +41,9 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
         };
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public void changeState(final S state) {
         if (animations.containsKey(state)) {
