@@ -1,9 +1,8 @@
 package it.unibo.oop17.ga_game.controller;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UnknownFormatConversionException;
@@ -15,7 +14,6 @@ import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
-import it.unibo.oop17.ga_game.model.Level;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
@@ -24,11 +22,12 @@ import it.unibo.oop17.ga_game.view.GameWorldView;
 import it.unibo.oop17.ga_game.view.HudView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class GameControllerImpl implements GameController {
     
     private static final double FRAMERATE = 1.0 / 60;
-    private static final boolean SHOW_HUD = true;
     
     private Entity player;
     private GameWorld model;
@@ -37,28 +36,40 @@ public class GameControllerImpl implements GameController {
     private final HudView hudView;
     private final MainController mainController;
     private final GameData save;
+    private final AnimationTimer animationTimer = new AnimationTimer() {
+        @Override
+        public void handle(final long now) {
+            update();
+        }
+    };
 
     public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
         
-        this.model = new GameWorld();
         this.view = view;
         this.hudView = hudView;
-        this.entities = new LinkedHashSet<>();
         this.mainController = mainController;
-        this.save = mainController.getGameData();
+        model = new GameWorld();
+        entities = new LinkedHashSet<>();
+        save = mainController.getGameData();
+        view.getNode().getScene().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                mainController.toMenu();
+            }
+        });
         this.whichLevel();
         
     }
     
+    @Override
+    public void stop() {
+        animationTimer.stop();
+    }
+    
     private void whichLevel() {
-        
-        if (this.save.getLevelProgress() > Level.values().length) {
-            mainController.toEndGame();
-        }
         
         Map map;
         final File tempDir = Files.createTempDir();
-        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("levels.zip"))) {
+        try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
             ZipUtils.extract(is, tempDir);
             map = loadMap(new File(tempDir, "LEVEL_" + this.save.getLevelProgress() + ".tmx"));
         } catch (final IOException ex) {
@@ -92,24 +103,17 @@ public class GameControllerImpl implements GameController {
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
+        this.player = loader.getPlayer();
+        hudView.addHud();
         
-        if (SHOW_HUD) {
-            this.player = loader.getPlayer();
-            hudView.addHud();
-        }
+        animationTimer.start();
         
-        new AnimationTimer() {
-            @Override
-            public void handle(final long now) {
-                update();
-            }
-        }.start();
     }
 
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
-        if (SHOW_HUD && player != null && player.get(Life.class).isPresent()) {
+        if (player != null && player.get(Life.class).isPresent()) {
             hudView.update(player.get(Life.class).get().getHealthPoints(),
                     player.get(Inventory.class).get().getMoney());
         }

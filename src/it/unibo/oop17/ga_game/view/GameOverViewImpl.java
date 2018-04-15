@@ -12,19 +12,19 @@ public class GameOverViewImpl implements CommonView<GameOverObserver> {
     private final Group view = new Group();
     private GameOverObserver observer;
     
-    public GameOverViewImpl(final Volume sfxVol, final Map<Text, String> currLang, final Stage stage) {
+    public GameOverViewImpl(final Map<Text, String> currLang, final Stage stage) {
         
-        final MenuButton btnRetry = new MenuButton(currLang.get(Text.RETRY), sfxVol);
+        final MenuButton btnRetry = new MenuButton(currLang.get(Text.RETRY));
         btnRetry.setOnMouseClicked(event -> {
             observer.retry();
         });
         
-        final MenuButton btnMenu = new MenuButton(currLang.get(Text.MENU), sfxVol);
+        final MenuButton btnMenu = new MenuButton(currLang.get(Text.MENU));
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
         
-        final MenuButton btnQuit = new MenuButton(currLang.get(Text.EXIT), sfxVol);
+        final MenuButton btnQuit = new MenuButton(currLang.get(Text.EXIT));
         btnQuit.setOnMouseClicked(event -> {
             observer.quit();
         });

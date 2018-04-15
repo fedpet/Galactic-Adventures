@@ -39,7 +39,7 @@ public final class PlayerView extends AbstractLivingEntityView {
     @Override
     public void changeState(final CreatureState state) {
         if (state == CreatureState.JUMPING) {
-            new AudioClip(SFX.JUMP.getSFX()).play();
+            new AudioClip(SFX.JUMP.getPath()).play();
         } else if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
             return; // don't stop suffer animation in this case.
         }
@@ -63,7 +63,7 @@ public final class PlayerView extends AbstractLivingEntityView {
 
     private Runnable painAnimation() {
         return () -> {
-            new AudioClip(SFX.PLAYER_DAMAGE.getSFX()).play();
+            new AudioClip(SFX.PLAYER_DAMAGE.getPath()).play();
             setImage(IMG_HURT);
             final Timeline anim = new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {

@@ -12,14 +12,14 @@ public class EndGameViewImpl implements CommonView<EndGameObserver> {
     private final Group view = new Group();
     private EndGameObserver observer;
     
-    public EndGameViewImpl(final Volume sfxVol, final Map<Text, String> currLang, final Stage stage) {
+    public EndGameViewImpl(final Map<Text, String> currLang, final Stage stage) {
         
-        final MenuButton btnMenu = new MenuButton(currLang.get(Text.MENU), sfxVol);
+        final MenuButton btnMenu = new MenuButton(currLang.get(Text.MENU));
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
         
-        final MenuButton btnQuit = new MenuButton(currLang.get(Text.EXIT), sfxVol);
+        final MenuButton btnQuit = new MenuButton(currLang.get(Text.EXIT));
         btnQuit.setOnMouseClicked(event -> {
             observer.quit();
         });

@@ -18,7 +18,7 @@ public enum Music {
         this.path = path;
     }
         
-    public String getMusic() {
+    public String getPath() {
         return getClass().getResource(path).toString();
     }
 }

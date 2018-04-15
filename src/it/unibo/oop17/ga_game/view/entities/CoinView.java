@@ -37,7 +37,7 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public void remove() {
-        new AudioClip(SFX.COIN.getSFX()).play();
+        new AudioClip(SFX.COIN.getPath()).play();
         super.remove();
     }
 }

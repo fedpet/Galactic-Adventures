@@ -36,7 +36,7 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
 
     @Override
     public void changeState(final TriggerState state) {
-        new AudioClip(SFX.LEVER.getSFX()).play();
+        new AudioClip(SFX.LEVER.getPath()).play();
         super.changeState(state);
     }
 }

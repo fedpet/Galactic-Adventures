@@ -9,14 +9,12 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class MenuViewImpl extends Parent implements MenuView {
     
-    private final static Music MAINMENU_M = Music.TRACK1;
+    
     private final static int OFFSET = 364;
     private final Group menuView = new Group();
     private MenuObserver observer;
@@ -31,7 +29,6 @@ public class MenuViewImpl extends Parent implements MenuView {
     private final MenuButton btnLanguage;
     private final MenuButton btnDiff;
     private final MenuButton btnDefaults;
-    private final MediaPlayer mediaPlayer;
     
     private Map<Text, String> currLang;
     
@@ -40,9 +37,6 @@ public class MenuViewImpl extends Parent implements MenuView {
         super();
         
         this.currLang = currLang;
-        this.mediaPlayer = new MediaPlayer(new Media(MAINMENU_M.getMusic()));
-        this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.mediaPlayer.play();
         
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
@@ -55,21 +49,19 @@ public class MenuViewImpl extends Parent implements MenuView {
 
         menu1.setTranslateX(OFFSET);
         
-        this.btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME), sfxVol);
-        this.btnNewGame.setOnMouseClicked(event -> {
-            this.mediaPlayer.stop();
-            this.observer.newGame();
+        btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
+        btnNewGame.setOnMouseClicked(event -> {
+            observer.newGame();
         });
         
-        this.btnContinue = new MenuButton(currLang.get(Text.CONTINUE), sfxVol);
-        this.btnContinue.setOnMouseClicked(event -> {
-            this.mediaPlayer.stop();
-            this.observer.continueGame();
+        btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
+        btnContinue.setOnMouseClicked(event -> {
+            observer.continueGame();
         });
         
-        this.btnOptions = new MenuButton(currLang.get(Text.OPTIONS), sfxVol);
-        this.btnOptions.setOnMouseClicked(event -> {
-            this.menuView.getChildren().add(menu1);
+        btnOptions = new MenuButton(currLang.get(Text.OPTIONS));
+        btnOptions.setOnMouseClicked(event -> {
+            menuView.getChildren().add(menu1);
 
             final TranslateTransition tt0 = new TranslateTransition(Duration.seconds(0.25), menu0);
             tt0.setToX(menu0.getTranslateX() - OFFSET);
@@ -81,18 +73,18 @@ public class MenuViewImpl extends Parent implements MenuView {
             tt1.play();
 
             tt0.setOnFinished(evt -> {
-                this.menuView.getChildren().remove(menu0);
+                menuView.getChildren().remove(menu0);
             });
         });
         
-        this.btnExit = new MenuButton(currLang.get(Text.EXIT), sfxVol);
-        this.btnExit.setOnMouseClicked(event -> {
-            this.observer.quit();
+        btnExit = new MenuButton(currLang.get(Text.EXIT));
+        btnExit.setOnMouseClicked(event -> {
+            observer.quit();
         });
 
-        this.btnBack = new MenuButton(currLang.get(Text.BACK), sfxVol);
-        this.btnBack.setOnMouseClicked(event -> {
-            this.menuView.getChildren().add(menu0);
+        btnBack = new MenuButton(currLang.get(Text.BACK));
+        btnBack.setOnMouseClicked(event -> {
+            menuView.getChildren().add(menu0);
 
             final TranslateTransition tt0 = new TranslateTransition(Duration.seconds(0.25), menu1);
             tt0.setToX(menu1.getTranslateX() + OFFSET);
@@ -104,24 +96,24 @@ public class MenuViewImpl extends Parent implements MenuView {
             tt1.play();
 
             tt0.setOnFinished(evt -> {
-                this.menuView.getChildren().remove(menu1);
+                menuView.getChildren().remove(menu1);
             });
         });
         
-        this.btnMusic = new MenuButton(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()), sfxVol);
-        this.btnMusic.setOnMouseClicked(event -> this.observer.nextMusicVolume());
+        btnMusic = new MenuButton(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()));
+        btnMusic.setOnMouseClicked(event -> this.observer.nextMusicVolume());
         
-        this.btnSFX = new MenuButton(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()), sfxVol);
-        this.btnSFX.setOnMouseClicked(event -> this.observer.nextSFXVolume());
+        btnSFX = new MenuButton(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()));
+        btnSFX.setOnMouseClicked(event -> this.observer.nextSFXVolume());
         
-        this.btnLanguage = new MenuButton(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()), sfxVol);
-        this.btnLanguage.setOnMouseClicked(event -> this.observer.nextLanguage());
+        btnLanguage = new MenuButton(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()));
+        btnLanguage.setOnMouseClicked(event -> this.observer.nextLanguage());
         
-        this.btnDiff = new MenuButton(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()), sfxVol);
-        this.btnDiff.setOnMouseClicked(event -> this.observer.nextDifficulty());
+        btnDiff = new MenuButton(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()));
+        btnDiff.setOnMouseClicked(event -> this.observer.nextDifficulty());
         
-        this.btnDefaults = new MenuButton(currLang.get(Text.DEFAULT_OPT), sfxVol);
-        this.btnDefaults.setOnMouseClicked(event -> this.observer.setDefaults());
+        btnDefaults = new MenuButton(currLang.get(Text.DEFAULT_OPT));
+        btnDefaults.setOnMouseClicked(event -> this.observer.setDefaults());
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
@@ -137,32 +129,28 @@ public class MenuViewImpl extends Parent implements MenuView {
     }
     
     public final void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
-        this.btnNewGame.update(currLang.get(Text.NEW_GAME), sfxVol);
-        this.btnContinue.update(currLang.get(Text.CONTINUE), sfxVol);
-        this.btnOptions.update(currLang.get(Text.OPTIONS), sfxVol);
-        this.btnExit.update(currLang.get(Text.EXIT), sfxVol);
-        this.btnBack.update(currLang.get(Text.BACK), sfxVol);
-        this.btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()), sfxVol);
-        this.btnSFX.update(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()), sfxVol);
-        this.btnLanguage.update(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()), sfxVol);
-        this.btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()), sfxVol);
-        this.btnDefaults.update(currLang.get(Text.DEFAULT_OPT), sfxVol);
+        btnNewGame.update(currLang.get(Text.NEW_GAME));
+        btnContinue.update(currLang.get(Text.CONTINUE));
+        btnOptions.update(currLang.get(Text.OPTIONS));
+        btnExit.update(currLang.get(Text.EXIT));
+        btnBack.update(currLang.get(Text.BACK));
+        btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()));
+        btnSFX.update(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()));
+        btnLanguage.update(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()));
+        btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()));
+        btnDefaults.update(currLang.get(Text.DEFAULT_OPT));
     }
     
     public void updateLanguage(final Map<Text, String> currLang) {
         this.currLang = currLang;
     }
     
-    public void updateMusicVol(final Volume musicVol) {
-        this.mediaPlayer.setVolume(musicVol.getVolume());
-    }
-    
     public void setContinueEnabled(final boolean isVisible) {
-        this.btnContinue.setVisible(isVisible);
+        btnContinue.setVisible(isVisible);
     }
     
     public Node getNode() {
-        return this.menuView;
+        return menuView;
     }
         
 }
