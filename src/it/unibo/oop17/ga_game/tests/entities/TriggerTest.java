@@ -10,7 +10,7 @@ import it.unibo.oop17.ga_game.model.entities.components.ContactTrigger;
 import it.unibo.oop17.ga_game.model.entities.components.OneTimeTriggerable;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
-import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeringEvent;
+import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -53,7 +53,7 @@ public class TriggerTest extends BaseEntityTest {
                 triggerEntity.get(TriggerComponent.class).get().hasTriggered());
         spawnTestEntity(TRIGGERED_ENTITY_POSITION, ENTITY_SIZE);
         advanceSimulation(1);
-        if (triggerEntity.popEvent(PasswordTriggeringEvent.class).getPassword()
+        if (triggerEntity.popEvent(PasswordTriggeredEvent.class).getPassword()
                 .equals(triggerableEntity.get(TriggerableComponent.class).get().getPassword())) {
             triggerableEntity.get(TriggerableComponent.class).get().trigger();
         }
@@ -61,7 +61,6 @@ public class TriggerTest extends BaseEntityTest {
         triggerableEntity.update(1);
         assertTrue("The TriggerableComponent should be triggered",
                 triggerableEntity.get(TriggerableComponent.class).get().isTriggered());
-        
     }
 
 }
