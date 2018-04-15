@@ -12,11 +12,11 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
-import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeringEvent;
+import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 
 /**
  * It keeps track of entities' @TriggerableComponent objects in the @GameWorld and it triggers them at
- * a @PasswordTriggeringEvent.
+ * a @PasswordTriggeredEvent.
  */
 public class TriggerLinker {
     private final Map<String, Set<TriggerableComponent>> map = new HashMap<>();
@@ -54,7 +54,7 @@ public class TriggerLinker {
 
     private final class MyTriggerListener implements EntityEventListener {
         @Subscribe
-        public void activateEvent(final PasswordTriggeringEvent event) {
+        public void activateEvent(final PasswordTriggeredEvent event) {
             map.getOrDefault(event.getPassword(), Collections.emptySet()).forEach(TriggerableComponent::trigger);
         }
     }
