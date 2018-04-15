@@ -40,7 +40,6 @@ public class LoadLevelImpl implements LoadLevel {
     private final GameWorldView view;
     private final Set<EntityController> entities;
     private final MainController mainController;
-    private String background;
 
     public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
         

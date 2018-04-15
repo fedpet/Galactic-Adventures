@@ -86,7 +86,7 @@ public final class MainViewImpl implements MainView {
     public MenuView showMenu(final MainController controller) {
         audioC.playMusic(MAINMENU_M.getPath());
         final List<Background> list = Collections.unmodifiableList(Arrays.asList(Background.values()));
-        return setScreen(new MenuViewImpl(controller.getConfigData().getMusicVol(),
+        return setScreen(new MenuViewImpl(controller.getStage(), controller.getConfigData().getMusicVol(),
                 controller.getConfigData().getSFXVol(),
                 controller.getConfigData().getLanguage(),
                 controller.getConfigData().getDifficulty(),

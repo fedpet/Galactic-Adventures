@@ -8,14 +8,18 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MenuViewImpl extends Parent implements MenuView {
     
     
     private final static int OFFSET = 364;
+    private final Stage stage;
     private final Group menuView = new Group();
     private MenuObserver observer;
     
@@ -32,12 +36,14 @@ public class MenuViewImpl extends Parent implements MenuView {
     
     private Map<Text, String> currLang;
     
-    public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
+    public MenuViewImpl(final Stage stage, final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
         
         super();
         
+        this.stage = stage;
         this.currLang = currLang;
         
+        final VBox img  = new VBox(8);
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
@@ -121,7 +127,9 @@ public class MenuViewImpl extends Parent implements MenuView {
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
 
-        this.menuView.getChildren().addAll(bg0, menu0);
+        final ImageView im = new ImageView(new Image(getClass().getResource("/logo.png").toString()));
+        im.setX(stage.getWidth() / 2);
+        menuView.getChildren().addAll(im, bg0, menu0);
     }
     
     public final void setObserver(final MenuObserver observer) {
