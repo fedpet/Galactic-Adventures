@@ -64,13 +64,15 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
     }
 
     private void hit(final Entity target) {
-        int damageDone = target.get(Life.class).get().getHealthPoints();
-        target.get(Life.class).get().hurt(damage);
-        damageDone = target.get(Life.class).get().getHealthPoints() - damageDone;
-        knockbackOther(target);
-        knockbackSelf();
-        cooldown.restart();
-        notifyHit(target, damage);
+        target.get(Life.class).ifPresent(life -> {
+            cooldown.restart();
+            knockbackOther(target);
+            knockbackSelf();
+            int damageDone = life.getHealthPoints();
+            life.hurt(damage);
+            damageDone = life.getHealthPoints() - damageDone;
+            notifyHit(target, damage);
+        });
     }
 
     private void knockbackOther(final Entity target) {
