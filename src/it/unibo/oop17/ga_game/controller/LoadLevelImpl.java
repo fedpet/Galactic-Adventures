@@ -75,10 +75,6 @@ public class LoadLevelImpl implements LoadLevel {
                 final String type = mapObj.getType();
                 Entity entity;
                 switch (type) {
-                case "background":
-                    background = mapObj.getImageSource();
-                    System.out.println(background);
-                    break;
                 case "player":
                     player = model.spawnEntity(body -> new Player(body, position));
                     entities.add(
