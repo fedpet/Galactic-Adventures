@@ -89,7 +89,7 @@ public abstract class AbstractEntity implements EventfullEntity {
     }
 
     /**
-     * Calls update(dt) on the components.
+     * Calls {@link EntityComponent#update} on the components.
      * 
      * @param dt
      *            Time delta since last call.
@@ -99,11 +99,10 @@ public abstract class AbstractEntity implements EventfullEntity {
     }
 
     /**
-     * 
      * @param component
      *            The @EntityComponent to add to this Entity.
      */
-    protected final void add(final EntityComponent component) {
+    protected void add(final EntityComponent component) {
         components.put(component);
         component.attach(this);
     }
