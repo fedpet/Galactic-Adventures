@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,11 +12,12 @@ import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 /**
- * Models a {@link Player} view.
+ * Models a @Player view.
  */
 public final class PlayerView extends AbstractLivingEntityView {
     private static final int WIDTH = 72, HEIGHT = 97;
     private static final Image IMG_HURT = new Image("/p1_hurt.png");
+    private static final double FRAME_DURATION = 700;
     private static final int PAIN_ANIM_DURATION = 300; // ms
     private CreatureState currentState = CreatureState.IDLE;
 
@@ -29,7 +29,8 @@ public final class PlayerView extends AbstractLivingEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/p1_stand.png")));
-        mapAnimation(CreatureState.WALKING, aSpriteAnimation(new Image("/p1_walk.png"), Duration.millis(700), 10));
+        mapAnimation(CreatureState.WALKING,
+                aSpriteAnimation(new Image("/p1_walk.png"), Duration.millis(FRAME_DURATION), 10));
         mapAnimation(CreatureState.JUMPING, justAnImage(new Image("/p1_jump.png")));
         mapAnimation(CreatureState.SUFFERING, painAnimation());
 

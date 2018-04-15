@@ -35,7 +35,7 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public Point2D getPosition() {
+    public final Point2D getPosition() {
         return new Point2D(view.getTranslateX(), view.getTranslateY());
     }
 

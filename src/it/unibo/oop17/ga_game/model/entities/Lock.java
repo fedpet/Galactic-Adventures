@@ -32,7 +32,7 @@ public class Lock extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Lock";
     }
 

@@ -1,16 +1,16 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Models a {@link SlimeEnemy} view.
+ * Models a @SlimeEnemy view.
  */
 public final class SlimeEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 106, HEIGHT = 64;
+    private static final double FRAME_DURATION = 700;
 
     /**
      * @param group
@@ -20,7 +20,8 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/slimeGreen.png")));
-        mapAnimation(CreatureState.WALKING, aSpriteAnimation(new Image("/slimeGreen_moving.png"), Duration.millis(700), 2));
+        mapAnimation(CreatureState.WALKING,
+                aSpriteAnimation(new Image("/slimeGreen_moving.png"), Duration.millis(FRAME_DURATION), 2));
         mapAnimation(CreatureState.DEAD, justAnImage(new Image("/slimeGreen_dead.png")));
 
         startAnimation(CreatureState.WALKING);

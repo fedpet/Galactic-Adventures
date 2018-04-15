@@ -39,7 +39,7 @@ public class MovingPlatform extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Moving platform";
     }
 

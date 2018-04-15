@@ -1,12 +1,11 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.Spikes;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a {@link Spikes} view.
+ * Models a @Spikes view.
  */
 public class SpikesView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 35;

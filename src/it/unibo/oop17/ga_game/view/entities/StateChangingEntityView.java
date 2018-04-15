@@ -4,6 +4,9 @@ import it.unibo.oop17.ga_game.model.entities.components.GenericState;
 
 /**
  * Models a {@link Entity} view for entities that can change state.
+ * 
+ * @param <S>
+ *            GenericState type.
  */
 public interface StateChangingEntityView<S extends GenericState> extends EntityView {
 

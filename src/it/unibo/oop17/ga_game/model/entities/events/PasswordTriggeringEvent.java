@@ -20,7 +20,7 @@ public class PasswordTriggeringEvent extends TriggeringEvent {
         super(source);
         this.password = password;
     }
-    
+
     /**
      * 
      * @return The password associated to the event

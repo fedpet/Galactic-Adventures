@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.CoinType;
-import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -9,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
 /**
- * Models a {@link Coin} view.
+ * Models a @Coin view.
  */
 public class CoinView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
@@ -36,7 +35,7 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
     }
 
     @Override
-    public void remove() {
+    public final void remove() {
         new AudioClip(SFX.COIN.getPath()).play();
         super.remove();
     }

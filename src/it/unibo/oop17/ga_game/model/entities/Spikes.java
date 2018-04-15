@@ -34,7 +34,7 @@ public class Spikes extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Spikes";
     }
 

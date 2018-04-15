@@ -9,12 +9,15 @@ import javafx.geometry.Side;
  */
 public class SlimeEnemyBrain extends ViolentBrain {
 
+    /**
+     * 
+     */
     public SlimeEnemyBrain() {
         super(EntityPersonality.EVIL);
     }
 
     @Override
-    public void update(final double dt) {
+    public final void update(final double dt) {
         super.update(dt);
         checkPath();
     }

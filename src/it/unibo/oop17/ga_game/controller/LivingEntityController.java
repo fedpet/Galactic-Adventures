@@ -34,7 +34,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     }
 
     @Override
-    public void update() {
+    public final void update() {
         if (getEntity().get(Life.class).isPresent() && getEntity().get(Life.class).get().isAlive()) {
             getEntityView().setPosition(ViewUtils.worldPointToFX(getEntity().getBody().getPosition()));
         } else {
@@ -67,7 +67,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     /**
      * It updates the entity state at a @LifeEvent signal.
      * 
-     * @param event
+     * @param life
      *            The @LifeEvent to listen to.
      */
     @Subscribe
@@ -82,7 +82,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     @Override
     @Subscribe
-    public void onEntityDestruction(final DestructionEvent event) {
+    public final void onEntityDestruction(final DestructionEvent event) {
         event.getSource().unregister(this);
         if (!(event.getSource().get(Life.class).isPresent()
                 && event.getSource().get(Life.class).get().isDead())) {

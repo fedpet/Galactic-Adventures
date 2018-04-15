@@ -6,6 +6,9 @@ import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 /**
  * Base-class for @EntityController.
+ * 
+ * @param <V>
+ *            Generic EntityView type.
  */
 public abstract class AbstractEntityController<V extends EntityView> implements EntityController {
 
@@ -31,10 +34,10 @@ public abstract class AbstractEntityController<V extends EntityView> implements 
     /**
      * It manages the entity destruction at a @DestructionEvent signal.
      * 
-     * @param destruction
+     * @param event
      *            The @DestructionEvent to listen to.
      */
-    public abstract void onEntityDestruction(final DestructionEvent event);
+    public abstract void onEntityDestruction(DestructionEvent event);
 
     /**
      * @return The associated @Entity.

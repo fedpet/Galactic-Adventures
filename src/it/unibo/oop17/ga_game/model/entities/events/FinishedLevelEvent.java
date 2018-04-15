@@ -7,6 +7,12 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
  */
 public class FinishedLevelEvent extends AbstractEntityEvent {
 
+    /**
+     * Generated when a game level is completed.
+     * 
+     * @param source
+     *            The @Entity that reaches the end of the level.
+     */
     public FinishedLevelEvent(final Entity source) {
         super(source);
     }

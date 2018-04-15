@@ -4,9 +4,16 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
+/**
+ * Models a @MovingPlatform view.
+ */
 public class MovingPlatformView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
 
+    /**
+     * @param group
+     *            The @Group in which the @MovingPlatform view is added.
+     */
     public MovingPlatformView(final Group group) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
 

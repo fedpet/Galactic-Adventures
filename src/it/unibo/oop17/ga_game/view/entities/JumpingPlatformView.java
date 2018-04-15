@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.JumpingPlatform;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Models a {@link JumpingPlatform} view.
+ * Models a @JumpingPlatform view.
  */
 public class JumpingPlatformView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
@@ -29,12 +28,6 @@ public class JumpingPlatformView extends AbstractStateChangingEntityView<Trigger
         mapAnimation(TriggerState.ACTIVATED, jumpAnimation());
 
         changeState(TriggerState.DEACTIVATED);
-    }
-
-    @Override
-    public void setDimension(final Dimension2D dimension) {
-        // we don't change dimension..
-        // TODO: improve
     }
 
     private Runnable jumpAnimation() {

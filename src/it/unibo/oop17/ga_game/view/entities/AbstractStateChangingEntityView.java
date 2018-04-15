@@ -15,6 +15,9 @@ import javafx.util.Duration;
 
 /**
  * Base class for @StateChangingEntityView.
+ * 
+ * @param <S>
+ *            GenericState type.
  */
 public abstract class AbstractStateChangingEntityView<S extends GenericState> extends AbstractEntityView
         implements StateChangingEntityView<S> {
@@ -37,7 +40,7 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
             }
         };
     }
-    
+
     @Override
     public void changeState(final S state) {
         if (animations.containsKey(state)) {
@@ -50,7 +53,7 @@ public abstract class AbstractStateChangingEntityView<S extends GenericState> ex
      * The current animation is stopped.
      */
     @Override
-    public void remove() {
+    public final void remove() {
         currentAnimation.stop();
         super.remove();
     }

@@ -24,12 +24,12 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
     }
 
     @Override
-    public boolean hasTriggered() {
+    public final boolean hasTriggered() {
         return triggered;
     }
 
     @Override
-    public void trigger() {
+    public final void trigger() {
         if (!hasTriggered()) {
             triggered = true;
             post(new PasswordTriggeringEvent(getEntity(), password));
@@ -37,7 +37,7 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
     }
 
     @Override
-    protected void handleContact(final EntityBody other) {
+    protected final void handleContact(final EntityBody other) {
         trigger();
     }
 }

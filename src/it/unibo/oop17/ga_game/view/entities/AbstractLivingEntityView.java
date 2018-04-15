@@ -30,12 +30,12 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
     }
 
     @Override
-    public void changeFaceDirection(final HorizontalDirection direction) {
+    public final void changeFaceDirection(final HorizontalDirection direction) {
         getView().setScaleX(direction == HorizontalDirection.RIGHT ? 1 : -1);
     }
 
     @Override
-    public void deathAnimation() {
+    public final void deathAnimation() {
         if (!dying) {
             final TranslateTransition deathTransition = new TranslateTransition(Duration.millis(1000), getView());
             deathTransition.setCycleCount(1);

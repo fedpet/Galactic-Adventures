@@ -17,6 +17,8 @@ public class Door extends AbstractEntity {
      *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
+     * @param password
+     *            The password associated to the door.
      * @param open
      *            The initial state of the door, if open or closed.
      */
@@ -31,7 +33,7 @@ public class Door extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Door";
     }
 

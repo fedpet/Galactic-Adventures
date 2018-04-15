@@ -37,7 +37,7 @@ public class JumpingPlatform extends AbstractEntity {
     }
 
     @Override
-    public void update(final double dt) {
+    public final void update(final double dt) {
         super.update(dt);
         getBody().getContacts()
                 .filter(body -> PositionCompare.relativeSide(getBody(), body) == Side.TOP)
@@ -48,7 +48,7 @@ public class JumpingPlatform extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Jumping platform";
     }
 }

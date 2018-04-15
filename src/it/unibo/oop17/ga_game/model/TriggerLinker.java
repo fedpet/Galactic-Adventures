@@ -15,13 +15,19 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeringEvent;
 
 /**
- * It keeps track of entities' triggerable components in the @GameWorld and it triggers them at
+ * It keeps track of entities' @TriggerableComponent objects in the @GameWorld and it triggers them at
  * a @PasswordTriggeringEvent.
  */
 public class TriggerLinker {
     private final Map<String, Set<TriggerableComponent>> map = new HashMap<>();
     private final MyTriggerListener listener = new MyTriggerListener();
 
+    /**
+     * It starts to keep track of an @Entity and stores its eventual @TriggeableComponent.
+     * 
+     * @param entity
+     *            The @Entity to keep track of.
+     */
     public void track(final Entity entity) {
         entity.register(listener);
         entity.get(TriggerableComponent.class).ifPresent(component -> {
@@ -32,6 +38,12 @@ public class TriggerLinker {
         });
     }
 
+    /**
+     * It stops to keep track of an @Entity and removes from the storage its eventual @TriggeableComponent.
+     * 
+     * @param entity
+     *            The @Entity to stop to keep track of.
+     */
     public void untrack(final Entity entity) {
         entity.unregister(listener);
         entity.get(TriggerableComponent.class).ifPresent(component -> {
