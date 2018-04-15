@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public final class MainViewImpl implements MainView {
@@ -86,7 +87,7 @@ public final class MainViewImpl implements MainView {
     public MenuView showMenu(final MainController controller) {
         audioC.playMusic(MAINMENU_M.getPath());
         final List<Background> list = Collections.unmodifiableList(Arrays.asList(Background.values()));
-        return setScreen(new MenuViewImpl(controller.getStage(), controller.getConfigData().getMusicVol(),
+        return setScreen(new MenuViewImpl(controller.getConfigData().getMusicVol(),
                 controller.getConfigData().getSFXVol(),
                 controller.getConfigData().getLanguage(),
                 controller.getConfigData().getDifficulty(),
@@ -95,8 +96,8 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public HudView showHud() {
-        final HudView hudView = new HudViewImpl();
+    public HudView showHud(final MainController controller) {
+        final HudView hudView = new HudViewImpl(new LoadLanguage().getCurrLang(controller.getConfigData().getLanguage()));
         root.getChildren().add(hudView.getNode());
         currentScreens.add(hudView);
         return hudView;

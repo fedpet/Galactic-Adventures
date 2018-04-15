@@ -5,19 +5,19 @@ package it.unibo.oop17.ga_game.view;
  */
 public enum Language {
     
-    ITA(Text.ITALIAN),
-    ENG(Text.ENGLISH),
-    SPA(Text.SPANISH),
-    DEU(Text.DEUTSCH),
-    FRE(Text.FRENCH);
+    ITA(WordText.ITALIAN),
+    ENG(WordText.ENGLISH),
+    SPA(WordText.SPANISH),
+    DEU(WordText.DEUTSCH),
+    FRE(WordText.FRENCH);
     
-    private final Text text;
+    private final WordText text;
     
-    private Language (final Text text) {
+    private Language (final WordText text) {
         this.text = text;
     }
     
-    public Text asText() {
+    public WordText asText() {
         return this.text;
     }
 }

@@ -34,7 +34,7 @@ public class MenuButton extends StackPane {
         
         getChildren().clear();
         
-        text = new Text(name);
+        text = new Text("     " + name);
         text.setFont(Font.font(24));
         text.setFill(Color.BLACK);
 

@@ -12,14 +12,14 @@ public class EndLevelViewImpl implements CommonView<EndLevelObserver> {
     private final Group view = new Group();
     private EndLevelObserver observer;
     
-    public EndLevelViewImpl(final Map<Text, String> currLang, final Stage stage) {
+    public EndLevelViewImpl(final Map<WordText, String> currLang, final Stage stage) {
         
-        final MenuButton btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
+        final MenuButton btnContinue = new MenuButton(currLang.get(WordText.CONTINUE));
         btnContinue.setOnMouseClicked(event -> {
             observer.toNextMap();
         });
         
-        final MenuButton btnMenu = new MenuButton(currLang.get(Text.MENU));
+        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU));
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });

@@ -5,16 +5,16 @@ package it.unibo.oop17.ga_game.view;
  */
 public enum Volume {
     
-    MUTE(0, Text.MUTE),        // no audio
-    LOW(0.25, Text.LOW),      // low audio
-    MEDIUM(0.5, Text.MEDIUM_V),    // medium audio
-    HIGH(0.75, Text.HIGH),     // high audio
-    MAX(1, Text.MAX);         // max audio
+    MUTE(0, WordText.MUTE),        // no audio
+    LOW(0.25, WordText.LOW),      // low audio
+    MEDIUM(0.5, WordText.MEDIUM_V),    // medium audio
+    HIGH(0.75, WordText.HIGH),     // high audio
+    MAX(1, WordText.MAX);         // max audio
     
     private final double volume; 
-    private final Text text;
+    private final WordText text;
 
-    private Volume(final double volume, final Text text) {
+    private Volume(final double volume, final WordText text) {
         this.volume = volume;
         this.text = text;
     }
@@ -23,7 +23,7 @@ public enum Volume {
         return this.volume;
     }
     
-    public Text asText() {
+    public WordText asText() {
         return this.text;
     }
 }

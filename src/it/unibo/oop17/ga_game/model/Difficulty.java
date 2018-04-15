@@ -1,23 +1,23 @@
 package it.unibo.oop17.ga_game.model;
 
-import it.unibo.oop17.ga_game.view.Text;
+import it.unibo.oop17.ga_game.view.WordText;
 
 /**
  *  Difficulty values.
  */
 public enum Difficulty {
     
-    EASY(Text.EASY),
-    MEDIUM(Text.MEDIUM_D),
-    HARD(Text.HARD);
+    EASY(WordText.EASY),
+    MEDIUM(WordText.MEDIUM_D),
+    HARD(WordText.HARD);
     
-    private final Text text;
+    private final WordText text;
     
-    private Difficulty (final Text text) {
+    private Difficulty (final WordText text) {
         this.text = text;
     }
     
-    public Text asText() {
+    public WordText asText() {
         return this.text;
     }
     

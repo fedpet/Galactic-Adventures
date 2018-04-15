@@ -11,27 +11,27 @@ import javafx.application.Platform;
 
 public class LoadLanguage {
     
-    private final Map<Language, Map<Text, String>> languages;
+    private final Map<Language, Map<WordText, String>> languages;
     
     public LoadLanguage() {
-        this.languages = new HashMap<Language, Map<Text, String>>();
+        this.languages = new HashMap<Language, Map<WordText, String>>();
         for (final Language l : Language.values()) {
             this.languages.put(l, loadLanguage(l));
         }
     }
     
-    private Map<Text, String> loadLanguage(final Language l) {
+    private Map<WordText, String> loadLanguage(final Language l) {
         try {
             return  Files.lines(Paths.get("res", "languages", l.toString() + ".txt"))
                     .map(line -> line.split("=", 2))
-                    .collect(Collectors.toMap(key -> Text.valueOf(key[0]), val -> val[1]));
+                    .collect(Collectors.toMap(key -> WordText.valueOf(key[0]), val -> val[1]));
         } catch (IOException e) {
             Platform.exit();
             return null;
         }
     }
     
-    public Map<Text, String> getCurrLang(final Language lang) {
+    public Map<WordText, String> getCurrLang(final Language lang) {
         return this.languages.get(lang);
     }
 

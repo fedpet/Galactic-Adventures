@@ -8,18 +8,16 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MenuViewImpl extends Parent implements MenuView {
     
     
     private final static int OFFSET = 364;
-    private final Stage stage;
+    private final static String TEXT_OFF = "     ";
+    
     private final Group menuView = new Group();
     private MenuObserver observer;
     
@@ -34,16 +32,13 @@ public class MenuViewImpl extends Parent implements MenuView {
     private final MenuButton btnDiff;
     private final MenuButton btnDefaults;
     
-    private Map<Text, String> currLang;
+    private Map<WordText, String> currLang;
     
-    public MenuViewImpl(final Stage stage, final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<Text, String> currLang) {
+    public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<WordText, String> currLang) {
         
         super();
-        
-        this.stage = stage;
         this.currLang = currLang;
         
-        final VBox img  = new VBox(8);
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
         
@@ -55,17 +50,17 @@ public class MenuViewImpl extends Parent implements MenuView {
 
         menu1.setTranslateX(OFFSET);
         
-        btnNewGame = new MenuButton(currLang.get(Text.NEW_GAME));
+        btnNewGame = new MenuButton(currLang.get(WordText.NEW_GAME));
         btnNewGame.setOnMouseClicked(event -> {
             observer.newGame();
         });
         
-        btnContinue = new MenuButton(currLang.get(Text.CONTINUE));
+        btnContinue = new MenuButton(currLang.get(WordText.CONTINUE));
         btnContinue.setOnMouseClicked(event -> {
             observer.continueGame();
         });
         
-        btnOptions = new MenuButton(currLang.get(Text.OPTIONS));
+        btnOptions = new MenuButton(currLang.get(WordText.OPTIONS));
         btnOptions.setOnMouseClicked(event -> {
             menuView.getChildren().add(menu1);
 
@@ -83,12 +78,12 @@ public class MenuViewImpl extends Parent implements MenuView {
             });
         });
         
-        btnExit = new MenuButton(currLang.get(Text.EXIT));
+        btnExit = new MenuButton(currLang.get(WordText.EXIT));
         btnExit.setOnMouseClicked(event -> {
             observer.quit();
         });
 
-        btnBack = new MenuButton(currLang.get(Text.BACK));
+        btnBack = new MenuButton(currLang.get(WordText.BACK));
         btnBack.setOnMouseClicked(event -> {
             menuView.getChildren().add(menu0);
 
@@ -106,19 +101,19 @@ public class MenuViewImpl extends Parent implements MenuView {
             });
         });
         
-        btnMusic = new MenuButton(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()));
+        btnMusic = new MenuButton(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()));
         btnMusic.setOnMouseClicked(event -> this.observer.nextMusicVolume());
         
-        btnSFX = new MenuButton(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()));
+        btnSFX = new MenuButton(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()));
         btnSFX.setOnMouseClicked(event -> this.observer.nextSFXVolume());
         
-        btnLanguage = new MenuButton(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()));
+        btnLanguage = new MenuButton(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()));
         btnLanguage.setOnMouseClicked(event -> this.observer.nextLanguage());
         
-        btnDiff = new MenuButton(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()));
+        btnDiff = new MenuButton(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()));
         btnDiff.setOnMouseClicked(event -> this.observer.nextDifficulty());
         
-        btnDefaults = new MenuButton(currLang.get(Text.DEFAULT_OPT));
+        btnDefaults = new MenuButton(currLang.get(WordText.DEFAULT_OPT));
         btnDefaults.setOnMouseClicked(event -> this.observer.setDefaults());
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
@@ -127,9 +122,9 @@ public class MenuViewImpl extends Parent implements MenuView {
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
 
-        final ImageView im = new ImageView(new Image(getClass().getResource("/logo.png").toString()));
-        im.setX(stage.getWidth() / 2);
-        menuView.getChildren().addAll(im, bg0, menu0);
+//        final ImageView im = new ImageView(new Image(getClass().getResource("/logo.png").toString()));
+        
+        menuView.getChildren().addAll(bg0, menu0);
     }
     
     public final void setObserver(final MenuObserver observer) {
@@ -137,19 +132,19 @@ public class MenuViewImpl extends Parent implements MenuView {
     }
     
     public final void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
-        btnNewGame.update(currLang.get(Text.NEW_GAME));
-        btnContinue.update(currLang.get(Text.CONTINUE));
-        btnOptions.update(currLang.get(Text.OPTIONS));
-        btnExit.update(currLang.get(Text.EXIT));
-        btnBack.update(currLang.get(Text.BACK));
-        btnMusic.update(currLang.get(Text.VOLUME_M) + currLang.get(musicVol.asText()));
-        btnSFX.update(currLang.get(Text.VOLUME_S) + currLang.get(sfxVol.asText()));
-        btnLanguage.update(currLang.get(Text.LANGUAGE) + currLang.get(language.asText()));
-        btnDiff.update(currLang.get(Text.DIFFICULTY) + currLang.get(difficulty.asText()));
-        btnDefaults.update(currLang.get(Text.DEFAULT_OPT));
+        btnNewGame.update(currLang.get(WordText.NEW_GAME));
+        btnContinue.update(currLang.get(WordText.CONTINUE));
+        btnOptions.update(currLang.get(WordText.OPTIONS));
+        btnExit.update(currLang.get(WordText.EXIT));
+        btnBack.update(currLang.get(WordText.BACK));
+        btnMusic.update(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()));
+        btnSFX.update(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()));
+        btnLanguage.update(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()));
+        btnDiff.update(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()));
+        btnDefaults.update(currLang.get(WordText.DEFAULT_OPT));
     }
     
-    public void updateLanguage(final Map<Text, String> currLang) {
+    public void updateLanguage(final Map<WordText, String> currLang) {
         this.currLang = currLang;
     }
     

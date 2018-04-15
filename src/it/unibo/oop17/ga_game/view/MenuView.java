@@ -18,7 +18,7 @@ public interface MenuView extends CommonView<MenuObserver> {
     /**
      * @param currLang the current language.
      */
-    void updateLanguage(final Map<Text, String> currLang);
+    void updateLanguage(final Map<WordText, String> currLang);
 
     /**
      * If progress exits, continue button appears.

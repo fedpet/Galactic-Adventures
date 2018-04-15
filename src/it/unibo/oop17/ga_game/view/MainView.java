@@ -4,6 +4,7 @@ import it.unibo.oop17.ga_game.controller.EndGameObserver;
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.controller.GameOverObserver;
 import it.unibo.oop17.ga_game.controller.MainController;
+import javafx.scene.text.Text;
 
 public interface MainView {
     
@@ -11,7 +12,7 @@ public interface MainView {
 
     MenuView showMenu(MainController controller);
     
-    HudView showHud();
+    HudView showHud(MainController controller);
 
     void showError(Text message);
     
