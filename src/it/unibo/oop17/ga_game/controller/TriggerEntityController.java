@@ -23,7 +23,7 @@ public class TriggerEntityController extends AbstractLifelessEntityController<Tr
     }
 
     /**
-     * It manages the trigger behavior at a @TriggerEvent signal.
+     * It manages the trigger behavior at a @TriggeredEvent signal.
      * 
      * @param event
      *            The @TriggeredEvent to listen to.
