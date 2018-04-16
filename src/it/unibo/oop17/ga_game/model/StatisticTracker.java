@@ -9,7 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.HitEvent;
 
 /**
@@ -44,7 +44,7 @@ public final class StatisticTracker implements EntityStatistic {
         return numberOfEnemiesKilled;
     }
 
-    private final class MyEntityListener implements EntityEventListener {
+    private final class MyEntityListener implements EntityEventSubscriber {
         @Subscribe
         public void onDestruction(final DestructionEvent event) {
             event.getSource().unregister(this);

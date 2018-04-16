@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 
 /**
  * Models a generic Entity in our game.
@@ -62,7 +62,7 @@ public interface Entity {
      * @param listener
      *            the listener
      */
-    void register(EntityEventListener listener);
+    void register(EntityEventSubscriber listener);
 
     /**
      * Unregisters the listener for @EntityEvent.
@@ -70,5 +70,5 @@ public interface Entity {
      * @param listener
      *            the listener
      */
-    void unregister(EntityEventListener listener);
+    void unregister(EntityEventSubscriber listener);
 }

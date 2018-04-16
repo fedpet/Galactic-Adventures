@@ -7,7 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.EntityEventPublisher;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
@@ -15,7 +15,7 @@ import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
  * 
  * Components detaches on owner's death by default.
  */
-public abstract class AbstractEntityComponent implements EntityComponent, EntityEventListener {
+public abstract class AbstractEntityComponent implements EntityComponent, EntityEventSubscriber {
     private Optional<EntityEventPublisher> owner = Optional.empty();
 
     @Override

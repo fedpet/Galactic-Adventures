@@ -8,7 +8,7 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.utils.InterfacesBag;
 import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
 
@@ -58,12 +58,12 @@ public abstract class AbstractEntity implements EntityEventPublisher {
      * An @EntityEventListener declares wanted events with the @Subscribe annotation.
      */
     @Override
-    public final void register(final EntityEventListener listener) {
+    public final void register(final EntityEventSubscriber listener) {
         eventBus.register(listener);
     }
 
     @Override
-    public final void unregister(final EntityEventListener listener) {
+    public final void unregister(final EntityEventSubscriber listener) {
         eventBus.unregister(listener);
     }
 
