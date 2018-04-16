@@ -28,6 +28,22 @@ public interface Entity {
     <C extends EntityComponent> Optional<C> get(Class<C> component);
 
     /**
+     * Removes a component calling {@link EntityComponent#detach} on it.
+     * 
+     * @param component
+     *            The component to remove.
+     */
+    void remove(EntityComponent component);
+
+    /**
+     * Adds a @EntityComponent to the entity.
+     * 
+     * @param component
+     *            The component to add
+     */
+    void add(EntityComponent component);
+
+    /**
      * Used to synchronize the entities.
      * 
      * @param dt

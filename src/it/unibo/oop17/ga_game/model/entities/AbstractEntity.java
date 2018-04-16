@@ -16,7 +16,7 @@ import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
  * Base class for @Entity.
  * It supports events and components.
  */
-public abstract class AbstractEntity implements EventfullEntity {
+public abstract class AbstractEntity implements EntityEventPublisher {
     private final EventBus eventBus = new EventBus();
     private final EntityBody body;
     private final InterfacesBag<EntityComponent> components = new InterfacesBagImpl<>(EntityComponent.class);
@@ -78,8 +78,9 @@ public abstract class AbstractEntity implements EventfullEntity {
     }
 
     @Override
-    public final <C extends EntityComponent> void remove(final Class<C> component) {
-        components.get(component).ifPresent(this::remove);
+    public final void add(final EntityComponent component) {
+        components.put(component);
+        component.attach(this);
     }
 
     @Override
@@ -96,14 +97,5 @@ public abstract class AbstractEntity implements EventfullEntity {
      */
     protected void updateComponents(final double dt) {
         components.forEach(c -> c.update(dt));
-    }
-
-    /**
-     * @param component
-     *            The @EntityComponent to add to this Entity.
-     */
-    protected void add(final EntityComponent component) {
-        components.put(component);
-        component.attach(this);
     }
 }
