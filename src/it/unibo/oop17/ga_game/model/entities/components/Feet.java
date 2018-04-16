@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
+import it.unibo.oop17.ga_game.model.entities.EntityEventPublisher;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
 import javafx.geometry.Point2D;
@@ -31,7 +31,7 @@ public final class Feet extends AbstractMovement {
      * Attach the component to the entity and updates movement state.
      */
     @Override
-    public void attach(final EventfullEntity owner) {
+    public void attach(final EntityEventPublisher owner) {
         super.attach(owner);
         updateState();
     }

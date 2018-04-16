@@ -11,7 +11,7 @@ import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Triggerable;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 
 /**
@@ -52,7 +52,7 @@ public class TriggerLinker {
     }
 
 
-    private final class MyTriggerListener implements EntityEventListener {
+    private final class MyTriggerListener implements EntityEventSubscriber {
         @Subscribe
         public void activateEvent(final PasswordTriggeredEvent event) {
             map.getOrDefault(event.getPassword(), Collections.emptySet()).forEach(Triggerable::trigger);

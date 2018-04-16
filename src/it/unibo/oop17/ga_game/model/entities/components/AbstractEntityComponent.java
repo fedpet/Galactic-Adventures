@@ -5,9 +5,9 @@ import java.util.Optional;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
+import it.unibo.oop17.ga_game.model.entities.EntityEventPublisher;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
@@ -15,8 +15,8 @@ import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
  * 
  * Components detaches on owner's death by default.
  */
-public abstract class AbstractEntityComponent implements EntityComponent, EntityEventListener {
-    private Optional<EventfullEntity> owner = Optional.empty();
+public abstract class AbstractEntityComponent implements EntityComponent, EntityEventSubscriber {
+    private Optional<EntityEventPublisher> owner = Optional.empty();
 
     @Override
     public final Optional<? extends Entity> getOwner() {
@@ -27,7 +27,7 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
      * {@inheritDoc}.
      */
     @Override
-    public void attach(final EventfullEntity owner) throws IllegalStateException {
+    public void attach(final EntityEventPublisher owner) throws IllegalStateException {
         this.owner.ifPresent(e -> {
             throw new IllegalStateException("Component already attached to an entity");
         });
@@ -83,7 +83,7 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
      * @throws IllegalStateException
      *             is the component is not attached to an Entity
      */
-    protected final EventfullEntity getEntity() {
+    protected final EntityEventPublisher getEntity() {
         return owner.orElseThrow(IllegalStateException::new);
     }
 
