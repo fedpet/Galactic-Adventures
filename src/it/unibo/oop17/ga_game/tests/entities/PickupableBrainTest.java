@@ -36,7 +36,7 @@ public class PickupableBrainTest extends BaseEntityTest {
     }
 
     /**
-     * When an Entity with an Inventory becomes in contact with an Entity with a PickupableBrain,
+     * When an entity with an inventory becomes in contact with an entity with a PickupableBrain object,
      * this last has to update the inventory only once.
      */
     @Test
@@ -52,9 +52,9 @@ public class PickupableBrainTest extends BaseEntityTest {
         assertTrue(
                 "The Entity with a PickupableBrain should be destroyed in contact with an Entity with an Inventory",
                 pickupable.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
-        assertEquals(inventory.getMoney(), DEFAULT_MONEY_AMOUNT);
+        assertEquals("The inventory should be updated", inventory.getMoney(), DEFAULT_MONEY_AMOUNT);
         advanceSimulation(1);
-        assertEquals(inventory.getMoney(), DEFAULT_MONEY_AMOUNT);
+        assertEquals("The inventory should update only once", inventory.getMoney(), DEFAULT_MONEY_AMOUNT);
 
     }
 

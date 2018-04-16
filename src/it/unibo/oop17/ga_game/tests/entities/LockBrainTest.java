@@ -39,31 +39,33 @@ public class LockBrainTest extends BaseEntityTest {
     }
 
     /**
-     * A Lock must be destroyed only if it's in contact with an Entity with an Inventory
-     * containing a Key of the same color of the Lock in its KeysBunch.
+     * A lock must be destroyed only if it's in contact with an entity with an inventory
+     * containing a key of the same color of the lock in its keys bunch.
      */
     @Test
     public final void testLockDisappear() {
 
         advanceSimulation(1);
-        assertFalse("The Entity with a LockBrain shouldn't be destroyed in contact with an Entity without an Inventory",
+        assertFalse(
+                "The entity with a LockBrain object shouldn't be destroyed in contact with an entity without an inventory",
                 redLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
-        assertFalse("The Entity with a LockBrain shouldn't be destroyed in contact with an Entity without an Inventory",
+        assertFalse(
+                "The entity with a LockBrain object shouldn't be destroyed in contact with an entity without an inventory",
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
         entity.add(inventory);
         advanceSimulation(1);
         assertTrue(
-                "The Entity with a LockBrain should be destroyed in contact with an Entity with an Inventory containing a Key of the same type",
+                "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory containing a key of the same type",
                 redLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
         assertFalse(
-                "The Entity with a LockBrain should be destroyed in contact with an Entity with an Inventory not containing a Key of the same type",
+                "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory not containing a key of the same type",
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
         inventory.add(KeyLockType.GREEN);
         advanceSimulation(1);
         assertTrue(
-                "The Entity with a LockBrain should be destroyed in contact with an Entity with an Inventory containing a Key of the same type",
+                "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory containing a key of the same type",
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
     }

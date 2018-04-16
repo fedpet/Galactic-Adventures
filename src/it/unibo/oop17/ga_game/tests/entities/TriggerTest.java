@@ -7,10 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.unibo.oop17.ga_game.model.entities.components.ContactTrigger;
-import it.unibo.oop17.ga_game.model.entities.components.OneTimeTriggerable;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
-import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
-import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
+import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -20,47 +18,36 @@ import javafx.geometry.Point2D;
 public class TriggerTest extends BaseEntityTest {
 
     private static final Dimension2D ENTITY_SIZE = new Dimension2D(1, 1);
-    private static final Point2D TRIGGERED_ENTITY_POSITION = new Point2D(5, 0);
-    private static final Point2D TRIGGER_ENTITY_POSITION = Point2D.ZERO;
+    private static final String PASSWORD = "test";
+
+    private TestEntity triggerEntity;
+    private TriggerComponent contactTrigger;
 
     @Override
     @Before
     public void setUp() {
         super.setUp();
+        triggerEntity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
+        contactTrigger = new ContactTrigger(PASSWORD, false);
+        triggerEntity.add(contactTrigger);
     }
 
     /**
-     * After an Entity collides with an Entity with a TriggerComponent, this last
-     * has to have triggered; the Entity with a TriggerableComponent with the same password
-     * has to be triggered right after as well.
+     * After an entity collides with an entity with a TriggerComponent object, this last
+     * has to have triggered.
      */
     @Test
-    public final void testTriggerEntity() {
-        final String password = "test";
-        final TestEntity triggerEntity = spawnTestEntity(TRIGGER_ENTITY_POSITION, ENTITY_SIZE);
-        triggerEntity.add(new ContactTrigger(password, false));
-        assertFalse("The TriggerComponent starting triggered value should be false",
-                triggerEntity.get(TriggerComponent.class).get().hasTriggered());
+    public final void testTrigger() {
 
-        final TestEntity triggerableEntity = spawnTestEntity(TRIGGERED_ENTITY_POSITION, ENTITY_SIZE);
-        triggerableEntity.add(new OneTimeTriggerable(password, false));
-        assertFalse("The TriggerableComponent starting triggered value should be false",
-                triggerableEntity.get(TriggerableComponent.class).get().isTriggered());
+        assertFalse("The ContactTrigger object shouldn't have to trigger at start", contactTrigger.hasTriggered());
 
-        spawnTestEntity(TRIGGER_ENTITY_POSITION, ENTITY_SIZE);
+        spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         advanceSimulation(1);
-        assertTrue("The contact between the new Entity and the Entity with the TriggerComponent should triggered it",
-                triggerEntity.get(TriggerComponent.class).get().hasTriggered());
-        spawnTestEntity(TRIGGERED_ENTITY_POSITION, ENTITY_SIZE);
-        advanceSimulation(1);
-        if (triggerEntity.popEvent(PasswordTriggeredEvent.class).getPassword()
-                .equals(triggerableEntity.get(TriggerableComponent.class).get().getPassword())) {
-            triggerableEntity.get(TriggerableComponent.class).get().trigger();
-        }
-        ;
-        triggerableEntity.update(1);
-        assertTrue("The TriggerableComponent should be triggered",
-                triggerableEntity.get(TriggerableComponent.class).get().isTriggered());
+        assertTrue("The ContactTrigger object should have triggered in contact with another Entity",
+                contactTrigger.hasTriggered());
+        assertTrue("The ContactTrigger object should send a TriggeredEvent",
+                triggerEntity.getEvents().stream().filter(e -> e instanceof TriggeredEvent).count() > 0);
+
     }
 
 }
