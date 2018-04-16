@@ -1,26 +1,32 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.model.GameData;
-import javafx.stage.Stage;
-
+/**
+ * Interface for controlling application.
+ */
 public interface MainController {
 
+    /**
+     * Switches screen to main menu.
+     */
     void toMenu();
-    
+
+    /**
+     * Switches screen to game play.
+     */
     void toGame();
 
+    /**
+     * Switches screen to end level menu.
+     */
     void toEndLevel();
-    
-    void toGameOver();
-    
-    void toEndGame();
-    
-    Stage getStage();
-    
-    ConfigData getConfigData();
-    
-    GameData getGameData();
 
-    void updateMusicVol();
+    /**
+     * Switches screen to game over menu.
+     */
+    void toGameOver();
+
+    /**
+     * Switches screen to end game menu.
+     */
+    void toEndGame();
 }

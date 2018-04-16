@@ -2,29 +2,37 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MenuObserver;
+import it.unibo.oop17.ga_game.controller.MenuController;
 import it.unibo.oop17.ga_game.model.Difficulty;
 
 /**
  * Main Menu view interface.
  */
-public interface MenuView extends CommonView<MenuObserver> {
-    
+public interface MenuView extends CommonView<MenuController> {
+
     /**
-     * @param 
+     * Updates the menu view.
+     * @param musicVol
+     *          Current music volume.
+     * @param sfxVol
+     *          Current sound effects volume.
+     * @param language
+     *          Current language.
+     * @param difficulty
+     *          Current difficulty.
      */
-    void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty);
-    
+    void updateView(Volume musicVol, Volume sfxVol, Language language, Difficulty difficulty);
+
     /**
      * @param currLang the current language.
      */
-    void updateLanguage(final Map<WordText, String> currLang);
+    void updateLanguage(Map<WordText, String> currLang);
 
     /**
      * If progress exits, continue button appears.
      * 
      * @param isVisible if progress exits.
      */
-    void setContinueEnabled(final boolean isVisible);
+    void setContinueEnabled(boolean isVisible);
 
 }

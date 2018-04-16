@@ -32,8 +32,16 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.util.Pair;
 
-public class LoadLevelImpl implements LoadLevel {
-    
+/**
+ * Controls the level loading.
+ */
+public final class LoadLevelImpl implements LoadLevel {
+
+    private static final int G_COIN_VALUE = 100;
+    private static final int S_COIN_VALUE = 50;
+    private static final int B_COIN_VALUE = 25;
+    private static final int FLYING_VALUE = 5;
+
     private Entity player;
     private final Map map;
     private final GameWorld model;
@@ -41,8 +49,18 @@ public class LoadLevelImpl implements LoadLevel {
     private final Set<EntityController> entities;
     private final MainController mainController;
 
+    /**
+     * Constructor for LoadLevel.
+     * @param map
+     *          Map to load.
+     * @param model
+     *          World model.
+     * @param view
+     *          World view.
+     * @param mainController
+     *          Main controller.
+     */
     public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
-        
         this.map = map;
         this.model = model;
         this.view = view;
@@ -55,7 +73,6 @@ public class LoadLevelImpl implements LoadLevel {
                 loadObjects((ObjectGroup) layer);
             }
         });
-        
     }
 
     private void loadObjects(final ObjectGroup layer) {
@@ -126,22 +143,22 @@ public class LoadLevelImpl implements LoadLevel {
                     entity.register(new DoorEventListener(this.mainController));
                     break;
                 case "gCoin":
-                    entity = model.spawnEntity(body -> new Coin(body, position, 100));
+                    entity = model.spawnEntity(body -> new Coin(body, position, G_COIN_VALUE));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createCoin(CoinType.GOLD)));
                     break;
                 case "sCoin":
-                    entity = model.spawnEntity(body -> new Coin(body, position, 50));
+                    entity = model.spawnEntity(body -> new Coin(body, position, S_COIN_VALUE));
                     entities.add(
                             new LifelessEntityController(entity, view.entityFactory().createCoin(CoinType.SILVER)));
                     break;
                 case "bCoin":
-                    entity = model.spawnEntity(body -> new Coin(body, position, 25));
+                    entity = model.spawnEntity(body -> new Coin(body, position, B_COIN_VALUE));
                     entities.add(
                             new LifelessEntityController(entity, view.entityFactory().createCoin(CoinType.BRONZE)));
                     break;
                 case "flying":
                     entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
-                            .repeat(() -> new CircleIterator(position, 5, 5))));
+                            .repeat(() -> new CircleIterator(position, FLYING_VALUE, FLYING_VALUE))));
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "torch":
@@ -157,7 +174,7 @@ public class LoadLevelImpl implements LoadLevel {
                     break;
                 case "platform":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .repeat(() -> new CircleIterator(position, 5, 5))));
+                            .repeat(() -> new CircleIterator(position, FLYING_VALUE, FLYING_VALUE))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":
@@ -174,7 +191,7 @@ public class LoadLevelImpl implements LoadLevel {
         view.showTerrain(layer, Point2D.ZERO,
                 new Dimension2D(ModelSettings.TILE_SIZE, ModelSettings.TILE_SIZE));
     }
-    
+
     private Pair<Point2D, Dimension2D> mapPositionToWorld(final Map map,
             final double x, final double y,
             final double width, final double height) {
@@ -185,17 +202,17 @@ public class LoadLevelImpl implements LoadLevel {
 
         return new Pair<>(pos, dim);
     }
-    
+
     @Override
     public Entity getPlayer() {
         return this.player;
     }
-    
+
     @Override
     public GameWorld getGameWorld() {
         return this.model;
     }
-    
+
     @Override
     public GameWorldView getGameWorldView() {
         return this.view;

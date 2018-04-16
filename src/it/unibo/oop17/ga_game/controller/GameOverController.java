@@ -1,39 +1,22 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.view.CommonView;
-import javafx.application.Platform;
+/**
+ * Interface for controlling game over screen.
+ */
+public interface GameOverController {
 
-public class GameOverController implements GameOverObserver {
-    
-    private final CommonView<GameOverObserver> view;
-    private final MainController mainController;
-    
-    public GameOverController(final CommonView<GameOverObserver> view, final MainController mainController) {
-        
-        this.view = view;
-        view.setObserver(this);
-        this.mainController = mainController;
-        
-    }
+    /**
+     * Return to main menu.
+     */
+    void toMainMenu();
 
-    @Override
-    public void toMainMenu() {
-        mainController.toMenu();
-    }
+    /**
+     * Loads map again.
+     */
+    void retry();
 
-    @Override
-    public void retry() {
-        mainController.toGame();
-    }
-    
-    @Override
-    public void quit() {
-        Platform.exit();
-    }
-
-    @Override
-    public CommonView<GameOverObserver> getView() {
-        return this.view;
-    }
-
+    /**
+     * Quits from the game.
+     */
+    void quit();
 }

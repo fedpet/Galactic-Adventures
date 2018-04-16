@@ -1,27 +1,74 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.controller.EndGameObserver;
-import it.unibo.oop17.ga_game.controller.EndLevelObserver;
-import it.unibo.oop17.ga_game.controller.GameOverObserver;
-import it.unibo.oop17.ga_game.controller.MainController;
+import it.unibo.oop17.ga_game.controller.EndGameController;
+import it.unibo.oop17.ga_game.controller.EndLevelController;
+import it.unibo.oop17.ga_game.controller.GameOverController;
+import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.scene.text.Text;
 
+/**
+ * Interface of the main view.
+ */
 public interface MainView {
-    
-    GameWorldView showGame(MainController controller);
 
-    MenuView showMenu(MainController controller);
-    
-    HudView showHud(MainController controller);
+    /**
+     * 
+     * @param progress
+     *          The current progress.
+     * @return the game view to load.
+     */
+    GameWorldView showGame(int progress);
 
+    /**
+     * 
+     * @param musicVol
+     *          The current music volume.
+     * @param sfxVol
+     *          The current sound effects volume.
+     * @param language
+     *          The current language.
+     * @param difficulty
+     *          The current difficulty.
+     * @return the menu view to load.
+     */
+    MenuView showMenu(Volume musicVol, Volume sfxVol, Language language, Difficulty difficulty);
+
+    /**
+     * @param language
+     *          The language for translation.
+     * @return the heads-up display view to load.
+     */
+    HudView showHud(Language language);
+
+    /**
+     * 
+     * @param language
+     *          The language for translation.
+     * @param progress
+     *          The current progress.
+     * @return the end level view to load.
+     */
+    CommonView<EndLevelController> showEndLevel(Language language, int progress);
+
+    /**
+     * 
+     * @param language
+     *          The language for translation.
+     * @return the game over view to load.
+     */
+    CommonView<GameOverController> showGameOver(Language language);
+
+    /**
+     * @param language
+     *          The language for translation.
+     * @return the end game view to load.
+     */
+    CommonView<EndGameController> showEndGame(Language language);
+
+    /**
+     * Shows error.
+     * @param message
+     *          The message to show.
+     */
     void showError(Text message);
-    
-    CommonView<EndLevelObserver> showEndLevel(MainController controller);
-    
-    CommonView<GameOverObserver> showGameOver(MainController controller);
-    
-    CommonView<EndGameObserver> showEndGame(MainController controller);
-
-    void updateMusicVol();
-
 }

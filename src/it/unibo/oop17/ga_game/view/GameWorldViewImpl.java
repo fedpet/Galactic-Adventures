@@ -13,10 +13,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Scale;
 
-public class GameWorldViewImpl implements GameWorldView, Screen {
+/**
+ * GameWorld view.
+ */
+public final class GameWorldViewImpl implements GameWorldView, Screen {
     private final Group worldView = new Group();
     private final PlayerInput playerInput;
 
+    /**
+     * Constructor of GameWorldView.
+     * @param input
+     *          The player input.
+     * @param scaleFactor
+     *          The scale factor.
+     */
     public GameWorldViewImpl(final PlayerInput input, final double scaleFactor) {
         playerInput = input;
         worldView.getTransforms().addAll(new Scale(scaleFactor, scaleFactor));

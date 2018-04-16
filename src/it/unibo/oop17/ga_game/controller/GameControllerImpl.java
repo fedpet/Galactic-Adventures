@@ -22,13 +22,14 @@ import it.unibo.oop17.ga_game.view.GameWorldView;
 import it.unibo.oop17.ga_game.view.HudView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-public class GameControllerImpl implements GameController {
-    
+/**
+ *  Controls the game play.
+ */
+public final class GameControllerImpl implements GameController {
+
     private static final double FRAMERATE = 1.0 / 60;
-    
+
     private Entity player;
     private GameWorld model;
     private GameWorldView view;
@@ -43,30 +44,33 @@ public class GameControllerImpl implements GameController {
         }
     };
 
-    public GameControllerImpl(final GameWorldView view, final HudView hudView, final MainController mainController) {
-        
+    /**
+     * Constructor for GameController.
+     * @param save
+     *          Game data.
+     * @param view
+     *          Game world view.
+     * @param hudView
+     *          Heads-up display.
+     * @param mainController
+     *          Main controller.
+     */
+    public GameControllerImpl(final GameData save, final GameWorldView view, final HudView hudView, final MainController mainController) {
+        this.save = save;
         this.view = view;
         this.hudView = hudView;
         this.mainController = mainController;
         model = new GameWorld();
         entities = new LinkedHashSet<>();
-        save = mainController.getGameData();
-        view.getNode().getScene().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.ESCAPE) {
-                mainController.toMenu();
-            }
-        });
-        this.whichLevel();
-        
+        whichLevel();
     }
-    
+
     @Override
     public void stop() {
         animationTimer.stop();
     }
-    
+
     private void whichLevel() {
-        
         Map map;
         final File tempDir = Files.createTempDir();
         try (InputStream is = getClass().getResourceAsStream("/levels.zip")) {
@@ -78,10 +82,10 @@ public class GameControllerImpl implements GameController {
             Platform.exit();
             map = null; // unreachable
         }
-        
+
         this.run(map);
     }
-    
+
     private Map loadMap(final File path) throws IOException {
         try {
             return new TMXMapReader().readMap(path.getAbsolutePath());
@@ -98,16 +102,13 @@ public class GameControllerImpl implements GameController {
     }
 
     private void run(final Map map) {
-        
         final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view, this.mainController);
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
         this.player = loader.getPlayer();
         hudView.addHud();
-        
         animationTimer.start();
-        
     }
 
     private void update() {
@@ -118,5 +119,5 @@ public class GameControllerImpl implements GameController {
                     player.get(Inventory.class).get().getMoney());
         }
     }
-    
+
 }

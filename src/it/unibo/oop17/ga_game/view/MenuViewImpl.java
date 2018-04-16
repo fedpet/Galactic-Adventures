@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MenuObserver;
+import it.unibo.oop17.ga_game.controller.MenuController;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -12,15 +12,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class MenuViewImpl extends Parent implements MenuView {
-    
-    
-    private final static int OFFSET = 364;
-    private final static String TEXT_OFF = "     ";
-    
+/**
+ * The menu view.
+ */
+public final class MenuViewImpl extends Parent implements MenuView {
+
+    private static final int OFFSET = 364;
+    private static final String TEXT_OFF = "     ";
+
     private final Group menuView = new Group();
-    private MenuObserver observer;
-    
+    private MenuController observer;
+
     private final MenuButton btnNewGame;
     private final MenuButton btnContinue;
     private final MenuButton btnOptions;
@@ -31,17 +33,30 @@ public class MenuViewImpl extends Parent implements MenuView {
     private final MenuButton btnLanguage;
     private final MenuButton btnDiff;
     private final MenuButton btnDefaults;
-    
+
     private Map<WordText, String> currLang;
-    
+
+    /**
+     * Constructor of MenuView.
+     * @param musicVol
+     *          The music volume.
+     * @param sfxVol
+     *          The sound effect volume.
+     * @param language
+     *          The language.
+     * @param difficulty
+     *          The difficulty.
+     * @param currLang
+     *          The current Language.
+     */
     public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty, final Map<WordText, String> currLang) {
-        
+
         super();
         this.currLang = currLang;
-        
+
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
-        
+
         menu0.setTranslateX(96);
         menu0.setTranslateY(192);
 
@@ -49,17 +64,17 @@ public class MenuViewImpl extends Parent implements MenuView {
         menu1.setTranslateY(192);
 
         menu1.setTranslateX(OFFSET);
-        
+
         btnNewGame = new MenuButton(currLang.get(WordText.NEW_GAME));
         btnNewGame.setOnMouseClicked(event -> {
             observer.newGame();
         });
-        
+
         btnContinue = new MenuButton(currLang.get(WordText.CONTINUE));
         btnContinue.setOnMouseClicked(event -> {
             observer.continueGame();
         });
-        
+
         btnOptions = new MenuButton(currLang.get(WordText.OPTIONS));
         btnOptions.setOnMouseClicked(event -> {
             menuView.getChildren().add(menu1);
@@ -77,7 +92,7 @@ public class MenuViewImpl extends Parent implements MenuView {
                 menuView.getChildren().remove(menu0);
             });
         });
-        
+
         btnExit = new MenuButton(currLang.get(WordText.EXIT));
         btnExit.setOnMouseClicked(event -> {
             observer.quit();
@@ -100,19 +115,19 @@ public class MenuViewImpl extends Parent implements MenuView {
                 menuView.getChildren().remove(menu1);
             });
         });
-        
+
         btnMusic = new MenuButton(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()));
         btnMusic.setOnMouseClicked(event -> this.observer.nextMusicVolume());
-        
+
         btnSFX = new MenuButton(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()));
         btnSFX.setOnMouseClicked(event -> this.observer.nextSFXVolume());
-        
+
         btnLanguage = new MenuButton(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()));
         btnLanguage.setOnMouseClicked(event -> this.observer.nextLanguage());
-        
+
         btnDiff = new MenuButton(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()));
         btnDiff.setOnMouseClicked(event -> this.observer.nextDifficulty());
-        
+
         btnDefaults = new MenuButton(currLang.get(WordText.DEFAULT_OPT));
         btnDefaults.setOnMouseClicked(event -> this.observer.setDefaults());
 
@@ -123,15 +138,17 @@ public class MenuViewImpl extends Parent implements MenuView {
         bg0.setOpacity(0);
 
 //        final ImageView im = new ImageView(new Image(getClass().getResource("/logo.png").toString()));
-        
+
         menuView.getChildren().addAll(bg0, menu0);
     }
-    
-    public final void setObserver(final MenuObserver observer) {
+
+    @Override
+    public void setObserver(final MenuController observer) {
         this.observer = observer;
     }
-    
-    public final void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
+
+    @Override
+    public void updateView(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
         btnNewGame.update(currLang.get(WordText.NEW_GAME));
         btnContinue.update(currLang.get(WordText.CONTINUE));
         btnOptions.update(currLang.get(WordText.OPTIONS));
@@ -143,17 +160,20 @@ public class MenuViewImpl extends Parent implements MenuView {
         btnDiff.update(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()));
         btnDefaults.update(currLang.get(WordText.DEFAULT_OPT));
     }
-    
+
+    @Override
     public void updateLanguage(final Map<WordText, String> currLang) {
         this.currLang = currLang;
     }
-    
+
+    @Override
     public void setContinueEnabled(final boolean isVisible) {
         btnContinue.setVisible(isVisible);
     }
-    
+
+    @Override
     public Node getNode() {
         return menuView;
     }
-        
+
 }

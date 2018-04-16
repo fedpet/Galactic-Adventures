@@ -2,40 +2,53 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.EndLevelObserver;
+import it.unibo.oop17.ga_game.controller.EndLevelController;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
-public class EndLevelViewImpl implements CommonView<EndLevelObserver> {
-    
+/**
+ * The end level view.
+ */
+public final class EndLevelViewImpl implements CommonView<EndLevelController> {
+
     private final Group view = new Group();
-    private EndLevelObserver observer;
-    
-    public EndLevelViewImpl(final Map<WordText, String> currLang, final Stage stage) {
-        
+    private EndLevelController observer;
+
+    /**
+     * Constructor of EndLevelView.
+     * @param currLang
+     *          Current language for text.
+     */
+    public EndLevelViewImpl(final Map<WordText, String> currLang) {
+
+        final VBox menu = new VBox(8);
+
+        menu.setTranslateX(96);
+        menu.setTranslateY(192);
+
         final MenuButton btnContinue = new MenuButton(currLang.get(WordText.CONTINUE));
         btnContinue.setOnMouseClicked(event -> {
             observer.toNextMap();
         });
-        
+
         final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU));
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
-        
-        btnContinue.setLayoutX(stage.getWidth() / 10 * 2);
-        btnContinue.setLayoutY(stage.getHeight() / 4 * 3);
-        
-        btnMenu.setLayoutX(stage.getWidth() / 10 * 5);
-        btnMenu.setLayoutY(stage.getHeight() / 4 * 3);
-        
-        this.view.getChildren().addAll(btnContinue, btnMenu);
-        
+
+        menu.getChildren().addAll(btnContinue, btnMenu);
+
+        final Rectangle bg0 = new Rectangle();
+        bg0.setOpacity(0);
+
+        this.view.getChildren().addAll(bg0, menu);
+
     }
 
     @Override
-    public final void setObserver(final EndLevelObserver observer) {
+    public void setObserver(final EndLevelController observer) {
         this.observer = observer;
     }
 

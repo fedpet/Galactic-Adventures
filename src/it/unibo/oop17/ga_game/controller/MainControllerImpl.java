@@ -5,79 +5,65 @@ import java.util.Optional;
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
-import it.unibo.oop17.ga_game.view.MainViewImpl;
-import javafx.stage.Stage;
 
-public class MainControllerImpl implements MainController {
-    
-    private final static int LEVELS_NUM = 7;
-    
-    private final Stage stage;
+/**
+ * Controls the application.
+ */
+public final class MainControllerImpl implements MainController {
+
+    private static final int LEVELS_NUM = 7;
+
     private final MainView view;
     private ConfigData data;
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
-    
-    MainControllerImpl(final Stage stage) {
-        
-        this.stage = stage;
-        data = CheckData.loadConfig();
-        save = CheckSave.loadSave();
-        view = new MainViewImpl(stage, data);
+
+    MainControllerImpl(final MainView view) {
+        this.view = view;
+        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
+        save = LoadSaveManager.checkGameDataExistenceThenLoad();
         toMenu(); 
-        
-    }
-
-    public final void toMenu() {
-        stopGameController();
-        new MenuController(view.showMenu(this), this);
-    }
-    
-    public final void toGame() {
-        data = CheckData.loadConfig();
-        save = CheckSave.loadSave();
-        if (save.getLevelProgress() > LEVELS_NUM) {
-            toEndGame();
-        } else {
-            activeGameController = Optional.of(new GameControllerImpl(view.showGame(this), view.showHud(this), this));
-        }
-    }
-
-    public final void toEndLevel() {
-        stopGameController();
-        new EndLevelController(view.showEndLevel(this), this);
-    }
-    
-    public final void toGameOver() {
-        stopGameController();
-        new GameOverController(view.showGameOver(this), this);
-    }
-    
-    public final void toEndGame() {
-        stopGameController();
-        new EndGameController(view.showEndGame(this), this);
-    }
-    
-    public Stage getStage() {
-        return stage;
-    }
-    
-    public ConfigData getConfigData() {
-        return data;
-    }
-    
-    public GameData getGameData() {
-        return save;
     }
 
     @Override
-    public void updateMusicVol() {
-        view.updateMusicVol();
+    public void toMenu() {
+        stopGameController();
+        new MenuControllerImpl(data, save, view.showMenu(data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty()), this);
     }
-    
+
+    @Override
+    public void toGame() {
+        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
+        save = LoadSaveManager.checkGameDataExistenceThenLoad();
+        if (save.getLevelProgress() > LEVELS_NUM) {
+            toEndGame();
+        } else {
+            activeGameController = Optional.of(new GameControllerImpl(save, view.showGame(save.getLevelProgress()),
+                    view.showHud(data.getLanguage()), this));
+        }
+    }
+
+    @Override
+    public void toEndLevel() {
+        stopGameController();
+        new EndLevelControllerImpl(save, view.showEndLevel(data.getLanguage(), save.getLevelProgress()), this);
+    }
+
+    @Override
+    public void toGameOver() {
+        stopGameController();
+        new GameOverControllerImpl(view.showGameOver(data.getLanguage()), this);
+    }
+
+    @Override
+    public void toEndGame() {
+        stopGameController();
+        new EndGameControllerImpl(view.showEndGame(data.getLanguage()), this);
+    }
+
     private void stopGameController() {
         activeGameController.ifPresent(game -> game.stop());
         activeGameController = Optional.empty();
     }
-    
+
 }

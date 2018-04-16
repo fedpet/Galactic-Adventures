@@ -4,9 +4,15 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class EmptyScreen implements Screen {
+/**
+ * Empty Screen.
+ */
+public final class EmptyScreen implements Screen {
     private final Rectangle node = new Rectangle();
 
+    /**
+     * Constructor for EmptyScreen.
+     */
     public EmptyScreen() {
         node.setFill(Color.BLACK);
     }

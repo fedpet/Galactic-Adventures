@@ -18,9 +18,17 @@ import it.unibo.oop17.ga_game.view.entities.SpikesView;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 import javafx.scene.Group;
 
+/**
+ * Creates entities.
+ */
 public final class EntityViewFactoryImpl implements EntityViewFactory {
     private final Group parent;
 
+    /**
+     * Constructor of EntityViewFactory.
+     * @param parent
+     *          The group parent.
+     */
     public EntityViewFactoryImpl(final Group parent) {
         this.parent = parent;
     }

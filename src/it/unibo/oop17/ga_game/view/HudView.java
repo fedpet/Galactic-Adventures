@@ -1,9 +1,22 @@
 package it.unibo.oop17.ga_game.view;
 
+/**
+ *  Interface for controlling the heads-up display.
+ */
 public interface HudView extends Screen {
 
+    /**
+     * 
+     */
     void addHud();
 
-    void update(final int life, final int coins);
+    /**
+     *  Updates the current statistics.
+     * @param life
+     *          The current life.
+     * @param coins
+     *          The current coins.
+     */
+    void update(int life, int coins);
 
 }
