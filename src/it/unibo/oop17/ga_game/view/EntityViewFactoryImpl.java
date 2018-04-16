@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.view.entities.CoinType;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
 import it.unibo.oop17.ga_game.view.entities.FlyingEnemyView;

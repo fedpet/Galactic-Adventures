@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;

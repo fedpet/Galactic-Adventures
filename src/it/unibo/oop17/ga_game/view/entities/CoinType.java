@@ -1,4 +1,4 @@
-package it.unibo.oop17.ga_game.model;
+package it.unibo.oop17.ga_game.view.entities;
 
 /**
  * Possible type of coins in our game.

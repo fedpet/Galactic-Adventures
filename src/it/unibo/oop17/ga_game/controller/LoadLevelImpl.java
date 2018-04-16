@@ -9,7 +9,6 @@ import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.TileLayer;
 
 import it.unibo.oop17.ga_game.model.EllipticalPathItrator;
-import it.unibo.oop17.ga_game.model.CoinType;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
@@ -28,6 +27,7 @@ import it.unibo.oop17.ga_game.model.entities.Spikes;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
+import it.unibo.oop17.ga_game.view.entities.CoinType;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.util.Pair;
