@@ -20,8 +20,11 @@ import javafx.geometry.Side;
  * Models a flying enemy entity.
  */
 public class FlyingEnemy extends AbstractEntity {
+    private static final int DEFAULT_LIFE = 5;
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
     private static final double ATTACK_KNOCKBACK = 30;
+    private static final double FLYING_SPEED = 5;
+
 
     /**
      * 
@@ -39,13 +42,13 @@ public class FlyingEnemy extends AbstractEntity {
                 .build());
         add(new ViolentBrain(EntityPersonality.EVIL));
         add(new FixedPatternPilot(positions));
-        add(new LinearPropeller(5));
-        add(new LinearLife(5));
+        add(new LinearPropeller(FLYING_SPEED));
+        add(new LinearLife(DEFAULT_LIFE));
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, not(equalTo(Side.TOP))));
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Flying enemy";
     }
 

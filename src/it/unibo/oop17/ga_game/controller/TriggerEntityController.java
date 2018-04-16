@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
-import it.unibo.oop17.ga_game.model.entities.events.TriggerEvent;
+import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 
 /**
@@ -23,13 +23,13 @@ public class TriggerEntityController extends AbstractLifelessEntityController<Tr
     }
 
     /**
-     * It manages the trigger behavior at a @TriggerEvent signal.
+     * It manages the trigger behavior at a @TriggeredEvent signal.
      * 
      * @param event
-     *            The @TriggerEvent to listen to.
+     *            The @TriggeredEvent to listen to.
      */
     @Subscribe
-    public void trigger(final TriggerEvent event) {
+    public void trigger(final TriggeredEvent event) {
         getEntityView().changeState(TriggerState.ACTIVATED);
     }
 

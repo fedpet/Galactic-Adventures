@@ -20,7 +20,7 @@ public class PickupableBrain extends AbstractBrain {
     }
 
     @Override
-    protected void handleContact(final EntityBody other) {
+    protected final void handleContact(final EntityBody other) {
         other.getOwner().ifPresent(otherEntity -> {
             otherEntity.get(Inventory.class).ifPresent(inv -> {
                 inventoryAdder.accept(inv);

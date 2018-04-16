@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.events;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State;
+import it.unibo.oop17.ga_game.model.entities.components.Movement.State;
 
 /**
  * Models a new movement event.

@@ -5,7 +5,7 @@ import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 /**
  * A @TriggerableComponent for triggerable entities that can be triggered only once.
  */
-public class OneTimeTriggerable extends AbstractEntityComponent implements TriggerableComponent {
+public class OneTimeTriggerable extends AbstractEntityComponent implements Triggerable {
 
     private final String password;
     private boolean triggered;
@@ -15,7 +15,7 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
      * @param password
      *            A @TriggerComponent can trigger this component if they have the same password.
      * @param triggered
-     *            The initial state of the triggerable component (if triggered or not).
+     *            The initial state of the @TriggerableComponent (if triggered or not).
      */
     public OneTimeTriggerable(final String password, final boolean triggered) {
         super();
@@ -24,12 +24,12 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
     }
 
     @Override
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
     @Override
-    public void trigger() {
+    public final void trigger() {
         if (!isTriggered()) {
             post(new TriggeredEvent(getEntity()));
             triggered = true;
@@ -37,7 +37,7 @@ public class OneTimeTriggerable extends AbstractEntityComponent implements Trigg
     }
 
     @Override
-    public boolean isTriggered() {
+    public final boolean isTriggered() {
         return triggered;
     }
 

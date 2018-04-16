@@ -6,7 +6,6 @@ import java.util.List;
 
 import it.unibo.oop17.ga_game.model.entities.AbstractEntity;
 import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
-import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 
 /**
@@ -23,13 +22,6 @@ public final class TestEntity extends AbstractEntity {
     public TestEntity(final EntityBody body) {
         super(body);
         register(collector);
-    }
-
-    @Override
-    public void add(final EntityComponent component) {
-        super.add(component);
-        assert true; // this is here to prevent checkstyle complaining "Method merely calls super"
-        // it's not true: it also makes it public! We have no time to fix checkstyle now..
     }
 
     @Override

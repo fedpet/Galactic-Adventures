@@ -8,7 +8,7 @@ import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import it.unibo.oop17.ga_game.model.physics.PhysicsEngine;
 import javafx.geometry.Dimension2D;
@@ -23,7 +23,7 @@ public class GameWorld {
     private final Set<Entity> entities = new LinkedHashSet<>();
     private final Set<Entity> removedEntities = new LinkedHashSet<>();
     private final TriggerLinker linker = new TriggerLinker();
-    private final EntityEventListener myListener = new MyListener();
+    private final EntityEventSubscriber myListener = new MyListener();
 
     /**
      * Adds a block of static terrain to the world.
@@ -81,7 +81,7 @@ public class GameWorld {
         engine.remove(entity.getBody());
     }
 
-    private final class MyListener implements EntityEventListener {
+    private final class MyListener implements EntityEventSubscriber {
         @Subscribe
         public void onEntityDestruction(final DestructionEvent destruction) {
             removedEntities.add(destruction.getSource());

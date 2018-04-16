@@ -32,7 +32,7 @@ public class Coin extends AbstractEntity {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Coin";
     }
 

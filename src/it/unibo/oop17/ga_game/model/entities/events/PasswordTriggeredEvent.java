@@ -3,9 +3,9 @@ package it.unibo.oop17.ga_game.model.entities.events;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 
 /**
- * Models a new triggering event with password.
+ * Models a new triggered event with password.
  */
-public class PasswordTriggeringEvent extends TriggeringEvent {
+public class PasswordTriggeredEvent extends TriggeredEvent {
 
     private final String password;
 
@@ -16,11 +16,11 @@ public class PasswordTriggeringEvent extends TriggeringEvent {
      * @param password
      *            the relative password
      */
-    public PasswordTriggeringEvent(final Entity source, final String password) {
+    public PasswordTriggeredEvent(final Entity source, final String password) {
         super(source);
         this.password = password;
     }
-    
+
     /**
      * 
      * @return The password associated to the event

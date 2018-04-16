@@ -9,6 +9,9 @@ import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 
 /**
  * Translates view input to model input and updates the view for entities with @LifelessEntityView.
+ *
+ * @param <L>
+ *            Generic LifelessEntityView type.
  */
 public abstract class AbstractLifelessEntityController<L extends LifelessEntityView>
         extends AbstractEntityController<L> {
@@ -24,13 +27,13 @@ public abstract class AbstractLifelessEntityController<L extends LifelessEntityV
         }
 
     @Override
-    public void update() {
+    public final void update() {
         getEntityView().setPosition(ViewUtils.worldPointToFX(getEntity().getBody().getPosition()));
     }
 
     @Override
     @Subscribe
-    public void onEntityDestruction(final DestructionEvent event) {
+    public final void onEntityDestruction(final DestructionEvent event) {
         getEntityView().remove();
     }
 

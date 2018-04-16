@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities;
 import static com.google.common.base.Predicates.equalTo;
 
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
-import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Feet;
 import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
@@ -36,7 +36,7 @@ public final class Player extends AbstractEntity {
                 .build());
         add(new InventoryImpl());
         add(new LinearLife(DEFAULT_LIFE));
-        add(new FeetComponent(WALK_SPEED, JUMP_SPEED));
+        add(new Feet(WALK_SPEED, JUMP_SPEED));
         add(new ViolentBrain(EntityPersonality.GOOD));
         add(new MeleeWeapon(1, JUMP_SPEED, 0, equalTo(Side.BOTTOM)));
     }

@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 /**
  * An @EntityComponent for movements.
  */
-public interface MovementComponent extends EntityComponent {
+public interface Movement extends EntityComponent {
     /**
      * 
      * @param direction

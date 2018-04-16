@@ -1,13 +1,12 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.Door;
 import it.unibo.oop17.ga_game.model.entities.components.TriggerState;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a {@link Door} view.
+ * Models a @Door view.
  */
 public class DoorView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
     private static final int WIDTH = 130, HEIGHT = 203;

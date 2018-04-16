@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 
 /**
  * Collects @EntityEvent and exposes convenient methods for testing.
  */
-public class EventsCollector implements EntityEventListener {
+public class EventsCollector implements EntityEventSubscriber {
     // we'd like to use LinkedList directly because we need both Deque and List interfaces but checkstyle complains and
     // we have no time to fix it now..
     private final Deque<EntityEvent> events = new LinkedList<>();

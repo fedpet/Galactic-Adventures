@@ -4,26 +4,37 @@ import java.util.Iterator;
 
 import javafx.geometry.Point2D;
 
-public class CircleIterator implements Iterator<Point2D> {
+/**
+ * An @Iterator that provides an elliptical path.
+ */
+public class EllipticalPathIterator implements Iterator<Point2D> {
 
     private final Point2D startingPoint;
     private double angle;
     private final double maxX;
     private final double maxY;
 
-    public CircleIterator(final Point2D startingPoint, final float maxX, final float maxY) {
+    /**
+     * @param startingPoint
+     *            The starting @Point2D in the @CircleIterator.
+     * @param maxX
+     *            The horizontal axis of the path shape.
+     * @param maxY
+     *            The vertical axis of the path shape.
+     */
+    public EllipticalPathIterator(final Point2D startingPoint, final float maxX, final float maxY) {
         this.startingPoint = startingPoint;
         this.maxX = maxX;
         this.maxY = maxY;
     }
 
     @Override
-    public boolean hasNext() {
+    public final boolean hasNext() {
         return true;
     }
 
     @Override
-    public Point2D next() {
+    public final Point2D next() {
         return new Point2D(Math.cos(Math.toRadians(angle)) * maxX + this.startingPoint.getX(),
                 Math.sin(Math.toRadians(angle++)) * maxY + this.startingPoint.getY());
     }

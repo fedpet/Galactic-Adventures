@@ -1,12 +1,12 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.entities.EventfullEntity;
+import it.unibo.oop17.ga_game.model.entities.EntityEventPublisher;
 import javafx.geometry.Point2D;
 
 /**
  * This propeller works without inertia nor friction.
  */
-public final class LinearPropeller extends PropellerComponent {
+public final class LinearPropeller extends Propeller {
 
     /**
      * 
@@ -21,7 +21,7 @@ public final class LinearPropeller extends PropellerComponent {
      * Removes gravity effects from the owner.
      */
     @Override
-    public void attach(final EventfullEntity owner) throws IllegalStateException {
+    public void attach(final EntityEventPublisher owner) throws IllegalStateException {
         super.attach(owner);
         owner.getBody().setGravityScale(0);
     }

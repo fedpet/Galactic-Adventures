@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Feet;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Movement;
 import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
@@ -15,8 +15,11 @@ import javafx.geometry.Side;
  * obstacle.
  */
 public final class SlimeEnemy extends AbstractEntity {
-    public static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
+    private static final int DEFAULT_LIFE = 5;
+    private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
     private static final double ATTACK_KNOCKBACK = 20;
+    private static final double WALK_SPEED = 5;
+    private static final double JUMP_SPEED = 0;
 
     /**
      * 
@@ -31,9 +34,9 @@ public final class SlimeEnemy extends AbstractEntity {
                 .size(SIZE)
                 .build());
         add(new SlimeEnemyBrain());
-        add(new FeetComponent(5, 0));
-        add(new LinearLife(5));
-        get(MovementComponent.class).ifPresent(movement -> {
+        add(new Feet(WALK_SPEED, JUMP_SPEED));
+        add(new LinearLife(DEFAULT_LIFE));
+        get(Movement.class).ifPresent(movement -> {
             movement.move(new Point2D(1, 0));
         });
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, Side::isVertical));

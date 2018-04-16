@@ -34,7 +34,7 @@ public class FixedPatternPilot extends AbstractEntityComponent implements AutoPi
      * Follows the pattern.
      */
     protected final void followPattern() {
-        getEntity().get(MovementComponent.class).ifPresent(movement -> {
+        getEntity().get(Movement.class).ifPresent(movement -> {
             if (getEntity().getBody().getPosition().distance(nextPosition) < DISTANCE_THRESHOLD) {
                 nextPosition = nextPositionSupplier.get();
             }

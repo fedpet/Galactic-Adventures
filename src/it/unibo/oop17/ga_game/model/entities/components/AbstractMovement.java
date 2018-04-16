@@ -8,9 +8,9 @@ import javafx.geometry.Point2D;
 /**
  * Base class for @MovementComponent.
  */
-public abstract class AbstractMovementComponent extends AbstractContactAwareComponent implements MovementComponent {
+public abstract class AbstractMovement extends AbstractContactAwareComponent implements Movement {
     private Point2D desiredMovement = Point2D.ZERO;
-    private State currentState = MovementComponent.State.IDLE;
+    private State currentState = Movement.State.IDLE;
     private HorizontalDirection faceDirection = HorizontalDirection.RIGHT;
 
     @Override
