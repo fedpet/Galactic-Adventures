@@ -7,7 +7,7 @@ import javafx.geometry.Point2D;
 /**
  * An @Iterator that provides an elliptical path.
  */
-public class EllipticalPathItrator implements Iterator<Point2D> {
+public class EllipticalPathIterator implements Iterator<Point2D> {
 
     private final Point2D startingPoint;
     private double angle;
@@ -22,7 +22,7 @@ public class EllipticalPathItrator implements Iterator<Point2D> {
      * @param maxY
      *            The vertical axis of the path shape.
      */
-    public EllipticalPathItrator(final Point2D startingPoint, final float maxX, final float maxY) {
+    public EllipticalPathIterator(final Point2D startingPoint, final float maxX, final float maxY) {
         this.startingPoint = startingPoint;
         this.maxX = maxX;
         this.maxY = maxY;

@@ -8,7 +8,7 @@ import org.mapeditor.core.Map;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.TileLayer;
 
-import it.unibo.oop17.ga_game.model.EllipticalPathItrator;
+import it.unibo.oop17.ga_game.model.EllipticalPathIterator;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
@@ -146,7 +146,7 @@ public class LoadLevelImpl implements LoadLevel {
                     break;
                 case "flying":
                     entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
-                            .repeat(() -> new EllipticalPathItrator(position, 5, 5))));
+                            .repeat(() -> new EllipticalPathIterator(position, 5, 5))));
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "torch":
@@ -162,7 +162,7 @@ public class LoadLevelImpl implements LoadLevel {
                     break;
                 case "platform":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .repeat(() -> new EllipticalPathItrator(position, 5, 5))));
+                            .repeat(() -> new EllipticalPathIterator(position, 5, 5))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":
