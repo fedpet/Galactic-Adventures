@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Feet;
 import it.unibo.oop17.ga_game.model.entities.components.LinearLife;
 import it.unibo.oop17.ga_game.model.entities.components.MeleeWeapon;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Movement;
 import it.unibo.oop17.ga_game.model.entities.components.SlimeEnemyBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
@@ -34,9 +34,9 @@ public final class SlimeEnemy extends AbstractEntity {
                 .size(SIZE)
                 .build());
         add(new SlimeEnemyBrain());
-        add(new FeetComponent(WALK_SPEED, JUMP_SPEED));
+        add(new Feet(WALK_SPEED, JUMP_SPEED));
         add(new LinearLife(DEFAULT_LIFE));
-        get(MovementComponent.class).ifPresent(movement -> {
+        get(Movement.class).ifPresent(movement -> {
             movement.move(new Point2D(1, 0));
         });
         add(new MeleeWeapon(1, 0, ATTACK_KNOCKBACK, Side::isVertical));

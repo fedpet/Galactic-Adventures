@@ -7,7 +7,7 @@ import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Movement;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
@@ -21,7 +21,7 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
  */
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
-    private final Map<MovementComponent.State, CreatureState> stateMap = mapToCreatureState();
+    private final Map<Movement.State, CreatureState> stateMap = mapToCreatureState();
 
     /**
      * @param entity
@@ -90,12 +90,12 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
         }
     }
 
-    private Map<MovementComponent.State, CreatureState> mapToCreatureState() {
-        final Map<MovementComponent.State, CreatureState> stateMap = new HashMap<>();
-        stateMap.put(MovementComponent.State.IDLE, CreatureState.IDLE);
-        stateMap.put(MovementComponent.State.WALKING, CreatureState.WALKING);
-        stateMap.put(MovementComponent.State.JUMPING, CreatureState.JUMPING);
-        stateMap.put(MovementComponent.State.FLYING, CreatureState.FLYING);
+    private Map<Movement.State, CreatureState> mapToCreatureState() {
+        final Map<Movement.State, CreatureState> stateMap = new HashMap<>();
+        stateMap.put(Movement.State.IDLE, CreatureState.IDLE);
+        stateMap.put(Movement.State.WALKING, CreatureState.WALKING);
+        stateMap.put(Movement.State.JUMPING, CreatureState.JUMPING);
+        stateMap.put(Movement.State.FLYING, CreatureState.FLYING);
         return stateMap;
     }
 

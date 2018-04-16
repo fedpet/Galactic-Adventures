@@ -5,7 +5,7 @@ import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 /**
  * A @TriggerComponent that activates on contact only once.
  */
-public class ContactTrigger extends AbstractContactAwareComponent implements TriggerComponent {
+public class ContactTrigger extends AbstractContactAwareComponent implements Trigger {
 
     private boolean triggered;
     private final String password;

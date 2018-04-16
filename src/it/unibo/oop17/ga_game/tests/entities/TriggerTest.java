@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.unibo.oop17.ga_game.model.entities.components.ContactTrigger;
-import it.unibo.oop17.ga_game.model.entities.components.TriggerComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Trigger;
 import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -21,7 +21,7 @@ public class TriggerTest extends BaseEntityTest {
     private static final String PASSWORD = "test";
 
     private TestEntity triggerEntity;
-    private TriggerComponent contactTrigger;
+    private Trigger contactTrigger;
 
     @Override
     @Before

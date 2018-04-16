@@ -1,17 +1,17 @@
 package it.unibo.oop17.ga_game.tests.entities;
 
-import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.FALLING;
-import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.IDLE;
-import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.JUMPING;
-import static it.unibo.oop17.ga_game.model.entities.components.MovementComponent.State.WALKING;
+import static it.unibo.oop17.ga_game.model.entities.components.Movement.State.FALLING;
+import static it.unibo.oop17.ga_game.model.entities.components.Movement.State.IDLE;
+import static it.unibo.oop17.ga_game.model.entities.components.Movement.State.JUMPING;
+import static it.unibo.oop17.ga_game.model.entities.components.Movement.State.WALKING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unibo.oop17.ga_game.model.entities.components.FeetComponent;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Feet;
+import it.unibo.oop17.ga_game.model.entities.components.Movement;
 import it.unibo.oop17.ga_game.model.entities.events.FaceDirectionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.MovementEvent;
 import it.unibo.oop17.ga_game.utils.PositionCompare;
@@ -29,14 +29,14 @@ public class FeetTest extends BaseEntityTest {
     private static final double WALKING_SPEED = 20.0;
     private static final double JUMPING_SPEED = 20.0;
     private TestEntity entity;
-    private FeetComponent feet;
+    private Feet feet;
 
     @Override
     @Before
     public void setUp() {
         super.setUp();
         entity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
-        feet = new FeetComponent(WALKING_SPEED, JUMPING_SPEED);
+        feet = new Feet(WALKING_SPEED, JUMPING_SPEED);
         entity.add(feet);
     }
 
@@ -101,7 +101,7 @@ public class FeetTest extends BaseEntityTest {
         assertTrue(startingY < entity.getBody().getPosition().getY());
     }
 
-    private void assertState(final MovementComponent.State state) {
+    private void assertState(final Movement.State state) {
         assertEquals(state, feet.getState());
         assertEquals(state, entity.popEvent(MovementEvent.class).getState());
     }

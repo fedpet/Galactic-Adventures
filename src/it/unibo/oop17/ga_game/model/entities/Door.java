@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.TriggerableDoorComponent;
+import it.unibo.oop17.ga_game.model.entities.components.TriggerableLevelEnd;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -29,7 +29,7 @@ public class Door extends AbstractEntity {
                 .solid(false)
                 .moveable(false)
                 .build());
-        add(new TriggerableDoorComponent(password, open));
+        add(new TriggerableLevelEnd(password, open));
     }
 
     @Override

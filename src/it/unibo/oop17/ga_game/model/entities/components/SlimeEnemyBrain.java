@@ -35,7 +35,7 @@ public class SlimeEnemyBrain extends ViolentBrain {
 
         final Point2D dir = new Point2D(newDirection.getX(), 0);
         if (!newDirection.equals(Point2D.ZERO)) {
-            getEntity().get(MovementComponent.class).ifPresent(movement -> {
+            getEntity().get(Movement.class).ifPresent(movement -> {
                 movement.move(dir);
             });
         }

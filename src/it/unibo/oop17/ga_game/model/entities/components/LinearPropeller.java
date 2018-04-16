@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 /**
  * This propeller works without inertia nor friction.
  */
-public final class LinearPropeller extends PropellerComponent {
+public final class LinearPropeller extends Propeller {
 
     /**
      * 

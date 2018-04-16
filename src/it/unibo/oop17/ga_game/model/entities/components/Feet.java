@@ -10,7 +10,7 @@ import javafx.geometry.Side;
 /**
  * Feet for ground creatures unable to fly!
  */
-public final class FeetComponent extends AbstractMovementComponent {
+public final class Feet extends AbstractMovement {
     private static final double AIR_FRICTION_FACTOR = 0.07;
     private final double walkingSpeed, jumpingSpeed;
 
@@ -21,7 +21,7 @@ public final class FeetComponent extends AbstractMovementComponent {
      * @param jumpingSpeed
      *            Vertical jump speed
      */
-    public FeetComponent(final double walkingSpeed, final double jumpingSpeed) {
+    public Feet(final double walkingSpeed, final double jumpingSpeed) {
         super();
         this.walkingSpeed = walkingSpeed;
         this.jumpingSpeed = jumpingSpeed;

@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 /**
  * A basic propeller which can fly to any direction.
  */
-public class PropellerComponent extends AbstractMovementComponent {
+public class Propeller extends AbstractMovement {
     /**
      * Minimum speed below which it completely stops.
      */
@@ -17,7 +17,7 @@ public class PropellerComponent extends AbstractMovementComponent {
      * @param speed
      *            Propeller's power
      */
-    public PropellerComponent(final double speed) {
+    public Propeller(final double speed) {
         super();
         this.speed = speed;
     }

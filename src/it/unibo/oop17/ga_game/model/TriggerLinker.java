@@ -10,27 +10,27 @@ import java.util.Set;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.TriggerableComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Triggerable;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 
 /**
- * It keeps track of entities' @TriggerableComponent objects in the @GameWorld and it triggers them at
+ * It keeps track of entities' @Triggerable objects in the @GameWorld and it triggers them at
  * a @PasswordTriggeredEvent.
  */
 public class TriggerLinker {
-    private final Map<String, Set<TriggerableComponent>> map = new HashMap<>();
+    private final Map<String, Set<Triggerable>> map = new HashMap<>();
     private final MyTriggerListener listener = new MyTriggerListener();
 
     /**
-     * It starts to keep track of an @Entity and stores its eventual @TriggeableComponent.
+     * It starts to keep track of an @Entity and stores its eventual @Triggerable component.
      * 
      * @param entity
      *            The @Entity to keep track of.
      */
     public void track(final Entity entity) {
         entity.register(listener);
-        entity.get(TriggerableComponent.class).ifPresent(component -> {
+        entity.get(Triggerable.class).ifPresent(component -> {
             map.merge(component.getPassword(), new HashSet<>(Arrays.asList(component)), (x, y) -> {
                 x.addAll(y);
                 return x;
@@ -39,14 +39,14 @@ public class TriggerLinker {
     }
 
     /**
-     * It stops to keep track of an @Entity and removes from the storage its eventual @TriggeableComponent.
+     * It stops to keep track of an @Entity and removes from the storage its eventual @Triggerable component.
      * 
      * @param entity
      *            The @Entity to stop to keep track of.
      */
     public void untrack(final Entity entity) {
         entity.unregister(listener);
-        entity.get(TriggerableComponent.class).ifPresent(component -> {
+        entity.get(Triggerable.class).ifPresent(component -> {
             map.remove(component.getPassword());
         });
     }
@@ -55,7 +55,7 @@ public class TriggerLinker {
     private final class MyTriggerListener implements EntityEventListener {
         @Subscribe
         public void activateEvent(final PasswordTriggeredEvent event) {
-            map.getOrDefault(event.getPassword(), Collections.emptySet()).forEach(TriggerableComponent::trigger);
+            map.getOrDefault(event.getPassword(), Collections.emptySet()).forEach(Triggerable::trigger);
         }
     }
 }

@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.MovementComponent;
+import it.unibo.oop17.ga_game.model.entities.components.Movement;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import javafx.geometry.Point2D; 
 
@@ -24,6 +24,6 @@ public final class PlayerController extends LivingEntityController {
     }
 
     private void move(final Point2D direction) {
-        getEntity().get(MovementComponent.class).ifPresent(movement -> movement.move(direction));
+        getEntity().get(Movement.class).ifPresent(movement -> movement.move(direction));
     }
 }

@@ -5,7 +5,7 @@ import it.unibo.oop17.ga_game.model.entities.events.TriggeredEvent;
 /**
  * A @TriggerableComponent for triggerable entities that can be triggered only once.
  */
-public class OneTimeTriggerable extends AbstractEntityComponent implements TriggerableComponent {
+public class OneTimeTriggerable extends AbstractEntityComponent implements Triggerable {
 
     private final String password;
     private boolean triggered;
