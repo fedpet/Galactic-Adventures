@@ -8,8 +8,7 @@ import org.mapeditor.core.Map;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.TileLayer;
 
-import it.unibo.oop17.ga_game.model.CircleIterator;
-import it.unibo.oop17.ga_game.model.CoinType;
+import it.unibo.oop17.ga_game.model.EllipticalPathIterator;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
@@ -28,6 +27,7 @@ import it.unibo.oop17.ga_game.model.entities.Spikes;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
+import it.unibo.oop17.ga_game.view.entities.CoinType;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.util.Pair;
@@ -158,7 +158,7 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "flying":
                     entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
-                            .repeat(() -> new CircleIterator(position, FLYING_VALUE, FLYING_VALUE))));
+                            .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, FLYING_VALUE))));
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "torch":
@@ -174,7 +174,7 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "platform":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .repeat(() -> new CircleIterator(position, FLYING_VALUE, FLYING_VALUE))));
+                            .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, FLYING_VALUE))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":

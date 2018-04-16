@@ -2,13 +2,13 @@ package it.unibo.oop17.ga_game.controller;
 
 import com.google.common.eventbus.Subscribe;
 
-import it.unibo.oop17.ga_game.model.entities.events.EntityEventListener;
+import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.FinishedLevelEvent;
 
 /**
  * Listens to the finished level event, then performs and action.
  */
-class DoorEventListener implements EntityEventListener {
+class DoorEventListener implements EntityEventSubscriber {
 
     private final MainController mainController;
 
