@@ -34,13 +34,6 @@ public interface MainView {
     MenuView showMenu(Volume musicVol, Volume sfxVol, Language language, Difficulty difficulty);
 
     /**
-     * @param language
-     *          The language for translation.
-     * @return the heads-up display view to load.
-     */
-    HudView showHud(Language language);
-
-    /**
      * 
      * @param language
      *          The language for translation.

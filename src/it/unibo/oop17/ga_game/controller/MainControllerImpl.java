@@ -38,8 +38,8 @@ public final class MainControllerImpl implements MainController {
         if (save.getLevelProgress() > LEVELS_NUM) {
             toEndGame();
         } else {
-            activeGameController = Optional.of(new GameControllerImpl(save, view.showGame(save.getLevelProgress()),
-                    view.showHud(data.getLanguage()), this));
+            activeGameController = Optional
+                    .of(new GameControllerImpl(save, view.showGame(save.getLevelProgress()), this));
         }
     }
 

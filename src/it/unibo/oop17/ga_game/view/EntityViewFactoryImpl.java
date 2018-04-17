@@ -13,6 +13,7 @@ import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 import it.unibo.oop17.ga_game.view.entities.LockView;
 import it.unibo.oop17.ga_game.view.entities.MovingPlatformView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
+import it.unibo.oop17.ga_game.view.entities.PlayerViewImpl;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
 import it.unibo.oop17.ga_game.view.entities.SpikesView;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
@@ -22,20 +23,25 @@ import javafx.scene.Group;
  * Creates entities.
  */
 public final class EntityViewFactoryImpl implements EntityViewFactory {
+    private final HudScreen hud;
     private final Group parent;
 
     /**
      * Constructor of EntityViewFactory.
+     * 
      * @param parent
-     *          The group parent.
+     *            The group parent.
+     * @param hud
+     *            The HUD to which wire the player
      */
-    public EntityViewFactoryImpl(final Group parent) {
+    public EntityViewFactoryImpl(final Group parent, final HudScreen hud) {
         this.parent = parent;
+        this.hud = hud;
     }
 
     @Override
-    public LivingEntityView createPlayer() {
-        return new PlayerView(parent);
+    public PlayerView createPlayer() {
+        return new PlayerViewImpl(parent, hud);
     }
 
     @Override

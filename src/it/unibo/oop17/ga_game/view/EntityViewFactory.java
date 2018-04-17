@@ -4,6 +4,7 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.view.entities.CoinType;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
+import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 
 /**
@@ -14,7 +15,7 @@ public interface EntityViewFactory {
     /**
      * @return a player.
      */
-    LivingEntityView createPlayer();
+    PlayerView createPlayer();
 
     /**
      * @return a slime enemy.

@@ -95,14 +95,6 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public HudView showHud(final Language language) {
-        final HudView hudView = new HudViewImpl();
-        root.getChildren().add(hudView.getNode());
-        currentScreens.add(hudView);
-        return hudView;
-    }
-
-    @Override
     public GameWorldView showGame(final int progress) {
         if (progress < LEVELS_NUM) {
 //            audioC.playMusic(Musics.get(controller.getGameData().getLevelProgress()).getPath());

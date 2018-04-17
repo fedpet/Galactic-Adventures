@@ -7,7 +7,7 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 /**
  *  Interface for controlling the heads-up display.
  */
-public interface HudView extends Screen {
+public interface HudView {
     /**
      * Sets max health level.
      * 

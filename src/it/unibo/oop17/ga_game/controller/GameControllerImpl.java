@@ -15,11 +15,8 @@ import com.google.common.io.Files;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.entities.Entity;
-import it.unibo.oop17.ga_game.model.entities.components.Inventory;
-import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
 import it.unibo.oop17.ga_game.view.GameWorldView;
-import it.unibo.oop17.ga_game.view.HudView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 
@@ -34,7 +31,6 @@ public final class GameControllerImpl implements GameController {
     private GameWorld model;
     private GameWorldView view;
     private Set<EntityController> entities;
-    private final HudView hudView;
     private final MainController mainController;
     private final GameData save;
     private final AnimationTimer animationTimer = new AnimationTimer() {
@@ -50,15 +46,12 @@ public final class GameControllerImpl implements GameController {
      *          Game data.
      * @param view
      *          Game world view.
-     * @param hudView
-     *          Heads-up display.
      * @param mainController
      *          Main controller.
      */
-    public GameControllerImpl(final GameData save, final GameWorldView view, final HudView hudView, final MainController mainController) {
+    public GameControllerImpl(final GameData save, final GameWorldView view, final MainController mainController) {
         this.save = save;
         this.view = view;
-        this.hudView = hudView;
         this.mainController = mainController;
         model = new GameWorld();
         entities = new LinkedHashSet<>();
@@ -108,19 +101,11 @@ public final class GameControllerImpl implements GameController {
         this.entities = loader.getEntities();
         this.player = loader.getPlayer();
         animationTimer.start();
-        player.get(Life.class).ifPresent(life -> {
-            hudView.setMaxHealth(life.getMaxHealthPoints());
-        });
     }
 
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
-        if (player != null && player.get(Life.class).isPresent()) {
-            hudView.setCurrentHealth(player.get(Life.class).get().getHealthPoints());
-            hudView.setKeys(player.get(Inventory.class).get().getKeysBunch());
-            hudView.setMoney(player.get(Inventory.class).get().getMoney());
-        }
     }
 
 }

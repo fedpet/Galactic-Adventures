@@ -22,7 +22,7 @@ import javafx.util.Pair;
 /**
  * Controls the heads-up display.
  */
-public final class HudViewImpl implements HudView {
+public final class HudViewImpl implements HudScreen {
     private static final int PADDING = 20;
     private static final Image IMG_HEART_FULL = new Image("/hud/hud_heartFull.png");
     private static final Image IMG_HEART_EMPTY = new Image("/hud/hud_heartEmpty.png");

@@ -18,7 +18,9 @@ import javafx.scene.transform.Scale;
  */
 public final class GameWorldViewImpl implements GameWorldView, Screen {
     private final Group worldView = new Group();
+    private final Group rootView = new Group(worldView);
     private final PlayerInput playerInput;
+    private final HudScreen hud = new HudViewImpl();
 
     /**
      * Constructor of GameWorldView.
@@ -29,12 +31,13 @@ public final class GameWorldViewImpl implements GameWorldView, Screen {
      */
     public GameWorldViewImpl(final PlayerInput input, final double scaleFactor) {
         playerInput = input;
+        rootView.getChildren().add(hud.getNode());
         worldView.getTransforms().addAll(new Scale(scaleFactor, scaleFactor));
     }
 
     @Override
     public EntityViewFactory entityFactory() {
-        return new EntityViewFactoryImpl(worldView);
+        return new EntityViewFactoryImpl(worldView, this.hud);
     }
 
     @Override
@@ -59,7 +62,7 @@ public final class GameWorldViewImpl implements GameWorldView, Screen {
 
     @Override
     public Node getNode() {
-        return worldView;
+        return rootView;
     }
 
     @Override
