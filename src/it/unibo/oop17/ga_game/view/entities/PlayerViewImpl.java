@@ -28,7 +28,9 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
 
     /**
      * @param group
-     *            The @Group in which the player view is added.
+     *          The @Group in which the player view is added.
+     * @param hud
+     *          The @HudView associated with the player.
      */
     public PlayerViewImpl(final Group group, final HudView hud) {
         super(group, new Dimension2D(WIDTH, HEIGHT));

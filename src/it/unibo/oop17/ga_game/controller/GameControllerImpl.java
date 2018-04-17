@@ -14,7 +14,6 @@ import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
-import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
 import it.unibo.oop17.ga_game.view.GameWorldView;
 import javafx.animation.AnimationTimer;
@@ -27,7 +26,6 @@ public final class GameControllerImpl implements GameController {
 
     private static final double FRAMERATE = 1.0 / 60;
 
-    private Entity player;
     private GameWorld model;
     private GameWorldView view;
     private Set<EntityController> entities;
@@ -99,7 +97,6 @@ public final class GameControllerImpl implements GameController {
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
-        this.player = loader.getPlayer();
         animationTimer.start();
     }
 
