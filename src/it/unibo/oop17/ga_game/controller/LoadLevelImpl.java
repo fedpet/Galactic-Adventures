@@ -37,9 +37,9 @@ import javafx.util.Pair;
  */
 public final class LoadLevelImpl implements LoadLevel {
 
-    private static final int G_COIN_VALUE = 100;
-    private static final int S_COIN_VALUE = 50;
-    private static final int B_COIN_VALUE = 25;
+    private static final int G_COIN_VALUE = 5;
+    private static final int S_COIN_VALUE = 3;
+    private static final int B_COIN_VALUE = 1;
     private static final int FLYING_VALUE = 5;
 
     private Entity player;
