@@ -1,8 +1,12 @@
 package it.unibo.oop17.ga_game.controller;
 
+import com.google.common.eventbus.Subscribe;
+
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 import it.unibo.oop17.ga_game.model.entities.components.Movement;
+import it.unibo.oop17.ga_game.model.entities.events.InventoryChangedEvent;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import javafx.geometry.Point2D; 
@@ -26,6 +30,18 @@ public final class PlayerController extends LivingEntityController {
         view = playerView;
         input.onInput(this::move);
         updateViewLife();
+        updateViewInventory();
+    }
+
+    /**
+     * Subscribes to a @InventoryChangedEvent.
+     * 
+     * @param event
+     *            The InventoryChangedEvent.
+     */
+    @Subscribe
+    public void inventoryChanged(final InventoryChangedEvent event) {
+        updateViewInventory();
     }
 
     @Override
@@ -36,6 +52,13 @@ public final class PlayerController extends LivingEntityController {
 
     private void move(final Point2D direction) {
         getEntity().get(Movement.class).ifPresent(movement -> movement.move(direction));
+    }
+
+    private void updateViewInventory() {
+        getEntity().get(Inventory.class).ifPresent(inventory -> {
+            view.setKeys(inventory.getKeysBunch());
+            view.setMoney(inventory.getMoney());
+        });
     }
 
     private void updateViewLife() {

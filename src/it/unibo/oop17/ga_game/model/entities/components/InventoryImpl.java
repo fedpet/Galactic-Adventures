@@ -5,13 +5,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.events.InventoryChangedEvent;
 
 /**
  * Basic implementation of @Inventory.
+ * It generates a @InventoryChangedEvent on change.
  */
 public final class InventoryImpl extends AbstractEntityComponent implements Inventory {
     private final Set<KeyLockType> keys = new HashSet<>();
     private int money;
+
+    @Override
+    public void addMoney(final int amount) {
+        money += amount;
+        notifyChange();
+    }
 
     @Override
     public int getMoney() {
@@ -19,8 +27,9 @@ public final class InventoryImpl extends AbstractEntityComponent implements Inve
     }
 
     @Override
-    public void addMoney(final int amount) {
-        money += amount;
+    public void add(final KeyLockType key) {
+        keys.add(key);
+        notifyChange();
     }
 
     @Override
@@ -28,8 +37,7 @@ public final class InventoryImpl extends AbstractEntityComponent implements Inve
         return Collections.unmodifiableSet(keys);
     }
 
-    @Override
-    public void add(final KeyLockType key) {
-        keys.add(key);
+    private void notifyChange() {
+        post(new InventoryChangedEvent(getEntity()));
     }
 }
