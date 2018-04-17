@@ -20,20 +20,22 @@ public final class EndGameViewImpl implements CommonView<EndGameController> {
      * Constructor of EndGameView.
      * @param currLang
      *          Current language for text.
+     * @param audioplayer
+     *          The audio player.
      */
-    public EndGameViewImpl(final Map<WordText, String> currLang) {
+    public EndGameViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
 
         menu.setTranslateX(96);
         menu.setTranslateY(192);
 
-        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU));
+        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU), audioplayer);
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
 
-        final MenuButton btnQuit = new MenuButton(currLang.get(WordText.EXIT));
+        final MenuButton btnQuit = new MenuButton(currLang.get(WordText.EXIT), audioplayer);
         btnQuit.setOnMouseClicked(event -> {
             observer.quit();
         });

@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
+import it.unibo.oop17.ga_game.view.AudioPlayer;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -15,9 +16,11 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
     /**
      * @param group
      *            The @Group in which the flying enemy view is added.
+     * @param audioplayer
+     *            The audio player.
      */
-    public FlyingEnemyView(final Group group) {
-        super(group, new Dimension2D(WIDTH, HEIGHT));
+    public FlyingEnemyView(final Group group, final AudioPlayer audioplayer) {
+        super(group, new Dimension2D(WIDTH, HEIGHT), audioplayer);
 
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/bee.png")));
         mapAnimation(CreatureState.FLYING,

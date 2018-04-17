@@ -1,10 +1,10 @@
 package it.unibo.oop17.ga_game.view.entities;
 
+import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 
 /**
  * Models a @Coin view.
@@ -14,16 +14,19 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
     private static final String BRONZE_COIN = "/coinBronze.png";
     private static final String SILVER_COIN = "/coinSilver.png";
     private static final String GOLD_COIN = "/coinGold.png";
+    private final AudioPlayer audioplayer;
 
     /**
      * @param group
      *            The @Group in which the coin view is added.
      * @param type
      *            The coin type to represent (BRONZE, SILVER or GOLD).
+     * @param audioplayer
+     *            The audio player.
      */
-    public CoinView(final Group group, final CoinType type) {
+    public CoinView(final Group group, final CoinType type, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
-
+        this.audioplayer = audioplayer;
         if (type == CoinType.BRONZE) {
             getView().setImage(new Image(BRONZE_COIN));
         } else if (type == CoinType.SILVER) {
@@ -35,7 +38,7 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public final void remove() {
-        new AudioClip(SFX.COIN.getPath()).play();
+        audioplayer.playSFX(SFX.COIN.getPath());
         super.remove();
     }
 }

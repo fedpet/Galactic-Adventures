@@ -12,12 +12,15 @@ import javafx.scene.text.Text;
 public interface MainView {
 
     /**
-     * 
+     * @param musicVol
+     *          The music volume.
+     * @param sfxVol
+     *          The sound effect volume.
      * @param progress
      *          The current progress.
      * @return the game view to load.
      */
-    GameWorldView showGame(int progress);
+    GameWorldView showGame(Volume musicVol, Volume sfxVol, int progress);
 
     /**
      * 

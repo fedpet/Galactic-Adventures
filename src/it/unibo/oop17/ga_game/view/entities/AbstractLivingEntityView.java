@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.view.entities;
 
+import it.unibo.oop17.ga_game.view.AudioPlayer;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
@@ -15,7 +17,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
 
     private static final double DEATH_FALLING_RATE_SPEED = 0.6;
     private static final double DEATH_TIME = 60;
-
+    private final AudioPlayer audioplayer;
     private int deathTimeCount;
     private boolean dying;
 
@@ -24,9 +26,12 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
      *            The @Group in which the entity view is added.
      * @param dimension
      *            The entity view dimension.
+     * @param audioplayer
+     *            The audio player.
      */
-    public AbstractLivingEntityView(final Group group, final Dimension2D dimension) {
+    public AbstractLivingEntityView(final Group group, final Dimension2D dimension, final AudioPlayer audioplayer) {
         super(group, dimension);
+        this.audioplayer = audioplayer;
     }
 
     @Override
@@ -42,9 +47,11 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
             deathTransition.setByY(100);
             deathTransition.setRate(DEATH_FALLING_RATE_SPEED);
             deathTransition.play();
+            audioplayer.playSFX(SFX.DEATH.getPath());
             flip(VerticalDirection.DOWN);
             dying = true;
         }
+
         manageDespawn();
     }
 

@@ -26,6 +26,8 @@ import javafx.stage.Stage;
  */
 public final class MainViewImpl implements MainView {
 
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
     private static final Music MAINMENU_M = Music.TRACK1;
     private static final Music ENDLEVEL_M = Music.TRACK6;
     private static final int LEVELS_NUM = 7;
@@ -34,7 +36,7 @@ public final class MainViewImpl implements MainView {
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
-//    private final AudioController audioC;
+    private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
             Music.TRACK3,
             Music.TRACK2,
@@ -57,21 +59,24 @@ public final class MainViewImpl implements MainView {
     /**
      *  Constructor for class MainView.
      *  @param stage
-     *          Actual stage.
+     *          Stage.
+     *  @param sfxVol
+     *          Sound effect volume.
+     *  @param musicVol
+     *          Music volume.
      */
-    public MainViewImpl(final Stage stage) {
+    public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol) {
         stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
         this.stage = stage;
-//        final AudioView audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
-//        audioC = new AudioControllerImpl(audioV);
+        audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
         stage.setScene(scene);
         stage.show();
     }
 
     private double getScaleFactor() {
         final Rectangle2D primaryScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-        return Math.min(primaryScreenBounds.getWidth() / 1920, primaryScreenBounds.getHeight() / 1080);
+        return Math.min(primaryScreenBounds.getWidth() / WIDTH, primaryScreenBounds.getHeight() / HEIGHT);
     }
 
     private <V extends Screen> V setScreen(final V newScreen, final ImageView im) {
@@ -87,19 +92,22 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public MenuView showMenu(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
-//        audioC.playMusic(MAINMENU_M.getPath());
+        audioplayer.stopMusic();
+        audioplayer.playMusic(MAINMENU_M.getPath());
         final List<Background> list = Collections.unmodifiableList(Arrays.asList(Background.values()));
-        return setScreen(new MenuViewImpl(musicVol, sfxVol, language, difficulty,
+        return setScreen(new MenuViewImpl(musicVol, sfxVol, language, difficulty, audioplayer,
                 new LoadLanguage().getCurrLang(language)),
                 new ImageView(new Image(list.get(new Random().nextInt(list.size())).getPath())));
     }
 
     @Override
-    public GameWorldView showGame(final int progress) {
+    public GameWorldView showGame(final Volume musicVol, final Volume sfxVol, final int progress) {
+        audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
         if (progress < LEVELS_NUM) {
-//            audioC.playMusic(Musics.get(controller.getGameData().getLevelProgress()).getPath());
+            audioplayer.stopMusic();
+            audioplayer.playMusic(musics.get(progress).getPath());
         }
-        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor()),
+        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor(), audioplayer),
                 new ImageView(new Image(backgrounds.get(progress).getPath())));
     }
 
@@ -110,22 +118,24 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public CommonView<EndLevelController> showEndLevel(final Language language, final int progress) {
-//        audioC.playMusic(ENDLEVEL_M.getPath());
-        return setScreen(new EndLevelViewImpl(new LoadLanguage().getCurrLang(language)),
+        audioplayer.stopMusic();
+        audioplayer.playMusic(ENDLEVEL_M.getPath());
+        return setScreen(new EndLevelViewImpl(new LoadLanguage().getCurrLang(language), audioplayer),
                 new ImageView(new Image(backgrounds.get(progress).getPath())));
     }
 
     @Override
     public CommonView<GameOverController> showGameOver(final Language language) {
-//        audioC.stopMusic();
-        return setScreen(new GameOverViewImpl(new LoadLanguage().getCurrLang(language)),
+        audioplayer.stopMusic();
+        return setScreen(new GameOverViewImpl(new LoadLanguage().getCurrLang(language), audioplayer),
                 new ImageView(new Image("/gameover.png")));
     }
 
     @Override
     public CommonView<EndGameController> showEndGame(final Language language) {
-//        audioC.playMusic(ENDLEVEL_M.getPath());
-        return setScreen(new EndGameViewImpl(new LoadLanguage().getCurrLang(language)),
+        audioplayer.stopMusic();
+        audioplayer.playMusic(ENDLEVEL_M.getPath());
+        return setScreen(new EndGameViewImpl(new LoadLanguage().getCurrLang(language), audioplayer),
                 new ImageView(new Image("/congrats.png")));
     }
 }

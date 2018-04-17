@@ -15,16 +15,21 @@ import javafx.scene.text.Text;
  */
 public class MenuButton extends StackPane {
 
-//    private AudioController audioC;
+    private static final int FONT_SIZE = 24;
+    private static final double EFFECT_C = 3.5;
+    private final AudioPlayer audioplayer;
     private Text text;
 
     /**
      * Menu button constructor.
      * @param name
      *          The menu button text.
+     * @param audioplayer
+     *          The audio player.
      */
-    public MenuButton(final String name) {
+    public MenuButton(final String name, final AudioPlayer audioplayer) {
         super();
+        this.audioplayer = audioplayer;
         update(name);
     }
 
@@ -34,20 +39,17 @@ public class MenuButton extends StackPane {
      *          The menu button updated text.
      */
     public final void update(final String name) {
-//        final ConfigData data = (ConfigData)LoadSaveManager.load("configdata.dat");
-//        final AudioView audioV = new AudioViewImpl(data.getSFXVol(), data.getMusicVol());
-//        audioC = new AudioControllerImpl(audioV);
 
         getChildren().clear();
 
         text = new Text("     " + name);
-        text.setFont(Font.font(24));
+        text.setFont(Font.font(FONT_SIZE));
         text.setFill(Color.BLACK);
 
         final Rectangle bg0 = new Rectangle(384, 32);
         bg0.setOpacity(0.5);
         bg0.setFill(Color.WHITE);
-        bg0.setEffect(new GaussianBlur(3.5));
+        bg0.setEffect(new GaussianBlur(EFFECT_C));
 
         setAlignment(Pos.CENTER_LEFT);
         setRotate(-0.5);
@@ -58,7 +60,7 @@ public class MenuButton extends StackPane {
             text.setTranslateX(8);
             bg0.setFill(Color.BLACK);
             text.setFill(Color.WHITE);
-//            audioC.playSFX(SFX.MOUSE_ENTERED.getPath());
+            audioplayer.playSFX(SFX.MOUSE_ENTERED.getPath());
         });
 
         setOnMouseExited(event -> {
@@ -73,7 +75,7 @@ public class MenuButton extends StackPane {
 
         setOnMousePressed(event -> {
             setEffect(drop);
-//            audioC.playSFX(SFX.MOUSE_CLICKED.getPath());
+            audioplayer.playSFX(SFX.MOUSE_CLICKED.getPath());
         });
 
         setOnMouseReleased(event -> setEffect(null));

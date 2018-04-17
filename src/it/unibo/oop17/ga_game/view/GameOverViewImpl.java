@@ -20,25 +20,27 @@ public final class GameOverViewImpl implements CommonView<GameOverController> {
      * Constructor of GameOverView.
      * @param currLang
      *          The current language for text.
+     * @param audioplayer
+     *          The audio player.
      */
-    public GameOverViewImpl(final Map<WordText, String> currLang) {
+    public GameOverViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
 
         menu.setTranslateX(96);
         menu.setTranslateY(192);
 
-        final MenuButton btnRetry = new MenuButton(currLang.get(WordText.RETRY));
+        final MenuButton btnRetry = new MenuButton(currLang.get(WordText.RETRY), audioplayer);
         btnRetry.setOnMouseClicked(event -> {
             observer.retry();
         });
 
-        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU));
+        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU), audioplayer);
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });
 
-        final MenuButton btnQuit = new MenuButton(currLang.get(WordText.EXIT));
+        final MenuButton btnQuit = new MenuButton(currLang.get(WordText.EXIT), audioplayer);
         btnQuit.setOnMouseClicked(event -> {
             observer.quit();
         });

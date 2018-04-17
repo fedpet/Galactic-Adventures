@@ -1,11 +1,11 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 
 /**
  * Models a {@link Key} view.
@@ -16,16 +16,19 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
     private static final String BLUE_KEY = "/keyBlue.png";
     private static final String YELLOW_KEY = "/keyYellow.png";
     private static final String GREEN_KEY = "/keyGreen.png";
+    private final AudioPlayer audioplayer;
 
     /**
      * @param group
      *            The @Group in which the key view is added.
      * @param type
      *            The key type to represent (RED, BLUE, YELLOW or GREEN).
+     * @param audioplayer
+     *            The audio player.
      */
-    public KeyView(final Group group, final KeyLockType type) {
+    public KeyView(final Group group, final KeyLockType type, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
-
+        this.audioplayer = audioplayer;
         if (type == KeyLockType.RED) {
             getView().setImage(new Image(RED_KEY));
         } else if (type == KeyLockType.BLUE) {
@@ -39,7 +42,7 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
 
     @Override
     public final void remove() {
-        new AudioClip(SFX.KEY.getPath()).play();
+        audioplayer.playSFX(SFX.KEY.getPath());
         super.remove();
     }
 }

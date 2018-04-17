@@ -6,7 +6,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class SpriteAnimation extends Transition {
+/**
+ * Controls the sprite animation.
+ */
+public final class SpriteAnimation extends Transition {
     private final ImageView imageView;
     private final int count;
     private final double width;
@@ -14,8 +17,22 @@ public class SpriteAnimation extends Transition {
 
     private int lastIndex;
 
+    /**
+     * Constructor for sprite animation.
+     * @param imageView
+     *          The image view.
+     * @param duration
+     *          The duration.
+     * @param count
+     *          The count.
+     * @param width
+     *          The width.
+     * @param height
+     *          The height.
+     */
     public SpriteAnimation(final ImageView imageView, final Duration duration, final int count, final double width,
             final double height) {
+        super();
         this.imageView = imageView;
         this.count = count;
         this.width = width;

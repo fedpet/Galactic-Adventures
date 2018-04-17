@@ -21,6 +21,7 @@ public final class GameWorldViewImpl implements GameWorldView, Screen {
     private final Group rootView = new Group(worldView);
     private final PlayerInput playerInput;
     private final HudScreen hud = new HudViewImpl();
+    private final AudioPlayer audioplayer;
 
     /**
      * Constructor of GameWorldView.
@@ -28,8 +29,11 @@ public final class GameWorldViewImpl implements GameWorldView, Screen {
      *          The player input.
      * @param scaleFactor
      *          The scale factor.
+     * @param audioplayer
+     *          The audio player.
      */
-    public GameWorldViewImpl(final PlayerInput input, final double scaleFactor) {
+    public GameWorldViewImpl(final PlayerInput input, final double scaleFactor, final AudioPlayer audioplayer) {
+        this.audioplayer = audioplayer;
         playerInput = input;
         rootView.getChildren().add(hud.getNode());
         worldView.getTransforms().addAll(new Scale(scaleFactor, scaleFactor));
@@ -37,7 +41,7 @@ public final class GameWorldViewImpl implements GameWorldView, Screen {
 
     @Override
     public EntityViewFactory entityFactory() {
-        return new EntityViewFactoryImpl(worldView, this.hud);
+        return new EntityViewFactoryImpl(worldView, hud, audioplayer);
     }
 
     @Override

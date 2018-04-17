@@ -25,6 +25,7 @@ import javafx.scene.Group;
 public final class EntityViewFactoryImpl implements EntityViewFactory {
     private final HudScreen hud;
     private final Group parent;
+    private final AudioPlayer audioplayer;
 
     /**
      * Constructor of EntityViewFactory.
@@ -33,25 +34,28 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
      *            The group parent.
      * @param hud
      *            The HUD to which wire the player
+     * @param audioplayer
+     *            The audio player.
      */
-    public EntityViewFactoryImpl(final Group parent, final HudScreen hud) {
+    public EntityViewFactoryImpl(final Group parent, final HudScreen hud, final AudioPlayer audioplayer) {
         this.parent = parent;
         this.hud = hud;
+        this.audioplayer = audioplayer;
     }
 
     @Override
     public PlayerView createPlayer() {
-        return new PlayerViewImpl(parent, hud);
+        return new PlayerViewImpl(parent, hud, audioplayer);
     }
 
     @Override
     public LivingEntityView createSlime() {
-        return new SlimeEnemyView(parent);
+        return new SlimeEnemyView(parent, audioplayer);
     }
 
     @Override
     public LivingEntityView createBee() {
-        return new FlyingEnemyView(parent);
+        return new FlyingEnemyView(parent, audioplayer);
     }
 
     @Override
@@ -66,27 +70,27 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
 
     @Override
     public TriggerEntityView createJumpingPlatform() {
-        return new JumpingPlatformView(parent);
+        return new JumpingPlatformView(parent, audioplayer);
     }
 
     @Override
     public TriggerEntityView createLever() {
-        return new LeverView(parent, false);
+        return new LeverView(parent, false, audioplayer);
     }
 
     @Override
     public LifelessEntityView createCoin(final CoinType type) {
-        return new CoinView(parent, type);
+        return new CoinView(parent, type, audioplayer);
     }
 
     @Override
     public LifelessEntityView createLock(final KeyLockType type) {
-        return new LockView(parent, type);
+        return new LockView(parent, type, audioplayer);
     }
 
     @Override
     public LifelessEntityView createKey(final KeyLockType type) {
-        return new KeyView(parent, type);
+        return new KeyView(parent, type, audioplayer);
     }
 
     @Override

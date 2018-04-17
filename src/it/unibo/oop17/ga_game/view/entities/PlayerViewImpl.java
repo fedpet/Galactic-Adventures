@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.view.entities;
 import java.util.Set;
 
 import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.HudView;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.animation.KeyFrame;
@@ -11,7 +12,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
@@ -23,6 +23,7 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     private static final Image IMG_HURT = new Image("/p1_hurt.png");
     private static final double FRAME_DURATION = 700;
     private static final int PAIN_ANIM_DURATION = 300; // ms
+    private final AudioPlayer audioplayer;
     private final HudView hud;
     private CreatureState currentState = CreatureState.IDLE;
 
@@ -31,10 +32,13 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
      *          The @Group in which the player view is added.
      * @param hud
      *          The @HudView associated with the player.
+     * @param audioplayer
+     *          The audio player.
      */
-    public PlayerViewImpl(final Group group, final HudView hud) {
-        super(group, new Dimension2D(WIDTH, HEIGHT));
+    public PlayerViewImpl(final Group group, final HudView hud, final AudioPlayer audioplayer) {
+        super(group, new Dimension2D(WIDTH, HEIGHT), audioplayer);
         this.hud = hud;
+        this.audioplayer = audioplayer;
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/p1_stand.png")));
         mapAnimation(CreatureState.WALKING,
                 aSpriteAnimation(new Image("/p1_walk.png"), Duration.millis(FRAME_DURATION), 10));
@@ -47,7 +51,7 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     @Override
     public void changeState(final CreatureState state) {
         if (state == CreatureState.JUMPING) {
-            new AudioClip(SFX.JUMP.getPath()).play();
+            audioplayer.playSFX(SFX.JUMP.getPath());
         } else if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
             return; // don't stop suffer animation in this case.
         }
@@ -71,7 +75,7 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
 
     private Runnable painAnimation() {
         return () -> {
-            new AudioClip(SFX.PLAYER_DAMAGE.getPath()).play();
+            audioplayer.playSFX(SFX.PLAYER_DAMAGE.getPath());
             setImage(IMG_HURT);
             final Timeline anim = new Timeline(
                     new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {

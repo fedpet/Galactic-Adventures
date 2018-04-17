@@ -18,7 +18,12 @@ public enum SFX {
     /**
      *  Enemy death sound effect.
      */
-    ENEMY_DEATH("/audio/sfx/highUp.wav"),
+    DEATH("/audio/sfx/highDown.wav"),
+
+    /**
+     *  Enemy damage sound effect.
+     */
+    ENEMY_DAMAGE("/audio/sfx/highUp.wav"),
 
     /**
      *  Player damage sound effect.
@@ -29,7 +34,7 @@ public enum SFX {
      *  Jump sound effect.
      */
     JUMP("/audio/sfx/phaserUp2.wav"),
-
+ 
     /**
      *  Coin collected sound effect.
      */
@@ -53,12 +58,7 @@ public enum SFX {
     /**
      *  Lock "unlocked" sound effect.
      */
-    LOCK("/audio/sfx/phaserUp4.wav"),
-
-    /**
-     *  End Level sound effect.
-     */
-    SUCCESS("/audio/sfx/powerUp11.wav");
+    LOCK("/audio/sfx/phaserUp4.wav");
 
     private final String path;
 

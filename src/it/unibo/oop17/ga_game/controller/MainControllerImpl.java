@@ -5,6 +5,8 @@ import java.util.Optional;
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
+import it.unibo.oop17.ga_game.view.MainViewImpl;
+import javafx.stage.Stage;
 
 /**
  * Controls the application.
@@ -18,17 +20,18 @@ public final class MainControllerImpl implements MainController {
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
 
-    MainControllerImpl(final MainView view) {
-        this.view = view;
+    MainControllerImpl(final Stage stage) {
         data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         save = LoadSaveManager.checkGameDataExistenceThenLoad();
+        view = new MainViewImpl(stage, data.getSFXVol(), data.getMusicVol());
         toMenu(); 
     }
 
     @Override
     public void toMenu() {
         stopGameController();
-        new MenuControllerImpl(data, save, view.showMenu(data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty()), this);
+        new MenuControllerImpl(data, save, view.showMenu(
+                data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty()), this);
     }
 
     @Override
@@ -39,7 +42,8 @@ public final class MainControllerImpl implements MainController {
             toEndGame();
         } else {
             activeGameController = Optional
-                    .of(new GameControllerImpl(save, view.showGame(save.getLevelProgress()), this));
+                    .of(new GameControllerImpl(save, view.showGame(
+                            data.getMusicVol(), data.getSFXVol(), save.getLevelProgress()), this));
         }
     }
 

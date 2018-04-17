@@ -20,20 +20,22 @@ public final class EndLevelViewImpl implements CommonView<EndLevelController> {
      * Constructor of EndLevelView.
      * @param currLang
      *          Current language for text.
+     * @param audioplayer
+     *          The audio player.
      */
-    public EndLevelViewImpl(final Map<WordText, String> currLang) {
+    public EndLevelViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
 
         menu.setTranslateX(96);
         menu.setTranslateY(192);
 
-        final MenuButton btnContinue = new MenuButton(currLang.get(WordText.CONTINUE));
+        final MenuButton btnContinue = new MenuButton(currLang.get(WordText.CONTINUE), audioplayer);
         btnContinue.setOnMouseClicked(event -> {
             observer.toNextMap();
         });
 
-        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU));
+        final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU), audioplayer);
         btnMenu.setOnMouseClicked(event -> {
             observer.toMainMenu();
         });

@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.view.MainViewImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -23,7 +22,7 @@ public final class Launcher extends Application {
      * {@inheritDoc}
      */
     public void start(final Stage stage) {
-        new MainControllerImpl(new MainViewImpl(stage));
+        new MainControllerImpl(stage);
     }
 
 }
