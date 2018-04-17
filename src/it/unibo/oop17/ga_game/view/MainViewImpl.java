@@ -96,7 +96,7 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public HudView showHud(final Language language) {
-        final HudView hudView = new HudViewImpl(new LoadLanguage().getCurrLang(language));
+        final HudView hudView = new HudViewImpl();
         root.getChildren().add(hudView.getNode());
         currentScreens.add(hudView);
         return hudView;

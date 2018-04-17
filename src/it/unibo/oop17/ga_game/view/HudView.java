@@ -1,22 +1,42 @@
 package it.unibo.oop17.ga_game.view;
 
+import java.util.Set;
+
+import it.unibo.oop17.ga_game.model.KeyLockType;
+
 /**
  *  Interface for controlling the heads-up display.
  */
 public interface HudView extends Screen {
-
     /**
+     * Sets max health level.
      * 
+     * @param max
+     *            Max health
      */
-    void addHud();
+    void setMaxHealth(int max);
 
     /**
-     *  Updates the current statistics.
+     * Sets current health level.
+     * 
      * @param life
-     *          The current life.
-     * @param coins
-     *          The current coins.
+     *            current health level
      */
-    void update(int life, int coins);
+    void setCurrentHealth(int life);
 
+    /**
+     * Set collected keys.
+     * 
+     * @param keys
+     *            Set of collected keys
+     */
+    void setKeys(Set<KeyLockType> keys);
+
+    /**
+     * Set amount of money.
+     * 
+     * @param money
+     *            amount of money
+     */
+    void setMoney(int money);
 }

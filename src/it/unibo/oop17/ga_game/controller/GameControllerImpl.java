@@ -107,16 +107,19 @@ public final class GameControllerImpl implements GameController {
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();
         this.player = loader.getPlayer();
-        hudView.addHud();
         animationTimer.start();
+        player.get(Life.class).ifPresent(life -> {
+            hudView.setMaxHealth(life.getMaxHealthPoints());
+        });
     }
 
     private void update() {
         entities.forEach(EntityController::update);
         model.update(FRAMERATE);
         if (player != null && player.get(Life.class).isPresent()) {
-            hudView.update(player.get(Life.class).get().getHealthPoints(),
-                    player.get(Inventory.class).get().getMoney());
+            hudView.setCurrentHealth(player.get(Life.class).get().getHealthPoints());
+            hudView.setKeys(player.get(Inventory.class).get().getKeysBunch());
+            hudView.setMoney(player.get(Inventory.class).get().getMoney());
         }
     }
 
