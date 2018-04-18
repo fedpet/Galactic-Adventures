@@ -1,6 +1,7 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 import it.unibo.oop17.ga_game.view.AudioPlayer;
+import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -11,7 +12,9 @@ import javafx.util.Duration;
  */
 public final class SlimeEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 106, HEIGHT = 64;
+    private static final Image IMG_HURT = new Image("/slimeGreen_dead.png");
     private static final double FRAME_DURATION = 700;
+    private static final int PAIN_ANIM_DURATION = 300; // ms
 
     /**
      * @param group
@@ -25,6 +28,7 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/slimeGreen.png")));
         mapAnimation(CreatureState.WALKING,
                 aSpriteAnimation(new Image("/slimeGreen_moving.png"), Duration.millis(FRAME_DURATION), 2));
+        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, PAIN_ANIM_DURATION, SFX.ENEMY_DAMAGE.getPath()));
         mapAnimation(CreatureState.DEAD, justAnImage(new Image("/slimeGreen_dead.png")));
 
         startAnimation(CreatureState.WALKING);

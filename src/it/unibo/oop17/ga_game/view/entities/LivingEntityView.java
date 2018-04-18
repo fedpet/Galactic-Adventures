@@ -18,6 +18,6 @@ public interface LivingEntityView extends StateChangingEntityView<CreatureState>
     /**
      * Starts the death animation for the entity.
      */
-    void deathAnimation();
+    void deathUpdate();
 
 }
