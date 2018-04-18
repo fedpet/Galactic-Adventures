@@ -18,6 +18,7 @@ public final class AudioPlayerImpl implements AudioPlayer {
         this.sfxVol = sfxVol.getVolume();
         this.musicVol = musicVol.getVolume();
         mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getPath()));
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(this.musicVol);
 
     }
@@ -32,6 +33,7 @@ public final class AudioPlayerImpl implements AudioPlayer {
         stopMusic();
         mediaPlayer = new MediaPlayer(new Media(path));
         mediaPlayer.setVolume(musicVol);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
 
