@@ -62,7 +62,7 @@ public class MenuControllerImpl implements MenuWithOptionsController {
      */
     @Override
     public final void nextMusicVolume() {
-        data.nextMusicVol(data.getMusicVol());
+        data.nextMusicVol();
         updateView();
     }
 
@@ -71,7 +71,7 @@ public class MenuControllerImpl implements MenuWithOptionsController {
      */
     @Override
     public final void nextSFXVolume() {
-        data.nextSFXVol(data.getSFXVol());
+        data.nextSFXVol();
         updateView();
     }
 
@@ -80,7 +80,7 @@ public class MenuControllerImpl implements MenuWithOptionsController {
      */
     @Override
     public final void nextLanguage() {
-        data.nextLanguage(data.getLanguage());
+        data.nextLanguage();
         updateLanguage();
         updateView();
     }
@@ -90,7 +90,7 @@ public class MenuControllerImpl implements MenuWithOptionsController {
      */
     @Override
     public final void nextDifficulty() {
-        data.nextDifficulty(data.getDifficulty());
+        data.nextDifficulty();
         updateView();
     }
 

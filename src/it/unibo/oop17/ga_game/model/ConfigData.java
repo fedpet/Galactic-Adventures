@@ -40,38 +40,30 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
     }
 
     /**
-     * Sets the music volume.
-     * @param musicVol
-     *          Music volume to set.
+     * Sets the next music volume available.
      */
-    public void nextMusicVol(final Volume musicVol) {
+    public void nextMusicVol() {
         this.musicVol = Volume.values()[(musicVol.ordinal() + 1) % Volume.values().length];
     }
 
     /**
-     * Sets the sound effects volume.
-     * @param sfxVol
-     *          Sound effects volume to set.
+     * Sets the next sound effects volume available.
      */
-    public void nextSFXVol(final Volume sfxVol) {
+    public void nextSFXVol() {
         this.sfxVol = Volume.values()[(sfxVol.ordinal() + 1) % Volume.values().length];
     }
 
     /**
-     * Sets the difficulty.
-     * @param difficulty
-     *          Difficulty to set.
+     * Sets the next difficulty available.
      */
-    public void nextDifficulty(final Difficulty difficulty) {
+    public void nextDifficulty() {
         this.difficulty = Difficulty.values()[(difficulty.ordinal() + 1) % Difficulty.values().length];
     }
 
     /**
-     * Sets the language.
-     * @param language
-     *          Language to set.
+     * Sets the next language available.
      */
-    public void nextLanguage(final Language language) {
+    public void nextLanguage() {
         this.language = Language.values()[(language.ordinal() + 1) % Language.values().length];
     }
 
@@ -79,10 +71,10 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
      * Resets options to defaults.
      */
     public void defaultOptions() {
-        this.nextMusicVol(MUSICVOL_D);
-        this.nextSFXVol(SFXVOL_D);
-        this.nextDifficulty(DIFFICULTY_D);
-        this.nextLanguage(LANGUAGE_D);
+        musicVol = MUSICVOL_D;
+        sfxVol = SFXVOL_D;
+        difficulty = DIFFICULTY_D;
+        language = LANGUAGE_D;
     }
 
 }
