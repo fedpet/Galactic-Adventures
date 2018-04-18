@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
-import javafx.application.Platform;
 
 /**
  * Loads and saves options and game progress.
@@ -30,7 +29,7 @@ public final class LoadSaveManager {
             oos.writeObject(data);
             oos.close();
         } catch (IOException e) {
-            Platform.exit();
+            throw new IllegalArgumentException("Cannot save on " + path);
         }
 
     }
@@ -39,8 +38,7 @@ public final class LoadSaveManager {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
             return ois.readObject();
         } catch (ClassNotFoundException | IOException e) {
-            Platform.exit();
-            return null;
+            throw new IllegalArgumentException("File does not exist and cannot be loaded");
         }
     }
 

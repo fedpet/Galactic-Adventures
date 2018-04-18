@@ -7,7 +7,7 @@ import javafx.scene.Node;
  * @param <T>
  *              Controller interface Type.
  */
-public interface CommonView<T> extends Screen {
+public interface CommonView<T> extends FXView {
 
     /**
      * @param observer 

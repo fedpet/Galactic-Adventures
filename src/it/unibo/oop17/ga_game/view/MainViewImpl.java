@@ -35,7 +35,7 @@ public final class MainViewImpl implements MainView {
     private final Stage stage;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
-    private final Set<Screen> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
+    private final Set<FXView> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
     private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
             Music.TRACK3,
@@ -79,7 +79,7 @@ public final class MainViewImpl implements MainView {
         return Math.min(primaryScreenBounds.getWidth() / WIDTH, primaryScreenBounds.getHeight() / HEIGHT);
     }
 
-    private <V extends Screen> V setScreen(final V newScreen, final ImageView im) {
+    private <V extends FXView> V setScreen(final V newScreen, final ImageView im) {
         im.fitWidthProperty().bind(stage.widthProperty());
         im.fitHeightProperty().bind(stage.heightProperty());
         currentScreens.forEach(s -> root.getChildren().remove(s.getNode()));
@@ -102,9 +102,9 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public GameWorldView showGame(final Volume musicVol, final Volume sfxVol, final int progress) {
+        audioplayer.stopMusic();
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
         if (progress < LEVELS_NUM) {
-            audioplayer.stopMusic();
             audioplayer.playMusic(musics.get(progress).getPath());
         }
         return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor(), audioplayer),

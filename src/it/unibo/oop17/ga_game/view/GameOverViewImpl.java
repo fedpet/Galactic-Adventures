@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The game over view.
  */
-public final class GameOverViewImpl implements CommonView<GameOverController> {
+public final class GameOverViewImpl implements GameOverScreen {
 
     private final Group view = new Group();
     private GameOverController observer;
