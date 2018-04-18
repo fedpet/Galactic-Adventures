@@ -23,7 +23,6 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     private static final int PAIN_ANIM_DURATION = 300; // ms
     private final AudioPlayer audioplayer;
     private final HudView hud;
-    // private CreatureState currentState = CreatureState.IDLE;
 
     /**
      * @param group
@@ -70,20 +69,6 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
                 .findFirst().orElseGet(() -> new Scale(1, 1));
     }
 
-    /*
-     * private Runnable painAnimation() {
-     * return () -> {
-     * audioplayer.playSFX(SFX.PLAYER_DAMAGE.getPath());
-     * setImage(IMG_HURT);
-     * final Timeline anim = new Timeline(
-     * new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
-     * currentState = CreatureState.IDLE;
-     * changeState(CreatureState.IDLE);
-     * }));
-     * setAnimation(anim);
-     * };
-     * }
-     */
     @Override
     public void setMaxHealth(final int max) {
         hud.setMaxHealth(max);
