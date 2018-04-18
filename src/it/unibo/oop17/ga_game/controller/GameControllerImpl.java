@@ -17,7 +17,6 @@ import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
 import it.unibo.oop17.ga_game.view.GameWorldView;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 
 /**
  *  Controls the game play.
@@ -68,10 +67,7 @@ public final class GameControllerImpl implements GameController {
             ZipUtils.extract(is, tempDir);
             map = loadMap(new File(tempDir, "LEVEL_" + this.save.getLevelProgress() + ".tmx"));
         } catch (final IOException ex) {
-            // TODO: add error message
-            ex.printStackTrace();
-            Platform.exit();
-            map = null; // unreachable
+            throw new IllegalArgumentException("Streamed resource does not exist");
         }
 
         this.run(map);

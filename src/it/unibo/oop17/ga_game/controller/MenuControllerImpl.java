@@ -1,18 +1,15 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
-import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
-import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
 import it.unibo.oop17.ga_game.view.MenuView;
-import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
 
 /**
  * Controls the Menu.
  */
-public class MenuControllerImpl implements MenuController {
+public class MenuControllerImpl implements MenuWithOptionsController {
 
     private final ConfigData data;
     private final MenuView view;
@@ -60,37 +57,65 @@ public class MenuControllerImpl implements MenuController {
         Platform.exit();
     }
 
+    /**
+     * Changes music volume to next.
+     */
+    @Override
     public final void nextMusicVolume() {
-        data.setMusicVol(Volume.values()[(this.data.getMusicVol().ordinal() + 1) % Volume.values().length]);
+        data.nextMusicVol(data.getMusicVol());
         updateView();
     }
 
+    /**
+     * Changes sound effects volume to next.
+     */
+    @Override
     public final void nextSFXVolume() {
-        data.setSFXVol(Volume.values()[(this.data.getSFXVol().ordinal() + 1) % Volume.values().length]);
+        data.nextSFXVol(data.getSFXVol());
         updateView();
     }
 
+    /**
+     * Changes language to next.
+     */
+    @Override
     public final void nextLanguage() {
-        data.setLanguage(Language.values()[(this.data.getLanguage().ordinal() + 1) % Language.values().length]);
+        data.nextLanguage(data.getLanguage());
         updateLanguage();
         updateView();
     }
 
+    /**
+     * Changes difficulty to next.
+     */
+    @Override
     public final void nextDifficulty() {
-        data.setDifficulty(Difficulty.values()[(this.data.getDifficulty().ordinal() + 1) % Difficulty.values().length]);
+        data.nextDifficulty(data.getDifficulty());
         updateView();
     }
 
+    /**
+     * Changes options to default.
+     */
+    @Override
     public final void setDefaults() {
         data.defaultOptions();
         updateLanguage();
         updateView();
     }
 
+    /**
+     * Updates language.
+     */
+    @Override
     public final void updateLanguage() {
         this.view.updateLanguage(new LoadLanguage().getCurrLang(data.getLanguage()));
     }
 
+    /**
+     * Updates view.
+     */
+    @Override
     public void updateView() {
         this.view.updateView(this.data.getMusicVol(), this.data.getSFXVol(), this.data.getLanguage(), this.data.getDifficulty());
     }

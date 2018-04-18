@@ -5,7 +5,7 @@ import javafx.scene.Node;
 /**
  * Interface for controlling a screen.
  */
-public interface Screen {
+public interface FXView {
 
     /**
      * @return the screen's node.

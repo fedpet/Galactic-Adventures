@@ -23,8 +23,7 @@ public class LoadLanguage {
             try {
                 this.languages.put(l, loadLanguage(l));
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new IllegalArgumentException("Language resource does not exits or it's not valid");
             }
         }
     }

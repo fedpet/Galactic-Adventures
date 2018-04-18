@@ -44,8 +44,8 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
      * @param musicVol
      *          Music volume to set.
      */
-    public void setMusicVol(final Volume musicVol) {
-        this.musicVol = musicVol;
+    public void nextMusicVol(final Volume musicVol) {
+        this.musicVol = Volume.values()[(musicVol.ordinal() + 1) % Volume.values().length];
     }
 
     /**
@@ -53,8 +53,8 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
      * @param sfxVol
      *          Sound effects volume to set.
      */
-    public void setSFXVol(final Volume sfxVol) {
-        this.sfxVol = sfxVol;
+    public void nextSFXVol(final Volume sfxVol) {
+        this.sfxVol = Volume.values()[(sfxVol.ordinal() + 1) % Volume.values().length];
     }
 
     /**
@@ -62,8 +62,8 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
      * @param difficulty
      *          Difficulty to set.
      */
-    public void setDifficulty(final Difficulty difficulty) {
-        this.difficulty = difficulty;
+    public void nextDifficulty(final Difficulty difficulty) {
+        this.difficulty = Difficulty.values()[(difficulty.ordinal() + 1) % Difficulty.values().length];
     }
 
     /**
@@ -71,18 +71,18 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
      * @param language
      *          Language to set.
      */
-    public void setLanguage(final Language language) {
-        this.language = language;
+    public void nextLanguage(final Language language) {
+        this.language = Language.values()[(language.ordinal() + 1) % Language.values().length];
     }
 
     /**
      * Resets options to defaults.
      */
     public void defaultOptions() {
-        this.setMusicVol(MUSICVOL_D);
-        this.setSFXVol(SFXVOL_D);
-        this.setDifficulty(DIFFICULTY_D);
-        this.setLanguage(LANGUAGE_D);
+        this.nextMusicVol(MUSICVOL_D);
+        this.nextSFXVol(SFXVOL_D);
+        this.nextDifficulty(DIFFICULTY_D);
+        this.nextLanguage(LANGUAGE_D);
     }
 
 }

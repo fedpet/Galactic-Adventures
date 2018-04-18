@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MenuController;
+import it.unibo.oop17.ga_game.controller.MenuWithOptionsController;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -21,7 +21,7 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
     private static final String TEXT_OFF = "     ";
 
     private final Group menuView = new Group();
-    private MenuController observer;
+    private MenuWithOptionsController observer;
 
     private final MenuButton btnNewGame;
     private final MenuButton btnContinue;
@@ -120,19 +120,19 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
         });
 
         btnMusic = new MenuButton(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()), audioplayer);
-        btnMusic.setOnMouseClicked(event -> this.observer.nextMusicVolume());
+        btnMusic.setOnMouseClicked(event -> observer.nextMusicVolume());
 
         btnSFX = new MenuButton(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()), audioplayer);
-        btnSFX.setOnMouseClicked(event -> this.observer.nextSFXVolume());
+        btnSFX.setOnMouseClicked(event -> observer.nextSFXVolume());
 
         btnLanguage = new MenuButton(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()), audioplayer);
-        btnLanguage.setOnMouseClicked(event -> this.observer.nextLanguage());
+        btnLanguage.setOnMouseClicked(event -> observer.nextLanguage());
 
         btnDiff = new MenuButton(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()), audioplayer);
-        btnDiff.setOnMouseClicked(event -> this.observer.nextDifficulty());
+        btnDiff.setOnMouseClicked(event -> observer.nextDifficulty());
 
         btnDefaults = new MenuButton(currLang.get(WordText.DEFAULT_OPT), audioplayer);
-        btnDefaults.setOnMouseClicked(event -> this.observer.setDefaults());
+        btnDefaults.setOnMouseClicked(event -> observer.setDefaults());
 
         menu0.getChildren().addAll(btnContinue, btnNewGame, btnOptions, btnExit);
         menu1.getChildren().addAll(btnBack, btnMusic, btnSFX, btnDiff, btnLanguage, btnDefaults);
@@ -146,7 +146,7 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
     }
 
     @Override
-    public void setObserver(final MenuController observer) {
+    public void setObserver(final MenuWithOptionsController observer) {
         this.observer = observer;
     }
 

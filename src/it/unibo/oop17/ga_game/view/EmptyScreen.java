@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Empty Screen.
  */
-public final class EmptyScreen implements Screen {
+public final class EmptyScreen implements FXView {
     private final Rectangle node = new Rectangle();
 
     /**
