@@ -5,8 +5,6 @@ import java.util.Optional;
 import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
-import it.unibo.oop17.ga_game.view.MainViewImpl;
-import javafx.stage.Stage;
 
 /**
  * Controls the application.
@@ -20,15 +18,15 @@ public final class MainControllerImpl implements MainController {
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
 
-    MainControllerImpl(final Stage stage) {
-        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
-        save = LoadSaveManager.checkGameDataExistenceThenLoad();
-        view = new MainViewImpl(stage, data.getSFXVol(), data.getMusicVol());
+    MainControllerImpl(final MainView view) {
+        this.view = view;
         toMenu(); 
     }
 
     @Override
     public void toMenu() {
+        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
+        save = LoadSaveManager.checkGameDataExistenceThenLoad();
         stopGameController();
         new MenuControllerImpl(data, save, view.showMenu(
                 data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty()), this);

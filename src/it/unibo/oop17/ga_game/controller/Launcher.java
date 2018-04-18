@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.controller;
 
+import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.view.MainViewImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -22,7 +24,8 @@ public final class Launcher extends Application {
      * {@inheritDoc}
      */
     public void start(final Stage stage) {
-        new MainControllerImpl(stage);
+        final ConfigData data = LoadSaveManager.checkConfigDataExistenceThenLoad();
+        new MainControllerImpl(new MainViewImpl(stage, data.getMusicVol(), data.getMusicVol()));
     }
 
 }
