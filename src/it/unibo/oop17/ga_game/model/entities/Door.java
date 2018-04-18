@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
  * Models a door entity.
  */
 public class Door extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
+    private static final Dimension2D SIZE = new Dimension2D(1, 2);
 
     /**
      * 
