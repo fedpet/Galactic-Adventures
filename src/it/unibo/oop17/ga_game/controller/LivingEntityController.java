@@ -38,7 +38,7 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
         if (getEntity().get(Life.class).isPresent() && getEntity().get(Life.class).get().isAlive()) {
             getEntityView().setPosition(ViewUtils.worldPointToFX(getEntity().getBody().getPosition()));
         } else {
-            getEntityView().deathAnimation();
+            getEntityView().deathUpdate();
         }
     }
 

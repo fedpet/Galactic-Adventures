@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
  * Models a lever entity that can trigger specific events at player contact.
  */
 public class Lever extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
+    private static final Dimension2D SIZE = new Dimension2D(1, 1);
 
     /**
      * 

@@ -16,7 +16,7 @@ import javafx.geometry.Side;
  * A jumping platform makes entities jump when they touch its TOP.
  */
 public class JumpingPlatform extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(1, 0.3);
+    private static final Dimension2D SIZE = new Dimension2D(1, 0.8);
     private static final double JUMP_FORCE = 40;
 
     /**

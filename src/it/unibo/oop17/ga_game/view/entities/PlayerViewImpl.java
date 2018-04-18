@@ -6,8 +6,6 @@ import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.HudView;
 import it.unibo.oop17.ga_game.view.SFX;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -25,7 +23,6 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     private static final int PAIN_ANIM_DURATION = 300; // ms
     private final AudioPlayer audioplayer;
     private final HudView hud;
-    private CreatureState currentState = CreatureState.IDLE;
 
     /**
      * @param group
@@ -43,19 +40,18 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
         mapAnimation(CreatureState.WALKING,
                 aSpriteAnimation(new Image("/p1_walk.png"), Duration.millis(FRAME_DURATION), 10));
         mapAnimation(CreatureState.JUMPING, justAnImage(new Image("/p1_jump.png")));
-        mapAnimation(CreatureState.SUFFERING, painAnimation());
+        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, PAIN_ANIM_DURATION, SFX.PLAYER_DAMAGE.getPath()));
 
-        startAnimation(currentState);
+        startAnimation(getCurrentState());
     }
 
     @Override
     public void changeState(final CreatureState state) {
         if (state == CreatureState.JUMPING) {
             audioplayer.playSFX(SFX.JUMP.getPath());
-        } else if (state == CreatureState.IDLE && currentState == CreatureState.SUFFERING) {
+        } else if (state == CreatureState.IDLE && getCurrentState() == CreatureState.SUFFERING) {
             return; // don't stop suffer animation in this case.
         }
-        currentState = state;
         super.changeState(state);
     }
 
@@ -71,19 +67,6 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     private Scale scaling() {
         return getParentView().getTransforms().stream().filter(t -> t instanceof Scale).map(t -> (Scale) t)
                 .findFirst().orElseGet(() -> new Scale(1, 1));
-    }
-
-    private Runnable painAnimation() {
-        return () -> {
-            audioplayer.playSFX(SFX.PLAYER_DAMAGE.getPath());
-            setImage(IMG_HURT);
-            final Timeline anim = new Timeline(
-                    new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
-                        currentState = CreatureState.IDLE;
-                        changeState(CreatureState.IDLE);
-                    }));
-            setAnimation(anim);
-        };
     }
 
     @Override
