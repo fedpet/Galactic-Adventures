@@ -172,9 +172,19 @@ public final class LoadLevelImpl implements LoadLevel {
                     entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
                     entities.add(new TriggerEntityController(entity, view.entityFactory().createJumpingPlatform()));
                     break;
-                case "platform":
+                case "platformElliptical":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
                             .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, FLYING_VALUE))));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
+                    break;
+                case "platformVertical":
+                    entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
+                            .repeat(() -> new EllipticalPathIterator(position, 0, FLYING_VALUE))));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
+                    break;
+                case "platformHorizontal":
+                    entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
+                            .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, 0))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":
