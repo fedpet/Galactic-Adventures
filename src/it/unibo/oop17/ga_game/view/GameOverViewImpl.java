@@ -7,28 +7,29 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 /**
  * The game over view.
  */
 public final class GameOverViewImpl implements GameOverScreen {
 
+    private static final int BTN_SIZE = 384;
     private final Group view = new Group();
     private GameOverController observer;
 
     /**
      * Constructor of GameOverView.
+     * @param stage
+     *          The stage.
      * @param currLang
      *          The current language for text.
      * @param audioplayer
      *          The audio player.
      */
-    public GameOverViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
+    public GameOverViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
-
-        menu.setTranslateX(96);
-        menu.setTranslateY(192);
 
         final MenuButton btnRetry = new MenuButton(currLang.get(WordText.RETRY), audioplayer);
         btnRetry.setOnMouseClicked(event -> {
@@ -49,6 +50,9 @@ public final class GameOverViewImpl implements GameOverScreen {
 
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
+
+        menu.setLayoutX((stage.getWidth() - BTN_SIZE) / 2);
+        menu.setLayoutY(stage.getHeight() - stage.getHeight() / 3);
 
         this.view.getChildren().addAll(bg0, menu);
 

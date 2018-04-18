@@ -8,8 +8,11 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -18,6 +21,7 @@ import javafx.util.Duration;
 public final class MenuViewImpl extends Parent implements MenuScreen {
 
     private static final int OFFSET = 364;
+    private static final int BTN_SIZE = 384;
     private static final String TEXT_OFF = "     ";
 
     private final Group menuView = new Group();
@@ -38,6 +42,8 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
 
     /**
      * Constructor of MenuView.
+     * @param stage
+     *          The stage.
      * @param musicVol
      *          The music volume.
      * @param sfxVol
@@ -51,22 +57,14 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
      * @param currLang
      *          The current Language.
      */
-    public MenuViewImpl(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty,
-            final AudioPlayer audioplayer, final Map<WordText, String> currLang) {
+    public MenuViewImpl(final Stage stage, final Volume musicVol, final Volume sfxVol, final Language language,
+            final Difficulty difficulty, final AudioPlayer audioplayer, final Map<WordText, String> currLang) {
 
         super();
         this.currLang = currLang;
 
         final VBox menu0 = new VBox(8);
         final VBox menu1 = new VBox(8);
-
-        menu0.setTranslateX(96);
-        menu0.setTranslateY(192);
-
-        menu1.setTranslateX(96);
-        menu1.setTranslateY(192);
-
-        menu1.setTranslateX(OFFSET);
 
         btnNewGame = new MenuButton(currLang.get(WordText.NEW_GAME), audioplayer);
         btnNewGame.setOnMouseClicked(event -> {
@@ -140,9 +138,18 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
 
-//        final ImageView im = new ImageView(new Image(getClass().getResource("/logo.png").toString()));
+        menu0.setLayoutX((stage.getWidth() - BTN_SIZE) / 2);
+        menu0.setLayoutY(stage.getHeight() - stage.getHeight() / 2);
 
-        menuView.getChildren().addAll(bg0, menu0);
+        menu1.setLayoutX((stage.getWidth() - BTN_SIZE) / 2);
+        menu1.setLayoutY(stage.getHeight() - stage.getHeight() / 2);
+
+        final Image im = new Image(getClass().getResource("/logo.png").toString());
+        final ImageView imv = new ImageView(im);
+        imv.setLayoutX((stage.getWidth() - im.getWidth()) / 2);
+        imv.setLayoutY((stage.getHeight() - im.getWidth()) / 3);
+
+        menuView.getChildren().addAll(imv, bg0, menu0);
     }
 
     @Override

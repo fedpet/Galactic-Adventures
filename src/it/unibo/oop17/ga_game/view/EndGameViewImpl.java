@@ -7,28 +7,29 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 /**
  * The end game view.
  */
 public final class EndGameViewImpl implements EndGameScreen {
 
+    private static final int BTN_SIZE = 384;
     private final Group view = new Group();
     private EndGameController observer;
 
     /**
      * Constructor of EndGameView.
+     * @param stage
+     *          The stage.
      * @param currLang
      *          Current language for text.
      * @param audioplayer
      *          The audio player.
      */
-    public EndGameViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
+    public EndGameViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
-
-        menu.setTranslateX(96);
-        menu.setTranslateY(192);
 
         final MenuButton btnMenu = new MenuButton(currLang.get(WordText.MENU), audioplayer);
         btnMenu.setOnMouseClicked(event -> {
@@ -44,6 +45,9 @@ public final class EndGameViewImpl implements EndGameScreen {
 
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
+
+        menu.setLayoutX((stage.getWidth() - BTN_SIZE) / 2);
+        menu.setLayoutY(stage.getHeight() - stage.getHeight() / 3);
 
         this.view.getChildren().addAll(bg0, menu);
 

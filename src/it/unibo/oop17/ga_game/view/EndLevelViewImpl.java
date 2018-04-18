@@ -7,28 +7,29 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 /**
  * The end level view.
  */
 public final class EndLevelViewImpl implements EndLevelScreen {
 
+    private static final int BTN_SIZE = 384;
     private final Group view = new Group();
     private EndLevelController observer;
 
     /**
      * Constructor of EndLevelView.
+     * @param stage
+     *          The stage.
      * @param currLang
      *          Current language for text.
      * @param audioplayer
      *          The audio player.
      */
-    public EndLevelViewImpl(final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
+    public EndLevelViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 
         final VBox menu = new VBox(8);
-
-        menu.setTranslateX(96);
-        menu.setTranslateY(192);
 
         final MenuButton btnContinue = new MenuButton(currLang.get(WordText.CONTINUE), audioplayer);
         btnContinue.setOnMouseClicked(event -> {
@@ -44,6 +45,9 @@ public final class EndLevelViewImpl implements EndLevelScreen {
 
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
+
+        menu.setLayoutX((stage.getWidth() - BTN_SIZE) / 2);
+        menu.setLayoutY(stage.getHeight() - stage.getHeight() / 3);
 
         this.view.getChildren().addAll(bg0, menu);
 
