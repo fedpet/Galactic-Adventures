@@ -170,7 +170,7 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "spring":
                     entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createJumpingPlatform()));
+                    entities.add(new TriggerEntityController(entity, view.entityFactory().createJumpingPlatform()));
                     break;
                 case "platform":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
