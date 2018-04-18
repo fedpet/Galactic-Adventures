@@ -102,9 +102,9 @@ public final class MainViewImpl implements MainView {
 
     @Override
     public GameWorldView showGame(final Volume musicVol, final Volume sfxVol, final int progress) {
+        audioplayer.stopMusic();
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
         if (progress < LEVELS_NUM) {
-            audioplayer.stopMusic();
             audioplayer.playMusic(musics.get(progress).getPath());
         }
         return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor(), audioplayer),
