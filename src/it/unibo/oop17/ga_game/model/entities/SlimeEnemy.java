@@ -15,7 +15,7 @@ import javafx.geometry.Side;
  * obstacle.
  */
 public final class SlimeEnemy extends AbstractEntity {
-    private static final int DEFAULT_LIFE = 5;
+    private static final int DEFAULT_LIFE = 1;
     private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
     private static final double ATTACK_KNOCKBACK = 20;
     private static final double WALK_SPEED = 5;
