@@ -8,6 +8,7 @@ import org.mapeditor.core.Map;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.TileLayer;
 
+import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EllipticalPathIterator;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
@@ -48,6 +49,7 @@ public final class LoadLevelImpl implements LoadLevel {
     private final GameWorldView view;
     private final Set<EntityController> entities;
     private final MainController mainController;
+    private final Difficulty difficulty;
 
     /**
      * Constructor for LoadLevel.
@@ -59,12 +61,16 @@ public final class LoadLevelImpl implements LoadLevel {
      *          World view.
      * @param mainController
      *          Main controller.
+     * @param difficulty
+     *          Current difficulty;
      */
-    public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController) {
+    public LoadLevelImpl(final Map map, final GameWorld model, final GameWorldView view, final MainController mainController,
+            final Difficulty difficulty) {
         this.map = map;
         this.model = model;
         this.view = view;
         this.mainController = mainController;
+        this.difficulty = difficulty;
         entities = new LinkedHashSet<>();
         this.map.forEach(layer -> {
             if (layer instanceof TileLayer) {
@@ -92,7 +98,7 @@ public final class LoadLevelImpl implements LoadLevel {
                 Entity entity;
                 switch (type) {
                 case "player":
-                    player = model.spawnEntity(body -> new Player(body, position));
+                    player = model.spawnEntity(body -> new Player(body, position, difficulty));
                     entities.add(
                             new PlayerController(view.getPlayerInput(), player, view.entityFactory().createPlayer()));
                     player.register(new DeathEventListener(mainController));

@@ -12,6 +12,7 @@ import org.mapeditor.io.TMXMapReader;
 
 import com.google.common.io.Files;
 
+import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
@@ -30,6 +31,7 @@ public final class GameControllerImpl implements GameController {
     private Set<EntityController> entities;
     private final MainController mainController;
     private final GameData save;
+    private final ConfigData data;
     private final AnimationTimer animationTimer = new AnimationTimer() {
         @Override
         public void handle(final long now) {
@@ -41,13 +43,16 @@ public final class GameControllerImpl implements GameController {
      * Constructor for GameController.
      * @param save
      *          Game data.
+     * @param data
+     *          Configuration data.
      * @param view
      *          Game world view.
      * @param mainController
      *          Main controller.
      */
-    public GameControllerImpl(final GameData save, final GameWorldView view, final MainController mainController) {
+    public GameControllerImpl(final GameData save, final ConfigData data, final GameWorldView view, final MainController mainController) {
         this.save = save;
+        this.data = data;
         this.view = view;
         this.mainController = mainController;
         model = new GameWorld();
@@ -76,12 +81,8 @@ public final class GameControllerImpl implements GameController {
     private Map loadMap(final File path) throws IOException {
         try {
             return new TMXMapReader().readMap(path.getAbsolutePath());
-            // readMap throws a generic Exception :(
         } catch (final IOException e) {
-            // this print is to prevent "A catch statement that catches an exception only to rethrow it should be
-            // avoided...
-            System.out.println("map read error");
-            throw e;
+            throw new IllegalArgumentException("Map does not exits or the path is incorrect");
         } catch (final Exception e) {
             // we assume map reading can only fail because of an IOException or a bad file format
             throw new UnknownFormatConversionException(e.getMessage());
@@ -89,7 +90,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     private void run(final Map map) {
-        final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view, this.mainController);
+        final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view, this.mainController, this.data.getDifficulty());
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();

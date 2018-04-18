@@ -40,7 +40,7 @@ public final class MainControllerImpl implements MainController {
             toEndGame();
         } else {
             activeGameController = Optional
-                    .of(new GameControllerImpl(save, view.showGame(
+                    .of(new GameControllerImpl(save, data, view.showGame(
                             data.getMusicVol(), data.getSFXVol(), save.getLevelProgress()), this));
         }
     }

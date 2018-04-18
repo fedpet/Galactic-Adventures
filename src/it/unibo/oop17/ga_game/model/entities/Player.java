@@ -2,6 +2,7 @@ package it.unibo.oop17.ga_game.model.entities;
 
 import static com.google.common.base.Predicates.equalTo;
 
+import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.entities.components.EntityPersonality;
 import it.unibo.oop17.ga_game.model.entities.components.Feet;
 import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
@@ -17,8 +18,10 @@ import javafx.geometry.Side;
  * Models our player.
  */
 public final class Player extends AbstractEntity {
-    private static final int DEFAULT_LIFE = 5;
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
+    private static final int EASY_H = 5;
+    private static final int MEDIUM_H = 3;
+    private static final int HARD_H = 1;
     private static final double WALK_SPEED = 10;
     private static final double JUMP_SPEED = 22;
 
@@ -28,14 +31,16 @@ public final class Player extends AbstractEntity {
      *            the @BodyBuilder.
      * @param position
      *            Its position (relative to its center).
+     * @param difficulty
+     *            Current difficulty.
      */
-    public Player(final BodyBuilder bodyBuilder, final Point2D position) {
+    public Player(final BodyBuilder bodyBuilder, final Point2D position, final Difficulty difficulty) {
         super(bodyBuilder
                 .position(position)
                 .size(SIZE)
                 .build());
         add(new InventoryImpl());
-        add(new LinearLife(DEFAULT_LIFE));
+        add(new LinearLife(setHealth(difficulty)));
         add(new Feet(WALK_SPEED, JUMP_SPEED));
         add(new ViolentBrain(EntityPersonality.GOOD));
         add(new MeleeWeapon(1, JUMP_SPEED, 0, equalTo(Side.BOTTOM)));
@@ -44,5 +49,17 @@ public final class Player extends AbstractEntity {
     @Override
     public String toString() {
         return "Player";
+    }
+
+    private int setHealth(final Difficulty difficulty) {
+        switch (difficulty) {
+        case HARD:
+            return HARD_H;
+        case MEDIUM:
+            return MEDIUM_H;
+        case EASY:
+        default:
+            return EASY_H;
+        }
     }
 }
