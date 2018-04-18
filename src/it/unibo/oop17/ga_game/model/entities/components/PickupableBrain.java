@@ -7,23 +7,23 @@ import java.util.function.Consumer;
  */
 public class PickupableBrain extends AbstractBrain {
 
-    private final Consumer<Inventory> inventoryAdder;
+    private final Consumer<Inventory> inventoryConsumer;
 
     /**
      * 
-     * @param inventoryAdder
+     * @param inventoryConsumer
      *            The inventory update that occurs at contact with a inventory owner body.
      */
-    public PickupableBrain(final Consumer<Inventory> inventoryAdder) {
+    public PickupableBrain(final Consumer<Inventory> inventoryConsumer) {
         super(EntityPersonality.NONE);
-        this.inventoryAdder = inventoryAdder;
+        this.inventoryConsumer = inventoryConsumer;
     }
 
     @Override
     protected final void handleContact(final EntityBody other) {
         other.getOwner().ifPresent(otherEntity -> {
             otherEntity.get(Inventory.class).ifPresent(inv -> {
-                inventoryAdder.accept(inv);
+                inventoryConsumer.accept(inv);
                 getEntity().destroy();
             });
         });
