@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The end game view.
  */
-public final class EndGameViewImpl implements CommonView<EndGameController> {
+public final class EndGameViewImpl implements EndGameScreen {
 
     private final Group view = new Group();
     private EndGameController observer;

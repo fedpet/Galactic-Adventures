@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The end level view.
  */
-public final class EndLevelViewImpl implements CommonView<EndLevelController> {
+public final class EndLevelViewImpl implements EndLevelScreen {
 
     private final Group view = new Group();
     private EndLevelController observer;

@@ -15,7 +15,7 @@ import javafx.util.Duration;
 /**
  * The menu view.
  */
-public final class MenuViewImpl extends Parent implements MenuView {
+public final class MenuViewImpl extends Parent implements MenuScreen {
 
     private static final int OFFSET = 364;
     private static final String TEXT_OFF = "     ";

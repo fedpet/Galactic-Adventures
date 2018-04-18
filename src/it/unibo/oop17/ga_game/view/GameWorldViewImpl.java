@@ -16,7 +16,7 @@ import javafx.scene.transform.Scale;
 /**
  * GameWorld view.
  */
-public final class GameWorldViewImpl implements GameWorldView, Screen {
+public final class GameWorldViewImpl implements GameWorldScreen {
     private final Group worldView = new Group();
     private final Group rootView = new Group(worldView);
     private final PlayerInput playerInput;
