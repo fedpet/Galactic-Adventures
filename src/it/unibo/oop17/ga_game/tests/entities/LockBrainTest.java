@@ -21,6 +21,7 @@ public class LockBrainTest extends BaseEntityTest {
 
     private static final Dimension2D ENTITY_SIZE = new Dimension2D(1, 1);
     private static final double LITTLE_DISTANCE_FROM_OTHER_BODY = 0.1;
+    private TestEntity entity;
     private Inventory inventory;
     private TestEntity redLock;
     private TestEntity greenLock;
@@ -29,10 +30,8 @@ public class LockBrainTest extends BaseEntityTest {
     @Before
     public void setUp() {
         super.setUp();
-        final TestEntity entity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
+        entity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         inventory = new InventoryImpl();
-        entity.add(inventory);
-
         redLock = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         redLock.add(new LockBrain(KeyLockType.RED));
         greenLock = spawnTestEntity(new Point2D(LITTLE_DISTANCE_FROM_OTHER_BODY, 0), ENTITY_SIZE);
@@ -54,6 +53,7 @@ public class LockBrainTest extends BaseEntityTest {
                 "The entity with a LockBrain object shouldn't be destroyed in contact with an entity without an inventory",
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
+        entity.add(inventory);
         inventory.add(KeyLockType.RED);
         advanceSimulation(1);
         assertTrue(
