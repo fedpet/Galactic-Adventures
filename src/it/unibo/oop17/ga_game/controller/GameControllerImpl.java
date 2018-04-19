@@ -13,6 +13,7 @@ import org.mapeditor.io.TMXMapReader;
 import com.google.common.io.Files;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.EntityStatistic;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
@@ -32,6 +33,7 @@ public final class GameControllerImpl implements GameController {
     private final MainController mainController;
     private final GameData save;
     private final ConfigData data;
+    private LoadLevel loader;
     private final AnimationTimer animationTimer = new AnimationTimer() {
         @Override
         public void handle(final long now) {
@@ -65,6 +67,11 @@ public final class GameControllerImpl implements GameController {
         animationTimer.stop();
     }
 
+    @Override
+    public EntityStatistic getTracker() {
+        return loader.getTracker();
+    }
+
     private void whichLevel() {
         Map map;
         final File tempDir = Files.createTempDir();
@@ -90,7 +97,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     private void run(final Map map) {
-        final LoadLevel loader = new LoadLevelImpl(map, this.model, this.view, this.mainController, this.data.getDifficulty());
+        loader = new LoadLevelImpl(map, this.model, this.view, this.mainController, this.data.getDifficulty());
         this.model = loader.getGameWorld();
         this.view = loader.getGameWorldView();
         this.entities = loader.getEntities();

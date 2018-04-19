@@ -3,6 +3,8 @@ package it.unibo.oop17.ga_game.controller;
 import java.util.Optional;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.DifficultyBasedScoreCalculator;
+import it.unibo.oop17.ga_game.model.EntityStatistic;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.view.MainView;
 
@@ -17,6 +19,8 @@ public final class MainControllerImpl implements MainController {
     private ConfigData data;
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
+    private EntityStatistic tracker;
+    private int score;
 
     MainControllerImpl(final MainView view) {
         this.view = view;
@@ -47,8 +51,13 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public void toEndLevel() {
+        activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
         stopGameController();
-        new EndLevelControllerImpl(save, view.showEndLevel(data.getLanguage(), save.getLevelProgress()), this);
+        score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
+        save.setScore(save.getScore() + score);
+        LoadSaveManager.saveGameData(save);
+        new EndLevelControllerImpl(save, view.showEndLevel(data.getLanguage(), save.getLevelProgress(),
+                tracker, score), this);
     }
 
     @Override
@@ -60,7 +69,7 @@ public final class MainControllerImpl implements MainController {
     @Override
     public void toEndGame() {
         stopGameController();
-        new EndGameControllerImpl(view.showEndGame(data.getLanguage()), this);
+        new EndGameControllerImpl(view.showEndGame(data.getLanguage(), save.getScore()), this);
     }
 
     @Override

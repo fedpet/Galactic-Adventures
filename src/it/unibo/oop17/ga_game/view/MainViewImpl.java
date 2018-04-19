@@ -11,6 +11,7 @@ import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
 import it.unibo.oop17.ga_game.model.Difficulty;
+import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -121,10 +122,11 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public CommonView<EndLevelController> showEndLevel(final Language language, final int progress) {
+    public CommonView<EndLevelController> showEndLevel(final Language language, final int progress,
+            final EntityStatistic tracker, final int score) {
         audioplayer.stopMusic();
         audioplayer.playMusic(ENDLEVEL_M.getPath());
-        return setScreen(new EndLevelViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer),
+        return setScreen(new EndLevelViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer, tracker, score),
                 new ImageView(new Image(backgrounds.get(progress).getPath())));
     }
 
@@ -136,10 +138,10 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public CommonView<EndGameController> showEndGame(final Language language) {
+    public CommonView<EndGameController> showEndGame(final Language language, final int score) {
         audioplayer.stopMusic();
         audioplayer.playMusic(ENDLEVEL_M.getPath());
-        return setScreen(new EndGameViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer),
+        return setScreen(new EndGameViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer, score),
                 new ImageView(new Image("/congrats.png")));
     }
 }

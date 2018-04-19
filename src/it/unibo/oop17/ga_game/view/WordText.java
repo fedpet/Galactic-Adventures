@@ -136,8 +136,23 @@ public enum WordText {
     SCORE,
 
     /**
-     *  Health text.
+     *  Coins text.
      */
-    HEALTH;
+    COINS,
+
+    /**
+     *  Kills text.
+     */
+    KILLS,
+
+    /**
+     *  Final score text.
+     */
+    FINAL_SCORE,
+
+    /**
+     * Keys text.
+     */
+    KEYS;
 
 }

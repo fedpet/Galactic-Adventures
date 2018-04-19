@@ -4,6 +4,7 @@ import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
 import it.unibo.oop17.ga_game.model.Difficulty;
+import it.unibo.oop17.ga_game.model.EntityStatistic;
 
 /**
  * Interface of the main view.
@@ -41,9 +42,13 @@ public interface MainView {
      *          The language for translation.
      * @param progress
      *          The current progress.
+     * @param tracker
+     *          The player tracker (at level end).
+     * @param score
+     *          The player score (at level end).
      * @return the end level view to load.
      */
-    CommonView<EndLevelController> showEndLevel(Language language, int progress);
+    CommonView<EndLevelController> showEndLevel(Language language, int progress, EntityStatistic tracker, int score);
 
     /**
      * 
@@ -56,9 +61,11 @@ public interface MainView {
     /**
      * @param language
      *          The language for translation.
+     * @param score
+     *          The player score (at level end).
      * @return the end game view to load.
      */
-    CommonView<EndGameController> showEndGame(Language language);
+    CommonView<EndGameController> showEndGame(Language language, int score);
 
     /**
      * Shows error.

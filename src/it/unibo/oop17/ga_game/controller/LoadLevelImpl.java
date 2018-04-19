@@ -10,9 +10,11 @@ import org.mapeditor.core.TileLayer;
 
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EllipticalPathIterator;
+import it.unibo.oop17.ga_game.model.EntityStatistic;
 import it.unibo.oop17.ga_game.model.GameWorld;
 import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
+import it.unibo.oop17.ga_game.model.StatisticTracker;
 import it.unibo.oop17.ga_game.model.entities.Coin;
 import it.unibo.oop17.ga_game.model.entities.Door;
 import it.unibo.oop17.ga_game.model.entities.Entity;
@@ -50,6 +52,7 @@ public final class LoadLevelImpl implements LoadLevel {
     private final Set<EntityController> entities;
     private final MainController mainController;
     private final Difficulty difficulty;
+    private EntityStatistic tracker;
 
     /**
      * Constructor for LoadLevel.
@@ -101,6 +104,7 @@ public final class LoadLevelImpl implements LoadLevel {
                     player = model.spawnEntity(body -> new Player(body, position, difficulty));
                     entities.add(
                             new PlayerController(view.getPlayerInput(), player, view.entityFactory().createPlayer()));
+                    tracker = new StatisticTracker(player);
                     player.register(new DeathEventListener(mainController));
                     break;
                 case "keyR":
@@ -237,5 +241,10 @@ public final class LoadLevelImpl implements LoadLevel {
     @Override
     public Set<EntityController> getEntities() {
         return this.entities;
+    }
+
+    @Override
+    public EntityStatistic getTracker() {
+        return tracker;
     }
 }
