@@ -71,10 +71,13 @@ public class MovingPlatformTest extends BaseEntityTest {
      */
     @Test
     public void testPassengersStability() {
+        // Use for-loops instead of streams or PMD will complain because he cannot find assert() or fail() calls..
+        // We have no time to fix it now.
         for (int i = 0; i < TEST_DURATION; i++) {
             advanceSimulation(1);
-            IntStream.range(0, passengers.size())
-                    .forEach(number -> assertCorrectPosition(passengers.get(number).getBody().getPosition(), number));
+            for (int number = 0; number < passengers.size(); number++) {
+                assertCorrectPosition(passengers.get(number).getBody().getPosition(), number);
+            }
         }
     }
 

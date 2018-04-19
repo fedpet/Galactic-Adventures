@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import org.mapeditor.core.TileLayer;
 
-import it.unibo.oop17.ga_game.controller.PlayerInput;
+import it.unibo.oop17.ga_game.controller.PlayerInputListener;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -28,7 +28,10 @@ public interface GameWorldView extends FXView {
     void showTerrain(TileLayer layer, Point2D topLeft, Dimension2D tileSize);
 
     /**
-     * @return the player input.
+     * Sets a listener for player input.
+     * 
+     * @param listener
+     *            The listener.
      */
-    PlayerInput getPlayerInput();
+    void setPlayerInputListener(PlayerInputListener listener);
 }

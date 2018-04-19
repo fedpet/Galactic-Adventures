@@ -14,21 +14,18 @@ import javafx.geometry.Point2D;
 /**
  * Translates view input to model input and updates the view.
  */
-public final class PlayerController extends LivingEntityController {
+public final class PlayerController extends LivingEntityController implements PlayerInputListener {
     private final PlayerView view;
 
     /**
-     * @param input
-     *            The @PlayerInput
      * @param player
      *            The @Entity model
      * @param playerView
      *            The view
      */
-    public PlayerController(final PlayerInput input, final Entity player, final PlayerView playerView) {
+    public PlayerController(final Entity player, final PlayerView playerView) {
         super(player, playerView);
         view = playerView;
-        input.onInput(this::move);
         updateViewLife();
         updateViewInventory();
     }
@@ -50,7 +47,8 @@ public final class PlayerController extends LivingEntityController {
         updateViewLife();
     }
 
-    private void move(final Point2D direction) {
+    @Override
+    public void move(final Point2D direction) {
         getEntity().get(Movement.class).ifPresent(movement -> movement.move(direction));
     }
 

@@ -47,17 +47,18 @@ public class FeetTest extends BaseEntityTest {
     public final void testFaceDirection() {
         assertState(FALLING);
         feet.move(direction(Side.RIGHT));
-        assertEquals(HorizontalDirection.RIGHT, feet.getFaceDirection());
+        assertFacing(HorizontalDirection.RIGHT);
 
         feet.move(direction(Side.LEFT));
-        assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
-        assertEquals(HorizontalDirection.LEFT, entity.popEvent(FaceDirectionEvent.class).getDirection());
+        assertFacing(HorizontalDirection.LEFT);
+        assertEquals("Must generate an event facing LEFT", HorizontalDirection.LEFT,
+                entity.popEvent(FaceDirectionEvent.class).getDirection());
 
         feet.move(direction(Side.TOP));
-        assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
+        assertFacing(HorizontalDirection.LEFT);
 
         feet.move(direction(Side.BOTTOM));
-        assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
+        assertFacing(HorizontalDirection.LEFT);
     }
 
     /**
@@ -74,13 +75,13 @@ public class FeetTest extends BaseEntityTest {
         double startingX = entity.getBody().getPosition().getX();
         feet.move(direction(Side.RIGHT));
         advanceSimulation(1);
-        assertTrue(startingX < entity.getBody().getPosition().getX());
+        assertTrue("The entity must have moved right", startingX < entity.getBody().getPosition().getX());
         assertState(WALKING);
 
         startingX = entity.getBody().getPosition().getX();
         feet.move(direction(Side.LEFT));
         advanceSimulation(1);
-        assertTrue(startingX > entity.getBody().getPosition().getX());
+        assertTrue("The entity must have moved left", startingX > entity.getBody().getPosition().getX());
     }
 
     /**
@@ -98,12 +99,18 @@ public class FeetTest extends BaseEntityTest {
         feet.move(direction(Side.TOP));
         assertState(JUMPING);
         advanceSimulation(1);
-        assertTrue(startingY < entity.getBody().getPosition().getY());
+        assertTrue("The entity must have jumped in air (startY < endY)",
+                startingY < entity.getBody().getPosition().getY());
     }
 
-    private void assertState(final Movement.State state) {
-        assertEquals(state, feet.getState());
-        assertEquals(state, entity.popEvent(MovementEvent.class).getState());
+    private void assertFacing(final HorizontalDirection expected) {
+        assertEquals("The entity must face " + expected + " now", expected,
+                feet.getFaceDirection());
+    }
+
+    private void assertState(final Movement.State expected) {
+        assertEquals("Expected Movement state " + expected, expected, feet.getState());
+        assertEquals("Expected Movement state " + expected, expected, entity.popEvent(MovementEvent.class).getState());
     }
 
     private void addFloor() {

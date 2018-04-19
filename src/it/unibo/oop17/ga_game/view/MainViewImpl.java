@@ -57,6 +57,7 @@ public final class MainViewImpl implements MainView {
             Background.BG_DESERT,
             Background.BG_SHROOM,
             Background.BG_CASTLE);
+    private final PlayerKeyboardInput playerInput = new PlayerKeyboardInput(scene);
 
     /**
      *  Constructor for class MainView.
@@ -92,6 +93,7 @@ public final class MainViewImpl implements MainView {
         root.getChildren().add(im);
         currentScreens.add(newScreen);
         currentScreens.forEach(s -> root.getChildren().add(s.getNode()));
+        playerInput.clearListener();
         return newScreen;
     }
 
@@ -112,7 +114,7 @@ public final class MainViewImpl implements MainView {
         if (progress < LEVELS_NUM) {
             audioplayer.playMusic(musics.get(progress).getPath());
         }
-        return setScreen(new GameWorldViewImpl(new PlayerKeyboardInput(scene), getScaleFactor(), audioplayer),
+        return setScreen(new GameWorldViewImpl(playerInput, getScaleFactor(), audioplayer),
                 new ImageView(new Image(backgrounds.get(progress).getPath())));
     }
 
