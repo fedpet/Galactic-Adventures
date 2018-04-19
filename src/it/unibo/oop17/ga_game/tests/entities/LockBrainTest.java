@@ -20,6 +20,7 @@ import javafx.geometry.Point2D;
 public class LockBrainTest extends BaseEntityTest {
 
     private static final Dimension2D ENTITY_SIZE = new Dimension2D(1, 1);
+    private static final double LITTLE_DISTANCE_FROM_OTHER_BODY = 0.1;
     private TestEntity entity;
     private Inventory inventory;
     private TestEntity redLock;
@@ -31,10 +32,9 @@ public class LockBrainTest extends BaseEntityTest {
         super.setUp();
         entity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         inventory = new InventoryImpl();
-        inventory.add(KeyLockType.RED);
         redLock = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         redLock.add(new LockBrain(KeyLockType.RED));
-        greenLock = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
+        greenLock = spawnTestEntity(new Point2D(LITTLE_DISTANCE_FROM_OTHER_BODY, 0), ENTITY_SIZE);
         greenLock.add(new LockBrain(KeyLockType.GREEN));
     }
 
@@ -54,6 +54,7 @@ public class LockBrainTest extends BaseEntityTest {
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
         entity.add(inventory);
+        inventory.add(KeyLockType.RED);
         advanceSimulation(1);
         assertTrue(
                 "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory containing a key of the same type",

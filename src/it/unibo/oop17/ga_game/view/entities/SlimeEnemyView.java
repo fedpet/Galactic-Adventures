@@ -14,7 +14,6 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 106, HEIGHT = 64;
     private static final Image IMG_HURT = new Image("/slimeGreen_dead.png");
     private static final double FRAME_DURATION = 700;
-    private static final int PAIN_ANIM_DURATION = 300; // ms
 
     /**
      * @param group
@@ -28,7 +27,8 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/slimeGreen.png")));
         mapAnimation(CreatureState.WALKING,
                 aSpriteAnimation(new Image("/slimeGreen_moving.png"), Duration.millis(FRAME_DURATION), 2));
-        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, PAIN_ANIM_DURATION, SFX.ENEMY_DAMAGE.getPath()));
+        mapAnimation(CreatureState.SUFFERING,
+                painAnimation(IMG_HURT, SFX.ENEMY_DAMAGE.getPath(), CreatureState.WALKING));
         mapAnimation(CreatureState.DEAD, justAnImage(new Image("/slimeGreen_dead.png")));
 
         startAnimation(CreatureState.WALKING);

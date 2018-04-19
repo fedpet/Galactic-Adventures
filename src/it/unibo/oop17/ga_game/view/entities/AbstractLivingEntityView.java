@@ -19,6 +19,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
 
     private static final double DEATH_FALLING_RATE_SPEED = 0.6;
     private static final double DEATH_TIME = 60;
+    private static final int PAIN_ANIM_DURATION = 300; // ms
     private final AudioPlayer audioplayer;
     private int deathTimeCount;
     private boolean dying;
@@ -67,20 +68,21 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
      * 
      * @param image
      *            The image containing the frame.
-     * @param duration
-     *            The duration in seconds of the frame.
      * @param audioPath
      *            The string containing the audio path of the associated sound effect.
+     * @param stateAterPain
+     *            The state to associate to the view after the pain animation.
+     * 
      * @return A @Runnable animation.
      */
-    protected Runnable painAnimation(final Image image, final int duration, final String audioPath) {
+    protected Runnable painAnimation(final Image image, final String audioPath, final CreatureState stateAfterPain) {
         return () -> {
             audioplayer.playSFX(audioPath);
             setImage(image);
             final Timeline anim = new Timeline(
-                    new KeyFrame(Duration.millis(duration), e -> {
-                        currentState = CreatureState.IDLE;
-                        changeState(CreatureState.IDLE);
+                    new KeyFrame(Duration.millis(PAIN_ANIM_DURATION), e -> {
+                        currentState = stateAfterPain;
+                        changeState(stateAfterPain);
                     }));
             setAnimation(anim);
         };
