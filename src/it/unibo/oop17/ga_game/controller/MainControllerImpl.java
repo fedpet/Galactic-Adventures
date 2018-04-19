@@ -52,7 +52,7 @@ public final class MainControllerImpl implements MainController {
     public void toEndLevel() {
         activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
         stopGameController();
-        int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
+        final int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
         save.setScore(save.getScore() + score);
         LoadSaveManager.saveGameData(save);
         new EndLevelControllerImpl(save, view.showEndLevel(data.getLanguage(), save.getLevelProgress(),
