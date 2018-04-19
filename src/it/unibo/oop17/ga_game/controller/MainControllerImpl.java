@@ -20,7 +20,6 @@ public final class MainControllerImpl implements MainController {
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
     private EntityStatistic tracker;
-    private int score;
 
     MainControllerImpl(final MainView view) {
         this.view = view;
@@ -53,7 +52,7 @@ public final class MainControllerImpl implements MainController {
     public void toEndLevel() {
         activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
         stopGameController();
-        score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
+        int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
         save.setScore(save.getScore() + score);
         LoadSaveManager.saveGameData(save);
         new EndLevelControllerImpl(save, view.showEndLevel(data.getLanguage(), save.getLevelProgress(),

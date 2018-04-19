@@ -1,19 +1,12 @@
 package it.unibo.oop17.ga_game.view;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import it.unibo.oop17.ga_game.controller.EndGameController;
-import it.unibo.oop17.ga_game.model.KeyLockType;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * The end game view.
@@ -36,13 +28,6 @@ public final class EndGameViewImpl implements EndGameScreen {
     private static final double EFFECT_C = 3.5;
     private final Group view = new Group();
     private EndGameController observer;
-    private static final List<Image> IMG_DIGIT;
-    static {
-        IMG_DIGIT = IntStream.range(0, 10)
-                .mapToObj(n -> "/hud/hud_" + n + ".png")
-                .map(Image::new)
-                .collect(Collectors.toList());
-    }
 
     /**
      * Constructor of EndGameView.
@@ -52,6 +37,8 @@ public final class EndGameViewImpl implements EndGameScreen {
      *          Current language for text.
      * @param audioplayer
      *          The audio player.
+     * @param score
+     *          The total score.
      */
     public EndGameViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer,
             final int score) {
