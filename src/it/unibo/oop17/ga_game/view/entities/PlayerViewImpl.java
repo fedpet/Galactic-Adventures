@@ -20,7 +20,6 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     private static final int WIDTH = 72, HEIGHT = 97;
     private static final Image IMG_HURT = new Image("/p1_hurt.png");
     private static final double FRAME_DURATION = 700;
-    private static final int PAIN_ANIM_DURATION = 300; // ms
     private final AudioPlayer audioplayer;
     private final HudView hud;
 
@@ -40,7 +39,7 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
         mapAnimation(CreatureState.WALKING,
                 aSpriteAnimation(new Image("/p1_walk.png"), Duration.millis(FRAME_DURATION), 10));
         mapAnimation(CreatureState.JUMPING, justAnImage(new Image("/p1_jump.png")));
-        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, PAIN_ANIM_DURATION, SFX.PLAYER_DAMAGE.getPath()));
+        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, SFX.PLAYER_DAMAGE.getPath(), CreatureState.IDLE));
 
         startAnimation(getCurrentState());
     }

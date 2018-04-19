@@ -14,7 +14,6 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 112, HEIGHT = 88;
     private static final Image IMG_HURT = new Image("/bee_dead.png");
     private static final double FRAME_DURATION = 700;
-    private static final int PAIN_ANIM_DURATION = 300; // ms
 
     /**
      * @param group
@@ -28,7 +27,8 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
         mapAnimation(CreatureState.IDLE, justAnImage(new Image("/bee.png")));
         mapAnimation(CreatureState.FLYING,
                 aSpriteAnimation(new Image("/bee_moving.png"), Duration.millis(FRAME_DURATION), 2));
-        mapAnimation(CreatureState.SUFFERING, painAnimation(IMG_HURT, PAIN_ANIM_DURATION, SFX.ENEMY_DAMAGE.getPath()));
+        mapAnimation(CreatureState.SUFFERING,
+                painAnimation(IMG_HURT, SFX.ENEMY_DAMAGE.getPath(), CreatureState.FLYING));
         mapAnimation(CreatureState.DEAD, justAnImage(new Image("/bee_dead.png")));
 
         startAnimation(CreatureState.FLYING);
