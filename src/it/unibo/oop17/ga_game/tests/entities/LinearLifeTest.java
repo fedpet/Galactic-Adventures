@@ -88,31 +88,33 @@ public final class LinearLifeTest extends BaseEntityTest {
         life.hurt(life.getHealthPoints());
 
         LifeEvent event = entity.popEvent(LifeEvent.class);
-        assertEquals(-1, event.getChange());
-        assertTrue(event.isDead());
+        assertEquals("Expected -1 decrease in health points", -1, event.getChange());
+        assertTrue("Event should report death", event.isDead());
 
         event = entity.popEvent(LifeEvent.class);
-        assertEquals(1, event.getChange());
-        assertTrue(event.isDead());
+        assertEquals("Expected +1 increase in health points", 1, event.getChange());
+        assertTrue("Event should report death", event.isDead());
 
         event = entity.popEvent(LifeEvent.class);
-        assertEquals(2 * -1, event.getChange());
-        assertTrue(event.isDead());
+        assertEquals("Expected -2 decrease in health points", 2 * -1, event.getChange());
+        assertTrue("Event should report death", event.isDead());
     }
 
     private void assertHeath(final Life life, final int expected) {
-        assertEquals(expected, life.getHealthPoints());
-        assertTrue(life.getHealthPoints() <= life.getMaxHealthPoints());
-        assertTrue(life.getHealthPoints() >= 0);
+        assertEquals("Expected " + expected + " health points instead of " + life.getHealthPoints(), expected,
+                life.getHealthPoints());
+        assertTrue("Current health points must be <= maximum amount",
+                life.getHealthPoints() <= life.getMaxHealthPoints());
+        assertTrue("Health points should'nt go negative", life.getHealthPoints() >= 0);
     }
 
     private void assertAlive(final Life life) {
-        assertTrue(life.isAlive());
-        assertFalse(life.isDead());
+        assertTrue("Life should be alive", life.isAlive());
+        assertFalse("Cannot be both isAlive and isDead", life.isDead());
     }
 
     private void assertDead(final Life life) {
-        assertFalse(life.isAlive());
-        assertTrue(life.isDead());
+        assertFalse("Life should be dead", life.isAlive());
+        assertTrue("Cannot be both isAlive and isDead", life.isDead());
     }
 }

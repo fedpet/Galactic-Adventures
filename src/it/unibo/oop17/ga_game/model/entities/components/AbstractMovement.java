@@ -63,7 +63,7 @@ public abstract class AbstractMovement extends AbstractContactAwareComponent imp
      *            the new state
      */
     protected final void setState(final State newState) {
-        if (currentState != newState) {
+        if (!currentState.equals(newState)) {
             currentState = newState;
             post(new MovementEvent(getEntity(), newState));
         }
