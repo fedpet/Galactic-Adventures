@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.view;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 
-import it.unibo.oop17.ga_game.controller.PlayerInput;
+import it.unibo.oop17.ga_game.controller.PlayerInputListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -19,7 +19,7 @@ import javafx.scene.transform.Scale;
 public final class GameWorldViewImpl implements GameWorldScreen {
     private final Group worldView = new Group();
     private final Group rootView = new Group(worldView);
-    private final PlayerInput playerInput;
+    private final PlayerKeyboardInput playerInput;
     private final HudScreen hud = new HudViewImpl();
     private final AudioPlayer audioplayer;
 
@@ -32,7 +32,7 @@ public final class GameWorldViewImpl implements GameWorldScreen {
      * @param audioplayer
      *          The audio player.
      */
-    public GameWorldViewImpl(final PlayerInput input, final double scaleFactor, final AudioPlayer audioplayer) {
+    public GameWorldViewImpl(final PlayerKeyboardInput input, final double scaleFactor, final AudioPlayer audioplayer) {
         this.audioplayer = audioplayer;
         playerInput = input;
         rootView.getChildren().add(hud.getNode());
@@ -70,7 +70,7 @@ public final class GameWorldViewImpl implements GameWorldScreen {
     }
 
     @Override
-    public PlayerInput getPlayerInput() {
-        return playerInput;
+    public void setPlayerInputListener(final PlayerInputListener listener) {
+        playerInput.setListener(listener);
     }
 }

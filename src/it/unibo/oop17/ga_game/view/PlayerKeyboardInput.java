@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import it.unibo.oop17.ga_game.controller.PlayerInput;
+import it.unibo.oop17.ga_game.controller.PlayerInputListener;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -18,9 +18,9 @@ import javafx.scene.input.KeyEvent;
 /**
  * Manages key presses.
  */
-public final class PlayerKeyboardInput implements PlayerInput {
+public final class PlayerKeyboardInput {
     private final Set<KeyCode> pressedKeys = new HashSet<>();
-    private Optional<Listener> listener = Optional.empty();
+    private Optional<PlayerInputListener> listener = Optional.empty();
 
     /**
      * @param scene
@@ -31,9 +31,21 @@ public final class PlayerKeyboardInput implements PlayerInput {
         scene.addEventHandler(KeyEvent.KEY_RELEASED, this::onKeyEvent);
     }
 
-    @Override
-    public void onInput(final Listener listener) {
+    /**
+     * Sets a @PlayerInputListener.
+     * 
+     * @param listener
+     *            The listener
+     */
+    public void setListener(final PlayerInputListener listener) {
         this.listener = Optional.of(listener);
+    }
+
+    /**
+     * Clear the listener.
+     */
+    public void clearListener() {
+        this.listener = Optional.empty();
     }
 
     private void onKeyEvent(final KeyEvent event) {
@@ -63,7 +75,7 @@ public final class PlayerKeyboardInput implements PlayerInput {
         return direction;
     }
 
-    private void notify(final Consumer<Listener> action) {
+    private void notify(final Consumer<PlayerInputListener> action) {
         listener.ifPresent(action::accept);
     }
 }
