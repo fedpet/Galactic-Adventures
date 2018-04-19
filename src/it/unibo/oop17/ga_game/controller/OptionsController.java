@@ -1,29 +1,41 @@
 package it.unibo.oop17.ga_game.controller;
 
+import it.unibo.oop17.ga_game.model.Difficulty;
+import it.unibo.oop17.ga_game.view.Language;
+import it.unibo.oop17.ga_game.view.Volume;
+
 /**
  * Options interface.
  */
 public interface OptionsController {
 
     /**
-     * Sets next volume value for Music.
+     * Sets volume value for Music.
+     * @param musicVol
+     *         Music volume to set.
      */
-    void nextMusicVolume();
+    void setMusicVolume(Volume musicVol);
 
     /**
-     * Sets next volume value for SFX.
+     * Sets volume value for SFX.
+     * @param sfxVol
+     *          Sound effects volume to set.
      */
-    void nextSFXVolume();
+    void setSFXVolume(Volume sfxVol);
 
     /**
-     * Sets next difficulty value.
+     * Sets difficulty value.
+     * @param difficulty
+     *          Difficulty to set.
      */
-    void nextDifficulty();
+    void setDifficulty(Difficulty difficulty);
 
     /**
-     * Sets next language value.
+     * Sets language value.
+     * @param language
+     *          Language to set.
      */
-    void nextLanguage();
+    void setLanguage(Language language);
 
     /**
      * Updates text with chosen language.

@@ -26,7 +26,10 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
 
     private final Group menuView = new Group();
     private MenuWithOptionsController observer;
-
+    private Volume musicVol;
+    private Volume sfxVol;
+    private Language language;
+    private Difficulty difficulty;
     private final MenuButton btnNewGame;
     private final MenuButton btnContinue;
     private final MenuButton btnOptions;
@@ -61,6 +64,10 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
             final Difficulty difficulty, final AudioPlayer audioplayer, final Map<WordText, String> currLang) {
 
         super();
+        this.musicVol = musicVol;
+        this.sfxVol = sfxVol;
+        this.language = language;
+        this.difficulty = difficulty;
         this.currLang = currLang;
 
         final VBox menu0 = new VBox(8);
@@ -118,16 +125,28 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
         });
 
         btnMusic = new MenuButton(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()), audioplayer);
-        btnMusic.setOnMouseClicked(event -> observer.nextMusicVolume());
+        btnMusic.setOnMouseClicked(event -> {
+            this.musicVol = Volume.values()[(this.musicVol.ordinal() + 1) % Volume.values().length];
+            observer.setMusicVolume(this.musicVol);
+        });
 
         btnSFX = new MenuButton(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()), audioplayer);
-        btnSFX.setOnMouseClicked(event -> observer.nextSFXVolume());
+        btnSFX.setOnMouseClicked(event -> {
+            this.sfxVol = Volume.values()[(this.sfxVol.ordinal() + 1) % Volume.values().length];
+            observer.setSFXVolume(this.sfxVol);
+        });
 
         btnLanguage = new MenuButton(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()), audioplayer);
-        btnLanguage.setOnMouseClicked(event -> observer.nextLanguage());
+        btnLanguage.setOnMouseClicked(event -> {
+            this.language = Language.values()[(this.language.ordinal() + 1) % Language.values().length];
+            observer.setLanguage(this.language);
+        });
 
         btnDiff = new MenuButton(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()), audioplayer);
-        btnDiff.setOnMouseClicked(event -> observer.nextDifficulty());
+        btnDiff.setOnMouseClicked(event -> {
+            this.difficulty = Difficulty.values()[(this.difficulty.ordinal() + 1) % Difficulty.values().length];
+            observer.setDifficulty(this.difficulty);
+        });
 
         btnDefaults = new MenuButton(currLang.get(WordText.DEFAULT_OPT), audioplayer);
         btnDefaults.setOnMouseClicked(event -> observer.setDefaults());

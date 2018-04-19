@@ -1,15 +1,18 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
 import it.unibo.oop17.ga_game.view.MenuView;
+import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
 
 /**
  * Controls the Menu.
  */
-public class MenuControllerImpl implements MenuWithOptionsController {
+public final class MenuControllerImpl implements MenuWithOptionsController {
 
     private final ConfigData data;
     private final MenuView view;
@@ -37,7 +40,7 @@ public class MenuControllerImpl implements MenuWithOptionsController {
     }
 
     @Override
-    public final void newGame() {
+    public void newGame() {
         final GameData zero = new GameData();
         zero.resetProgress();
         LoadSaveManager.saveGameData(zero);
@@ -46,78 +49,57 @@ public class MenuControllerImpl implements MenuWithOptionsController {
     }
 
     @Override
-    public final void continueGame() {
+    public void continueGame() {
         LoadSaveManager.saveConfigData(data);
         controller.toGame();
     }
 
     @Override
-    public final void quit() {
+    public void quit() {
         LoadSaveManager.saveConfigData(data);
         Platform.exit();
     }
 
-    /**
-     * Changes music volume to next.
-     */
     @Override
-    public final void nextMusicVolume() {
-        data.nextMusicVol();
+    public void setMusicVolume(final Volume musicVol) {
+        data.setMusicVol(musicVol);
         updateView();
     }
 
-    /**
-     * Changes sound effects volume to next.
-     */
     @Override
-    public final void nextSFXVolume() {
-        data.nextSFXVol();
+    public void setSFXVolume(final Volume sfxVol) {
+        data.setSFXVol(sfxVol);
         updateView();
     }
 
-    /**
-     * Changes language to next.
-     */
     @Override
-    public final void nextLanguage() {
-        data.nextLanguage();
+    public void setLanguage(final Language language) {
+        data.setLanguage(language);
         updateLanguage();
         updateView();
     }
 
-    /**
-     * Changes difficulty to next.
-     */
     @Override
-    public final void nextDifficulty() {
-        data.nextDifficulty();
+    public void setDifficulty(final Difficulty difficulty) {
+        data.setDifficulty(difficulty);
         updateView();
     }
 
-    /**
-     * Changes options to default.
-     */
     @Override
-    public final void setDefaults() {
+    public void setDefaults() {
         data.defaultOptions();
         updateLanguage();
         updateView();
     }
 
-    /**
-     * Updates language.
-     */
     @Override
-    public final void updateLanguage() {
-        this.view.updateLanguage(new LoadLanguage().getCurrLang(data.getLanguage()));
+    public void updateLanguage() {
+        view.updateLanguage(new LoadLanguage().getCurrLang(data.getLanguage()));
     }
 
-    /**
-     * Updates view.
-     */
     @Override
     public void updateView() {
-        this.view.updateView(this.data.getMusicVol(), this.data.getSFXVol(), this.data.getLanguage(), this.data.getDifficulty());
+        view.updateView(data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty());
     }
 
 }

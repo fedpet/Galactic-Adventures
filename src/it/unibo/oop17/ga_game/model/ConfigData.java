@@ -40,31 +40,39 @@ public final class ConfigData implements ConfigDataInterface, java.io.Serializab
     }
 
     /**
-     * Sets the next music volume available.
+     * Sets volume value for Music.
+     * @param musicVol
+     *         Music volume to set.
      */
-    public void nextMusicVol() {
-        this.musicVol = Volume.values()[(musicVol.ordinal() + 1) % Volume.values().length];
+    public void setMusicVol(final Volume musicVol) {
+        this.musicVol = musicVol;
     }
 
     /**
-     * Sets the next sound effects volume available.
+     * Sets volume value for SFX.
+     * @param sfxVol
+     *          Sound effects volume to set.
      */
-    public void nextSFXVol() {
-        this.sfxVol = Volume.values()[(sfxVol.ordinal() + 1) % Volume.values().length];
+    public void setSFXVol(final Volume sfxVol) {
+        this.sfxVol = sfxVol;
     }
 
     /**
-     * Sets the next difficulty available.
+     * Sets difficulty value.
+     * @param difficulty
+     *          Difficulty to set.
      */
-    public void nextDifficulty() {
-        this.difficulty = Difficulty.values()[(difficulty.ordinal() + 1) % Difficulty.values().length];
+    public void setDifficulty(final Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     /**
-     * Sets the next language available.
+     * Sets language value.
+     * @param language
+     *          Language to set.
      */
-    public void nextLanguage() {
-        this.language = Language.values()[(language.ordinal() + 1) % Language.values().length];
+    public void setLanguage(final Language language) {
+        this.language = language;
     }
 
     /**
