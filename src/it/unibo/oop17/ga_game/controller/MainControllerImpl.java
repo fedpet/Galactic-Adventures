@@ -63,6 +63,12 @@ public final class MainControllerImpl implements MainController {
         new EndGameControllerImpl(view.showEndGame(data.getLanguage()), this);
     }
 
+    @Override
+    public void toAlert(final String message) {
+        stopGameController();
+        view.showError(message);
+    }
+
     private void stopGameController() {
         activeGameController.ifPresent(game -> game.stop());
         activeGameController = Optional.empty();

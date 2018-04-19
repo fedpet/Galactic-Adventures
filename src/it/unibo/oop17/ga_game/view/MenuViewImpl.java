@@ -126,25 +126,25 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
 
         btnMusic = new MenuButton(currLang.get(WordText.VOLUME_M) + TEXT_OFF + currLang.get(musicVol.asText()), audioplayer);
         btnMusic.setOnMouseClicked(event -> {
-            this.musicVol = Volume.values()[(this.musicVol.ordinal() + 1) % Volume.values().length];
+            nextMusicVol();
             observer.setMusicVolume(this.musicVol);
         });
 
         btnSFX = new MenuButton(currLang.get(WordText.VOLUME_S) + TEXT_OFF + currLang.get(sfxVol.asText()), audioplayer);
         btnSFX.setOnMouseClicked(event -> {
-            this.sfxVol = Volume.values()[(this.sfxVol.ordinal() + 1) % Volume.values().length];
+            nextSFXVol();
             observer.setSFXVolume(this.sfxVol);
         });
 
         btnLanguage = new MenuButton(currLang.get(WordText.LANGUAGE) + TEXT_OFF + currLang.get(language.asText()), audioplayer);
         btnLanguage.setOnMouseClicked(event -> {
-            this.language = Language.values()[(this.language.ordinal() + 1) % Language.values().length];
+            nextLanguage();
             observer.setLanguage(this.language);
         });
 
         btnDiff = new MenuButton(currLang.get(WordText.DIFFICULTY) + TEXT_OFF + currLang.get(difficulty.asText()), audioplayer);
         btnDiff.setOnMouseClicked(event -> {
-            this.difficulty = Difficulty.values()[(this.difficulty.ordinal() + 1) % Difficulty.values().length];
+            nextDifficulty();
             observer.setDifficulty(this.difficulty);
         });
 
@@ -205,4 +205,19 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
         return menuView;
     }
 
+    private void nextMusicVol() {
+        this.musicVol = Volume.values()[(this.musicVol.ordinal() + 1) % Volume.values().length];
+    }
+
+    private void nextSFXVol() {
+        this.sfxVol = Volume.values()[(this.sfxVol.ordinal() + 1) % Volume.values().length];
+    }
+
+    private void nextLanguage() {
+        this.language = Language.values()[(this.language.ordinal() + 1) % Language.values().length];
+    }
+
+    private void nextDifficulty() {
+        this.difficulty = Difficulty.values()[(this.difficulty.ordinal() + 1) % Difficulty.values().length];
+    }
 }

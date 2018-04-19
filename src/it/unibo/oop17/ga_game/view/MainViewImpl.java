@@ -18,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -117,8 +116,8 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void showError(final Text message) {
-        new Alert(AlertType.ERROR, message.toString()).showAndWait();
+    public void showError(final String message) {
+        new Alert(AlertType.ERROR, message).showAndWait();
     }
 
     @Override

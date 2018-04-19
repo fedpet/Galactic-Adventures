@@ -4,7 +4,6 @@ import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
 import it.unibo.oop17.ga_game.model.Difficulty;
-import javafx.scene.text.Text;
 
 /**
  * Interface of the main view.
@@ -66,5 +65,5 @@ public interface MainView {
      * @param message
      *          The message to show.
      */
-    void showError(Text message);
+    void showError(String message);
 }
