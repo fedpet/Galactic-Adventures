@@ -51,10 +51,10 @@ public class FeetTest extends BaseEntityTest {
 
         feet.move(direction(Side.LEFT));
         assertFacing(HorizontalDirection.LEFT);
-        assertEquals(HorizontalDirection.LEFT, entity.popEvent(FaceDirectionEvent.class).getDirection());
+        assertEquals("Must generate an event facing LEFT", HorizontalDirection.LEFT,
+                entity.popEvent(FaceDirectionEvent.class).getDirection());
 
         feet.move(direction(Side.TOP));
-        assertEquals(HorizontalDirection.LEFT, feet.getFaceDirection());
         assertFacing(HorizontalDirection.LEFT);
 
         feet.move(direction(Side.BOTTOM));
