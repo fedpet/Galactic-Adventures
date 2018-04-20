@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.controller;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -44,6 +45,7 @@ public final class LoadLevelImpl implements LoadLevel {
     private static final int S_COIN_VALUE = 3;
     private static final int B_COIN_VALUE = 1;
     private static final int FLYING_VALUE = 5;
+    private static final int PLAT_VALUE = 12;
 
     private Entity player;
     private final Map map;
@@ -191,12 +193,14 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "platformVertical":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .repeat(() -> new EllipticalPathIterator(position, 0, FLYING_VALUE))));
+                            .backAndForth(Arrays.asList(new Point2D(position.getX(), position.getY()),
+                                    new Point2D(position.getX(), position.getY() + PLAT_VALUE)))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "platformHorizontal":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, 0))));
+                            .backAndForth(Arrays.asList(new Point2D(position.getX(), position.getY()),
+                                    new Point2D(position.getX() + PLAT_VALUE, position.getY())))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "slime":
