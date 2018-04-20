@@ -70,7 +70,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
      *            The image containing the frame.
      * @param audioPath
      *            The string containing the audio path of the associated sound effect.
-     * @param stateAterPain
+     * @param stateAfterPain
      *            The state to associate to the view after the pain animation.
      * 
      * @return A @Runnable animation.
