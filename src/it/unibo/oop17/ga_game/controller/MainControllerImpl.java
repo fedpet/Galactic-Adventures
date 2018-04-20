@@ -50,6 +50,7 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public void toEndLevel() {
+        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
         stopGameController();
         final int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
@@ -67,6 +68,7 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public void toEndGame() {
+        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         stopGameController();
         new EndGameControllerImpl(view.showEndGame(data.getLanguage(), save.getScore()), this);
     }

@@ -64,8 +64,7 @@ public final class EndLevelViewImpl implements EndLevelScreen {
         final Rectangle bg0 = new Rectangle();
         bg0.setOpacity(0);
 
-        final Text text = new Text(currLang.get(WordText.COINS) + ": " + statistic.getMoneyCollected() + "\n"
-                + currLang.get(WordText.KEYS) + ": " + statistic.getKeysCollected() + "\n"
+        final Text text = new Text(currLang.get(WordText.COINS) + ": " + statistic.getMoneyCollected() + "\n\n"
                 + currLang.get(WordText.KILLS) + ": " + statistic.getEnemiesKilled() + "\n"
                 + currLang.get(WordText.SCORE) + ": " + score + "\n");
         text.setFont(Font.font(FONT_SIZE));
