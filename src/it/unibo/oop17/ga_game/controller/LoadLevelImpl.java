@@ -180,7 +180,7 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "spikes":
                     entity = model.spawnEntity(body -> new Spike(body, position));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpikes()));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpike()));
                     break;
                 case "spring":
                     entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
