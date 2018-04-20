@@ -8,6 +8,8 @@ import javafx.util.Duration;
 
 /**
  * Controls the sprite animation.
+ * 
+ * From https://netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
  */
 public final class SpriteAnimation extends Transition {
     private final ImageView imageView;
