@@ -42,6 +42,6 @@ public class HitEvent extends AbstractEntityEvent {
      * @return True if this hit caused the target's death.
      */
     public boolean hasKilled() {
-        return target.get(Life.class).isPresent() && target.get(Life.class).get().isDead() && damage > 0;
+        return (!target.get(Life.class).isPresent() || target.get(Life.class).get().isDead()) && damage > 0;
     }
 }

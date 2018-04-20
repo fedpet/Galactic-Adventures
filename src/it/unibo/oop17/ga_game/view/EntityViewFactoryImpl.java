@@ -15,7 +15,7 @@ import it.unibo.oop17.ga_game.view.entities.MovingPlatformView;
 import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import it.unibo.oop17.ga_game.view.entities.PlayerViewImpl;
 import it.unibo.oop17.ga_game.view.entities.SlimeEnemyView;
-import it.unibo.oop17.ga_game.view.entities.SpikesView;
+import it.unibo.oop17.ga_game.view.entities.SpikeView;
 import it.unibo.oop17.ga_game.view.entities.TriggerEntityView;
 import javafx.scene.Group;
 
@@ -94,7 +94,7 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
     }
 
     @Override
-    public LifelessEntityView createSpikes() {
-        return new SpikesView(parent);
+    public LifelessEntityView createSpike() {
+        return new SpikeView(parent);
     }
 }

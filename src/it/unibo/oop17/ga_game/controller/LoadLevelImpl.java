@@ -27,7 +27,7 @@ import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Player;
 import it.unibo.oop17.ga_game.model.entities.SlimeEnemy;
-import it.unibo.oop17.ga_game.model.entities.Spikes;
+import it.unibo.oop17.ga_game.model.entities.Spike;
 import it.unibo.oop17.ga_game.utils.FXUtils;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 import it.unibo.oop17.ga_game.view.GameWorldView;
@@ -188,8 +188,8 @@ public final class LoadLevelImpl implements LoadLevel {
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "spikes":
-                    entity = model.spawnEntity(body -> new Spikes(body, position));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpikes()));
+                    entity = model.spawnEntity(body -> new Spike(body, position));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpike()));
                     break;
                 case "spring":
                     entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
