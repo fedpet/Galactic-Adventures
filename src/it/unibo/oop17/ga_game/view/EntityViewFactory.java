@@ -69,8 +69,8 @@ public interface EntityViewFactory {
     LifelessEntityView createKey(KeyLockType type);
 
     /**
-     * @return a block of spikes.
+     * @return a spike block.
      */
-    LifelessEntityView createSpikes();
+    LifelessEntityView createSpike();
 
 }

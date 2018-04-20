@@ -4,21 +4,27 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
+import it.unibo.oop17.ga_game.controller.MainController;
+import it.unibo.oop17.ga_game.controller.MainControllerImpl;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
-import javafx.geometry.Rectangle2D;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -26,8 +32,6 @@ import javafx.stage.Stage;
  */
 public final class MainViewImpl implements MainView {
 
-    private static final int WIDTH_D = 1280;
-    private static final int HEIGHT_D = 720;
     private static final int WIDTH_C = 1920;
     private static final int HEIGHT_C = 1080;
     private static final Music MAINMENU_M = Music.TRACK1;
@@ -38,6 +42,7 @@ public final class MainViewImpl implements MainView {
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<FXView> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
+    private Optional<MainController> controller = Optional.empty();
     private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
             Music.TRACK3,
@@ -69,20 +74,24 @@ public final class MainViewImpl implements MainView {
      *          Music volume.
      */
     public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol) {
+        this.stage = stage;
         stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
-        stage.setWidth(WIDTH_D);
-        stage.setHeight(HEIGHT_D);
         stage.setResizable(false);
-        this.stage = stage;
+        stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
         stage.setScene(scene);
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode().equals(KeyCode.ESCAPE)) {
+                controller.ifPresent(observer -> controller.get().quit());
+            }
+        });
         stage.show();
     }
 
     private double getScaleFactor() {
-        final Rectangle2D primaryScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-        return Math.min(primaryScreenBounds.getWidth() / WIDTH_C, primaryScreenBounds.getHeight() / HEIGHT_C);
+        return Math.max(stage.getWidth() / WIDTH_C, stage.getHeight() / HEIGHT_C);
     }
 
     private <V extends FXView> V setScreen(final V newScreen, final ImageView im) {
@@ -145,5 +154,15 @@ public final class MainViewImpl implements MainView {
         audioplayer.playMusic(ENDLEVEL_M.getPath());
         return setScreen(new EndGameViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer, score),
                 new ImageView(new Image("/congrats.png")));
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
+    }
+
+    @Override
+    public void setObserver(final MainControllerImpl mainControllerImpl) {
+        controller = Optional.of(mainControllerImpl);
     }
 }

@@ -22,8 +22,9 @@ public final class MainControllerImpl implements MainController {
     private EntityStatistic tracker;
 
     MainControllerImpl(final MainView view) {
+        view.setObserver(this);
         this.view = view;
-        toMenu(); 
+        toMenu();
     }
 
     @Override
@@ -81,6 +82,12 @@ public final class MainControllerImpl implements MainController {
     private void stopGameController() {
         activeGameController.ifPresent(game -> game.stop());
         activeGameController = Optional.empty();
+    }
+
+    @Override
+    public void quit() {
+        stopGameController();
+        view.quit();
     }
 
 }

@@ -170,17 +170,26 @@ public final class LoadLevelImpl implements LoadLevel {
                     entities.add(
                             new LifelessEntityController(entity, view.entityFactory().createCoin(CoinType.BRONZE)));
                     break;
-                case "flying":
+                case "flyingElliptical":
                     entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
                             .repeat(() -> new EllipticalPathIterator(position, FLYING_VALUE, FLYING_VALUE))));
                     entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
-                case "torch":
-                    //TODO
+                case "flyingVertical":
+                    entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
+                            .backAndForth(Arrays.asList(position,
+                                    new Point2D(position.getX(), position.getY() + FLYING_VALUE)))));
+                    entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
+                    break;
+                case "flyingHorizontal":
+                    entity = model.spawnEntity(body -> new FlyingEnemy(body, position, InfiniteSequence
+                            .backAndForth(Arrays.asList(position,
+                                    new Point2D(position.getX() + FLYING_VALUE, position.getY())))));
+                    entities.add(new LivingEntityController(entity, view.entityFactory().createBee()));
                     break;
                 case "spikes":
                     entity = model.spawnEntity(body -> new Spike(body, position));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpikes()));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createSpike()));
                     break;
                 case "spring":
                     entity = model.spawnEntity(body -> new JumpingPlatform(body, position));
@@ -193,13 +202,13 @@ public final class LoadLevelImpl implements LoadLevel {
                     break;
                 case "platformVertical":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .backAndForth(Arrays.asList(new Point2D(position.getX(), position.getY()),
+                            .backAndForth(Arrays.asList(position,
                                     new Point2D(position.getX(), position.getY() + PLAT_VALUE)))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;
                 case "platformHorizontal":
                     entity = model.spawnEntity(body -> new MovingPlatform(body, position, new Dimension2D(3, 1), InfiniteSequence
-                            .backAndForth(Arrays.asList(new Point2D(position.getX(), position.getY()),
+                            .backAndForth(Arrays.asList(position,
                                     new Point2D(position.getX() + PLAT_VALUE, position.getY())))));
                     entities.add(new LifelessEntityController(entity, view.entityFactory().createMovingPlatform()));
                     break;

@@ -10,7 +10,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Models a group of spikes that damage the player at contact.
+ * Models a group of spike that damage the player at contact.
  */
 public class Spike extends AbstractEntity {
     private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
@@ -35,7 +35,7 @@ public class Spike extends AbstractEntity {
 
     @Override
     public final String toString() {
-        return "Spikes";
+        return "Spike";
     }
 
 }
