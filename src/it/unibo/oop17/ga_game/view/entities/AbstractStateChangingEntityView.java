@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.view.entities;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.model.entities.components.GenericState;
+import it.unibo.oop17.ga_game.model.entities.components.EntityState;
 import it.unibo.oop17.ga_game.view.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -19,7 +19,7 @@ import javafx.util.Duration;
  * @param <S>
  *            GenericState type.
  */
-public abstract class AbstractStateChangingEntityView<S extends GenericState> extends AbstractEntityView
+public abstract class AbstractStateChangingEntityView<S extends EntityState> extends AbstractEntityView
         implements StateChangingEntityView<S> {
 
     private final Map<S, Runnable> animations = new HashMap<>();
