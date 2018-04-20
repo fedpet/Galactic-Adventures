@@ -94,7 +94,7 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
     }
 
     @Override
-    public LifelessEntityView createSpikes() {
+    public LifelessEntityView createSpike() {
         return new SpikeView(parent);
     }
 }
