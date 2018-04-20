@@ -10,7 +10,6 @@ import java.util.function.Supplier;
  * 
  * @param <T>
  *            Elements type
- * @return The sequence.
  */
 public final class InfiniteSequenceOfIterators<T> implements InfiniteSequence<T> {
     private final Supplier<Iterator<T>> supplier;

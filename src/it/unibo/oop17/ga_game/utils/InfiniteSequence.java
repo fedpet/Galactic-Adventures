@@ -37,12 +37,12 @@ public interface InfiniteSequence<T> extends Supplier<T> {
     }
 
     /**
-     * Generates an infinite sequence restarts from the beginning as soon as the end is reached.
+     * Generates an infinite sequence restarting from the beginning as soon as the end is reached.
      * 
      * @param iterable
-     *            the @Iterable
+     *            the @Iterable from which to generate the sequence
      * @param <T>
-     *            Iterable<T>
+     *            Iterable of T
      * @return A sequence repeating the iterable.
      */
     static <T> InfiniteSequence<T> repeat(final Iterable<T> iterable) {
@@ -56,7 +56,7 @@ public interface InfiniteSequence<T> extends Supplier<T> {
      * @param beginning
      *            starting iterator
      * @param <T>
-     *            Iterable<T>
+     *            Iterable of T
      * @param iteratorSupplier
      *            A supplier for next iterators
      * @return The sequence.
