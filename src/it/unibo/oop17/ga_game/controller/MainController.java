@@ -36,4 +36,9 @@ public interface MainController {
      *          Message to show.
      */
     void toAlert(String message);
+
+    /**
+     * Quits.
+     */
+    void quit();
 }
