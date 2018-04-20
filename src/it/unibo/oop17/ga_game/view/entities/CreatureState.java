@@ -1,11 +1,11 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.entities.components.GenericState;
+import it.unibo.oop17.ga_game.model.entities.components.EntityState;
 
 /**
  * Possible states of state for the @Entity objects.
  */
-public enum CreatureState implements GenericState {
+public enum CreatureState implements EntityState {
     /**
      * Possible states of state for the @Entity objects.
      */
