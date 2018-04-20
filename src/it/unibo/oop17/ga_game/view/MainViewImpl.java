@@ -32,8 +32,8 @@ import javafx.stage.Stage;
  */
 public final class MainViewImpl implements MainView {
 
-    private static final int WIDTH_C = 1920;
-    private static final int HEIGHT_C = 1080;
+    private static final int WIDTH_C = 1280;
+    private static final int HEIGHT_C = 720;
     private static final Music MAINMENU_M = Music.TRACK1;
     private static final Music ENDLEVEL_M = Music.TRACK6;
     private static final int LEVELS_NUM = 7;
