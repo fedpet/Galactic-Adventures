@@ -6,11 +6,11 @@ import javafx.application.Platform;
 /**
  * Controls the end game menu.
  */
-public final class EndGameControllerImpl implements EndGameController {
+public final class EndGameControllerImpl implements EndGameObserver {
 
     private final MainController mainController;
 
-    EndGameControllerImpl(final CommonView<EndGameController> view, final MainController mainController) {
+    EndGameControllerImpl(final CommonView<EndGameObserver> view, final MainController mainController) {
         view.setObserver(this);
         this.mainController = mainController;
     }

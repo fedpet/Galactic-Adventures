@@ -8,10 +8,10 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.controller.EndGameController;
-import it.unibo.oop17.ga_game.controller.EndLevelController;
-import it.unibo.oop17.ga_game.controller.GameOverController;
-import it.unibo.oop17.ga_game.controller.MainViewObserver;
+import it.unibo.oop17.ga_game.controller.EndGameObserver;
+import it.unibo.oop17.ga_game.controller.EndLevelObserver;
+import it.unibo.oop17.ga_game.controller.GameOverObserver;
+import it.unibo.oop17.ga_game.controller.MainObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.application.Platform;
@@ -39,7 +39,7 @@ public final class MainViewImpl implements MainView {
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<FXView> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
-    private Optional<MainViewObserver> controller = Optional.empty();
+    private Optional<MainObserver> controller = Optional.empty();
     private Optional<Integer> levelsNum = Optional.empty();
     private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
@@ -125,7 +125,7 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public CommonView<EndLevelController> showEndLevel(final Language language, final int progress,
+    public CommonView<EndLevelObserver> showEndLevel(final Language language, final int progress,
             final EntityStatistic tracker, final int score) {
         audioplayer.stopMusic();
         audioplayer.playMusic(ENDLEVEL_M.getPath());
@@ -134,14 +134,14 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public CommonView<GameOverController> showGameOver(final Language language) {
+    public CommonView<GameOverObserver> showGameOver(final Language language) {
         audioplayer.stopMusic();
         return setScreen(new GameOverViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer),
                 new ImageView(new Image("/gameover.png")));
     }
 
     @Override
-    public CommonView<EndGameController> showEndGame(final Language language, final int score) {
+    public CommonView<EndGameObserver> showEndGame(final Language language, final int score) {
         audioplayer.stopMusic();
         audioplayer.playMusic(ENDLEVEL_M.getPath());
         return setScreen(new EndGameViewImpl(stage, new LoadLanguage().getCurrLang(language), audioplayer, score),
@@ -154,7 +154,7 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void setObserver(final MainViewObserver quitControllerImpl) {
+    public void setObserver(final MainObserver quitControllerImpl) {
         controller = Optional.of(quitControllerImpl);
     }
 

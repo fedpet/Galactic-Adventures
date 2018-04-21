@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.controller;
 
 /**
- * Interface for controlling game over screen.
+ * Interface for controlling end game screen.
  */
-public interface GameOverController {
+public interface EndGameObserver {
 
     /**
      * Return to main menu.
@@ -11,12 +11,8 @@ public interface GameOverController {
     void toMainMenu();
 
     /**
-     * Loads map again.
-     */
-    void retry();
-
-    /**
      * Quits from the game.
      */
     void quit();
+
 }

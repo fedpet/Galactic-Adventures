@@ -6,11 +6,11 @@ import it.unibo.oop17.ga_game.view.CommonView;
 /**
  * Controls the end level menu.
  */
-public final class EndLevelControllerImpl implements EndLevelController {
+public final class EndLevelControllerImpl implements EndLevelObserver {
 
     private final MainController mainController;
 
-    EndLevelControllerImpl(final GameData save, final CommonView<EndLevelController> view, final MainController mainController) {
+    EndLevelControllerImpl(final GameData save, final CommonView<EndLevelObserver> view, final MainController mainController) {
         view.setObserver(this);
         save.nextLevelProgress();
         LoadSaveManager.saveGameData(save);

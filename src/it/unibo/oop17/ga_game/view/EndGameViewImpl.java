@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.EndGameController;
+import it.unibo.oop17.ga_game.controller.EndGameObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -27,7 +27,7 @@ public final class EndGameViewImpl implements EndGameScreen {
     private static final int BOX_H = 220;
     private static final double EFFECT_C = 3.5;
     private final Group view = new Group();
-    private EndGameController observer;
+    private EndGameObserver observer;
 
     /**
      * Constructor of EndGameView.
@@ -84,7 +84,7 @@ public final class EndGameViewImpl implements EndGameScreen {
     }
 
     @Override
-    public void setObserver(final EndGameController observer) {
+    public void setObserver(final EndGameObserver observer) {
         this.observer = observer;
     }
 

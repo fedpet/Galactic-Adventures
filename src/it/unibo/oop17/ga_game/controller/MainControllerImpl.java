@@ -11,7 +11,7 @@ import it.unibo.oop17.ga_game.view.MainView;
 /**
  * Controls the application.
  */
-public final class MainControllerImpl implements MainController, MainViewObserver {
+public final class MainControllerImpl implements MainController, MainObserver {
 
     private static final int LEVELS_NUM = 3; // Number of levels (counting from 0)
     private final MainView view;

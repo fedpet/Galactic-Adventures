@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.EndLevelController;
+import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -28,7 +28,7 @@ public final class EndLevelViewImpl implements EndLevelScreen {
     private static final int BOX_H = 372;
     private static final double EFFECT_C = 3.5;
     private final Group view = new Group();
-    private EndLevelController observer;
+    private EndLevelObserver observer;
 
     /**
      * Constructor of EndLevelView.
@@ -89,7 +89,7 @@ public final class EndLevelViewImpl implements EndLevelScreen {
     }
 
     @Override
-    public void setObserver(final EndLevelController observer) {
+    public void setObserver(final EndLevelObserver observer) {
         this.observer = observer;
     }
 

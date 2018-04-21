@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.controller;
 
 /**
- * Interface for controlling end game screen.
+ * Interface for controlling end level screen.
  */
-public interface EndGameController {
+public interface EndLevelObserver {
 
     /**
      * Return to main menu.
@@ -11,8 +11,7 @@ public interface EndGameController {
     void toMainMenu();
 
     /**
-     * Quits from the game.
+     * Loads next map.
      */
-    void quit();
-
+    void toNextMap();
 }

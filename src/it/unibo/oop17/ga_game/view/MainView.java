@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.controller.EndGameController;
-import it.unibo.oop17.ga_game.controller.EndLevelController;
-import it.unibo.oop17.ga_game.controller.GameOverController;
-import it.unibo.oop17.ga_game.controller.MainViewObserver;
+import it.unibo.oop17.ga_game.controller.EndGameObserver;
+import it.unibo.oop17.ga_game.controller.EndLevelObserver;
+import it.unibo.oop17.ga_game.controller.GameOverObserver;
+import it.unibo.oop17.ga_game.controller.MainObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 
@@ -49,7 +49,7 @@ public interface MainView {
      *          The player score (at level end).
      * @return the end level view to load.
      */
-    CommonView<EndLevelController> showEndLevel(Language language, int progress, EntityStatistic tracker, int score);
+    CommonView<EndLevelObserver> showEndLevel(Language language, int progress, EntityStatistic tracker, int score);
 
     /**
      * 
@@ -57,7 +57,7 @@ public interface MainView {
      *          The language for translation.
      * @return the game over view to load.
      */
-    CommonView<GameOverController> showGameOver(Language language);
+    CommonView<GameOverObserver> showGameOver(Language language);
 
     /**
      * @param language
@@ -66,7 +66,7 @@ public interface MainView {
      *          The player score (at level end).
      * @return the end game view to load.
      */
-    CommonView<EndGameController> showEndGame(Language language, int score);
+    CommonView<EndGameObserver> showEndGame(Language language, int score);
 
     /**
      * Shows error.
@@ -85,7 +85,7 @@ public interface MainView {
      * @param quitControllerImpl
      *          The controller.
      */
-    void setObserver(MainViewObserver quitControllerImpl);
+    void setObserver(MainObserver quitControllerImpl);
 
     /**
      * Sets the number of levels.

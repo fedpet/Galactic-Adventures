@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.GameOverController;
+import it.unibo.oop17.ga_game.controller.GameOverObserver;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -16,7 +16,7 @@ public final class GameOverViewImpl implements GameOverScreen {
 
     private static final int BTN_SIZE = 384;
     private final Group view = new Group();
-    private GameOverController observer;
+    private GameOverObserver observer;
 
     /**
      * Constructor of GameOverView.
@@ -59,7 +59,7 @@ public final class GameOverViewImpl implements GameOverScreen {
     }
 
     @Override
-    public void setObserver(final GameOverController observer) {
+    public void setObserver(final GameOverObserver observer) {
         this.observer = observer;
     }
 
