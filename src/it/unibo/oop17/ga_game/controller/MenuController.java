@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.controller;
 /**
  * Main Menu controller interface.
  */
-public interface MenuObserver {
+public interface MenuController {
 
     /**
      * Starts new Game.

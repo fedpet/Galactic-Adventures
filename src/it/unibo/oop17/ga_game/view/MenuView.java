@@ -2,13 +2,13 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MenuWithOptionsController;
+import it.unibo.oop17.ga_game.controller.MenuWithOptionsObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 
 /**
  * Main Menu view interface.
  */
-public interface MenuView extends CommonView<MenuWithOptionsController> {
+public interface MenuView extends CommonView<MenuWithOptionsObserver> {
 
     /**
      * Updates the menu view.

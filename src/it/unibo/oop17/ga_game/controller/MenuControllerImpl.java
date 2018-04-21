@@ -12,7 +12,7 @@ import javafx.application.Platform;
 /**
  * Controls the Menu.
  */
-public final class MenuControllerImpl implements MenuWithOptionsController {
+public final class MenuControllerImpl implements MenuWithOptionsObserver {
 
     private final ConfigData data;
     private final MenuView view;

@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Map;
 
-import it.unibo.oop17.ga_game.controller.MenuWithOptionsController;
+import it.unibo.oop17.ga_game.controller.MenuWithOptionsObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -25,7 +25,7 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
     private static final String TEXT_OFF = "     ";
 
     private final Group menuView = new Group();
-    private MenuWithOptionsController observer;
+    private MenuWithOptionsObserver observer;
     private Volume musicVol;
     private Volume sfxVol;
     private Language language;
@@ -172,7 +172,7 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
     }
 
     @Override
-    public void setObserver(final MenuWithOptionsController observer) {
+    public void setObserver(final MenuWithOptionsObserver observer) {
         this.observer = observer;
     }
 
