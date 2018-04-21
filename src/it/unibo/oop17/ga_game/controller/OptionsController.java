@@ -38,16 +38,6 @@ public interface OptionsController {
     void setLanguage(Language language);
 
     /**
-     * Updates text with chosen language.
-     */
-    void updateLanguage();
-
-    /**
-     * Updates view.
-     */
-    void updateView();
-
-    /**
      * Sets Options to default.
      */
     void setDefaults();
