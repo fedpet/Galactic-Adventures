@@ -45,13 +45,13 @@ public final class MenuControllerImpl implements MenuWithOptionsController {
         zero.resetProgress();
         LoadSaveManager.saveGameData(zero);
         LoadSaveManager.saveConfigData(data);
-        controller.toGame();
+        controller.goToGame();
     }
 
     @Override
     public void continueGame() {
         LoadSaveManager.saveConfigData(data);
-        controller.toGame();
+        controller.goToGame();
     }
 
     @Override

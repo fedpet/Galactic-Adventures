@@ -17,7 +17,7 @@ public final class EndGameControllerImpl implements EndGameController {
 
     @Override
     public void toMainMenu() {
-        this.mainController.toMenu();
+        this.mainController.goToMenu();
     }
 
     @Override

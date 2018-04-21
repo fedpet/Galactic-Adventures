@@ -11,31 +11,29 @@ import it.unibo.oop17.ga_game.view.MainView;
 /**
  * Controls the application.
  */
-public final class MainControllerImpl implements MainController {
+public final class MainControllerImpl implements MainController, MainViewObserver {
 
+    private static final int LEVELS_NUM = 3; // Number of levels (counting from 0)
     private final MainView view;
     private ConfigData data;
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
     private EntityStatistic tracker;
-    private final int levelsNum;
 
     /**
      * Constructor of MainController.
      * @param view
      *          The view.
-     * @param levelsNum
-     *          Number of levels.
      */
-    public MainControllerImpl(final MainView view, final int levelsNum) {
+    public MainControllerImpl(final MainView view) {
         view.setObserver(this);
+        view.setLevelsNum(LEVELS_NUM);
         this.view = view;
-        this.levelsNum = levelsNum;
-        toMenu();
+        goToMenu();
     }
 
     @Override
-    public void toMenu() {
+    public void goToMenu() {
         data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         save = LoadSaveManager.checkGameDataExistenceThenLoad();
         stopGameController();
@@ -44,11 +42,11 @@ public final class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void toGame() {
+    public void goToGame() {
         data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         save = LoadSaveManager.checkGameDataExistenceThenLoad();
-        if (save.getLevelProgress() > levelsNum) {
-            toEndGame();
+        if (save.getLevelProgress() > LEVELS_NUM) {
+            goToEndGame();
         } else {
             activeGameController = Optional
                     .of(new GameControllerImpl(save, data, view.showGame(
@@ -57,7 +55,7 @@ public final class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void toEndLevel() {
+    public void goToEndLevel() {
         activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
         stopGameController();
         final int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
@@ -68,20 +66,20 @@ public final class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void toGameOver() {
+    public void goToGameOver() {
         stopGameController();
         new GameOverControllerImpl(view.showGameOver(data.getLanguage()), this);
     }
 
     @Override
-    public void toEndGame() {
+    public void goToEndGame() {
         data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         stopGameController();
         new EndGameControllerImpl(view.showEndGame(data.getLanguage(), save.getScore()), this);
     }
 
     @Override
-    public void toAlert(final String message) {
+    public void showAlert(final String message) {
         stopGameController();
         view.showError(message);
     }

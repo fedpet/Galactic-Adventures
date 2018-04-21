@@ -19,12 +19,12 @@ public final class EndLevelControllerImpl implements EndLevelController {
 
     @Override
     public void toMainMenu() {
-        mainController.toMenu();
+        mainController.goToMenu();
     }
 
     @Override
     public void toNextMap() {
-        mainController.toGame();
+        mainController.goToGame();
     }
 
 }

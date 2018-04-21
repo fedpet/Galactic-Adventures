@@ -27,7 +27,7 @@ class DoorEventListener implements EntityEventSubscriber {
      */
     @Subscribe
     public void endLevel(final FinishedLevelEvent e) {
-        this.mainController.toEndLevel();
+        this.mainController.goToEndLevel();
     }
 
 }

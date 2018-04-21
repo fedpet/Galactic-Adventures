@@ -28,7 +28,7 @@ private final MainController mainController;
     @Subscribe
     public void gameOver(final LifeEvent e) {
         if (e.isDead()) {
-            this.mainController.toGameOver();
+            this.mainController.goToGameOver();
         }
     }
 

@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.view;
 import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
-import it.unibo.oop17.ga_game.controller.MainControllerImpl;
+import it.unibo.oop17.ga_game.controller.MainViewObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 
@@ -82,8 +82,15 @@ public interface MainView {
 
     /**
      * Sets the observer.
-     * @param mainControllerImpl
+     * @param quitControllerImpl
      *          The controller.
      */
-    void setObserver(MainControllerImpl mainControllerImpl);
+    void setObserver(MainViewObserver quitControllerImpl);
+
+    /**
+     * Sets the number of levels.
+     * @param levelsNum
+     *          Number of levels.
+     */
+    void setLevelsNum(int levelsNum);
 }

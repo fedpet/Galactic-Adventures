@@ -17,12 +17,12 @@ public final class GameOverControllerImpl implements GameOverController {
 
     @Override
     public void toMainMenu() {
-        mainController.toMenu();
+        mainController.goToMenu();
     }
 
     @Override
     public void retry() {
-        mainController.toGame();
+        mainController.goToGame();
     }
 
     @Override

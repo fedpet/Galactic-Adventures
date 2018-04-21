@@ -8,37 +8,32 @@ public interface MainController {
     /**
      * Switches screen to main menu.
      */
-    void toMenu();
+    void goToMenu();
 
     /**
      * Switches screen to game play.
      */
-    void toGame();
+    void goToGame();
 
     /**
      * Switches screen to end level menu.
      */
-    void toEndLevel();
+    void goToEndLevel();
 
     /**
      * Switches screen to game over menu.
      */
-    void toGameOver();
+    void goToGameOver();
 
     /**
      * Switches screen to end game menu.
      */
-    void toEndGame();
+    void goToEndGame();
 
     /**
      * Shows error.
      * @param message
      *          Message to show.
      */
-    void toAlert(String message);
-
-    /**
-     * Quits.
-     */
-    void quit();
+    void showAlert(String message);
 }

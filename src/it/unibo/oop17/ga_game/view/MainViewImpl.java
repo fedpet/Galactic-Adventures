@@ -11,8 +11,7 @@ import java.util.Set;
 import it.unibo.oop17.ga_game.controller.EndGameController;
 import it.unibo.oop17.ga_game.controller.EndLevelController;
 import it.unibo.oop17.ga_game.controller.GameOverController;
-import it.unibo.oop17.ga_game.controller.MainController;
-import it.unibo.oop17.ga_game.controller.MainControllerImpl;
+import it.unibo.oop17.ga_game.controller.MainViewObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.application.Platform;
@@ -36,13 +35,12 @@ public final class MainViewImpl implements MainView {
     private static final int HEIGHT_C = 720;
     private static final Music MAINMENU_M = Music.TRACK1;
     private static final Music ENDLEVEL_M = Music.TRACK6;
-    private final int levelsNum;
-
     private final Stage stage;
     private final Group root = new Group();
     private final Scene scene = new Scene(root);
     private final Set<FXView> currentScreens = new HashSet<>(Arrays.asList(new EmptyScreen()));
-    private Optional<MainController> controller = Optional.empty();
+    private Optional<MainViewObserver> controller = Optional.empty();
+    private Optional<Integer> levelsNum = Optional.empty();
     private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
             Music.TRACK3,
@@ -66,12 +64,9 @@ public final class MainViewImpl implements MainView {
      *          Sound effect volume.
      *  @param musicVol
      *          Music volume.
-     *  @param levelsNum
-     *          Number of levels.
      */
-    public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol, final int levelsNum) {
+    public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol) {
         this.stage = stage;
-        this.levelsNum = levelsNum;
         stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
         stage.setResizable(false);
@@ -117,7 +112,7 @@ public final class MainViewImpl implements MainView {
     public GameWorldView showGame(final Volume musicVol, final Volume sfxVol, final int progress) {
         audioplayer.stopMusic();
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
-        if (progress <= levelsNum) {
+        if (progress <= levelsNum.get().intValue()) {
             audioplayer.playMusic(musics.get(progress).getPath());
         }
         return setScreen(new GameWorldViewImpl(playerInput, getScaleFactor(), audioplayer),
@@ -159,7 +154,12 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void setObserver(final MainControllerImpl mainControllerImpl) {
-        controller = Optional.of(mainControllerImpl);
+    public void setObserver(final MainViewObserver quitControllerImpl) {
+        controller = Optional.of(quitControllerImpl);
+    }
+
+    @Override
+    public void setLevelsNum(final int levelsNum) {
+        this.levelsNum = Optional.of(levelsNum);
     }
 }

@@ -10,8 +10,6 @@ import javafx.stage.Stage;
  */
 public final class Launcher extends Application {
 
-    private static final int LEVELS_NUM = 3; // Number of levels (counting from 0)
-
     /**
      * Entry point.
      * 
@@ -27,7 +25,7 @@ public final class Launcher extends Application {
      */
     public void start(final Stage stage) {
         final ConfigData data = LoadSaveManager.checkConfigDataExistenceThenLoad();
-        new MainControllerImpl(new MainViewImpl(stage, data.getMusicVol(), data.getMusicVol(), LEVELS_NUM), LEVELS_NUM);
+        new MainControllerImpl(new MainViewImpl(stage, data.getMusicVol(), data.getMusicVol()));
     }
 
 }
