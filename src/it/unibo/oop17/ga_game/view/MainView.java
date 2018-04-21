@@ -69,13 +69,6 @@ public interface MainView {
     CommonView<EndGameObserver> showEndGame(Language language, int score);
 
     /**
-     * Shows error.
-     * @param message
-     *          The message to show.
-     */
-    void showError(String message);
-
-    /**
      * Quits.
      */
     void quit();

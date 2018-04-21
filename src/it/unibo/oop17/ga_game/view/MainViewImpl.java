@@ -17,8 +17,6 @@ import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -117,11 +115,6 @@ public final class MainViewImpl implements MainView {
         }
         return setScreen(new GameWorldViewImpl(playerInput, getScaleFactor(), audioplayer),
                 new ImageView(new Image(backgrounds.get(progress).getPath())));
-    }
-
-    @Override
-    public void showError(final String message) {
-        new Alert(AlertType.ERROR, message).showAndWait();
     }
 
     @Override

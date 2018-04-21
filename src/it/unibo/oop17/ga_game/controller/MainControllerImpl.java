@@ -78,12 +78,6 @@ public final class MainControllerImpl implements MainController, MainObserver {
         new EndGameControllerImpl(view.showEndGame(data.getLanguage(), save.getScore()), this);
     }
 
-    @Override
-    public void showAlert(final String message) {
-        stopGameController();
-        view.showError(message);
-    }
-
     private void stopGameController() {
         activeGameController.ifPresent(game -> game.stop());
         activeGameController = Optional.empty();

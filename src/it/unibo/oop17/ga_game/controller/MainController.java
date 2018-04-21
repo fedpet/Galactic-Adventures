@@ -29,11 +29,4 @@ public interface MainController {
      * Switches screen to end game menu.
      */
     void goToEndGame();
-
-    /**
-     * Shows error.
-     * @param message
-     *          Message to show.
-     */
-    void showAlert(String message);
 }
