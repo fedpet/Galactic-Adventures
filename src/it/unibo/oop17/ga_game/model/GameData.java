@@ -41,13 +41,6 @@ public final class GameData implements GameDataInterface, java.io.Serializable {
     }
 
     /**
-     * Sets the next level progress.
-     */
-    public void nextLevelProgress() {
-        this.levelProgress++;
-    }
-
-    /**
      * Resets progress to zero.
      */
     public void resetProgress() {

@@ -12,7 +12,7 @@ public final class EndLevelControllerImpl implements EndLevelObserver {
 
     EndLevelControllerImpl(final GameData save, final CommonView<EndLevelObserver> view, final MainController mainController) {
         view.setObserver(this);
-        save.nextLevelProgress();
+        save.setLevelProgress(save.getLevelProgress() + 1);
         LoadSaveManager.saveGameData(save);
         this.mainController = mainController;
     }
