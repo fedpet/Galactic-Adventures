@@ -8,7 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a {@link Key} view.
+ * Models a view for keys.
  */
 public class KeyView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;

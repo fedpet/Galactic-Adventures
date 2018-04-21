@@ -8,7 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a {@link Lock} view.
+ * Models a lock view.
  */
 public class LockView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;

@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 /**
  * A bag of interfaces.
- * It works like a Map<Interface -> Implementation> where Interface is an extension of the Parent interface specified in
+ * It works like a Map from Interface to Implementation where Interface is a child of the Parent interface specified in
  * the generic type.
  * 
  * It is different from Guava's @ClassToInstanceMap as this works with interfaces only and we account for super
