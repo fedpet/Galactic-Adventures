@@ -13,17 +13,24 @@ import it.unibo.oop17.ga_game.view.MainView;
  */
 public final class MainControllerImpl implements MainController {
 
-    private static final int LEVELS_NUM = 7;
-
     private final MainView view;
     private ConfigData data;
     private GameData save;
     private Optional<GameController> activeGameController = Optional.empty();
     private EntityStatistic tracker;
+    private final int levelsNum;
 
-    MainControllerImpl(final MainView view) {
+    /**
+     * Constructor of MainController.
+     * @param view
+     *          The view.
+     * @param levelsNum
+     *          Number of levels.
+     */
+    public MainControllerImpl(final MainView view, final int levelsNum) {
         view.setObserver(this);
         this.view = view;
+        this.levelsNum = levelsNum;
         toMenu();
     }
 
@@ -40,7 +47,7 @@ public final class MainControllerImpl implements MainController {
     public void toGame() {
         data = LoadSaveManager.checkConfigDataExistenceThenLoad();
         save = LoadSaveManager.checkGameDataExistenceThenLoad();
-        if (save.getLevelProgress() > LEVELS_NUM) {
+        if (save.getLevelProgress() > levelsNum) {
             toEndGame();
         } else {
             activeGameController = Optional

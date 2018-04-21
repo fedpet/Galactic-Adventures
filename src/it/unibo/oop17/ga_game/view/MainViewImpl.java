@@ -36,7 +36,7 @@ public final class MainViewImpl implements MainView {
     private static final int HEIGHT_C = 720;
     private static final Music MAINMENU_M = Music.TRACK1;
     private static final Music ENDLEVEL_M = Music.TRACK6;
-    private static final int LEVELS_NUM = 7;
+    private final int levelsNum;
 
     private final Stage stage;
     private final Group root = new Group();
@@ -46,22 +46,16 @@ public final class MainViewImpl implements MainView {
     private AudioPlayer audioplayer;
     private final List<Music> musics = Arrays.asList(
             Music.TRACK3,
-            Music.TRACK2,
-            Music.TRACK4,
             Music.TRACK5,
-            Music.TRACK3,
-            Music.TRACK2,
             Music.TRACK4,
-            Music.TRACK5);
+            Music.TRACK2
+            );
     private final List<Background> backgrounds = Arrays.asList(
             Background.BG_GRASSLAND,
-            Background.BG_CASTLE,
-            Background.BG_DESERT,
             Background.BG_GRASSLAND,
             Background.BG_DESERT,
-            Background.BG_DESERT,
-            Background.BG_SHROOM,
-            Background.BG_CASTLE);
+            Background.BG_CASTLE
+            );
     private final PlayerKeyboardInput playerInput = new PlayerKeyboardInput(scene);
 
     /**
@@ -72,9 +66,12 @@ public final class MainViewImpl implements MainView {
      *          Sound effect volume.
      *  @param musicVol
      *          Music volume.
+     *  @param levelsNum
+     *          Number of levels.
      */
-    public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol) {
+    public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol, final int levelsNum) {
         this.stage = stage;
+        this.levelsNum = levelsNum;
         stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
         stage.setResizable(false);
@@ -120,7 +117,7 @@ public final class MainViewImpl implements MainView {
     public GameWorldView showGame(final Volume musicVol, final Volume sfxVol, final int progress) {
         audioplayer.stopMusic();
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
-        if (progress < LEVELS_NUM) {
+        if (progress <= levelsNum) {
             audioplayer.playMusic(musics.get(progress).getPath());
         }
         return setScreen(new GameWorldViewImpl(playerInput, getScaleFactor(), audioplayer),
