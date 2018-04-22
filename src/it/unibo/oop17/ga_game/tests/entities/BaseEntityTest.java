@@ -5,6 +5,7 @@ import java.util.function.Function;
 import org.junit.Before;
 
 import it.unibo.oop17.ga_game.model.GameWorld;
+import it.unibo.oop17.ga_game.model.GameWorldImpl;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
@@ -16,14 +17,14 @@ import javafx.geometry.Point2D;
  */
 public class BaseEntityTest {
     private static final double DELAY_PER_STEP = 1.0 / 60;
-    private GameWorld world = new GameWorld();
+    private GameWorld world = new GameWorldImpl();
 
     /**
      * Initializes world.
      */
     @Before
     public void setUp() {
-        world = new GameWorld();
+        world = new GameWorldImpl();
     }
 
     /**

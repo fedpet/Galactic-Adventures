@@ -16,6 +16,7 @@ import it.unibo.oop17.ga_game.model.ConfigData;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameWorld;
+import it.unibo.oop17.ga_game.model.GameWorldImpl;
 import it.unibo.oop17.ga_game.utils.ZipUtils;
 import it.unibo.oop17.ga_game.view.GameWorldView;
 import javafx.animation.AnimationTimer;
@@ -57,7 +58,7 @@ public final class GameControllerImpl implements GameController {
         this.data = data;
         this.view = view;
         this.mainController = mainController;
-        model = new GameWorld();
+        model = new GameWorldImpl();
         entities = new LinkedHashSet<>();
         whichLevel();
     }
