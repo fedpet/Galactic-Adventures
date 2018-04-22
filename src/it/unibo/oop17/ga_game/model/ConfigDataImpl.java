@@ -75,7 +75,9 @@ public final class ConfigDataImpl implements ConfigData {
         this.language = language;
     }
 
-    @Override
+    /**
+     * Resets options to defaults.
+     */
     public void defaultOptions() {
         musicVol = MUSICVOL_D;
         sfxVol = SFXVOL_D;

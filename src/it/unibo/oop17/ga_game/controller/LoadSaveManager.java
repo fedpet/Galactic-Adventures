@@ -52,7 +52,7 @@ public final class LoadSaveManager {
      */
     public static ConfigData checkConfigDataExistenceThenLoad() {
         final File file = new File(D_PATH);
-        ConfigData data = new ConfigDataImpl();
+        ConfigDataImpl data = new ConfigDataImpl();
         if (!file.exists()) {
             data.defaultOptions();
             LoadSaveManager.save(data, D_PATH);

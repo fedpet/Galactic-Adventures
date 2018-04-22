@@ -75,10 +75,10 @@ public interface MainView {
 
     /**
      * Sets the observer.
-     * @param quitControllerImpl
+     * @param observer
      *          The controller.
      */
-    void setObserver(MainObserver quitControllerImpl);
+    void setObserver(MainObserver observer);
 
     /**
      * Sets the number of levels.

@@ -147,8 +147,8 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public void setObserver(final MainObserver quitControllerImpl) {
-        controller = Optional.of(quitControllerImpl);
+    public void setObserver(final MainObserver observer) {
+        controller = Optional.of(observer);
     }
 
     @Override

@@ -28,9 +28,4 @@ public interface ConfigData extends java.io.Serializable {
      */
     Language getLanguage();
 
-    /**
-     * Resets options to defaults.
-     */
-    void defaultOptions();
-
 }
