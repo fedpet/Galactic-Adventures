@@ -40,7 +40,9 @@ public final class GameDataImpl implements GameData {
         this.levelProgress = progress;
     }
 
-    @Override
+    /**
+     * Resets progress to zero.
+     */
     public void resetProgress() {
         this.setScore(SCORE_I);
         this.setLevelProgress(PROGRESS_I);

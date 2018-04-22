@@ -70,7 +70,7 @@ public final class LoadSaveManager {
      */
     public static GameData checkGameDataExistenceThenLoad() {
         final File file = new File(S_PATH);
-        GameData save = new GameDataImpl();
+        GameDataImpl save = new GameDataImpl();
         if (!file.exists()) {
             save.resetProgress();
             LoadSaveManager.save(save, S_PATH);

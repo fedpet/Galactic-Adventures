@@ -42,7 +42,7 @@ public final class MenuControllerImpl implements MenuWithOptionsObserver {
 
     @Override
     public void newGame() {
-        final GameData zero = new GameDataImpl();
+        final GameDataImpl zero = new GameDataImpl();
         zero.resetProgress();
         LoadSaveManager.saveGameData(zero);
         LoadSaveManager.saveConfigData(data);

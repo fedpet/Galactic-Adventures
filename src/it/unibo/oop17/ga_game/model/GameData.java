@@ -15,9 +15,4 @@ public interface GameData extends java.io.Serializable {
      */
     int getLevelProgress();
 
-    /**
-     * Resets progress to zero.
-     */
-    void resetProgress();
-
 }
