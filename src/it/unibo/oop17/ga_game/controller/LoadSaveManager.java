@@ -9,7 +9,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.ConfigDataImpl;
 import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.model.GameDataImpl;
 
 /**
  * Loads and saves options and game progress.
@@ -50,12 +52,12 @@ public final class LoadSaveManager {
      */
     public static ConfigData checkConfigDataExistenceThenLoad() {
         final File file = new File(D_PATH);
-        ConfigData data = new ConfigData();
+        ConfigData data = new ConfigDataImpl();
         if (!file.exists()) {
             data.defaultOptions();
             LoadSaveManager.save(data, D_PATH);
         } else {
-            data = (ConfigData) LoadSaveManager.load(D_PATH);
+            data = (ConfigDataImpl) LoadSaveManager.load(D_PATH);
         }
         return data;
     }
@@ -68,12 +70,12 @@ public final class LoadSaveManager {
      */
     public static GameData checkGameDataExistenceThenLoad() {
         final File file = new File(S_PATH);
-        GameData save = new GameData();
+        GameData save = new GameDataImpl();
         if (!file.exists()) {
             save.resetProgress();
             LoadSaveManager.save(save, S_PATH);
         } else {
-            save = (GameData) LoadSaveManager.load(S_PATH);
+            save = (GameDataImpl) LoadSaveManager.load(S_PATH);
         }
         return save;
     }

@@ -1,52 +1,23 @@
 package it.unibo.oop17.ga_game.model;
 
 /**
- * Game data as object.
+ * Interface of game data.
  */
-public final class GameData implements GameDataInterface, java.io.Serializable {
-
-    private static final long serialVersionUID = 3425851307309697377L;
-    private static final int SCORE_I = 0;
-    private static final int PROGRESS_I = 0;
-
-    private int score;
-    private int levelProgress;
-
-    @Override
-    public int getScore() {
-        return this.score;
-    }
-
-    @Override
-    public int getLevelProgress() {
-        return this.levelProgress;
-    }
+public interface GameData extends java.io.Serializable {
 
     /**
-     * Sets the score.
-     * @param score
-     *          Score to set.
+     * @return total score.
      */
-    public void setScore(final int score) {
-        this.score = score;
-    }
+    int getScore();
 
     /**
-     * Sets the progress.
-     * @param progress
-     *          Progress to set.
+     * @return last level completed.
      */
-    public void setLevelProgress(final int progress) {
-        this.levelProgress = progress;
-    }
+    int getLevelProgress();
 
     /**
      * Resets progress to zero.
      */
-    public void resetProgress() {
-        this.setScore(SCORE_I);
-        this.setLevelProgress(PROGRESS_I);
-    }
+    void resetProgress();
 
 }
-

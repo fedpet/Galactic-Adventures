@@ -2,10 +2,10 @@ package it.unibo.oop17.ga_game.controller;
 
 import java.util.Optional;
 
-import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.ConfigDataImpl;
 import it.unibo.oop17.ga_game.model.DifficultyBasedScoreCalculator;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
-import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.model.GameDataImpl;
 import it.unibo.oop17.ga_game.view.MainView;
 
 /**
@@ -15,8 +15,8 @@ public final class MainControllerImpl implements MainController, MainObserver {
 
     private static final int LEVELS_NUM = 3; // Number of levels (counting from 0)
     private final MainView view;
-    private ConfigData data;
-    private GameData save;
+    private ConfigDataImpl data;
+    private GameDataImpl save;
     private Optional<GameController> activeGameController = Optional.empty();
     private EntityStatistic tracker;
 
@@ -34,8 +34,8 @@ public final class MainControllerImpl implements MainController, MainObserver {
 
     @Override
     public void goToMenu() {
-        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
-        save = LoadSaveManager.checkGameDataExistenceThenLoad();
+        data = (ConfigDataImpl) LoadSaveManager.checkConfigDataExistenceThenLoad();
+        save = (GameDataImpl) LoadSaveManager.checkGameDataExistenceThenLoad();
         stopGameController();
         new MenuControllerImpl(data, save, view.showMenu(
                 data.getMusicVol(), data.getSFXVol(), data.getLanguage(), data.getDifficulty()), this);
@@ -43,8 +43,8 @@ public final class MainControllerImpl implements MainController, MainObserver {
 
     @Override
     public void goToGame() {
-        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
-        save = LoadSaveManager.checkGameDataExistenceThenLoad();
+        data = (ConfigDataImpl) LoadSaveManager.checkConfigDataExistenceThenLoad();
+        save = (GameDataImpl) LoadSaveManager.checkGameDataExistenceThenLoad();
         if (save.getLevelProgress() > LEVELS_NUM) {
             goToEndGame();
         } else {
@@ -73,7 +73,7 @@ public final class MainControllerImpl implements MainController, MainObserver {
 
     @Override
     public void goToEndGame() {
-        data = LoadSaveManager.checkConfigDataExistenceThenLoad();
+        data = (ConfigDataImpl) LoadSaveManager.checkConfigDataExistenceThenLoad();
         stopGameController();
         new EndGameControllerImpl(view.showEndGame(data.getLanguage(), save.getScore()), this);
     }

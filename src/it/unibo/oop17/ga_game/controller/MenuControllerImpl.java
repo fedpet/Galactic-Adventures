@@ -1,8 +1,9 @@
 package it.unibo.oop17.ga_game.controller;
 
-import it.unibo.oop17.ga_game.model.ConfigData;
+import it.unibo.oop17.ga_game.model.ConfigDataImpl;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.GameData;
+import it.unibo.oop17.ga_game.model.GameDataImpl;
 import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
 import it.unibo.oop17.ga_game.view.MenuView;
@@ -14,7 +15,7 @@ import javafx.application.Platform;
  */
 public final class MenuControllerImpl implements MenuWithOptionsObserver {
 
-    private final ConfigData data;
+    private final ConfigDataImpl data;
     private final MenuView view;
     private final MainController controller;
 
@@ -29,7 +30,7 @@ public final class MenuControllerImpl implements MenuWithOptionsObserver {
      * @param controller
      *          The main controller.
      */
-    public MenuControllerImpl(final ConfigData data, final GameData save, final MenuView view, final MainController controller) {
+    public MenuControllerImpl(final ConfigDataImpl data, final GameData save, final MenuView view, final MainController controller) {
 
         this.data = data;
         this.controller = controller;
@@ -41,7 +42,7 @@ public final class MenuControllerImpl implements MenuWithOptionsObserver {
 
     @Override
     public void newGame() {
-        final GameData zero = new GameData();
+        final GameData zero = new GameDataImpl();
         zero.resetProgress();
         LoadSaveManager.saveGameData(zero);
         LoadSaveManager.saveConfigData(data);
