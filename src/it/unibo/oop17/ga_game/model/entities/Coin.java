@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
  * Models a coin entity that the player can collect.
  */
 public class Coin extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
+    private static final Dimension2D SIZE = new Dimension2D(1, 1);
 
     /**
      * 

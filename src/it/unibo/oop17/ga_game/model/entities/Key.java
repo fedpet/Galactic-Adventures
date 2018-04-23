@@ -10,7 +10,7 @@ import javafx.geometry.Point2D;
  * Models a key entity that the player can collect; it can be used to make disappear the locks with the same type.
  */
 public class Key extends AbstractEntity {
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 0.8);
+    private static final Dimension2D SIZE = new Dimension2D(1, 1);
 
     /**
      * 
