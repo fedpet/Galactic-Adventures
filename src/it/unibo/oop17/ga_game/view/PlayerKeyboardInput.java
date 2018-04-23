@@ -2,6 +2,9 @@ package it.unibo.oop17.ga_game.view;
 
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.D;
+import static javafx.scene.input.KeyCode.LEFT;
+import static javafx.scene.input.KeyCode.RIGHT;
+import static javafx.scene.input.KeyCode.UP;
 import static javafx.scene.input.KeyCode.W;
 
 import java.util.HashSet;
@@ -63,13 +66,13 @@ public final class PlayerKeyboardInput {
 
     private Point2D computeDirection() {
         Point2D direction = Point2D.ZERO;
-        if (pressedKeys.contains(D)) {
+        if (pressedKeys.contains(D) || pressedKeys.contains(RIGHT)) {
             direction = direction.add(1, 0);
         }
-        if (pressedKeys.contains(A)) {
+        if (pressedKeys.contains(A) || pressedKeys.contains(LEFT)) {
             direction = direction.add(-1, 0);
         }
-        if (pressedKeys.contains(W)) {
+        if (pressedKeys.contains(W) || pressedKeys.contains(UP)) {
             direction = direction.add(0, 1);
         }
         return direction;
