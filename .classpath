@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/jaxb-jxc.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-xjc.jar"/>
 	<classpathentry kind="lib" path="lib/libtiled-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
