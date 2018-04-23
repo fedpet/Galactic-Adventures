@@ -21,7 +21,7 @@ import javafx.geometry.Side;
  */
 public class FlyingEnemy extends AbstractEntity {
     private static final int DEFAULT_LIFE = 2;
-    private static final Dimension2D SIZE = new Dimension2D(0.8, 1.5);
+    private static final Dimension2D SIZE = new Dimension2D(1, 1.5);
     private static final double ATTACK_KNOCKBACK = 30;
     private static final double FLYING_SPEED = 5;
 
