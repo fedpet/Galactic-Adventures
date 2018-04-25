@@ -69,8 +69,8 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
-    public EntityStatistic getTracker() {
-        return loader.getTracker();
+    public EntityStatistic getPlayerStatistic() {
+        return loader.getPlayerStatistic();
     }
 
     private void whichLevel() {

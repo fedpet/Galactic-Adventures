@@ -43,7 +43,7 @@ public class LoadLanguage {
      *          The language to load.
      *  @return the translation.
      */
-    public Map<WordText, String> getCurrLang(final Language lang) {
+    public final Map<WordText, String> getCurrLang(final Language lang) {
         return this.languages.get(lang);
     }
 

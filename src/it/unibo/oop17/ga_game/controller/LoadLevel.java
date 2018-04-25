@@ -35,6 +35,6 @@ public interface LoadLevel {
     /**
      * @return the player tracker.
      */
-    EntityStatistic getTracker();
+    EntityStatistic getPlayerStatistic();
 
 }

@@ -259,7 +259,7 @@ public final class LoadLevelImpl implements LoadLevel {
     }
 
     @Override
-    public EntityStatistic getTracker() {
+    public EntityStatistic getPlayerStatistic() {
         return tracker;
     }
 }
