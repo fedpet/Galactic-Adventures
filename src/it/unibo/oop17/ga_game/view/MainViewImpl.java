@@ -97,7 +97,7 @@ public final class MainViewImpl implements MainView {
     }
 
     @Override
-    public MenuView showMenu(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
+    public MenuScreen showMenu(final Volume musicVol, final Volume sfxVol, final Language language, final Difficulty difficulty) {
         audioplayer.stopMusic();
         audioplayer.playMusic(MAINMENU_M.getPath());
         final List<Background> list = Collections.unmodifiableList(Arrays.asList(Background.values()));

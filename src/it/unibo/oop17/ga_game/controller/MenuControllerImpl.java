@@ -6,7 +6,7 @@ import it.unibo.oop17.ga_game.model.GameData;
 import it.unibo.oop17.ga_game.model.GameDataImpl;
 import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
-import it.unibo.oop17.ga_game.view.MenuView;
+import it.unibo.oop17.ga_game.view.MenuScreen;
 import it.unibo.oop17.ga_game.view.Volume;
 import javafx.application.Platform;
 
@@ -16,7 +16,7 @@ import javafx.application.Platform;
 public final class MenuControllerImpl implements MenuWithOptionsObserver {
 
     private final ConfigDataImpl data;
-    private final MenuView view;
+    private final MenuScreen view;
     private final MainController controller;
 
     /**
@@ -30,7 +30,7 @@ public final class MenuControllerImpl implements MenuWithOptionsObserver {
      * @param controller
      *          The main controller.
      */
-    public MenuControllerImpl(final ConfigDataImpl data, final GameData save, final MenuView view, final MainController controller) {
+    public MenuControllerImpl(final ConfigDataImpl data, final GameData save, final MenuScreen view, final MainController controller) {
 
         this.data = data;
         this.controller = controller;

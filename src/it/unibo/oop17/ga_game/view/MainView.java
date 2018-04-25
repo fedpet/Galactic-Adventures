@@ -35,7 +35,7 @@ public interface MainView {
      *          The current difficulty.
      * @return the menu view to load.
      */
-    MenuView showMenu(Volume musicVol, Volume sfxVol, Language language, Difficulty difficulty);
+    MenuScreen showMenu(Volume musicVol, Volume sfxVol, Language language, Difficulty difficulty);
 
     /**
      * 
