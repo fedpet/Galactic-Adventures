@@ -43,13 +43,13 @@ public interface MainView {
      *          The language for translation.
      * @param progress
      *          The current progress.
-     * @param tracker
-     *          The player tracker (at level end).
+     * @param statistic
+     *          The player statistic (at level end).
      * @param score
      *          The player score (at level end).
      * @return the end level view to load.
      */
-    CommonView<EndLevelObserver> showEndLevel(Language language, int progress, EntityStatistic tracker, int score);
+    CommonView<EndLevelObserver> showEndLevel(Language language, int progress, EntityStatistic statistic, int score);
 
     /**
      * 
