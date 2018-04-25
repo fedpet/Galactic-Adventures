@@ -30,7 +30,7 @@ public final class PlatformBrain extends AbstractBrain {
      * @param passenger
      *            The @EntityBody sitting on the platform
      */
-    protected void takeCareOfPassenger(final EntityBody passenger) {
+    private void takeCareOfPassenger(final EntityBody passenger) {
         final Point2D myVelocity = getEntity().getBody().getLinearVelocity();
         Point2D correction = myVelocity.subtract(passenger.getLinearVelocity());
         if (correction.getY() > 0) {

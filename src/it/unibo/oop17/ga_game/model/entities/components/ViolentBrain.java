@@ -1,5 +1,6 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
+import it.unibo.oop17.ga_game.model.entities.Entity;
 import javafx.geometry.Point2D;
 
 /**
@@ -25,10 +26,14 @@ public class ViolentBrain extends AbstractBrain {
     protected void handleContact(final EntityBody other) {
         other.getOwner().ifPresent(otherEntity -> {
             if (hate(otherEntity)) {
-                getEntity().get(Weapon.class).ifPresent(weapon -> {
-                    weapon.use(relativePosition(otherEntity.getBody()));
-                });
+                attack(otherEntity);
             }
+        });
+    }
+
+    private void attack(final Entity other) {
+        getEntity().get(Weapon.class).ifPresent(weapon -> {
+            weapon.use(relativePosition(other.getBody()));
         });
     }
 
