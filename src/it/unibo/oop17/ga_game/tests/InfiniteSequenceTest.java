@@ -11,13 +11,13 @@ import org.junit.Test;
 import it.unibo.oop17.ga_game.utils.InfiniteSequence;
 
 /**
- * Tests @InfiniteSequence static factories.
+ * Tests {@link InfinitySequence} objects static factories.
  */
 public class InfiniteSequenceTest {
     private static final int NUM_ITERATIONS = 10;
 
     /**
-     * Tests InfiniteSequence.backAndForth.
+     * Tests {@link InfiniteSequence#backAndForth}.
      * It must not have duplicates.
      */
     @Test
@@ -28,7 +28,7 @@ public class InfiniteSequenceTest {
     }
 
     /**
-     * Tests InfiniteSequence.repeat.
+     * Tests {@link InfiniteSequence#repeat}.
      */
     @Test
     public void testRepeat() {

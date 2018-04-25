@@ -4,7 +4,7 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import javafx.geometry.Point2D;
 
 /**
- * Models a @BodyContact.
+ * Models a {@link BodyContact} object.
  */
 public final class BodyContactImpl implements BodyContact {
     private final EntityBody other;
@@ -13,7 +13,7 @@ public final class BodyContactImpl implements BodyContact {
     /**
      * 
      * @param other
-     *            The other @EntityBody
+     *            The other {@link EntityBody} object.
      * @param point
      *            The middle point.
      */

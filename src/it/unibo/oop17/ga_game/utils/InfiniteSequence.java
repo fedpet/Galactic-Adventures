@@ -40,7 +40,7 @@ public interface InfiniteSequence<T> extends Supplier<T> {
      * Generates an infinite sequence restarting from the beginning as soon as the end is reached.
      * 
      * @param iterable
-     *            the @Iterable from which to generate the sequence
+     *            the {@link Iterable} object from which to generate the sequence
      * @param <T>
      *            Iterable of T
      * @return A sequence repeating the iterable.

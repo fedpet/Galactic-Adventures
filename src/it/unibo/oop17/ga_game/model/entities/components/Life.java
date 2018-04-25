@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 /**
- * Models @Entity life as a counter of health points (int number).
+ * Models an entity life as a counter of health points (int number).
  */
 public interface Life extends EntityComponent {
     /**

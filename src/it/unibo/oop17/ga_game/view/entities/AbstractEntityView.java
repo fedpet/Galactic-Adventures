@@ -7,7 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
 /**
- * Base class for @EntityView.
+ * Base class for {@link EntityView}.
  */
 public abstract class AbstractEntityView implements EntityView {
 
@@ -17,7 +17,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     /**
      * @param group
-     *            The @Group in which the entity view is added.
+     *            The {@link Group} instance in which the entity view is added.
      * @param dimension
      *            The entity view dimension.
      */
@@ -61,7 +61,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     /**
      * 
-     * @return the dimension.
+     * @return the related {@link Dimension2D} instance.
      */
     protected Dimension2D getDimension() {
         return dimension;
@@ -69,7 +69,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     /**
      * 
-     * @return the @ImageView.
+     * @return the related {@link ImageView} instance.
      */
     protected ImageView getView() {
         return view;
@@ -77,7 +77,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     /**
      * 
-     * @return the belonging @Group.
+     * @return the belonging {@link Group} instance.
      */
     protected Group getParentView() {
         return parentView;

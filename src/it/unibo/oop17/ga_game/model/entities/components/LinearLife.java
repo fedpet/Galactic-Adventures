@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 /**
- * Standard @Life.
+ * Standard {@link Life}.
  */
 public class LinearLife extends AbstractLife {
 

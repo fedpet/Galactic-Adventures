@@ -4,15 +4,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.model.entities.events.InventoryChangedEvent;
 
 /**
- * Basic implementation of @Inventory.
- * It generates a @InventoryChangedEvent on change.
+ * Basic implementation of {@link Inventory}.
+ * It generates a {@link InventoryChangedEvent instance} on change.
  */
 public final class InventoryImpl extends AbstractEntityComponent implements Inventory {
-    private final Set<KeyLockType> keys = new HashSet<>();
+    private final Set<KeyType> keys = new HashSet<>();
     private int money;
 
     @Override
@@ -27,13 +27,13 @@ public final class InventoryImpl extends AbstractEntityComponent implements Inve
     }
 
     @Override
-    public void add(final KeyLockType key) {
+    public void add(final KeyType key) {
         keys.add(key);
         notifyChange();
     }
 
     @Override
-    public Set<KeyLockType> getKeysBunch() {
+    public Set<KeyType> getKeysBunch() {
         return Collections.unmodifiableSet(keys);
     }
 

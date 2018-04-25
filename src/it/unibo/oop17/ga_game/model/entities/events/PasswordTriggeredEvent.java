@@ -12,7 +12,7 @@ public class PasswordTriggeredEvent extends TriggeredEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      * @param password
      *            the relative password
      */

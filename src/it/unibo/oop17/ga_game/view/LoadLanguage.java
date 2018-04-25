@@ -18,11 +18,11 @@ public class LoadLanguage {
      *  Constructor for LoadLanguage.
      */
     public LoadLanguage() {
-        this.languages = new HashMap<Language, Map<WordText, String>>();
+        this.languages = new HashMap<>();
         for (final Language l : Language.values()) {
             try {
                 this.languages.put(l, loadLanguage(l));
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new IllegalArgumentException("Language resource does not exits or it's not valid");
             }
         }
@@ -38,10 +38,11 @@ public class LoadLanguage {
     }
 
     /**
-     *  Return only the given language.
-     *  @param lang
-     *          The language to load.
-     *  @return the translation.
+     * Return only the given language.
+     * 
+     * @param lang
+     *            The language to load.
+     * @return the translation map.
      */
     public final Map<WordText, String> getCurrLang(final Language lang) {
         return this.languages.get(lang);

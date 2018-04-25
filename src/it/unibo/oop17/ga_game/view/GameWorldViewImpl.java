@@ -25,12 +25,13 @@ public final class GameWorldViewImpl implements GameWorldScreen {
 
     /**
      * Constructor of GameWorldView.
+     * 
      * @param input
-     *          The player input.
+     *            The related player input.
      * @param scaleFactor
-     *          The scale factor.
+     *            The scale factor.
      * @param audioplayer
-     *          The audio player.
+     *            The related audio player.
      */
     public GameWorldViewImpl(final PlayerKeyboardInput input, final double scaleFactor, final AudioPlayer audioplayer) {
         this.audioplayer = audioplayer;

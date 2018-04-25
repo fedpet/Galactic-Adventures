@@ -8,7 +8,7 @@ import javafx.scene.Node;
 public interface FXView {
 
     /**
-     * @return the screen's node.
+     * @return the screen's related node.
      */
     Node getNode();
 

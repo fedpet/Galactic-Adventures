@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Empty Screen.
+ * Empty screen interface.
  */
 public final class EmptyScreen implements FXView {
     private final Rectangle node = new Rectangle();

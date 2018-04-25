@@ -5,20 +5,20 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Builder for @EntityBody.
+ * Builder for {@link EntityBody}.
  */
 public interface BodyBuilder {
     /**
      * @param position
      *            The position of the center of the body
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder position(Point2D position);
 
     /**
      * @param size
      *            Size of the body bounding box.
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder size(Dimension2D size);
 
@@ -31,7 +31,7 @@ public interface BodyBuilder {
      * 
      * @param opt
      *            Set to false to disable forces for this body.
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder subjectToForces(boolean opt);
 
@@ -40,7 +40,7 @@ public interface BodyBuilder {
      * 
      * @param isSolid
      *            A non-solid body can pass through other bodies and vice-versa.
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder solid(boolean isSolid);
 
@@ -49,19 +49,19 @@ public interface BodyBuilder {
      * 
      * @param moveable
      *            If false the body won't move from its position.
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder moveable(boolean moveable);
 
     /**
      * @param friction
      *            The friction applied during contact with other bodies.
-     * @return The BodyBuilder
+     * @return The {@link BodyBuilder} instance.
      */
     BodyBuilder friction(double friction);
 
     /**
-     * @return The built @EntityBody.
+     * @return The built {@link EntityBody} instance.
      */
     EntityBody build();
 }

@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
 /**
- * A PlatformBrain takes care of passengers safety.
+ * A platform brain takes care of passengers safety.
  */
 public final class PlatformBrain extends AbstractBrain {
 
@@ -28,7 +28,7 @@ public final class PlatformBrain extends AbstractBrain {
      * adjust passengers velocity so they don't fall of the platform.
      * 
      * @param passenger
-     *            The @EntityBody sitting on the platform
+     *            The {@link EntityBody} object sitting on the platform
      */
     private void takeCareOfPassenger(final EntityBody passenger) {
         final Point2D myVelocity = getEntity().getBody().getLinearVelocity();

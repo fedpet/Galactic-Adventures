@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view;
 
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 
 /**
  *  Interface for controlling the heads-up display.
@@ -30,7 +30,7 @@ public interface HudView {
      * @param keys
      *            Set of collected keys
      */
-    void setKeys(Set<KeyLockType> keys);
+    void setKeys(Set<KeyType> keys);
 
     /**
      * Set amount of money.

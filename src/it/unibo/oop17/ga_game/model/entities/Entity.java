@@ -7,11 +7,11 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityComponent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 
 /**
- * Models a generic Entity in our game.
+ * Models a generic entity in our game.
  */
 public interface Entity {
     /**
-     * @return the @EntityBody
+     * @return the related {@link EntityBody} object.
      */
     EntityBody getBody();
 
@@ -36,7 +36,7 @@ public interface Entity {
     void remove(EntityComponent component);
 
     /**
-     * Adds a @EntityComponent to the entity.
+     * Adds a {@link EntityComponent} object to the entity.
      * 
      * @param component
      *            The component to add
@@ -57,7 +57,7 @@ public interface Entity {
     void destroy();
 
     /**
-     * Registers a listener for @EntityEvent.
+     * Registers a listener for {@link EntityEvent} objects.
      * 
      * @param listener
      *            the listener
@@ -65,7 +65,7 @@ public interface Entity {
     void register(EntityEventSubscriber listener);
 
     /**
-     * Unregisters the listener for @EntityEvent.
+     * Unregisters the listener for {@link EntityEvent} objects.
      * 
      * @param listener
      *            the listener

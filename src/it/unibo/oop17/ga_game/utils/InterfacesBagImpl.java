@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import com.google.common.reflect.TypeToken;
 
 /**
- * Base implementation of @InterfacesBag.
+ * Base implementation of {@link InterfacesBag}.
  * 
  * @param <T>
  *            Elements super type.

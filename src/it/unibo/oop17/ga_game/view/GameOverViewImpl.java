@@ -20,12 +20,13 @@ public final class GameOverViewImpl implements GameOverScreen {
 
     /**
      * Constructor of GameOverView.
+     * 
      * @param stage
-     *          The stage.
+     *            The related stage.
      * @param currLang
-     *          The current language for text.
+     *            The current language for text.
      * @param audioplayer
-     *          The audio player.
+     *            The related audio player.
      */
     public GameOverViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer) {
 

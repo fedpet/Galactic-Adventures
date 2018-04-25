@@ -1,20 +1,20 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 
 /**
- * A @Brain that destroys the attached @Entity when an @Entity with a @Inventory
+ * Models a {@link Brain} object that destroys the attached entity when an entity with a inventory
  * containing a Key of the same type collides with it.
  */
 public class LockBrain extends AbstractBrain {
 
-    private final KeyLockType type;
+    private final KeyType type;
 
     /**
      * @param type
-     *            Its @KeyLockType.
+     *            The related key type.
      */
-    public LockBrain(final KeyLockType type) {
+    public LockBrain(final KeyType type) {
         super(EntityPersonality.NONE);
         this.type = type;
     }

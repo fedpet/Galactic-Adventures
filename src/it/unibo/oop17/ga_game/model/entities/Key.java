@@ -1,6 +1,5 @@
 package it.unibo.oop17.ga_game.model.entities;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.entities.components.PickupableBrain;
 import it.unibo.oop17.ga_game.model.physics.BodyBuilder;
 import javafx.geometry.Dimension2D;
@@ -15,14 +14,14 @@ public class Key extends AbstractEntity {
     /**
      * 
      * @param bodyBuilder
-     *            the @BodyBuilder.
+     *            the related {@link BodyBuilder} object.
      * @param position
      *            Its position (relative to its center).
      * @param type
      *            Its key type (RED, BLUE, YELLOW or GREEN).
      */
     public Key(final BodyBuilder bodyBuilder, final Point2D position,
-            final KeyLockType type) {
+            final KeyType type) {
         super(bodyBuilder
                 .position(position)
                 .size(SIZE)

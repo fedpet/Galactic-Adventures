@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Models a @SlimeEnemy view.
+ * Models a view for a slime enemy.
  */
 public final class SlimeEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 106, HEIGHT = 64;
@@ -17,9 +17,9 @@ public final class SlimeEnemyView extends AbstractLivingEntityView {
 
     /**
      * @param group
-     *            The @Group in which the player view is added.
+     *            The {@link Group} instance in which the player view is added.
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public SlimeEnemyView(final Group group, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT), audioplayer);

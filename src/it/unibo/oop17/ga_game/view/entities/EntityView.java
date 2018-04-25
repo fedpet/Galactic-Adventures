@@ -4,7 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Models a generic view for entities.
+ * Generic entity view interface.
  */
 public interface EntityView {
 

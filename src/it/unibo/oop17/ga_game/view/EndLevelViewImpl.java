@@ -32,16 +32,17 @@ public final class EndLevelViewImpl implements EndLevelScreen {
 
     /**
      * Constructor of EndLevelView.
+     * 
      * @param stage
-     *          The stage.
+     *            The related stage.
      * @param currLang
-     *          Current language for text.
+     *            The current language for text.
      * @param audioplayer
-     *          The audio player.
+     *            The related audio player.
      * @param statistic
-     *          The player statistics.
+     *            The player statistics.
      * @param score
-     *          The player score.
+     *            The player score.
      */
     public EndLevelViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer,
             final EntityStatistic statistic, final int score) {

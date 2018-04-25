@@ -4,7 +4,7 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 
 /**
- * Models an @EntityEvent reagrding its @Life.
+ * Models an entity event regarding its life.
  */
 public class LifeEvent extends AbstractEntityEvent {
     private final Life life;
@@ -13,9 +13,9 @@ public class LifeEvent extends AbstractEntityEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      * @param life
-     *            The @Life
+     *            The related {@link Life} object.
      * @param changeAmount
      *            The change in its health points.
      */

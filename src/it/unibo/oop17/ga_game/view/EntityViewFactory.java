@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.view.entities.CoinType;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
@@ -56,17 +56,17 @@ public interface EntityViewFactory {
 
     /**
      * @param type
-     *          The type of lock.
+     *            The type of key associated to the lock.
      * @return a lock.
      */
-    LifelessEntityView createLock(KeyLockType type);
+    LifelessEntityView createLock(KeyType type);
 
     /**
      * @param type
      *          The type of key.
      * @return a key.
      */
-    LifelessEntityView createKey(KeyLockType type);
+    LifelessEntityView createKey(KeyType type);
 
     /**
      * @return a spike block.

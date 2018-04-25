@@ -29,7 +29,7 @@ public final class MeleeWeapon extends AbstractEntityComponent implements Weapon
      * @param otherKnockback
      *            The knockback force applied to the entity hit.
      * @param canUseToward
-     *            A strategy to evaluate if a @Side relative to the owner's body can be hit.
+     *            A strategy to evaluate if a side relative to the owner's body can be hit.
      */
     public MeleeWeapon(final int damage, final double selfKnockback, final double otherKnockback,
             final Predicate<Side> canUseToward) {

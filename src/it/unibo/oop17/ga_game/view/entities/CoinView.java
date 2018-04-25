@@ -7,7 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a @Coin view.
+ * Models a view for a coin.
  */
 public class CoinView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
@@ -18,11 +18,11 @@ public class CoinView extends AbstractEntityView implements LifelessEntityView {
 
     /**
      * @param group
-     *            The @Group in which the coin view is added.
+     *            The {@link Group} instance in which the coin view is added.
      * @param type
      *            The coin type to represent (BRONZE, SILVER or GOLD).
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public CoinView(final Group group, final CoinType type, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));

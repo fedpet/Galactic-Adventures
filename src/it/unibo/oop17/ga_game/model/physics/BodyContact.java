@@ -9,13 +9,13 @@ import javafx.geometry.Point2D;
 public interface BodyContact {
     /**
      * 
-     * @return The other @EntityBody involved in this collision.
+     * @return The other {@link EntityBody} object involved in this collision.
      */
     EntityBody getOtherBody();
 
     /**
      * 
-     * @return An aproximate Point in the middle of the colliding sides.
+     * @return An aproximate point in the middle of the colliding sides.
      */
     Point2D getPoint();
 

@@ -11,7 +11,7 @@ public class FinishedLevelEvent extends AbstractEntityEvent {
      * Generated when a game level is completed.
      * 
      * @param source
-     *            The @Entity that reaches the end of the level.
+     *            The entity that reaches the end of the level.
      */
     public FinishedLevelEvent(final Entity source) {
         super(source);

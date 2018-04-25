@@ -24,12 +24,12 @@ public interface GameWorld {
 
     /**
      * Spawns an entity.
-     * The entity's body must be built with the given @BodyBuilder.
+     * The entity's body must be built with the given {@link BodyBuilder} object.
      * 
      * @param <E>
      *            The type of the entity to spawn.
      * @param spawner
-     *            A function making an @Entity with the provided @BodyBuilder and returning it
+     *            A function making an {@link Entity} with the provided {@link BodyBuilder} object and returning it
      * @return The spawned entity.
      */
     <E extends Entity> E spawnEntity(Function<BodyBuilder, E> spawner);

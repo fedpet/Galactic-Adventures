@@ -27,7 +27,7 @@ public final class PlayerKeyboardInput {
 
     /**
      * @param scene
-     *            The @Scene from which to capture key presses.
+     *            The scene from which to capture key presses.
      */
     public PlayerKeyboardInput(final Scene scene) {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, this::onKeyEvent);
@@ -35,7 +35,7 @@ public final class PlayerKeyboardInput {
     }
 
     /**
-     * Sets a @PlayerInputListener.
+     * Sets a {@link PlayerInputListener} instance.
      * 
      * @param listener
      *            The listener

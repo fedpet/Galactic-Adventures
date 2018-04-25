@@ -4,7 +4,7 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.components.Life;
 
 /**
- * An event used when an @Entity hits another one with a @Weapon.
+ * An event used when an entity hits another one with a weapon.
  */
 public class HitEvent extends AbstractEntityEvent {
     private final Entity target;

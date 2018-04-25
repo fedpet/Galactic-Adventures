@@ -15,18 +15,18 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 
 /**
- * It keeps track of entities' @Triggerable objects in the @GameWorld and it triggers them at
- * a @PasswordTriggeredEvent.
+ * It keeps track of entities' triggerable component in the game world and it triggers them at
+ * a {@link PasswordTriggeredEvent} object reception.
  */
 public class TriggerLinker {
     private final Map<String, Set<Triggerable>> map = new HashMap<>();
     private final MyTriggerListener listener = new MyTriggerListener();
 
     /**
-     * It starts to keep track of an @Entity and stores its eventual @Triggerable component.
+     * It starts to keep track of an entity and stores its eventual triggerable component.
      * 
      * @param entity
-     *            The @Entity to keep track of.
+     *            The entity to keep track of.
      */
     public void track(final Entity entity) {
         entity.register(listener);
@@ -39,10 +39,10 @@ public class TriggerLinker {
     }
 
     /**
-     * It stops to keep track of an @Entity and removes from the storage its eventual @Triggerable component.
+     * It stops to keep track of an entity and removes from the storage its eventual triggerable component.
      * 
      * @param entity
-     *            The @Entity to stop to keep track of.
+     *            The entity to stop to keep track of.
      */
     public void untrack(final Entity entity) {
         entity.unregister(listener);

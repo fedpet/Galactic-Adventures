@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -26,10 +26,10 @@ public final class HudViewImpl implements HudScreen {
     private static final int PADDING = 20;
     private static final Image IMG_HEART_FULL = new Image("/hud/hud_heartFull.png");
     private static final Image IMG_HEART_EMPTY = new Image("/hud/hud_heartEmpty.png");
-    private static final Map<KeyLockType, Pair<Image, Image>> IMG_KEY;
+    private static final Map<KeyType, Pair<Image, Image>> IMG_KEY;
     private static final List<Image> IMG_DIGIT;
     static {
-        IMG_KEY = Arrays.stream(KeyLockType.values())
+        IMG_KEY = Arrays.stream(KeyType.values())
             .collect(Collectors.toMap(Function.identity(), key -> {
                     return new Pair<>(new Image("/hud/key_empty_" + key.toString() + ".png"),
                             new Image("/hud/key_full_" + key.toString() + ".png"));
@@ -40,7 +40,7 @@ public final class HudViewImpl implements HudScreen {
                 .collect(Collectors.toList());
     }
     private final List<ImageView> hearts = new LinkedList<>();
-    private final Map<KeyLockType, ImageView> keys = new LinkedHashMap<>();
+    private final Map<KeyType, ImageView> keys = new LinkedHashMap<>();
     private final HBox lifeBar = new HBox();
     private final HBox keysBar = new HBox();
     private final HBox moneyBar = new HBox();
@@ -93,7 +93,7 @@ public final class HudViewImpl implements HudScreen {
     }
 
     @Override
-    public void setKeys(final Set<KeyLockType> collectedKeys) {
+    public void setKeys(final Set<KeyType> collectedKeys) {
         keys.forEach((type, view) -> view.setImage(IMG_KEY.get(type).getKey()));
         collectedKeys.forEach(type -> keys.get(type).setImage(IMG_KEY.get(type).getValue()));
     }

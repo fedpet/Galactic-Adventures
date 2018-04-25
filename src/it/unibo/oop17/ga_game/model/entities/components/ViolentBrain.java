@@ -4,13 +4,13 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import javafx.geometry.Point2D;
 
 /**
- * A @Brain which attacks hated entities during contacts.
+ * A {@link Brain} component which attacks hated entities during contacts.
  * It just tries to use its weapon as if it was a melee one.
  */
 public class ViolentBrain extends AbstractBrain {
     /**
      * @param personality
-     *            Brain @Personality
+     *            Brain personality
      */
     public ViolentBrain(final Personality personality) {
         super(personality);
@@ -20,7 +20,7 @@ public class ViolentBrain extends AbstractBrain {
      * Attack!
      * 
      * @param other
-     *            The other @EntityBody.
+     *            The other {@link EntityBody} object.
      */
     @Override
     protected void handleContact(final EntityBody other) {

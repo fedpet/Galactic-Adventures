@@ -7,13 +7,14 @@ import java.util.Set;
 import com.google.common.eventbus.Subscribe;
 
 import it.unibo.oop17.ga_game.model.entities.Entity;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.HitEvent;
 
 /**
- * Tracks statistics of an @Entity.
+ * Tracks statistics of an {@link Entity} object.
  */
 public final class StatisticTracker implements EntityStatistic {
     private final Entity trackedEntity;
@@ -34,7 +35,7 @@ public final class StatisticTracker implements EntityStatistic {
     }
 
     @Override
-    public Set<KeyLockType> getKeysCollected() {
+    public Set<KeyType> getKeysCollected() {
         return trackedEntity.get(Inventory.class).isPresent() ? trackedEntity.get(Inventory.class).get().getKeysBunch()
                 : Collections.emptySet();
     }

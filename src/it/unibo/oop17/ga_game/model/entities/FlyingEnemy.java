@@ -29,7 +29,7 @@ public class FlyingEnemy extends AbstractEntity {
     /**
      * 
      * @param bodyBuilder
-     *            the @BodyBuilder.
+     *            the related {@link BodyBuilder} object.
      * @param position
      *            Its position (relative to its center).
      * @param positions

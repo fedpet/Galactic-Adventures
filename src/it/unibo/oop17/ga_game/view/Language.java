@@ -21,7 +21,7 @@ public enum Language {
     SPA(WordText.SPANISH),
 
     /**
-     * Deutsch language.
+     * German language.
      */
     DEU(WordText.DEUTSCH),
 
@@ -37,7 +37,7 @@ public enum Language {
     }
 
     /**
-     *  @return the language as text.
+     * @return the language as text.
      */
     public WordText asText() {
         return this.text;

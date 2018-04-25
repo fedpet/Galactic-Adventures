@@ -22,7 +22,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @MovingPlatform with varying number of passengers.
+ * Tests {@link MovingPlatform} with varying number of passengers.
  */
 @RunWith(Parameterized.class)
 public class MovingPlatformTest extends BaseEntityTest {

@@ -13,7 +13,6 @@ import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EllipticalPathIterator;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import it.unibo.oop17.ga_game.model.GameWorld;
-import it.unibo.oop17.ga_game.model.KeyLockType;
 import it.unibo.oop17.ga_game.model.ModelSettings;
 import it.unibo.oop17.ga_game.model.StatisticTracker;
 import it.unibo.oop17.ga_game.model.entities.Coin;
@@ -22,6 +21,7 @@ import it.unibo.oop17.ga_game.model.entities.Entity;
 import it.unibo.oop17.ga_game.model.entities.FlyingEnemy;
 import it.unibo.oop17.ga_game.model.entities.JumpingPlatform;
 import it.unibo.oop17.ga_game.model.entities.Key;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.model.entities.Lever;
 import it.unibo.oop17.ga_game.model.entities.Lock;
 import it.unibo.oop17.ga_game.model.entities.MovingPlatform;
@@ -112,40 +112,40 @@ public final class LoadLevelImpl implements LoadLevel {
                     player.register(new DeathEventListener(mainController));
                     break;
                 case "keyR":
-                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.RED));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.RED)));
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyType.RED));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyType.RED)));
                     break;
                 case "keyB":
-                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.BLUE));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.BLUE)));
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyType.BLUE));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyType.BLUE)));
                     break;
                 case "keyG":
-                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.GREEN));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.GREEN)));
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyType.GREEN));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyType.GREEN)));
                     break;
                 case "keyY":
-                    entity = model.spawnEntity(body -> new Key(body, position, KeyLockType.YELLOW));
-                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyLockType.YELLOW)));
+                    entity = model.spawnEntity(body -> new Key(body, position, KeyType.YELLOW));
+                    entities.add(new LifelessEntityController(entity, view.entityFactory().createKey(KeyType.YELLOW)));
                     break;
                 case "redLock":
-                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.RED));
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyType.RED));
                     entities.add(
-                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.RED)));
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyType.RED)));
                     break;
                 case "blueLock":
-                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.BLUE));
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyType.BLUE));
                     entities.add(
-                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.BLUE)));
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyType.BLUE)));
                     break;
                 case "greenLock":
-                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.GREEN));
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyType.GREEN));
                     entities.add(
-                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.GREEN)));
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyType.GREEN)));
                     break;
                 case "yellowLock":
-                    entity = model.spawnEntity(body -> new Lock(body, position, KeyLockType.YELLOW));
+                    entity = model.spawnEntity(body -> new Lock(body, position, KeyType.YELLOW));
                     entities.add(
-                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyLockType.YELLOW)));
+                            new LifelessEntityController(entity, view.entityFactory().createLock(KeyType.YELLOW)));
                     break;
                 case "lever":
                     entity = model.spawnEntity(body -> new Lever(body, position, "door", false));

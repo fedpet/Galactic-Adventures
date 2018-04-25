@@ -13,7 +13,7 @@ import it.unibo.oop17.ga_game.utils.InterfacesBag;
 import it.unibo.oop17.ga_game.utils.InterfacesBagImpl;
 
 /**
- * Base class for @Entity.
+ * Base class for {@link Entity}.
  * It supports events and components.
  */
 public abstract class AbstractEntity implements EntityEventPublisher {
@@ -24,7 +24,7 @@ public abstract class AbstractEntity implements EntityEventPublisher {
     /**
      * 
      * @param body
-     *            The @EntityBody is the only required component for an @Entity.
+     *            An {@link EntityBody} objedct is the only required component for an entity.
      */
     public AbstractEntity(final EntityBody body) {
         this.body = body;
@@ -55,7 +55,7 @@ public abstract class AbstractEntity implements EntityEventPublisher {
     }
 
     /**
-     * An @EntityEventListener declares wanted events with the @Subscribe annotation.
+     * An {@link EntityEventListener} object declares wanted events with the @Subscribe annotation.
      */
     @Override
     public final void register(final EntityEventSubscriber listener) {

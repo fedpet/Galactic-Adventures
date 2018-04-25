@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import javafx.geometry.Point2D;
 
 /**
- * A @AutoPilot following a fixed pattern.
+ * Models an {@link AutoPilot} object following a fixed pattern.
  */
 public class FixedPatternPilot extends AbstractEntityComponent implements AutoPilot {
     private static final double DISTANCE_THRESHOLD = 0.1;

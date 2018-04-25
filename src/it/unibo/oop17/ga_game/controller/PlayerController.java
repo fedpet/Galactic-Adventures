@@ -12,16 +12,16 @@ import it.unibo.oop17.ga_game.view.entities.PlayerView;
 import javafx.geometry.Point2D; 
 
 /**
- * Translates view input to model input and updates the view.
+ * Models an {@link EntityController} object for the player.
  */
 public final class PlayerController extends LivingEntityController implements PlayerInputListener {
     private final PlayerView view;
 
     /**
      * @param player
-     *            The @Entity model
+     *            The {@link Entity} object to control.
      * @param playerView
-     *            The view
+     *            The {@link PlayerView} object to update.
      */
     public PlayerController(final Entity player, final PlayerView playerView) {
         super(player, playerView);
@@ -31,10 +31,10 @@ public final class PlayerController extends LivingEntityController implements Pl
     }
 
     /**
-     * Subscribes to a @InventoryChangedEvent.
+     * Subscribes to a {@link InventoryChangedEvent} signal.
      * 
      * @param event
-     *            The InventoryChangedEvent.
+     *            The InventoryChangedEvent instance to listen.
      */
     @Subscribe
     public void inventoryChanged(final InventoryChangedEvent event) {

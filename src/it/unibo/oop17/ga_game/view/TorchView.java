@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 /**
- * Models a torch view.
+ * Models a view for a torch.
  */
 public class TorchView {
 
@@ -16,7 +16,7 @@ public class TorchView {
 
     /**
      * @param group
-     *            The @Group in which the torch view is added.
+     *            The group in which the torch view is added.
      */
     public TorchView(final Group group) {
 

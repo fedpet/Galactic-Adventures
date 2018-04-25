@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Models a @FlyingEnemy view.
+ * Models a view for a flying enemy.
  */
 public final class FlyingEnemyView extends AbstractLivingEntityView {
     private static final int WIDTH = 112, HEIGHT = 88;
@@ -17,9 +17,9 @@ public final class FlyingEnemyView extends AbstractLivingEntityView {
 
     /**
      * @param group
-     *            The @Group in which the flying enemy view is added.
+     *            The {@link Group} instance in which the flying enemy view is added.
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public FlyingEnemyView(final Group group, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT), audioplayer);

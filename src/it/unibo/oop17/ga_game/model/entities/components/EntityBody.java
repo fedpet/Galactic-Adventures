@@ -50,9 +50,9 @@ public interface EntityBody extends EntityComponent {
     void setGravityScale(double scale);
 
     /**
-     * Gets all @EntityBody colliding with this one.
+     * Gets all {@link EntityBody} objects colliding with this one.
      * 
-     * @return a Stream of @EntityBody
+     * @return a Stream of {@link EntityBody} objects
      */
     Stream<EntityBody> getContacts();
 

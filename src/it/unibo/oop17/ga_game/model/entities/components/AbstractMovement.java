@@ -6,7 +6,7 @@ import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 
 /**
- * Base class for @MovementComponent.
+ * Base class for {@link Movement}.
  */
 public abstract class AbstractMovement extends AbstractContactAwareComponent implements Movement {
     private Point2D desiredMovement = Point2D.ZERO;

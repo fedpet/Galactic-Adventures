@@ -14,7 +14,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @Triggerable.
+ * Tests {@link Triggerable}.
  */
 public class TriggerableTest extends BaseEntityTest {
 

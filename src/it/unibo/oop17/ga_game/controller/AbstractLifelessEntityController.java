@@ -8,19 +8,20 @@ import it.unibo.oop17.ga_game.view.ViewUtils;
 import it.unibo.oop17.ga_game.view.entities.LifelessEntityView;
 
 /**
- * Translates view input to model input and updates the view for entities with @LifelessEntityView.
+ * Translates view input to model input and updates the view
+ * for entities related to a {@link LifelessEntityView} instance.
  *
  * @param <L>
- *            Generic LifelessEntityView type.
+ *            Generic {@link LifelessEntityView} type.
  */
 public abstract class AbstractLifelessEntityController<L extends LifelessEntityView>
         extends AbstractEntityController<L> {
 
     /**
      * @param entity
-     *            The @Entity to control.
+     *            The {@link Entity} object to control.
      * @param entityView
-     *            The @LifelessEntityView to update.
+     *            The {@link LifelessEntityView} object to update.
      */
     public AbstractLifelessEntityController(final Entity entity, final L entityView) {
             super(entity, entityView);

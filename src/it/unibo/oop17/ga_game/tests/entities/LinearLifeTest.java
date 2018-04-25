@@ -14,7 +14,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @LinearLife.
+ * Tests {@link LinearLife}.
  */
 public final class LinearLifeTest extends BaseEntityTest {
     private static final Dimension2D ENTITY_SIZE = new Dimension2D(1, 1);

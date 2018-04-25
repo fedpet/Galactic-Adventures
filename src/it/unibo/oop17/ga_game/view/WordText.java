@@ -76,7 +76,7 @@ public enum WordText {
     FRENCH,
 
     /**
-     *  Deutsch text.
+     * German text.
      */
     DEUTSCH,
 

@@ -68,7 +68,7 @@ public final class Feet extends AbstractMovement {
 
     /**
      * 
-     * @return true if the owner's @EntityBody is on another one.
+     * @return true if the owner's {@EntityBody} object is on another one.
      */
     private boolean isOnGround() {
         return getEntity().getBody().getContacts()

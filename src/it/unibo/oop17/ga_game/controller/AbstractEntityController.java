@@ -5,10 +5,10 @@ import it.unibo.oop17.ga_game.model.entities.events.DestructionEvent;
 import it.unibo.oop17.ga_game.view.entities.EntityView;
 
 /**
- * Base-class for @EntityController.
+ * Base-class for {@link EntityController}.
  * 
  * @param <V>
- *            Generic EntityView type.
+ *            Generic {@link EntityView} type.
  */
 public abstract class AbstractEntityController<V extends EntityView> implements EntityController {
 
@@ -17,9 +17,9 @@ public abstract class AbstractEntityController<V extends EntityView> implements 
 
     /**
      * @param entity
-     *            The @Entity to control.
+     *            The {@link Entity} object to control.
      * @param entityView
-     *            The @EntityView to update.
+     *            The {@link EntityView} object to update.
      */
     public AbstractEntityController(final Entity entity, final V entityView) {
         this.entity = entity;
@@ -32,22 +32,22 @@ public abstract class AbstractEntityController<V extends EntityView> implements 
     public abstract void update();
 
     /**
-     * It manages the entity destruction at a @DestructionEvent signal.
+     * It manages the entity destruction at a {@link DestructionEvent} signal.
      * 
      * @param event
-     *            The @DestructionEvent to listen to.
+     *            The {@link DestructionEvent} object to listen to.
      */
     public abstract void onEntityDestruction(DestructionEvent event);
 
     /**
-     * @return The associated @Entity.
+     * @return The associated entity.
      */
     protected final Entity getEntity() {
         return entity;
     }
 
     /**
-     * @return The associated @EntityView.
+     * @return The associated entity view.
      */
     protected final V getEntityView() {
         return entityView;

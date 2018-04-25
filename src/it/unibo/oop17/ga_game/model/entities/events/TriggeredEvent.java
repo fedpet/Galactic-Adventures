@@ -10,7 +10,7 @@ public class TriggeredEvent extends AbstractEntityEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      */
     public TriggeredEvent(final Entity source) {
         super(source);

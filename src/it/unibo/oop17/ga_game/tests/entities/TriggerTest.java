@@ -13,7 +13,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @TriggerComponent and @TriggerableComponent.
+ * Tests {@link Trigger}.
  */
 public class TriggerTest extends BaseEntityTest {
 

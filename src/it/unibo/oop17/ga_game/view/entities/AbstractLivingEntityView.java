@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Base class for @LivingEntityView.
+ * Base class for {@link LivingEntityView}.
  */
 public abstract class AbstractLivingEntityView extends AbstractStateChangingEntityView<CreatureState>
         implements LivingEntityView {
@@ -27,11 +27,11 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
 
     /**
      * @param group
-     *            The @Group in which the entity view is added.
+     *            The {@link Group} instance in which the entity view is added.
      * @param dimension
      *            The entity view dimension.
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public AbstractLivingEntityView(final Group group, final Dimension2D dimension, final AudioPlayer audioplayer) {
         super(group, dimension);
@@ -40,7 +40,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
 
     /**
      * {@inheritDoc}.
-     * The currentState is updated.
+     * The current state is updated.
      */
     @Override
     public void changeState(final CreatureState state) {
@@ -67,13 +67,13 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
      * Used to make a pain animation.
      * 
      * @param image
-     *            The image containing the frame.
+     *            The {@link Image} instance containing the frame.
      * @param audioPath
-     *            The string containing the audio path of the associated sound effect.
+     *            The {@link String} instance containing the audio path of the associated sound effect.
      * @param stateAfterPain
-     *            The state to associate to the view after the pain animation.
+     *            The {@link CreatureState} instance to associate to the view after the pain animation.
      * 
-     * @return A @Runnable animation.
+     * @return A {@link Runnable} animation instance.
      */
     protected Runnable painAnimation(final Image image, final String audioPath, final CreatureState stateAfterPain) {
         return () -> {
@@ -90,7 +90,7 @@ public abstract class AbstractLivingEntityView extends AbstractStateChangingEnti
 
     /**
      * 
-     * @return the current @CreatureState.
+     * @return the current {@link CreatureState} instance for the view.
      */
     protected CreatureState getCurrentState() {
         return currentState;
