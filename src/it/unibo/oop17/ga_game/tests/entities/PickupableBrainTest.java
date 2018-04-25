@@ -15,7 +15,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @PickupableBrain.
+ * Tests {@link PickupableBrain}.
  */
 public class PickupableBrainTest extends BaseEntityTest {
 

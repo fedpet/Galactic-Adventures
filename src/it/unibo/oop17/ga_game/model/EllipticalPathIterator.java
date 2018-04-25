@@ -5,7 +5,7 @@ import java.util.Iterator;
 import javafx.geometry.Point2D;
 
 /**
- * An @Iterator that provides an elliptical path.
+ * Models an @Iterator object that provides an elliptical path.
  */
 public class EllipticalPathIterator implements Iterator<Point2D> {
 
@@ -16,7 +16,7 @@ public class EllipticalPathIterator implements Iterator<Point2D> {
 
     /**
      * @param startingPoint
-     *            The starting @Point2D in the @CircleIterator.
+     *            The starting point of the path.
      * @param maxX
      *            The horizontal axis of the path shape.
      * @param maxY

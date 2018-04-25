@@ -12,7 +12,7 @@ public class FaceDirectionEvent extends AbstractEntityEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      * @param face
      *            new face direction
      */

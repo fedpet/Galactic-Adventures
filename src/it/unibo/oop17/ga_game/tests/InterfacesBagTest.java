@@ -31,7 +31,7 @@ class ConcreteChildA implements ChildA {
 }
 
 /**
- * Test for @InterfaceBagImpl.
+ * Test for {@link InterfacesBagImpl}.
  */
 public class InterfacesBagTest {
 

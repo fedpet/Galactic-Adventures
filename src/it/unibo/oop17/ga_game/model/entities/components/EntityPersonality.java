@@ -1,9 +1,9 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 /**
- * GOOD hates EVIL and viceversa.
+ * GOOD hates EVIL and vice versa.
  * PSYCHO hates everyone.
- * NONE hates noone.
+ * NONE hates no one.
  */
 public enum EntityPersonality implements Personality {
     /**

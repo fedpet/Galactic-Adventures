@@ -7,7 +7,7 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
  */
 public interface EntityEventPublisher extends Entity {
     /**
-     * Publishes a @EntityEvent.
+     * Publishes a {@link EntityEvent} object.
      * 
      * @param event
      *            The event to publish

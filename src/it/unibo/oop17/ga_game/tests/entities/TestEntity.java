@@ -9,7 +9,7 @@ import it.unibo.oop17.ga_game.model.entities.components.EntityBody;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 
 /**
- * An @Entity exposing methods to add components on the fly.
+ * An {@link Entity} extension exposing methods to add components on the fly.
  * It also collects its own events to ease testing.
  */
 public final class TestEntity extends AbstractEntity {
@@ -17,7 +17,7 @@ public final class TestEntity extends AbstractEntity {
 
     /**
      * @param body
-     *            The @EntityBody.
+     *            The {@link EntityBody} instance.
      */
     public TestEntity(final EntityBody body) {
         super(body);

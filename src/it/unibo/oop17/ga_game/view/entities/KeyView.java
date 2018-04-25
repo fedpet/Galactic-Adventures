@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.view.entities;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.SFX;
 import javafx.geometry.Dimension2D;
@@ -8,7 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a view for keys.
+ * Models a view for a key.
  */
 public class KeyView extends AbstractEntityView implements LifelessEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
@@ -20,22 +20,22 @@ public class KeyView extends AbstractEntityView implements LifelessEntityView {
 
     /**
      * @param group
-     *            The @Group in which the key view is added.
+     *            The {@link Group} instance in which the key view is added.
      * @param type
      *            The key type to represent (RED, BLUE, YELLOW or GREEN).
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
-    public KeyView(final Group group, final KeyLockType type, final AudioPlayer audioplayer) {
+    public KeyView(final Group group, final KeyType type, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));
         this.audioplayer = audioplayer;
-        if (type == KeyLockType.RED) {
+        if (type == KeyType.RED) {
             getView().setImage(new Image(RED_KEY));
-        } else if (type == KeyLockType.BLUE) {
+        } else if (type == KeyType.BLUE) {
             getView().setImage(new Image(BLUE_KEY));
-        } else if (type == KeyLockType.YELLOW) {
+        } else if (type == KeyType.YELLOW) {
             getView().setImage(new Image(YELLOW_KEY));
-        } else if (type == KeyLockType.GREEN) {
+        } else if (type == KeyType.GREEN) {
             getView().setImage(new Image(GREEN_KEY));
         }
     }

@@ -2,6 +2,8 @@ package it.unibo.oop17.ga_game.model;
 
 import java.util.Set;
 
+import it.unibo.oop17.ga_game.model.entities.KeyType;
+
 /**
  * What did an entity do in a level?
  */
@@ -14,7 +16,7 @@ public interface EntityStatistic {
     /**
      * @return keys collected
      */
-    Set<KeyLockType> getKeysCollected();
+    Set<KeyType> getKeysCollected();
 
     /**
      * @return number of enemies killed

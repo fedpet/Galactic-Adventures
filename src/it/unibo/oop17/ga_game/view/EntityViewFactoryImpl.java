@@ -1,6 +1,6 @@
 package it.unibo.oop17.ga_game.view;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.view.entities.CoinType;
 import it.unibo.oop17.ga_game.view.entities.CoinView;
 import it.unibo.oop17.ga_game.view.entities.DoorView;
@@ -31,11 +31,11 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
      * Constructor of EntityViewFactory.
      * 
      * @param parent
-     *            The group parent.
+     *            The {@link Group} instance parent.
      * @param hud
-     *            The HUD to which wire the player
+     *            The {@link HudScreen} instance to which wire the player
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public EntityViewFactoryImpl(final Group parent, final HudScreen hud, final AudioPlayer audioplayer) {
         this.parent = parent;
@@ -84,12 +84,12 @@ public final class EntityViewFactoryImpl implements EntityViewFactory {
     }
 
     @Override
-    public LifelessEntityView createLock(final KeyLockType type) {
+    public LifelessEntityView createLock(final KeyType type) {
         return new LockView(parent, type, audioplayer);
     }
 
     @Override
-    public LifelessEntityView createKey(final KeyLockType type) {
+    public LifelessEntityView createKey(final KeyType type) {
         return new KeyView(parent, type, audioplayer);
     }
 

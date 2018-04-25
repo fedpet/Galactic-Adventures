@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.view.entities;
 import javafx.geometry.HorizontalDirection;
 
 /**
- * Models a living entity view.
+ * Living entity view interface.
  */
 public interface LivingEntityView extends StateChangingEntityView<CreatureState> {
 

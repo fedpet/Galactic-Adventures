@@ -11,7 +11,7 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
- * Base class for @EntityComponent.
+ * Base class for {@link EntityComponent}.
  * 
  * Components detaches on owner's death by default.
  */
@@ -63,10 +63,10 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     }
 
     /**
-     * Called on life changes (if the owner has @Life).
+     * Called on life changes (if the owner has a {@link Life} component).
      * 
      * @param event
-     *            The @LifeEvent
+     *            The related {@link LifeEvent} instance
      */
     @Subscribe
     protected void onLifeChange(final LifeEvent event) {
@@ -78,7 +78,7 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     /**
      * Convenience method to avoid the optional.
      * 
-     * @return The @EventfullEntity
+     * @return The related {@link EventfullEntity} object.
      * 
      * @throws IllegalStateException
      *             is the component is not attached to an Entity
@@ -88,7 +88,7 @@ public abstract class AbstractEntityComponent implements EntityComponent, Entity
     }
 
     /**
-     * Generates an @EntityEvent.
+     * Generates an {@link EntityEvent} object.
      * 
      * @param event
      *            The event

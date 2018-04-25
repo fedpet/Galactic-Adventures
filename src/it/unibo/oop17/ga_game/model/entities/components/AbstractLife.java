@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import it.unibo.oop17.ga_game.model.entities.events.LifeEvent;
 
 /**
- * Base class for @Life implementations.
+ * Base class for {@link Life} implementations.
  */
 public class AbstractLife extends AbstractEntityComponent implements Life {
     private final int max;

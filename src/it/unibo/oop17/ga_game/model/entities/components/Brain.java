@@ -9,7 +9,7 @@ public interface Brain extends EntityComponent {
     /**
      * Brains have personality.
      * 
-     * @return the @Personality.
+     * @return the brain's personality.
      */
     Personality getPersonality();
 }

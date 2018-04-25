@@ -17,7 +17,8 @@ import it.unibo.oop17.ga_game.view.entities.CreatureState;
 import it.unibo.oop17.ga_game.view.entities.LivingEntityView;
 
 /**
- * Translates view input to model input and updates the view for entities with @LivingEntityView.
+ * Translates view input to model input and updates the view
+ * for entities related to a {@link LivingEntityView} instance.
  */
 public class LivingEntityController extends AbstractEntityController<LivingEntityView> {
 
@@ -25,9 +26,9 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
 
     /**
      * @param entity
-     *            The @Entity to control.
+     *            The {@link Entity} object to control.
      * @param entityView
-     *            The @LivingEntityView to update.
+     *            The {@link LivingEntityView} object to update.
      */
     public LivingEntityController(final Entity entity, final LivingEntityView entityView) {
         super(entity, entityView);
@@ -43,10 +44,10 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     }
 
     /**
-     * It changes the entity state at a @MovementEvent signal.
+     * It changes the entity state at a {@link MovementEvent} signal.
      * 
      * @param event
-     *            The @MovementEvent to listen to.
+     *            The {@link MovementEvent} object to listen to.
      */
     @Subscribe
     public void movementChanged(final MovementEvent event) {
@@ -54,10 +55,10 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     }
 
     /**
-     * It changes the face direction at a @FaceDirectionEvent signal.
+     * It changes the face direction at a {@link FaceDirectionEvent} signal.
      * 
      * @param event
-     *            The @FaceDirectionEvent to listen to.
+     *            The {@link FaceDirectionEvent} object to listen to.
      */
     @Subscribe
     public void faceDirectionChanged(final FaceDirectionEvent event) {
@@ -65,10 +66,10 @@ public class LivingEntityController extends AbstractEntityController<LivingEntit
     }
 
     /**
-     * It updates the entity state at a @LifeEvent signal.
+     * It updates the entity state at a {@link LifeEvent} signal.
      * 
      * @param life
-     *            The @LifeEvent to listen to.
+     *            The {@link LifeEvent} to listen to.
      */
     @Subscribe
     public void lifeChange(final LifeEvent life) {

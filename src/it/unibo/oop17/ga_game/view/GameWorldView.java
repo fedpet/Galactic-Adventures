@@ -18,12 +18,13 @@ public interface GameWorldView {
 
     /**
      * Shows the level terrain.
+     * 
      * @param layer
-     *          The current layer.
+     *            The current tile layer.
      * @param topLeft
-     *          The top left point.
+     *            The top left point.
      * @param tileSize
-     *          The tile size.
+     *            The tile size.
      */
     void showTerrain(TileLayer layer, Point2D topLeft, Dimension2D tileSize);
 
@@ -31,7 +32,7 @@ public interface GameWorldView {
      * Sets a listener for player input.
      * 
      * @param listener
-     *            The listener.
+     *            The listener to set.
      */
     void setPlayerInputListener(PlayerInputListener listener);
 }

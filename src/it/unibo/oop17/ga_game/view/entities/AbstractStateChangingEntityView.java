@@ -14,10 +14,10 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Base class for @StateChangingEntityView.
+ * Base class for {@link StateChangingEntityView}.
  * 
  * @param <S>
- *            GenericState type.
+ *            {@link EntityState} type.
  */
 public abstract class AbstractStateChangingEntityView<S extends EntityState> extends AbstractEntityView
         implements StateChangingEntityView<S> {
@@ -27,7 +27,7 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
 
     /**
      * @param group
-     *            The @Group in which the entity view is added.
+     *            The {@link Group} instance in which the entity view is added.
      * @param dimension
      *            The entity view dimension.
      */
@@ -65,12 +65,12 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Used to make a looping sprite animation.
      * 
      * @param image
-     *            The image containing the frame animations.
+     *            The {@link Image} instance containing the frame animations.
      * @param duration
-     *            The duration in seconds of a frame.
+     *            The {@link Duration} instance defining the seconds of a frame.
      * @param frames
      *            The number of frames used for the animation.
-     * @return A @Runnable animation.
+     * @return A {@link Runnable} instance animation.
      */
     protected Runnable aSpriteAnimation(final Image image, final Duration duration, final int frames) {
         return () -> {
@@ -87,8 +87,8 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Used to make a static sprite animation.
      * 
      * @param image
-     *            The sprite image.
-     * @return A @Runnable animation.
+     *            The sprite {@link Image} instance.
+     * @return A {@link Runnable} animation instance.
      */
     protected Runnable justAnImage(final Image image) {
         return () -> {
@@ -100,7 +100,7 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Used to start an animation from the mapped animations.
      * 
      * @param state
-     *            The state associated to the specific animation that has to start.
+     *            The {@link EntityState} instance associated to the specific animation that has to start.
      */
     protected void startAnimation(final S state) {
         currentAnimation.stop();
@@ -111,9 +111,9 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Map an animation for the entity view.
      * 
      * @param state
-     *            The state to which the animation has to be associated.
+     *            The {@link EntityState} instance to which the animation has to be associated.
      * @param runnable
-     *            The state associated to the specific animation that has to start.
+     *            The {@link Runnable} animation instance to map.
      */
     protected void mapAnimation(final S state, final Runnable runnable) {
         animations.put(state, runnable);
@@ -123,7 +123,7 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Used to set an animation for the entity view.
      * 
      * @param animation
-     *            The animation to set for the entity view.
+     *            The {@Animation} instance to set for the entity view.
      */
     protected void setAnimation(final Animation animation) {
         currentAnimation.stop();
@@ -135,7 +135,7 @@ public abstract class AbstractStateChangingEntityView<S extends EntityState> ext
      * Used to set an image for the entity view.
      * 
      * @param image
-     *            The image to set for the entity view.
+     *            The {@link Image} instance to set for the entity view.
      */
     protected void setImage(final Image image) {
         getView().setImage(image);

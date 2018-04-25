@@ -25,16 +25,16 @@ public final class ZipUtils {
      * 
      * @param is
      *            The InputStream
-     * @param tempDir
-     *            The base path of the decompressed files.
+     * @param destRootDir
+     *            The root folder for the decompressed files.
      * @throws IOException
      *             If something goes bad during reading and writing.
      */
-    public static void extract(final InputStream is, final File tempDir) throws IOException {
+    public static void extract(final InputStream is, final File destRootDir) throws IOException {
         try (ZipInputStream zis = new ZipInputStream(is)) {
             for (ZipEntry entry = zis.getNextEntry(); entry != null; entry = zis.getNextEntry()) {
                 if (!entry.isDirectory()) {
-                    final File dest = new File(tempDir, entry.getName());
+                    final File dest = new File(destRootDir, entry.getName());
                     final File parentDir = dest.getParentFile();
                     if (!parentDir.exists() && !parentDir.mkdirs() && !parentDir.isDirectory()) {
                         throw new IOException("Couldn't create parent directory " + parentDir);

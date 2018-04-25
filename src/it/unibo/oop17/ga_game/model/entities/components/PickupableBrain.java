@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import java.util.function.Consumer;
 
 /**
- * At contact with an inventory owner body, a PickupableBrain updates the inventory and makes the entity destroy.
+ * At contact with an inventory owner body, a pickupable brain updates the inventory and makes the entity destroy.
  */
 public class PickupableBrain extends AbstractBrain {
 

@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.view.entities;
 
 /**
- * Models a lifeless entity view.
+ * Lifeless entity view interface.
  */
 public interface LifelessEntityView extends EntityView {
 

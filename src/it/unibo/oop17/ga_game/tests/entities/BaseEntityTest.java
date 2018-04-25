@@ -13,7 +13,7 @@ import javafx.geometry.Point2D;
 
 /**
  * Base class for entities tests.
- * Builds and manage the @GameWorld offering utilities to place entities and advance the simulation.
+ * Builds and manage the a {@link GameWorld} instance offering utilities to place entities and advance the simulation.
  */
 public class BaseEntityTest {
     private static final double DELAY_PER_STEP = 1.0 / 60;
@@ -48,20 +48,20 @@ public class BaseEntityTest {
      *            the type of the entity
      * @param spawner
      *            spawner
-     * @return the @Entity spawned
+     * @return the spawned entity.
      */
     protected <E extends Entity> E spawnEntity(final Function<BodyBuilder, E> spawner) {
         return world.spawnEntity(spawner);
     }
 
     /**
-     * Spawns a moveable and composable @TestEntity.
+     * Spawns a moveable and composable {@link TestEntity} instance.
      * 
      * @param position
      *            position in meters
      * @param size
      *            size in meters
-     * @return the @TestEntity
+     * @return the test entity.
      */
     protected TestEntity spawnTestEntity(final Point2D position, final Dimension2D size) {
         return world.spawnEntity(body -> {

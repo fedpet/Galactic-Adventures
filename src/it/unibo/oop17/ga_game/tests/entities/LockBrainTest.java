@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.model.entities.components.Inventory;
 import it.unibo.oop17.ga_game.model.entities.components.InventoryImpl;
 import it.unibo.oop17.ga_game.model.entities.components.LockBrain;
@@ -15,7 +15,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
 /**
- * Tests @LockBrain.
+ * Tests {@link LockBrain}.
  */
 public class LockBrainTest extends BaseEntityTest {
 
@@ -33,9 +33,9 @@ public class LockBrainTest extends BaseEntityTest {
         entity = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
         inventory = new InventoryImpl();
         redLock = spawnTestEntity(Point2D.ZERO, ENTITY_SIZE);
-        redLock.add(new LockBrain(KeyLockType.RED));
+        redLock.add(new LockBrain(KeyType.RED));
         greenLock = spawnTestEntity(new Point2D(LITTLE_DISTANCE_FROM_OTHER_BODY, 0), ENTITY_SIZE);
-        greenLock.add(new LockBrain(KeyLockType.GREEN));
+        greenLock.add(new LockBrain(KeyType.GREEN));
     }
 
     /**
@@ -54,7 +54,7 @@ public class LockBrainTest extends BaseEntityTest {
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
         entity.add(inventory);
-        inventory.add(KeyLockType.RED);
+        inventory.add(KeyType.RED);
         advanceSimulation(1);
         assertTrue(
                 "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory containing a key of the same type",
@@ -63,7 +63,7 @@ public class LockBrainTest extends BaseEntityTest {
                 "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory not containing a key of the same type",
                 greenLock.getEvents().stream().filter(e -> e instanceof DestructionEvent).count() > 0);
 
-        inventory.add(KeyLockType.GREEN);
+        inventory.add(KeyType.GREEN);
         advanceSimulation(1);
         assertTrue(
                 "The entity with a LockBrain object should be destroyed in contact with an entity with an inventory containing a key of the same type",

@@ -27,7 +27,7 @@ public interface PhysicsEngine {
      * Removes the body from the simulation.
      * 
      * @param body
-     *            the @EntityBody to remove.
+     *            The {@link EntityBody} to remove
      */
     void remove(EntityBody body);
 
@@ -36,7 +36,7 @@ public interface PhysicsEngine {
      * 
      * @param gravity
      *            The gravity for this world.
-     * @return The PhysicsEngine
+     * @return The {@link PhysicsEngine} created.
      */
     static PhysicsEngine create(final Point2D gravity) {
         return new B2DPhysicsEngine(gravity);

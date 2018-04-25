@@ -5,7 +5,7 @@ import java.util.Objects;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 
 /**
- * Base class for @EntityEvent.
+ * Base class for {@link EntityEvent}.
  */
 public abstract class AbstractEntityEvent implements EntityEvent {
     private final Entity source;
@@ -13,7 +13,7 @@ public abstract class AbstractEntityEvent implements EntityEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      */
     public AbstractEntityEvent(final Entity source) {
         this.source = Objects.requireNonNull(source);

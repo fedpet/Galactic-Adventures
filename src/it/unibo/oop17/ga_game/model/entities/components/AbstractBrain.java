@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import it.unibo.oop17.ga_game.model.entities.Entity;
 
 /**
- * Base class for @Brain.
+ * Base class for {@link Brain}.
  * It self-detaches on death
  */
 public abstract class AbstractBrain extends AbstractContactAwareComponent implements Brain {
@@ -11,7 +11,7 @@ public abstract class AbstractBrain extends AbstractContactAwareComponent implem
 
     /**
      * @param personality
-     *            Brain @Personality
+     *            Brain personality
      */
     public AbstractBrain(final Personality personality) {
         super();
@@ -27,10 +27,10 @@ public abstract class AbstractBrain extends AbstractContactAwareComponent implem
     }
 
     /**
-     * Default method to decide if we hate another @Entity.
+     * Default method to decide if we hate another entity.
      * 
      * @param other
-     *            The other Entity
+     *            The other entity
      * @return true if we hate him.
      */
     protected boolean hate(final Entity other) {

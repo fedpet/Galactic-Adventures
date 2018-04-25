@@ -5,16 +5,17 @@ import java.util.Optional;
 import it.unibo.oop17.ga_game.model.entities.events.FinishedLevelEvent;
 
 /**
- * A @OneTimeTriggerable component for door entities; if triggered, it posts a finished level event at player contact.
+ * A {@link OneTimeTriggerable} component for door entities;
+ * if triggered, it posts a finished level event at player contact.
  */
 public class TriggerableLevelEnd extends OneTimeTriggerable {
 
     /**
      * 
      * @param password
-     *            A @Trigger component can trigger this component if they have the same password.
+     *            A {@link Trigger} component can trigger this component if they have the same password.
      * @param triggered
-     *            The initial state of the @Triggerable component (if triggered or not).
+     *            The initial state of the {@link Triggerable} component (if triggered or not).
      */
     public TriggerableLevelEnd(final String password, final boolean triggered) {
         super(password, triggered);

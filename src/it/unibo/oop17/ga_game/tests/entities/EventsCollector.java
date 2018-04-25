@@ -14,7 +14,7 @@ import it.unibo.oop17.ga_game.model.entities.events.EntityEvent;
 import it.unibo.oop17.ga_game.model.entities.events.EntityEventSubscriber;
 
 /**
- * Collects @EntityEvent and exposes convenient methods for testing.
+ * Collects {@link EntityEvent} instances and exposes convenient methods for testing.
  */
 public class EventsCollector implements EntityEventSubscriber {
     // we'd like to use LinkedList directly because we need both Deque and List interfaces but checkstyle complains and
@@ -25,7 +25,7 @@ public class EventsCollector implements EntityEventSubscriber {
      * Event listener.
      * 
      * @param event
-     *            The @EntityEvent to collect.
+     *            The {@link EntityEvent} instance to collect.
      */
     @Subscribe
     protected void onEvent(final EntityEvent event) {
@@ -33,7 +33,7 @@ public class EventsCollector implements EntityEventSubscriber {
     }
 
     /**
-     * @return The list of received @EntityEvent.
+     * @return The list of received {@link EntityEvent} instances.
      */
     public List<EntityEvent> getEvents() {
         return events.stream().collect(Collectors.toList());
@@ -42,14 +42,14 @@ public class EventsCollector implements EntityEventSubscriber {
     /**
      * Retrieves and removes the first event received.
      * 
-     * @return first EntityEvent in the queue.
+     * @return first entity event in the queue.
      */
     public Optional<EntityEvent> pop() {
         return Optional.ofNullable(events.poll());
     }
 
     /**
-     * Pops the first event and asserts it's of the given type. Else throws @AssertionError.
+     * Pops the first event and asserts it's of the given type. Else throws {@link AssertionError} instance.
      * 
      * @param <E>
      *            type of event

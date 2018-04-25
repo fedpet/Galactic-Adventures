@@ -4,7 +4,7 @@ import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Point2D;
 
 /**
- * An @EntityComponent for movements.
+ * An {@link EntityComponent} object for movements.
  */
 public interface Movement extends EntityComponent {
     /**

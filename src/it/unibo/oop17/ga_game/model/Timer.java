@@ -27,7 +27,7 @@ public interface Timer {
      * 
      * @param time
      *            in seconds
-     * @return A @Timer.
+     * @return A {@link Timer} object.
      */
     static Timer seconds(final double time) {
         return new TimerImpl(time);

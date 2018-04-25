@@ -12,7 +12,7 @@ public final class MovementEvent extends AbstractEntityEvent {
     /**
      * 
      * @param source
-     *            The @Entity source of this event.
+     *            The {@link Entity} source of this event.
      * @param state
      *            new state
      */

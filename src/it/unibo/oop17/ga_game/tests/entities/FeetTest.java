@@ -21,7 +21,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
 /**
- * Tests @FeetComponent.
+ * Tests {@link FeetComponent}.
  */
 public class FeetTest extends BaseEntityTest {
     private static final Dimension2D ENTITY_SIZE = new Dimension2D(1, 1);

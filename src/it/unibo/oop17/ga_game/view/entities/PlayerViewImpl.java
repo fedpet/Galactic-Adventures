@@ -2,7 +2,7 @@ package it.unibo.oop17.ga_game.view.entities;
 
 import java.util.Set;
 
-import it.unibo.oop17.ga_game.model.KeyLockType;
+import it.unibo.oop17.ga_game.model.entities.KeyType;
 import it.unibo.oop17.ga_game.view.AudioPlayer;
 import it.unibo.oop17.ga_game.view.HudView;
 import it.unibo.oop17.ga_game.view.SFX;
@@ -14,7 +14,7 @@ import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 /**
- * Models a @Player view.
+ * Models a view for the player.
  */
 public final class PlayerViewImpl extends AbstractLivingEntityView implements PlayerView {
     private static final int WIDTH = 72, HEIGHT = 97;
@@ -25,11 +25,11 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
 
     /**
      * @param group
-     *          The @Group in which the player view is added.
+     *            The {@link Group} instance in which the player view is added.
      * @param hud
-     *          The @HudView associated with the player.
+     *            The {@link HudView} instance associated with the player.
      * @param audioplayer
-     *          The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public PlayerViewImpl(final Group group, final HudView hud, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT), audioplayer);
@@ -79,7 +79,7 @@ public final class PlayerViewImpl extends AbstractLivingEntityView implements Pl
     }
 
     @Override
-    public void setKeys(final Set<KeyLockType> keys) {
+    public void setKeys(final Set<KeyType> keys) {
         hud.setKeys(keys);
     }
 

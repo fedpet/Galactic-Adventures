@@ -31,14 +31,15 @@ public final class EndGameViewImpl implements EndGameScreen {
 
     /**
      * Constructor of EndGameView.
+     * 
      * @param stage
-     *          The stage.
+     *            The related stage.
      * @param currLang
-     *          Current language for text.
+     *            The current language for text.
      * @param audioplayer
-     *          The audio player.
+     *            The related audio player.
      * @param score
-     *          The total score.
+     *            The total score.
      */
     public EndGameViewImpl(final Stage stage, final Map<WordText, String> currLang, final AudioPlayer audioplayer,
             final int score) {

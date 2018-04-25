@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
 /**
- * A @ViolentBrain that makes the entity change direction when it collides at right or left.
+ * Models a {@link ViolentBrain} extension that makes the entity change direction when it collides at right or left.
  */
 public class SlimeEnemyBrain extends ViolentBrain {
 

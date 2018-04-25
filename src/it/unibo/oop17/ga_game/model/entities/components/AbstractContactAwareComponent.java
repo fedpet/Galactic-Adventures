@@ -14,10 +14,10 @@ public abstract class AbstractContactAwareComponent extends AbstractEntityCompon
     }
 
     /**
-     * Handle contact with other @EntityBody.
+     * Handle contact with other {@link EntityBody} object.
      * 
      * @param other
-     *            Other @EntityBody in contact with ours.
+     *            Other {@link EntityBody} object in contact with ours.
      */
     protected abstract void handleContact(EntityBody other);
 }

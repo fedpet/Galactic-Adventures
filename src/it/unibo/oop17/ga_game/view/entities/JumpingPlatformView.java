@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * Models a @JumpingPlatform view.
+ * Models a view for a jumping platform.
  */
 public class JumpingPlatformView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
     private static final int WIDTH = 70, HEIGHT = 70;
@@ -22,9 +22,9 @@ public class JumpingPlatformView extends AbstractStateChangingEntityView<Trigger
 
     /**
      * @param group
-     *            The @Group in which the jumping platform view is added.
+     *            The {@link Group} instance in which the jumping platform view is added.
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public JumpingPlatformView(final Group group, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));

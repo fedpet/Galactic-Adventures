@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model.entities.components;
 
 /**
- * An @EntityComponent for triggerable entities.
+ * An {@link EntityComponent} object for triggerable entities.
  */
 public interface Triggerable extends EntityComponent {
 

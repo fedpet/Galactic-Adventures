@@ -3,7 +3,7 @@ package it.unibo.oop17.ga_game.model.entities.components;
 import it.unibo.oop17.ga_game.model.entities.events.PasswordTriggeredEvent;
 
 /**
- * A @TriggerComponent that activates on contact only once.
+ * Models a {@link Trigger} that activates on contact only once.
  */
 public class ContactTrigger extends AbstractContactAwareComponent implements Trigger {
 
@@ -13,7 +13,7 @@ public class ContactTrigger extends AbstractContactAwareComponent implements Tri
     /**
      * 
      * @param password
-     *            The password linked to the related @PasswordTriggeringEvent .
+     *            The password linked to the related {@link PasswordTriggeredEvent} instance.
      * @param triggered
      *            The initial state of the contact trigger (if triggered or not).
      */

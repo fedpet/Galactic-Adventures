@@ -1,7 +1,7 @@
 package it.unibo.oop17.ga_game.model;
 
 /**
- * Calculates an entity score based on @EntityStatistic.
+ * Calculates an entity score based on an {@link EntityStatistic} object.
  * It also accounts for @Difficulty.
  */
 public final class DifficultyBasedScoreCalculator implements ScoreCalculator {

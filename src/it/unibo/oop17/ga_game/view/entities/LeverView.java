@@ -8,7 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a @Lever view.
+ * Models a view for a lever.
  */
 public class LeverView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
 
@@ -17,11 +17,11 @@ public class LeverView extends AbstractStateChangingEntityView<TriggerState> imp
 
     /**
      * @param group
-     *            The @Group in which the lever view is added.
+     *            The {@link Group} instance in which the lever view is added.
      * @param activatedFromStart
      *            The initial state of the lever (activated or not) to represent.
      * @param audioplayer
-     *            The audio player.
+     *            The related {@link AudioPlayer} instance.
      */
     public LeverView(final Group group, final boolean activatedFromStart, final AudioPlayer audioplayer) {
         super(group, new Dimension2D(WIDTH, HEIGHT));

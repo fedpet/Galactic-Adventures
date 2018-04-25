@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Side;
 
 /**
- * Helper class to compare and check positions and @Side.
+ * Helper class to compare and check positions and side.
  */
 public final class PositionCompare {
 
@@ -14,13 +14,13 @@ public final class PositionCompare {
     }
 
     /**
-     * Returns the @Side of a Body relative to the other.
+     * Returns the {@link Side} instance of a Body relative to the other.
      * 
      * @param owner
-     *            Reference @EntityBody
+     *            Reference a {@link EntityBody} object.
      * @param other
-     *            The other @EntityBody
-     * @return The relative @Side
+     *            Reference a second {@link EntityBody} object.
+     * @return The relative side
      */
     public static Side relativeSide(final EntityBody owner, final EntityBody other) {
         final Point2D relativePosition = other.getPosition().subtract(owner.getPosition());
@@ -40,10 +40,10 @@ public final class PositionCompare {
     }
 
     /**
-     * Converts a @Side to a direction vector.
+     * Converts a {@link Side} instance to a direction vector.
      * 
      * @param side
-     *            The @Side
+     *            The side
      * @return The direction vector
      */
     public static Point2D sideToDirection(final Side side) {

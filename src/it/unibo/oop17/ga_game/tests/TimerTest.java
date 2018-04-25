@@ -16,8 +16,8 @@ import it.unibo.oop17.ga_game.model.Timer;
 import it.unibo.oop17.ga_game.model.TimerImpl;
 
 /**
- * Test for @Timer.
- * It tests both @Timer.seconds and @TimerImpl.
+ * Test for {@link Timer}.
+ * It tests both {@link Timer#seconds} and {@link TimerImpl}.
  * Today they return an instance of the same class but it could change tomorrow.
  */
 @RunWith(Parameterized.class)
@@ -26,7 +26,7 @@ public class TimerTest {
 
     /**
      * @param timerFactory
-     *            A function to make the desired @Timer to test.
+     *            A function to make the desired {@link Timer} instance to test.
      */
     public TimerTest(final Function<Double, Timer> timerFactory) {
         this.timerFactory = timerFactory;

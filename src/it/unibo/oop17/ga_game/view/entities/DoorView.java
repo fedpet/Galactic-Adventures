@@ -6,14 +6,14 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
- * Models a @Door view.
+ * Models a view for a door.
  */
 public class DoorView extends AbstractStateChangingEntityView<TriggerState> implements TriggerEntityView {
     private static final int WIDTH = 130, HEIGHT = 203;
 
     /**
      * @param group
-     *            The @Group in which the door view is added.
+     *            The {@link Group} instance in which the door view is added.
      * @param open
      *            The initial state of the door (open or closed) to represent.
      */
