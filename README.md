@@ -6,7 +6,7 @@ Enter doors to finish levels.
 Pull levers to open closed doors.  
 
 ** Dependencies **  
-Please make sure to have JavaFX correctly installed, media support included.
+Please make sure to have JavaFX correctly installed, media support included.  
 
 ** Credits **  
 All graphics assets and sound effects belongs to [Kenney](http://www.kenney.nl/)  
