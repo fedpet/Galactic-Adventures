@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
 /**
  * Interface for controlling game world view.
  */
-public interface GameWorldView extends FXView {
+public interface GameWorldView {
 
     /**
      * @return the entity factory.

@@ -15,6 +15,6 @@ public interface GameController {
     /**
      * @return the player tracker.
      */
-    EntityStatistic getTracker();
+    EntityStatistic getPlayerStatistic();
 
 }

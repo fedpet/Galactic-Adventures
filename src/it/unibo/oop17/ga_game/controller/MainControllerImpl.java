@@ -56,7 +56,7 @@ public final class MainControllerImpl implements MainController, MainObserver {
 
     @Override
     public void goToEndLevel() {
-        activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getTracker()));
+        activeGameController.ifPresent(controller -> tracker = (activeGameController.get().getPlayerStatistic()));
         stopGameController();
         final int score = new DifficultyBasedScoreCalculator(data.getDifficulty()).getScore(tracker);
         save.setScore(save.getScore() + score);
