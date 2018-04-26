@@ -15,6 +15,7 @@ import it.unibo.oop17.ga_game.controller.MainObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
 import javafx.application.Platform;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -22,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -65,9 +67,12 @@ public final class MainViewImpl implements MainView {
      */
     public MainViewImpl(final Stage stage, final Volume sfxVol, final Volume musicVol) {
         this.stage = stage;
+        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.getIcons().add(new Image("/icon.png"));
         stage.setTitle("Galactic Adventures!");
         stage.setResizable(false);
+        stage.setWidth(primaryScreenBounds.getWidth());
+        stage.setHeight(primaryScreenBounds.getHeight());
         stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         audioplayer = new AudioPlayerImpl(sfxVol, musicVol);
