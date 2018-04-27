@@ -1,5 +1,7 @@
 package it.unibo.oop17.ga_game.view;
 
+import java.io.File;
+
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,7 +19,7 @@ public final class AudioPlayerImpl implements AudioPlayer {
 
         this.sfxVol = sfxVol.getVolume();
         this.musicVol = musicVol.getVolume();
-        mediaPlayer = new MediaPlayer(new Media(Music.TRACK1.getPath()));
+        mediaPlayer = new MediaPlayer(new Media(new File(Music.TRACK1.getPath()).toString()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(this.musicVol);
 
@@ -31,7 +33,7 @@ public final class AudioPlayerImpl implements AudioPlayer {
     @Override
     public void playMusic(final String path) {
         stopMusic();
-        mediaPlayer = new MediaPlayer(new Media(path));
+        mediaPlayer = new MediaPlayer(new Media(new File(path).toString()));
         mediaPlayer.setVolume(musicVol);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
