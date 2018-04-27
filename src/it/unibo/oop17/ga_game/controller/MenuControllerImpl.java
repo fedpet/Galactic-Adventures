@@ -8,7 +8,6 @@ import it.unibo.oop17.ga_game.view.Language;
 import it.unibo.oop17.ga_game.view.LoadLanguage;
 import it.unibo.oop17.ga_game.view.MenuScreen;
 import it.unibo.oop17.ga_game.view.Volume;
-import javafx.application.Platform;
 
 /**
  * Controls the Menu.
@@ -58,7 +57,7 @@ public final class MenuControllerImpl implements MenuWithOptionsObserver {
     @Override
     public void quit() {
         LoadSaveManager.saveConfigData(data);
-        Platform.exit();
+        view.quit();
     }
 
     @Override

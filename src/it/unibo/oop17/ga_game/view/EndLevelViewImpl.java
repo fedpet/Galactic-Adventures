@@ -4,6 +4,7 @@ import java.util.Map;
 
 import it.unibo.oop17.ga_game.controller.EndLevelObserver;
 import it.unibo.oop17.ga_game.model.EntityStatistic;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -97,6 +98,11 @@ public final class EndLevelViewImpl implements EndLevelScreen {
     @Override
     public Node getNode() {
         return this.view;
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
     }
 
 }

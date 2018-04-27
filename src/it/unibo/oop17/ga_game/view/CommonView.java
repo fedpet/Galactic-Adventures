@@ -13,4 +13,9 @@ public interface CommonView<T> extends FXView {
      */
     void setObserver(T observer);
 
+    /**
+     * Quits the application.
+     */
+    void quit();
+
 }

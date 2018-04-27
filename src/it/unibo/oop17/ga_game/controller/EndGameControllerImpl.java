@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.view.CommonView;
-import javafx.application.Platform;
 
 /**
  * Controls the end game menu.
@@ -9,8 +8,10 @@ import javafx.application.Platform;
 public final class EndGameControllerImpl implements EndGameObserver {
 
     private final MainController mainController;
+    private final CommonView<EndGameObserver> view;
 
     EndGameControllerImpl(final CommonView<EndGameObserver> view, final MainController mainController) {
+        this.view = view;
         view.setObserver(this);
         this.mainController = mainController;
     }
@@ -22,7 +23,7 @@ public final class EndGameControllerImpl implements EndGameObserver {
 
     @Override
     public void quit() {
-        Platform.exit();
+        view.quit();
     }
 
 }

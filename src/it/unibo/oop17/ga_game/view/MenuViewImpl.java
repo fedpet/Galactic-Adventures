@@ -5,6 +5,7 @@ import java.util.Map;
 import it.unibo.oop17.ga_game.controller.MenuWithOptionsObserver;
 import it.unibo.oop17.ga_game.model.Difficulty;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -219,5 +220,10 @@ public final class MenuViewImpl extends Parent implements MenuScreen {
 
     private void nextDifficulty() {
         this.difficulty = Difficulty.values()[(this.difficulty.ordinal() + 1) % Difficulty.values().length];
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
     }
 }

@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.view;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.controller.EndGameObserver;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -92,6 +93,11 @@ public final class EndGameViewImpl implements EndGameScreen {
     @Override
     public Node getNode() {
         return this.view;
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
     }
 
 }

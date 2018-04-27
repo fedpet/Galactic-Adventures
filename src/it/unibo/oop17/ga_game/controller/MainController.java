@@ -29,4 +29,9 @@ public interface MainController {
      * Switches screen to end game menu.
      */
     void goToEndGame();
+
+    /**
+     * Quits the application.
+     */
+    void quit();
 }

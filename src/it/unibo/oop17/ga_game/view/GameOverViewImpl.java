@@ -3,6 +3,7 @@ package it.unibo.oop17.ga_game.view;
 import java.util.Map;
 
 import it.unibo.oop17.ga_game.controller.GameOverObserver;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -67,6 +68,11 @@ public final class GameOverViewImpl implements GameOverScreen {
     @Override
     public Node getNode() {
         return this.view;
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
     }
 
 }

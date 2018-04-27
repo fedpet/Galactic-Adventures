@@ -1,7 +1,6 @@
 package it.unibo.oop17.ga_game.controller;
 
 import it.unibo.oop17.ga_game.view.CommonView;
-import javafx.application.Platform;
 
 /**
  * Controls the game over menu.
@@ -9,8 +8,10 @@ import javafx.application.Platform;
 public final class GameOverControllerImpl implements GameOverObserver {
 
     private final MainController mainController;
+    private final CommonView<GameOverObserver> view;
 
     GameOverControllerImpl(final CommonView<GameOverObserver> view, final MainController mainController) {
+        this.view = view;
         view.setObserver(this);
         this.mainController = mainController;
     }
@@ -27,7 +28,7 @@ public final class GameOverControllerImpl implements GameOverObserver {
 
     @Override
     public void quit() {
-        Platform.exit();
+        view.quit();
     }
 
 }
