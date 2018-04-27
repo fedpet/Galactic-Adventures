@@ -45,6 +45,6 @@ public enum Music {
      *  @return the music path.
      */
     public String getPath() {
-        return getClass().getResource(path).toString();
+        return path;
     }
 }
