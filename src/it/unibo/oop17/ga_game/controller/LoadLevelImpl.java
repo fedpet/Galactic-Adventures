@@ -103,7 +103,7 @@ public final class LoadLevelImpl implements LoadLevel {
                 Entity entity;
                 switch (type) {
                 case "player":
-                    player = model.spawnEntity(body -> new Player(body, position, difficulty));
+                    player = model.spawnEntity(body -> new Player(body, position, difficulty.playerHealth()));
                     final PlayerController controller = new PlayerController(player,
                             view.entityFactory().createPlayer());
                     view.setPlayerInputListener(controller);

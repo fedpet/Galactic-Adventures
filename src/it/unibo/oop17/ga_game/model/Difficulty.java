@@ -10,12 +10,14 @@ public enum Difficulty {
     /**
      *  Difficulty values.
      */
-    EASY(WordText.EASY), MEDIUM(WordText.MEDIUM_D), HARD(WordText.HARD);
+    EASY(WordText.EASY, 10), MEDIUM(WordText.MEDIUM_D, 5), HARD(WordText.HARD, 3);
 
     private final WordText text;
+    private final int playerHealth;
 
-    Difficulty(final WordText text) {
+    Difficulty(final WordText text, final int playerHealth) {
         this.text = text;
+        this.playerHealth = playerHealth;
     }
 
     /**
@@ -25,4 +27,10 @@ public enum Difficulty {
         return this.text;
     }
 
+    /**
+     * @return Recommended health level for the player.
+     */
+    public int playerHealth() {
+        return this.playerHealth;
+    }
 }
