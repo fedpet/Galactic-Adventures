@@ -49,11 +49,11 @@ public abstract class AbstractMovement extends AbstractContactAwareComponent imp
      * 
      * @param body
      *            The owner body
-     * @param force
-     *            Movement force
+     * @param movement
+     *            Movement vector
      */
-    protected void applyMovement(final EntityBody body, final Point2D force) {
-        body.applyImpulse(force);
+    protected void applyMovement(final EntityBody body, final Point2D movement) {
+        body.applyImpulse(movement);
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class AbstractMovement extends AbstractContactAwareComponent imp
     /**
      * @return The desired movement vector.
      */
-    protected Point2D getDesiredMovement() {
+    protected final Point2D getDesiredMovement() {
         return desiredMovement;
     }
 
@@ -83,9 +83,18 @@ public abstract class AbstractMovement extends AbstractContactAwareComponent imp
      * @param movement
      *            The movement
      */
-    protected void setDesiredMovement(final Point2D movement) {
+    protected final void setDesiredMovement(final Point2D movement) {
         desiredMovement = movement;
         setFaceDirection(computeFaceDirection());
+    }
+
+    /**
+     * 
+     * @return The face direction based on the desired movement.
+     */
+    private HorizontalDirection computeFaceDirection() {
+        return desiredMovement.getX() > 0 ? HorizontalDirection.RIGHT
+                : desiredMovement.getX() < 0 ? HorizontalDirection.LEFT : faceDirection;
     }
 
     /**
@@ -94,19 +103,10 @@ public abstract class AbstractMovement extends AbstractContactAwareComponent imp
      * @param newDir
      *            the new direction
      */
-    protected final void setFaceDirection(final HorizontalDirection newDir) {
+    private void setFaceDirection(final HorizontalDirection newDir) {
         if (newDir != faceDirection) {
             faceDirection = newDir;
             post(new FaceDirectionEvent(getEntity(), faceDirection));
         }
-    }
-
-    /**
-     * 
-     * @return The face direction based on horizontal velocity.
-     */
-    protected HorizontalDirection computeFaceDirection() {
-        return desiredMovement.getX() > 0 ? HorizontalDirection.RIGHT
-                : desiredMovement.getX() < 0 ? HorizontalDirection.LEFT : faceDirection;
     }
 }
