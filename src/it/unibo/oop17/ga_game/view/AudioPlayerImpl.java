@@ -1,7 +1,5 @@
 package it.unibo.oop17.ga_game.view;
 
-import java.io.File;
-
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -10,9 +8,6 @@ import javafx.scene.media.MediaPlayer;
  *  Plays audio.
  */
 public final class AudioPlayerImpl implements AudioPlayer {
-
-    private static final String OP_SIS = System.getProperty("os.name");
-
     private final double sfxVol;
     private final double musicVol;
     private MediaPlayer mediaPlayer;
@@ -42,17 +37,8 @@ public final class AudioPlayerImpl implements AudioPlayer {
     }
 
     private void loadTune(final String path) {
-        if (isWindows()) {
-            mediaPlayer = new MediaPlayer(new Media(getClass().getResource(path).toString()));
-        } else {
-            mediaPlayer = new MediaPlayer(new Media(new File(path).toString()));
-        }
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(path).toExternalForm()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(this.musicVol);
     }
-
-    private boolean isWindows() {
-        return (OP_SIS.indexOf("Win") >= 0);
-    }
-
 }
